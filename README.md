@@ -3,11 +3,12 @@ restfiddle
 
 REST API Playground for Teams
 
-Development Environment Setup
+Build
 ==========
 
-mvn clean install
-mvn spring-boot:run
+1. mvn clean install
+
+2. mvn spring-boot:run
 
 Release Date
 ==========
