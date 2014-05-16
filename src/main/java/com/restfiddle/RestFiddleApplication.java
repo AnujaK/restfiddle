@@ -13,28 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.controller;
+package com.restfiddle;
 
-import java.util.Date;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.context.annotation.Configuration;
 
-@Controller
+@Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class WebController {
-    @Value("${application.message:Rest Fiddle}")
-    private String message = "Rest Fiddle";
+public class RestFiddleApplication {
 
-    @RequestMapping("/web")
-    public String home(Map<String, Object> model) {
-	model.put("time", new Date());
-	model.put("message", this.message);
-	return "welcome";
+    public static void main(String[] args) throws Exception {
+	SpringApplication.run(RestFiddleApplication.class, args);
     }
+
 }

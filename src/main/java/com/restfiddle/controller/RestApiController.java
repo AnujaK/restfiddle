@@ -15,25 +15,33 @@
  */
 package com.restfiddle.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import java.io.IOException;
 
-@Configuration
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.restfiddle.handler.RequestHandler;
+
+@RestController
 @EnableAutoConfiguration
 @ComponentScan
-public class RestFiddleApplication extends SpringBootServletInitializer {
+public class RestApiController {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-	return application.sources(RestFiddleApplication.class);
+    @RequestMapping("/api/ping")
+    String ping() {
+	return "Server is up and running!";
     }
 
-    public static void main(String[] args) throws Exception {
-	SpringApplication.run(RestFiddleApplication.class, args);
+    @RequestMapping("/api/channel")
+    String channel() {
+	RequestHandler requestHandler = new RequestHandler();
+	try {
+	    requestHandler.createHttpGetConnection();
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+	return "success!";
     }
-
 }
