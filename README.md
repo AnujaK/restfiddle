@@ -6,9 +6,13 @@ REST API Playground for Teams
 Build
 ==========
 
-1. mvn clean install
+* JDK 1.6 or later
 
-2. mvn spring-boot:run
+* Maven 3.0+
+
+* mvn clean install
+
+* mvn spring-boot:run
 
 Release Date
 ==========
