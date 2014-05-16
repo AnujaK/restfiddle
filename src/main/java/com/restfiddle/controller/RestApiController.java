@@ -17,6 +17,9 @@ package com.restfiddle.controller;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,28 +27,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.handler.RequestHandler;
 
-/**
- * Sample class : will be removed.
- * 
- */
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
 public class RestApiController {
+    Logger logger = LoggerFactory.getLogger(RestApiController.class);
 
-    @RequestMapping("/api/ping")
-    String ping() {
-	return "Server is up and running!";
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     @RequestMapping("/api/channel")
     String channel() {
-	RequestHandler requestHandler = new RequestHandler();
 	try {
-	    requestHandler.createHttpGetConnection();
+	    requestHandler.handleGet();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
 	return "success!";
+    }
+
+    @RequestMapping("/api/ping")
+    String ping() {
+	return "Server is up and running!";
     }
 }

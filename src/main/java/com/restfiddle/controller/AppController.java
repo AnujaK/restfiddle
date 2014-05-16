@@ -18,6 +18,8 @@ package com.restfiddle.controller;
 import java.util.Date;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ import com.restfiddle.model.User;
 
 @Controller
 public class AppController {
+    Logger logger = LoggerFactory.getLogger(AppController.class);
+
     @Value("${application.message:REST Fiddle}")
     private String message = "REST Fiddle";
 
@@ -41,19 +45,23 @@ public class AppController {
 
     @RequestMapping(value = "/api/rf", method = RequestMethod.GET)
     public String userForm(Model model) {
-	System.out.println("URL : /api/rf and method : GET");
+	logger.info("URL : /api/rf and method : GET");
+
 	model.addAttribute("user", new User());
 	model.addAttribute("time", new Date());
 	model.addAttribute("message", this.message);
+
 	return "welcome";
     }
 
     @RequestMapping(value = "/api/rf", method = RequestMethod.POST)
     public String userSubmit(@ModelAttribute User user, Model model) {
-	System.out.println("URL : /api/rf and method : POST");
+	logger.info("URL : /api/rf and method : POST");
+
 	model.addAttribute("user", user);
 	model.addAttribute("time", new Date());
 	model.addAttribute("message", this.message);
+
 	return "result";
     }
 
