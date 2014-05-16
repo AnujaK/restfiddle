@@ -17,12 +17,15 @@ package com.restfiddle.model;
 
 public class User {
 
-    private final long id;
-    private final String content;
+    private long id;
+    private String content;
 
     public User(long id, String content) {
 	this.id = id;
 	this.content = content;
+    }
+
+    public User() {
     }
 
     public long getId() {

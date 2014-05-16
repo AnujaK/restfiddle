@@ -20,7 +20,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.restfiddle.model.User;
 
 @Controller
 public class AppController {
@@ -33,4 +38,23 @@ public class AppController {
 	model.put("message", this.message);
 	return "home";
     }
+
+    @RequestMapping(value = "/api/rf", method = RequestMethod.GET)
+    public String userForm(Model model) {
+	System.out.println("URL : /api/rf and method : GET");
+	model.addAttribute("user", new User());
+	model.addAttribute("time", new Date());
+	model.addAttribute("message", this.message);
+	return "welcome";
+    }
+
+    @RequestMapping(value = "/api/rf", method = RequestMethod.POST)
+    public String userSubmit(@ModelAttribute User user, Model model) {
+	System.out.println("URL : /api/rf and method : POST");
+	model.addAttribute("user", user);
+	model.addAttribute("time", new Date());
+	model.addAttribute("message", this.message);
+	return "result";
+    }
+
 }

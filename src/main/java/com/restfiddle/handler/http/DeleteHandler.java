@@ -15,6 +15,9 @@
  */
 package com.restfiddle.handler.http;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DeleteHandler {
 
 }
