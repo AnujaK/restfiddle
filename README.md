@@ -1,7 +1,7 @@
 restfiddle
 ==========
 
-An Enterprise-grade API Management Tool for Teams. Restfiddle helps you design, develop, test and release APIs.
+An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
 Build
 ==========
