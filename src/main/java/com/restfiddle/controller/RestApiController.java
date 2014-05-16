@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.handler.RequestHandler;
 
+/**
+ * Sample class : will be removed.
+ * 
+ */
 @RestController
 @EnableAutoConfiguration
 @ComponentScan

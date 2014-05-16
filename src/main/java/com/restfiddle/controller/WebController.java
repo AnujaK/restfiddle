@@ -17,24 +17,41 @@ package com.restfiddle.controller;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.restfiddle.model.User;
+
+/**
+ * Sample class : will be removed.
+ * 
+ */
 @Controller
 @EnableAutoConfiguration
 @ComponentScan
 public class WebController {
     @Value("${application.message:Rest Fiddle}")
     private String message = "Rest Fiddle";
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/web")
     public String home(Map<String, Object> model) {
 	model.put("time", new Date());
 	model.put("message", this.message);
 	return "welcome";
+    }
+
+    @RequestMapping("/data")
+    public @ResponseBody
+    User sayHello(@RequestParam(value = "name", required = false, defaultValue = "JSON") String name) {
+	return new User(counter.incrementAndGet(), String.format(template, name));
     }
 }

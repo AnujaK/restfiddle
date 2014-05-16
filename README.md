@@ -6,7 +6,7 @@ REST API Playground for Teams
 Build
 ==========
 
-* JDK 1.6 or later
+* JDK 7 or later
 
 * Maven 3.0+
 
