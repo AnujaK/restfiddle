@@ -29,16 +29,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.restfiddle.model.User;
 
-/**
- * Sample class : will be removed.
- * 
- */
 @Controller
 @EnableAutoConfiguration
 @ComponentScan
 public class WebController {
     @Value("${application.message:REST Fiddle}")
     private String message = "REST Fiddle";
+
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
@@ -52,6 +49,9 @@ public class WebController {
     @RequestMapping("/data")
     public @ResponseBody
     User sayHello(@RequestParam(value = "name", required = false, defaultValue = "JSON") String name) {
-	return new User(counter.incrementAndGet(), String.format(template, name));
+	User user = new User();
+	user.setId(counter.incrementAndGet());
+	user.setName(String.format(template, name));
+	return user;
     }
 }
