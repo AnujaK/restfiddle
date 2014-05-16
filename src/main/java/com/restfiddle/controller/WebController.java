@@ -37,8 +37,8 @@ import com.restfiddle.model.User;
 @EnableAutoConfiguration
 @ComponentScan
 public class WebController {
-    @Value("${application.message:Rest Fiddle}")
-    private String message = "Rest Fiddle";
+    @Value("${application.message:REST Fiddle}")
+    private String message = "REST Fiddle";
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 

@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AppController {
-    @Value("${application.message:Rest Fiddle}")
-    private String message = "Rest Fiddle";
+    @Value("${application.message:REST Fiddle}")
+    private String message = "REST Fiddle";
 
     @RequestMapping("/")
     public String home(Map<String, Object> model) {
