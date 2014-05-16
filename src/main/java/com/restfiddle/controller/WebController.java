@@ -15,33 +15,26 @@
  */
 package com.restfiddle.controller;
 
-import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.handler.RequestHandler;
-
-@RestController
+@Controller
 @EnableAutoConfiguration
 @ComponentScan
-public class AppController {
+public class WebController {
+    @Value("${application.message:Rest Fiddle}")
+    private String message = "Rest Fiddle";
 
-    @RequestMapping("/api/ping")
-    String ping() {
-	return "Server is up and running!";
-    }
-
-    @RequestMapping("/api/channel")
-    String channel() {
-	RequestHandler requestHandler = new RequestHandler();
-	try {
-	    requestHandler.createHttpGetConnection();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	return "success!";
+    @RequestMapping("/home")
+    public String home(Map<String, Object> model) {
+	model.put("time", new Date());
+	model.put("message", this.message);
+	return "welcome";
     }
 }
