@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.model;
+package com.restfiddle.entity;
 
 import java.io.Serializable;
 
@@ -23,7 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class ApiList implements Serializable {
+public class ItemList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -15,10 +15,10 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.restfiddle.model.User;
+import com.restfiddle.entity.User;
 
-public interface UserRepository extends Repository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

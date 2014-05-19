@@ -13,41 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.controller;
+package com.restfiddle.controller.rest;
 
-import java.io.IOException;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.handler.RequestHandler;
+import com.restfiddle.dao.ProjectRepository;
+import com.restfiddle.dto.ProjectDTO;
+import com.restfiddle.entity.Project;
 
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-public class RestApiController {
-    Logger logger = LoggerFactory.getLogger(RestApiController.class);
+@Transactional
+public class ProjectContoller {
+    private ProjectRepository projectRepository;
 
-    @Autowired
-    RequestHandler requestHandler;
-
-    @RequestMapping("/api/channel")
-    String channel() {
-	try {
-	    requestHandler.handleGet();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	return "success!";
+    public Project create(ProjectDTO created) {
+	return null;
     }
 
-    @RequestMapping("/api/ping")
-    String ping() {
-	return "Server is up and running!";
+    public Project delete(Long id) {
+
+	return null;
     }
+
+    public List<Project> findAll() {
+	return null;
+    }
+
+    public Project findById(Long id) {
+	return null;
+    }
+
+    public Project update(ProjectDTO updated) {
+	return null;
+    }
+
 }

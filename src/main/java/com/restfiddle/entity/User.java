@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.model;
+package com.restfiddle.entity;
 
 import java.io.Serializable;
 
@@ -23,8 +23,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Project implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
     private Long id;
@@ -34,6 +35,12 @@ public class Project implements Serializable {
 
     @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     public Long getId() {
 	return id;
@@ -58,4 +65,21 @@ public class Project implements Serializable {
     public void setDescription(String description) {
 	this.description = description;
     }
+
+    public String getFirstName() {
+	return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
+
+    public String getLastName() {
+	return lastName;
+    }
+
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
+
 }

@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.service;
+package com.restfiddle.controller.rest;
 
-import org.springframework.stereotype.Component;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.dao.ApiListRepository;
+import com.restfiddle.dao.ItemListRepository;
 
-@Component
+@RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Transactional
-public class ApiListService {
-    private ApiListRepository apiListRepository;
+public class ItemListController {
+    private ItemListRepository itemListRepository;
 }

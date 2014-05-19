@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.service;
+package com.restfiddle.dao;
 
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.restfiddle.dao.ApiRequestRepository;
+import com.restfiddle.entity.ItemList;
 
-@Component
-@Transactional
-public class ApiRequestService {
-    private ApiRequestRepository apiRequestRepository;
+public interface ItemListRepository extends JpaRepository<ItemList, Long> {
+
 }

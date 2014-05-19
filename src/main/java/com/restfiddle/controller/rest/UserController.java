@@ -13,15 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.service;
+package com.restfiddle.controller.rest;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.UserRepository;
+import com.restfiddle.dto.UserDTO;
+import com.restfiddle.entity.User;
 
-@Component
+@RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Transactional
-public class UserService {
+public class UserController {
     private UserRepository userRepository;
+
+    public User create(UserDTO created) {
+	return null;
+    }
+
+    public User delete(Long id) {
+
+	return null;
+    }
+
+    public List<User> findAll() {
+	return null;
+    }
+
+    public User findById(Long id) {
+	return null;
+    }
+
+    public User update(UserDTO updated) {
+	return null;
+    }
 }

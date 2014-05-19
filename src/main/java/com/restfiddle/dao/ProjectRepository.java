@@ -15,10 +15,10 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.restfiddle.model.Project;
+import com.restfiddle.entity.Project;
 
-public interface ProjectRepository extends Repository<Project, Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 }
