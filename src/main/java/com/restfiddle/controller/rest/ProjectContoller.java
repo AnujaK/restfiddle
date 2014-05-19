@@ -19,9 +19,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.ProjectRepository;
@@ -33,32 +40,63 @@ import com.restfiddle.entity.Project;
 @ComponentScan
 @Transactional
 public class ProjectContoller {
+    Logger logger = LoggerFactory.getLogger(ProjectContoller.class);
 
     @Resource
     private ProjectRepository projectRepository;
 
-    public Project create(ProjectDTO projectDTO) {
+    @RequestMapping(value = "/api/projects", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    Project create(@RequestBody ProjectDTO projectDTO) {
+	logger.debug("Creating a new project with information: " + projectDTO);
+
 	Project project = new Project();
-	// project.setName(name);
+
+	project.setName(projectDTO.getName());
+	project.setDescription(projectDTO.getDescription());
 
 	return projectRepository.save(project);
     }
 
-    public Project delete(Long id) {
+    @RequestMapping(value = "/api/projects/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    public @ResponseBody
+    Project delete(@PathVariable("id") Long id) {
+	logger.debug("Deleting project with id: " + id);
 
-	return null;
+	Project deleted = projectRepository.findOne(id);
+
+	projectRepository.delete(deleted);
+
+	return deleted;
     }
 
-    public List<Project> findAll() {
-	return null;
+    @RequestMapping(value = "/api/projects", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Project> findAll() {
+	logger.debug("Finding all projects");
+
+	return projectRepository.findAll();
     }
 
-    public Project findById(Long id) {
-	return null;
+    @RequestMapping(value = "/api/projects/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Project findById(@PathVariable("id") Long id) {
+	logger.debug("Finding project by id: " + id);
+
+	return projectRepository.findOne(id);
     }
 
-    public Project update(ProjectDTO updated) {
-	return null;
+    @RequestMapping(value = "/api/projects/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public @ResponseBody
+    Project update(@PathVariable("id") Long id, @RequestBody ProjectDTO updated) {
+	logger.debug("Updating project with information: " + updated);
+
+	Project project = projectRepository.findOne(updated.getId());
+
+	project.setName(updated.getName());
+	project.setDescription(updated.getDescription());
+
+	return project;
     }
 
 }
