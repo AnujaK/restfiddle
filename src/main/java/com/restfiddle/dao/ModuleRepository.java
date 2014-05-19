@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.entity;
+package com.restfiddle.dao;
 
-import javax.persistence.Entity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Entity
-public class ItemList extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+import com.restfiddle.entity.Module;
+
+public interface ModuleRepository extends JpaRepository<Module, Long> {
 
 }
