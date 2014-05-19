@@ -29,6 +29,8 @@ public class BaseDTO {
     private Date lastModifiedDate;
     private UserDTO lastModifiedBy;
 
+    private String status;
+
     public Long getId() {
 	return id;
     }
@@ -83,6 +85,14 @@ public class BaseDTO {
 
     public void setLastModifiedBy(UserDTO lastModifiedBy) {
 	this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getStatus() {
+	return status;
+    }
+
+    public void setStatus(String status) {
+	this.status = status;
     }
 
 }

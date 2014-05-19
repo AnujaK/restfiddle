@@ -44,6 +44,8 @@ public abstract class BaseEntity implements Serializable, Cloneable, Comparable<
 
     private Date lastModifiedDate;
     private User lastModifiedBy;
+    
+    private String status;
 
     public String toString() {
 	return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -115,6 +117,14 @@ public abstract class BaseEntity implements Serializable, Cloneable, Comparable<
 
     public void setLastModifiedBy(User lastModifiedBy) {
 	this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }
