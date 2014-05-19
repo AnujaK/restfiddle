@@ -17,13 +17,23 @@ package com.restfiddle.controller.rest;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.ItemRepository;
 import com.restfiddle.dto.ItemDTO;
+import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.entity.Item;
 
 @RestController
@@ -31,26 +41,63 @@ import com.restfiddle.entity.Item;
 @ComponentScan
 @Transactional
 public class ItemController {
+    Logger logger = LoggerFactory.getLogger(ItemController.class);
+
+    @Resource
     private ItemRepository itemRepository;
 
-    public Item create(ItemDTO created) {
-	return null;
+    @RequestMapping(value = "/api/items", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    Item create(@RequestBody ItemDTO itemDTO) {
+	logger.debug("Creating a new item with information: " + itemDTO);
+
+	Item item = new Item();
+
+	item.setName(itemDTO.getName());
+	item.setDescription(itemDTO.getDescription());
+
+	return itemRepository.save(item);
     }
 
-    public Item delete(Long id) {
+    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    public @ResponseBody
+    Item delete(@PathVariable("id") Long id) {
+	logger.debug("Deleting item with id: " + id);
 
-	return null;
+	Item deleted = itemRepository.findOne(id);
+
+	itemRepository.delete(deleted);
+
+	return deleted;
     }
 
-    public List<Item> findAll() {
-	return null;
+    @RequestMapping(value = "/api/items", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Item> findAll() {
+	logger.debug("Finding all items");
+
+	return itemRepository.findAll();
     }
 
-    public Item findById(Long id) {
-	return null;
+    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    Item findById(@PathVariable("id") Long id) {
+	logger.debug("Finding item by id: " + id);
+
+	return itemRepository.findOne(id);
     }
 
-    public Item update(ItemDTO updated) {
-	return null;
+    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public @ResponseBody
+    Item update(@PathVariable("id") Long id, @RequestBody ProjectDTO updated) {
+	logger.debug("Updating item with information: " + updated);
+
+	Item item = itemRepository.findOne(updated.getId());
+
+	item.setName(updated.getName());
+	item.setDescription(updated.getDescription());
+
+	return item;
     }
+
 }
