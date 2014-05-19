@@ -42,11 +42,13 @@
 			</div>
 		</div>
 	</div>
-	<br>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-3"></div>
-			<div class="col-xs-6">
+			<div class="col-xs-3" style="border-right: 1px solid lightgray;height: 100%;position: fixed; overflow-y: scroll;">
+			
+			</div>
+			<div class="col-xs-6" style="left:25%;height: 100%;position: fixed; overflow-y: scroll;">
+				<br>
 				<form role="form" action="/api/rf" method="post">
 					<div class="form-group">
 						<label for="apiUrl">URL</label> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url">
@@ -54,7 +56,8 @@
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 			</div>
-			<div class="col-xs-3"></div>
+			<div class="col-xs-3" style="border-left: 1px solid lightgray;left:75%;height: 100%;position: fixed; overflow-y: scroll;">
+			</div>
 
 		</div>
 	</div>

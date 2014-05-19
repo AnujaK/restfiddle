@@ -15,15 +15,39 @@
  */
 package com.restfiddle;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
 public class RestFiddleApplication {
+
+    @Value("${database.driver}")
+    private String databaseDriver;
+    @Value("${database.url}")
+    private String databaseUrl;
+    @Value("${database.username}")
+    private String databaseUsername;
+    @Value("${database.password}")
+    private String databasePassword;
+
+    @Bean
+    public DataSource dataSource() {
+	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	dataSource.setDriverClassName(databaseDriver);
+	dataSource.setUrl(databaseUrl);
+	dataSource.setUsername(databaseUsername);
+	dataSource.setPassword(databasePassword);
+	return dataSource;
+    }
 
     public static void main(String[] args) throws Exception {
 	SpringApplication.run(RestFiddleApplication.class, args);
