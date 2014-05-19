@@ -17,6 +17,8 @@ package com.restfiddle.controller.rest;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,10 +33,15 @@ import com.restfiddle.entity.Project;
 @ComponentScan
 @Transactional
 public class ProjectContoller {
+
+    @Resource
     private ProjectRepository projectRepository;
 
-    public Project create(ProjectDTO created) {
-	return null;
+    public Project create(ProjectDTO projectDTO) {
+	Project project = new Project();
+	// project.setName(name);
+
+	return projectRepository.save(project);
     }
 
     public Project delete(Long id) {

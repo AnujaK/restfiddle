@@ -15,6 +15,6 @@
  */
 package com.restfiddle.dto;
 
-public class ItemDTO extends BaseDTO {
+public class ItemListDTO extends BaseDTO{
 
 }
