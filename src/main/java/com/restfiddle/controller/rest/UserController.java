@@ -17,9 +17,18 @@ package com.restfiddle.controller.rest;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.UserRepository;
@@ -31,26 +40,62 @@ import com.restfiddle.entity.User;
 @ComponentScan
 @Transactional
 public class UserController {
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Resource
     private UserRepository userRepository;
 
-    public User create(UserDTO created) {
-	return null;
+    @RequestMapping(value = "/api/users", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    User create(@RequestBody UserDTO userDTO) {
+	logger.debug("Creating a new user with information: " + userDTO);
+
+	User user = new User();
+
+	user.setName(userDTO.getName());
+	user.setDescription(userDTO.getDescription());
+
+	return userRepository.save(user);
     }
 
-    public User delete(Long id) {
+    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    public @ResponseBody
+    User delete(@PathVariable("id") Long id) {
+	logger.debug("Deleting user with id: " + id);
 
-	return null;
+	User deleted = userRepository.findOne(id);
+
+	userRepository.delete(deleted);
+
+	return deleted;
     }
 
-    public List<User> findAll() {
-	return null;
+    @RequestMapping(value = "/api/users", method = RequestMethod.GET)
+    public @ResponseBody
+    List<User> findAll() {
+	logger.debug("Finding all users");
+
+	return userRepository.findAll();
     }
 
-    public User findById(Long id) {
-	return null;
+    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    User findById(@PathVariable("id") Long id) {
+	logger.debug("Finding user by id: " + id);
+
+	return userRepository.findOne(id);
     }
 
-    public User update(UserDTO updated) {
-	return null;
+    @RequestMapping(value = "/api/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public @ResponseBody
+    User update(@PathVariable("id") Long id, @RequestBody UserDTO updated) {
+	logger.debug("Updating user with information: " + updated);
+
+	User user = userRepository.findOne(updated.getId());
+
+	user.setName(updated.getName());
+	user.setDescription(updated.getDescription());
+
+	return user;
     }
 }
