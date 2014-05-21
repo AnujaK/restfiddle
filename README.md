@@ -3,6 +3,7 @@ RESTFiddle
 
 [![Build Status](https://travis-ci.org/ranjan-rk/restfiddle.svg?branch=master)](https://travis-ci.org/ranjan-rk/restfiddle)
 
+[![Dependency Status](https://www.versioneye.com/user/projects/537c7ba214c1583a7b000038/badge.svg)](https://www.versioneye.com/user/projects/537c7ba214c1583a7b000038)
 
 An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
