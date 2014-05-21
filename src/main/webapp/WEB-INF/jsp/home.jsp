@@ -2,7 +2,7 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <html lang="en">
 <head>
@@ -44,10 +44,73 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-3" style="border-right: 1px solid lightgray;height: 100%;position: fixed; overflow-y: scroll;">
-			
+			<div class="col-xs-2" style="border-right: 1px solid lightgray; height: 100%; position: fixed; overflow-y: scroll;">
+				<br>
+				<div>
+					<h4 style="color: gray">My Workspace 1</h4>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject1
+					</p>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject2
+					</p>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject3
+					</p>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-time"></span>&nbsp&nbspActivity Log
+					</p>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-wrench"></span>&nbsp&nbspSettings
+					</p>
+				</div>
+				<hr>
+				<div>
+					<p>
+						<span class="glyphicon glyphicon-eject"></span>&nbsp&nbspMore
+					</p>
+				</div>
+				<hr>
 			</div>
-			<div class="col-xs-6" style="left:25%;height: 100%;position: fixed; overflow-y: scroll;">
+			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
+				<br>
+				<div>
+					<p>http://localhost:8080/modules</p>
+				</div>
+				<hr>
+				<div>
+					<p>http://localhost:8080/modules/1</p>
+				</div>
+				<hr>
+				<div>
+					<p>http://localhost:8080/modules?name=payment</p>
+				</div>
+				<hr>
+				<div>
+					<p>http://localhost:8080/modules?name=order</p>
+				</div>
+				<hr>
+				<div>
+					<p>http://localhost:8080/modules?name=cart</p>
+				</div>
+				<hr>
+			</div>
+			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
 				<form role="form" action="/api/rf" method="post">
 					<div class="form-group">
@@ -55,8 +118,6 @@
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
-			</div>
-			<div class="col-xs-3" style="border-left: 1px solid lightgray;left:75%;height: 100%;position: fixed; overflow-y: scroll;">
 			</div>
 
 		</div>
