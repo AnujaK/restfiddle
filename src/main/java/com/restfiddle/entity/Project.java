@@ -15,10 +15,36 @@
  */
 package com.restfiddle.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Project extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
+    @ManyToOne
+    private Workspace workspace;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    private List<Module> modules;
+
+    public Workspace getWorkspace() {
+	return workspace;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+	this.workspace = workspace;
+    }
+
+    public List<Module> getModules() {
+	return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+	this.modules = modules;
+    }
 }

@@ -16,9 +16,21 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Item extends BaseEntity {
     private static final long serialVersionUID = 1L;
+
+    @ManyToOne
+    private Module module;
+
+    public Module getModule() {
+	return module;
+    }
+
+    public void setModule(Module module) {
+	this.module = module;
+    }
 
 }
