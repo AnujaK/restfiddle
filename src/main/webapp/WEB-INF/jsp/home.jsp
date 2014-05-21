@@ -111,12 +111,20 @@
 				<hr>
 			</div>
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
-				<br>
+
 				<form role="form" action="/api/rf" method="post">
 					<div class="form-group">
-						<label for="apiUrl">URL</label> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url">
+						<br>
+						<button class="btn btn-primary">Run</button>
+						<hr>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#">Body</a></li>
+							<li><a href="#">Header</a></li>
+							<li><a href="#">Cookie</a></li>
+							<li><a href="#">Auth</a></li>
+						</ul>
+						<br> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url">
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 			</div>
 
