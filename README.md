@@ -17,7 +17,7 @@ How does RESTFiddle help you? If you are developing or testing REST APIs, it wil
 
 Time is valueable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
 
-Build
+Building From Source
 ==========
 
 * JDK 7 or later
@@ -27,6 +27,26 @@ Build
 * mvn clean install
 
 * mvn spring-boot:run
+
+Technology Stack
+==========
+
+* Spring (http://spring.io/)
+
+* Hibernate (http://hibernate.org/)
+
+* HttpComponents (http://hc.apache.org/)
+
+* Logback (http://logback.qos.ch/)
+
+* Bootstrap (http://getbootstrap.com/)
+
+* jQuery (http://jquery.com/)
+
+* MySQL (http://www.mysql.com/)
+
+* Tomcat (http://tomcat.apache.org/)
+
 
 Release Date
 ==========
