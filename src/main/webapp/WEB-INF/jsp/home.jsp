@@ -116,6 +116,18 @@
 					<div class="form-group">
 						<br>
 						<button class="btn btn-primary">Run</button>
+						&nbsp&nbsp&nbsp&nbsp&nbsp
+						<div class="btn-group">
+							<button type="button" class="btn btn-default">Save</button>
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Save As</a></li>
+							</ul>
+						</div>
+						&nbsp&nbsp&nbsp&nbsp&nbsp
+						<button class="btn btn-default">Clear</button>
 						<hr>
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#">Body</a></li>
