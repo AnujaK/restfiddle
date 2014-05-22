@@ -21,6 +21,9 @@ import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,6 +39,9 @@ public abstract class BaseEntity implements Serializable, Cloneable, Comparable<
     @GeneratedValue
     private Long id;
 
+    @Version
+    private long version = 0;
+
     private String name;
     private String description;
 
@@ -44,7 +50,7 @@ public abstract class BaseEntity implements Serializable, Cloneable, Comparable<
 
     private Date lastModifiedDate;
     private User lastModifiedBy;
-    
+
     private String status;
 
     public String toString() {
@@ -120,11 +126,30 @@ public abstract class BaseEntity implements Serializable, Cloneable, Comparable<
     }
 
     public String getStatus() {
-        return status;
+	return status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+	this.status = status;
     }
 
+    public long getVersion() {
+	return version;
+    }
+
+    public void setVersion(long version) {
+	this.version = version;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+	lastModifiedDate = new Date();
+    }
+
+    @PrePersist
+    public void prePersist() {
+	Date currentDate = new Date();
+	createdDate = currentDate;
+	lastModifiedDate = currentDate;
+    }
 }
