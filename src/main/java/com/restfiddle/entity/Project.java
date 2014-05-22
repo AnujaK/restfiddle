@@ -21,6 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Project extends BaseEntity {
@@ -31,6 +32,9 @@ public class Project extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private List<Module> modules;
+
+    @OneToOne
+    private BaseNode projectRef;
 
     public Workspace getWorkspace() {
 	return workspace;
@@ -46,5 +50,13 @@ public class Project extends BaseEntity {
 
     public void setModules(List<Module> modules) {
 	this.modules = modules;
+    }
+
+    public BaseNode getProjectRef() {
+	return projectRef;
+    }
+
+    public void setProjectRef(BaseNode projectRef) {
+	this.projectRef = projectRef;
     }
 }

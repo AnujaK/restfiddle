@@ -31,8 +31,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dto.ProjectDTO;
+import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
 
 @RestController
@@ -45,6 +47,9 @@ public class ProjectContoller {
     @Resource
     private ProjectRepository projectRepository;
 
+    @Resource
+    private NodeRepository nodeRepository;
+
     @RequestMapping(value = "/api/projects", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Project create(@RequestBody ProjectDTO projectDTO) {
@@ -54,6 +59,16 @@ public class ProjectContoller {
 
 	project.setName(projectDTO.getName());
 	project.setDescription(projectDTO.getDescription());
+
+	// Create project reference node
+	BaseNode projectRef = new BaseNode();
+	projectRef.setName(projectDTO.getName());
+	projectRef.setNodeType("PROJECT");
+	projectRef.setParentId("-1");
+
+	BaseNode savedRef = nodeRepository.save(projectRef);
+
+	project.setProjectRef(savedRef);
 
 	return projectRepository.save(project);
     }
