@@ -123,7 +123,10 @@
 							<li><a href="#">Cookie</a></li>
 							<li><a href="#">Auth</a></li>
 						</ul>
-						<br> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url">
+						<br> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br>
+						<hr>
+
+						<p>Response</p>
 					</div>
 				</form>
 			</div>
