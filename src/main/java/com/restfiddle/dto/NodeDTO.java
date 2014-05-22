@@ -16,5 +16,14 @@
 package com.restfiddle.dto;
 
 public class NodeDTO extends BaseDTO {
+    private NodeDTO parent;
+
+    public NodeDTO getParent() {
+	return parent;
+    }
+
+    public void setParent(NodeDTO parent) {
+	this.parent = parent;
+    }
 
 }

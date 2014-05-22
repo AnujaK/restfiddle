@@ -21,11 +21,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Workspace extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workspace")
+    @JsonManagedReference
     private List<Project> projects;
 
     public List<Project> getProjects() {

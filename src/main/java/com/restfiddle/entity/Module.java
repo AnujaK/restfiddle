@@ -22,14 +22,19 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Module extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
+    @JsonBackReference
     private Project project;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "module")
+    @JsonManagedReference
     private List<Item> items;
 
     public Project getProject() {

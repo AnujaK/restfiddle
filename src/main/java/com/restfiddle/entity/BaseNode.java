@@ -21,11 +21,11 @@ import javax.persistence.Entity;
 public class BaseNode extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/MODULE/FEATURE/SCENARIO/ITEM/REQUEST etc
+    private String nodeType;// PROJECT/MODULE/FEATURE/SCENARIO/ITEM/REQUEST/FOLDER etc
 
-    private String parentId;
+    private Long parentId;
 
-    private int position;// location in the parent node
+    private Long position;// location in the parent node
 
     public String getNodeType() {
 	return nodeType;
@@ -35,19 +35,19 @@ public class BaseNode extends BaseEntity {
 	this.nodeType = nodeType;
     }
 
-    public String getParentId() {
+    public Long getParentId() {
 	return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Long parentId) {
 	this.parentId = parentId;
     }
 
-    public int getPosition() {
+    public Long getPosition() {
 	return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Long position) {
 	this.position = position;
     }
 

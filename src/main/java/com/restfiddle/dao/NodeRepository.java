@@ -26,8 +26,8 @@ import com.restfiddle.entity.BaseNode;
 public interface NodeRepository extends JpaRepository<BaseNode, Long> {
 
     @Query("SELECT bn FROM BaseNode bn WHERE bn.parentId = :parentId")
-    public BaseNode getParent(@Param("parentId") String parentId);
+    public BaseNode getParent(@Param("parentId") Long parentId);
 
     @Query("SELECT bn FROM BaseNode bn WHERE bn.parentId = :nodeId")
-    public List<BaseNode> getChildren(@Param("nodeId") String nodeId);
+    public List<BaseNode> getChildren(@Param("nodeId") Long nodeId);
 }

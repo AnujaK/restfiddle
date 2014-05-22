@@ -45,15 +45,18 @@ public class NodeContoller {
     @Resource
     private NodeRepository nodeRepository;
 
-    @RequestMapping(value = "/api/nodes", method = RequestMethod.POST, headers = "Accept=application/json")
+    // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
+    @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    BaseNode create(@RequestBody NodeDTO nodeDTO) {
+    BaseNode create(@PathVariable("parentId") Long parentId, @RequestBody NodeDTO nodeDTO) {
 	logger.debug("Creating a new node with information: " + nodeDTO);
 
 	BaseNode node = new BaseNode();
 
 	node.setName(nodeDTO.getName());
 	node.setDescription(nodeDTO.getDescription());
+
+	node.setParentId(parentId);
 
 	return nodeRepository.save(node);
     }
@@ -84,6 +87,14 @@ public class NodeContoller {
 	logger.debug("Finding node by id: " + id);
 
 	return nodeRepository.findOne(id);
+    }
+
+    @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> getChildren(@PathVariable("parentId") Long parentId) {
+	logger.debug("Finding children nodes");
+
+	return nodeRepository.getChildren(parentId);
     }
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
