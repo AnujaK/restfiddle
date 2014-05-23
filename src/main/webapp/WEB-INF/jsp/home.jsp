@@ -135,9 +135,24 @@
 							<li><a href="#">Cookie</a></li>
 							<li><a href="#">Auth</a></li>
 						</ul>
-						<br> <input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br>
+						<br>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-xs-2">
+									<select>
+										<option>GET</option>
+										<option>POST</option>
+										<option>PUT</option>
+										<option>DELETE</option>
+									</select>
+								</div>
+								<div class="col-xs-10">
+									<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url">
+								</div>
+							</div>
+						</div>
+						<br>
 						<hr>
-
 						<p>Response</p>
 					</div>
 				</form>
