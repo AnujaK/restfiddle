@@ -13,6 +13,7 @@
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/ui.fancytree.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -76,26 +77,7 @@
 			</div>
 			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<div>
-					<p>http://localhost:8080/modules</p>
-				</div>
-				<hr>
-				<div>
-					<p>http://localhost:8080/modules/1</p>
-				</div>
-				<hr>
-				<div>
-					<p>http://localhost:8080/modules?name=payment</p>
-				</div>
-				<hr>
-				<div>
-					<p>http://localhost:8080/modules?name=order</p>
-				</div>
-				<hr>
-				<div>
-					<p>http://localhost:8080/modules?name=cart</p>
-				</div>
-				<hr>
+				<div id="tree"></div>
 			</div>
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 
@@ -141,6 +123,7 @@
 						<br>
 						<hr>
 						<p>Response</p>
+
 					</div>
 				</form>
 			</div>
@@ -149,10 +132,66 @@
 	</div>
 
 	<script src="js/libs/jquery-1.7.2.js"></script>
+	<script src="js/libs/jquery-ui.min.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/underscore-min.js"></script>
 	<script src="js/libs/backbone-min.js"></script>
+	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
 
+	<script src="js/models/workspace.js"></script>
+	<script src="js/collections/workspaces.js"></script>
+	<script src="js/views/workspace-view.js"></script>
+	<script src="js/routers/workspace-router.js"></script>
+	<script src="js/app.js"></script>
+	<script type="text/javascript">
+	$(function() {
+	    $("#tree").fancytree({
+		extensions : [ "glyph", "edit" ],
+		glyph : {
+		    map : {
+			doc : "glyphicon glyphicon-file",
+			docOpen : "glyphicon glyphicon-file",
+			checkbox : "glyphicon glyphicon-unchecked",
+			checkboxSelected : "glyphicon glyphicon-check",
+			checkboxUnknown : "glyphicon glyphicon-share",
+			error : "glyphicon glyphicon-warning-sign",
+			expanderClosed : "glyphicon glyphicon-plus-sign",
+			expanderLazy : "glyphicon glyphicon-plus-sign",
+			expanderOpen : "glyphicon glyphicon-minus-sign",
+			folder : "glyphicon glyphicon-folder-close",
+			folderOpen : "glyphicon glyphicon-folder-open",
+			loading : "glyphicon glyphicon-refresh"
+		    }
+		},
+		source : [ {
+		    title : "<p>Folder 1<p>",
+		    key : "2",
+		    folder : true,
+		    children : [ {
+			title : "<p>POST http://localhost:8080/modules</p>",
+			key : "3"
+		    }, {
+			title : "<p>GET http://localhost:8080/modules/1</p>",
+			key : "4"
+		    } ]
+		}, {
+		    title : "<p>Folder 2<p>",
+		    key : "2",
+		    folder : true,
+		    children : [ {
+			title : "<p>GET http://localhost:8080/modules?name=payment</p>",
+			key : "3"
+		    }, {
+			title : "<p>GET http://localhost:8080/modules?name=order</p>",
+			key : "4"
+		    } ]
+		}, {
+		    title : "<p>GET http://localhost:8080/modules?name=cart</p>",
+		    key : "1"
+		}, ],
+	    });
+	});
+    </script>
 </body>
 
 </html>
