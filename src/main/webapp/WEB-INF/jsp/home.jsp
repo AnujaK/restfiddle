@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
 				<br>
-				<div class="dropdown">
+				<div class="dropdown" id="dd-workspace">
 					<button class="btn btn-default" data-toggle="dropdown">
 						Demo Workspace <span class="caret"></span>
 					</button>
@@ -141,6 +141,7 @@
 	<script src="js/models/workspace.js"></script>
 	<script src="js/collections/workspaces.js"></script>
 	<script src="js/views/workspace-view.js"></script>
+	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 	<script src="js/app.js"></script>
 	<script type="text/javascript">
