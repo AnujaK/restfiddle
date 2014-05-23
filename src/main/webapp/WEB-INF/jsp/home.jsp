@@ -45,10 +45,19 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
 				<br>
-				<div>
-					<h4 style="color: gray">My Workspace 1</h4>
+				<div class="dropdown">
+					<button class="btn btn-default" data-toggle="dropdown">
+						Demo Workspace <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li role="presentation"><a role="menuitem" href="#">Social Workspace</a></li>
+						<li role="presentation"><a role="menuitem" href="#">Google API Workspace</a></li>
+						<li role="presentation"><a role="menuitem" href="#">Miscellaneous Workspace</a></li>
+						<li role="presentation" class="divider"></li>
+						<li role="presentation"><a role="menuitem" href="#">Add New Workspace</a></li>
+					</ul>
 				</div>
 				<hr>
 				<ul class="nav nav-sidebar">
@@ -107,13 +116,6 @@
 						&nbsp&nbsp&nbsp&nbsp&nbsp
 						<button class="btn btn-default">Clear</button>
 						<hr>
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#">Body</a></li>
-							<li><a href="#">Header</a></li>
-							<li><a href="#">Cookie</a></li>
-							<li><a href="#">Auth</a></li>
-						</ul>
-						<br>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-xs-2">
@@ -129,6 +131,13 @@
 								</div>
 							</div>
 						</div>
+						<br>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#">Body</a></li>
+							<li><a href="#">Header</a></li>
+							<li><a href="#">Cookie</a></li>
+							<li><a href="#">Auth</a></li>
+						</ul>
 						<br>
 						<hr>
 						<p>Response</p>
