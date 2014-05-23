@@ -32,8 +32,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.NodeRepository;
+import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
+import com.restfiddle.entity.Project;
 
 @RestController
 @EnableAutoConfiguration
@@ -41,6 +43,9 @@ import com.restfiddle.entity.BaseNode;
 @Transactional
 public class NodeContoller {
     Logger logger = LoggerFactory.getLogger(NodeContoller.class);
+
+    @Resource
+    private ProjectRepository projectRepository;
 
     @Resource
     private NodeRepository nodeRepository;
@@ -57,6 +62,11 @@ public class NodeContoller {
 	node.setDescription(nodeDTO.getDescription());
 
 	node.setParentId(parentId);
+	// TODO : Set the appropriate node position
+	node.setPosition(0L);
+
+	Project project = projectRepository.findOne(nodeDTO.getProjectId());
+	node.setProject(project);
 
 	return nodeRepository.save(node);
     }

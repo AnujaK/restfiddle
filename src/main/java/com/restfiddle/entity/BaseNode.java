@@ -16,6 +16,7 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class BaseNode extends BaseEntity {
@@ -26,6 +27,9 @@ public class BaseNode extends BaseEntity {
     private Long parentId;
 
     private Long position;// location in the parent node
+
+    @ManyToOne
+    private Project project;
 
     public String getNodeType() {
 	return nodeType;
@@ -49,6 +53,14 @@ public class BaseNode extends BaseEntity {
 
     public void setPosition(Long position) {
 	this.position = position;
+    }
+
+    public Project getProject() {
+	return project;
+    }
+
+    public void setProject(Project project) {
+	this.project = project;
     }
 
 }

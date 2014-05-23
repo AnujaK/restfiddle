@@ -51,7 +51,7 @@ Technology Stack
 Release Date
 ==========
 
-Version 1.0 is expected to be released on 1st June 2014.
+Version 1.0 is expected to be released on 15th June 2014.
 
 Copyright and License
 ==========
