@@ -27,64 +27,42 @@
 	<spring:url value="/resources/text.txt" htmlEscape="true" var="springUrl" />
 
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
 			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Dashboard</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Help</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-2" style="border-right: 1px solid lightgray; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
 				<div>
 					<h4 style="color: gray">My Workspace 1</h4>
 				</div>
 				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject1
-					</p>
-				</div>
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project1</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project2</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project3</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project4</a></li>
+				</ul>
 				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject2
-					</p>
-				</div>
-				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-road"></span>&nbsp&nbspProject3
-					</p>
-				</div>
-				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-time"></span>&nbsp&nbspActivity Log
-					</p>
-				</div>
-				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-wrench"></span>&nbsp&nbspSettings
-					</p>
-				</div>
-				<hr>
-				<div>
-					<p>
-						<span class="glyphicon glyphicon-eject"></span>&nbsp&nbspMore
-					</p>
-				</div>
+				<ul class="nav nav-sidebar">
+					<li><a href=""><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
+					<li><a href=""><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
+					<li><a href=""><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
+				</ul>
 				<hr>
 			</div>
 			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
