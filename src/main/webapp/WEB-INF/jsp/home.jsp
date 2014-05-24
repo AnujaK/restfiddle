@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RESTFiddle</title>
-
+<link rel="shortcut icon" href="/favicon.ico" />
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/ui.fancytree.css" rel="stylesheet">
