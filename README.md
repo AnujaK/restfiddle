@@ -23,9 +23,26 @@ Building From Source
 
 * Maven 3.0+
 
+* MySQL
+
 * mvn clean install
 
 * mvn spring-boot:run
+
+
+##### MySQL configuration:
+
+Go to *src/main/resources/application.properties* and update database url, username and password. Here is how the sample configuration looks like:
+
+```
+database.driver=com.mysql.jdbc.Driver
+
+database.url=jdbc:mysql://localhost:3306/restfiddle
+
+database.username=root
+
+database.password=
+```
 
 Technology Stack
 ==========
