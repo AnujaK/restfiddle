@@ -96,7 +96,18 @@
 							</ul>
 						</div>
 						&nbsp&nbsp&nbsp&nbsp&nbsp
-						<button class="btn btn-default">Clear</button>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default">Clear</button>
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Clear Body</a></li>
+								<li><a href="#">Clear Header</a></li>
+								<li><a href="#">Clear Cookie</a></li>
+								<li><a href="#">Clear Auth</a></li>
+							</ul>
+						</div>
 						<hr>
 						<div class="container-fluid">
 							<div class="row">
