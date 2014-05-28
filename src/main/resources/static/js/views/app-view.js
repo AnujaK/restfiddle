@@ -5,24 +5,22 @@ var app = app || {};
     'use strict';
 
     app.AppView = Backbone.View.extend({
-	el : '#dd-workspace',
-
 	events : {
 
 	},
 
 	initialize : function() {
-	    this.$workspace = this.$('#dd-workspace');
-
-	    app.workspaces.fetch();
 
 	    var view = new app.WorkspaceView({
 		model : app.workspaces
 	    });
+	    
+	    this.render();
 	},
 
 	render : function() {
 	    console.log("app-view#render");
+	    //$('#tree').append(view.render().el);
 	}
     });
 })(jQuery);

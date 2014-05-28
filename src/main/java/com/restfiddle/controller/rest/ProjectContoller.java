@@ -74,6 +74,7 @@ public class ProjectContoller {
 	projectRef.setName(projectDTO.getName());
 	projectRef.setNodeType("PROJECT");
 	projectRef.setParentId(Long.valueOf(-1));
+	projectRef.setPosition(Long.valueOf(0));
 	BaseNode savedRef = nodeRepository.save(projectRef);
 
 	// Set project reference node
