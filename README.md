@@ -30,6 +30,12 @@ Building From Source
 * mvn spring-boot:run
 
 
+Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
+
+```
+MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run 
+```
+
 ##### MySQL configuration:
 
 Go to *src/main/resources/application.properties* and update database url, username and password. Here is how the sample configuration looks like:
@@ -43,6 +49,19 @@ database.username=root
 
 database.password=
 ```
+
+To use *Hsqldb* as in-memory database, use the following configuration:
+
+```
+database.driver=org.hsqldb.jdbcDriver
+
+database.url=jdbc:hsqldb:mem:restfiddle
+
+database.username=sa
+
+database.password=
+```
+
 
 Technology Stack
 ==========
