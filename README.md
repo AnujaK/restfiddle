@@ -5,7 +5,7 @@ RESTFiddle
 
 An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
-Version 1.0 Coming Soon!
+This project is under active development. Version 1.0 Coming Soon!
 
 Why RESTFiddle?
 ==========
