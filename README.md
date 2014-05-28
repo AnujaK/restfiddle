@@ -74,9 +74,11 @@ Technology Stack
 
 * Logback (http://logback.qos.ch/)
 
+* jQuery (http://jquery.com/)
+
 * Bootstrap (http://getbootstrap.com/)
 
-* jQuery (http://jquery.com/)
+* Backbone (http://backbonejs.org/)
 
 * MySQL (http://www.mysql.com/)
 
