@@ -37,7 +37,7 @@
 
 <p>An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.</p>
 
-<p>Version 1.0 Coming Soon!</p>
+<p>This project is under active development. Version 1.0 Coming Soon!</p>
 
 <h1>
 <a name="why-restfiddle" class="anchor" href="#why-restfiddle"><span class="octicon octicon-link"></span></a>Why RESTFiddle?</h1>
@@ -57,7 +57,12 @@
 <li><p>MySQL</p></li>
 <li><p>mvn clean install</p></li>
 <li><p>mvn spring-boot:run</p></li>
-</ul><h5>
+</ul><p>Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:</p>
+
+<pre><code>MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run 
+</code></pre>
+
+<h5>
 <a name="mysql-configuration" class="anchor" href="#mysql-configuration"><span class="octicon octicon-link"></span></a>MySQL configuration:</h5>
 
 <p>Go to <em>src/main/resources/application.properties</em> and update database url, username and password. Here is how the sample configuration looks like:</p>
@@ -67,6 +72,17 @@
 database.url=jdbc:mysql://localhost:3306/restfiddle
 
 database.username=root
+
+database.password=
+</code></pre>
+
+<p>To use <em>Hsqldb</em> as in-memory database, use the following configuration:</p>
+
+<pre><code>database.driver=org.hsqldb.jdbcDriver
+
+database.url=jdbc:hsqldb:mem:restfiddle
+
+database.username=sa
 
 database.password=
 </code></pre>
