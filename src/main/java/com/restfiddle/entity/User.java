@@ -15,8 +15,17 @@
  */
 package com.restfiddle.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class User extends BaseEntity {
@@ -27,6 +36,11 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String lastName;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     public String getFirstName() {
 	return firstName;
@@ -42,6 +56,14 @@ public class User extends BaseEntity {
 
     public void setLastName(String lastName) {
 	this.lastName = lastName;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 }
