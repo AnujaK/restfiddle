@@ -1,36 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="RESTFiddle : An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs." />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>RESTFiddle by ranjan-rk</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>RESTFiddle</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">RESTFiddle</h1>
+        <p class="header">An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ranjan-rk/restfiddle">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/ranjan-rk/restfiddle/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/ranjan-rk/restfiddle/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/ranjan-rk/restfiddle">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">RESTFiddle</h1>
-          <h2 id="project_tagline">An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.</h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/ranjan-rk">ranjan-rk</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ranjan-rk/restfiddle/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ranjan-rk/restfiddle/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+      </header>
+      <section>
         <h1>
 <a name="restfiddle" class="anchor" href="#restfiddle"><span class="octicon octicon-link"></span></a>RESTFiddle</h1>
 
@@ -55,9 +54,24 @@
 <ul>
 <li><p>JDK 7 or later</p></li>
 <li><p>Maven 3.0+</p></li>
+<li><p>MySQL</p></li>
 <li><p>mvn clean install</p></li>
 <li><p>mvn spring-boot:run</p></li>
-</ul><h1>
+</ul><h5>
+<a name="mysql-configuration" class="anchor" href="#mysql-configuration"><span class="octicon octicon-link"></span></a>MySQL configuration:</h5>
+
+<p>Go to <em>src/main/resources/application.properties</em> and update database url, username and password. Here is how the sample configuration looks like:</p>
+
+<pre><code>database.driver=com.mysql.jdbc.Driver
+
+database.url=jdbc:mysql://localhost:3306/restfiddle
+
+database.username=root
+
+database.password=
+</code></pre>
+
+<h1>
 <a name="technology-stack" class="anchor" href="#technology-stack"><span class="octicon octicon-link"></span></a>Technology Stack</h1>
 
 <ul>
@@ -81,17 +95,11 @@
 
 <p>Licensed under Apache License, Version 2.0</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">RESTFiddle maintained by <a href="https://github.com/ranjan-rk">ranjan-rk</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-    
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
