@@ -129,25 +129,45 @@
 						<hr>
 						<p>Response</p>
 
+						<div class="container-fluid">
+							<div class="row">
+								<div id="dd-workspace-wrapper"></div>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
 
 		</div>
 	</div>
+
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
-		<a href='#workspaces/<@= id @>'><@=name@></a>
+			<div id="dd-workspace">
+				<@
+					_.each(list,function(workspace){
+				@>
+					<br>
+				<@=workspace.name@>
+				<@
+					_.each(workspace.projects,function(project){
+						@><@=project.name@><@
+					});
+
+					});
+				@>
+			</div>
 	</script>
 
 	<!-- JavaScript -->
+
 	<script src="js/libs/jquery-1.7.2.js"></script>
 	<script src="js/libs/jquery-ui.min.js"></script>
-	
-	<script src="js/commons/base.js"></script>
-	
-	<script src="js/libs/bootstrap.min.js"></script>
+
 	<script src="js/libs/underscore-min.js"></script>
+	<script src="js/commons/base.js"></script>
+	<script src="js/libs/bootstrap.min.js"></script>
+
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
 
@@ -157,6 +177,7 @@
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 	<script src="js/app.js"></script>
+
 	<script type="text/javascript">
 	$(function() {
 	    $("#tree").fancytree({
