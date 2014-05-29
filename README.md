@@ -16,6 +16,12 @@ How does RESTFiddle help you? If you are developing or testing REST APIs, it wil
 
 Time is valueable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
 
+Initial Design
+==========
+
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
+
+
 Building From Source
 ==========
 
@@ -84,11 +90,6 @@ Technology Stack
 
 * Tomcat (http://tomcat.apache.org/)
 
-
-Initial Design
-==========
-
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
 
 Release Date
 ==========
