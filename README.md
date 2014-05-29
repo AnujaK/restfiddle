@@ -88,7 +88,7 @@ Technology Stack
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot1.png "Initial Design")
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
 
 Release Date
 ==========
