@@ -85,6 +85,11 @@ Technology Stack
 * Tomcat (http://tomcat.apache.org/)
 
 
+Initial Design
+==========
+
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot1.png "Initial Design")
+
 Release Date
 ==========
 
