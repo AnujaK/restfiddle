@@ -56,10 +56,10 @@
 				</div>
 				<hr>
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project1</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project2</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project3</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;Project4</a></li>
+					<li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
 				</ul>
 				<hr>
 				<ul class="nav nav-sidebar">
@@ -143,22 +143,25 @@
 
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
-			<div id="dd-workspace">
-				<@
-					_.each(list,function(workspace){
-				@>
-					<br>
-				<@=workspace.name@>
-				<@
-					_.each(workspace.projects,function(project){
-						@><@=project.name@><@
-					});
-
-					});
-				@>
-			</div>
+		<div class="dropdown" id="dd-workspace">
+			<button class="btn btn-default" data-toggle="dropdown">
+				Demo Workspace <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+		<@
+			_.each(list,function(workspace){
+		@>
+		<li role="presentation"><a role="menuitem" href="#">
+		<@=workspace.name@>
+		</a></li>
+		<@
+			});
+		@>
+		<li role="presentation" class="divider"></li>
+		<li role="presentation"><a role="menuitem" href="#">Add New Workspace</a></li>
+		</ul>
+		</div>
 	</script>
-
 	<!-- JavaScript -->
 
 	<script src="js/libs/jquery-1.7.2.js"></script>

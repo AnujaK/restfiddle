@@ -41,6 +41,7 @@ public class AppController {
 	model.put("time", new Date());
 	model.put("message", this.message);
 	return "home";
+	// return "sample";
     }
 
     @RequestMapping(value = "/api/rf", method = RequestMethod.GET)

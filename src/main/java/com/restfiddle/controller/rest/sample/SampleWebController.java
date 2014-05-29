@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.controller;
+package com.restfiddle.controller.rest.sample;
 
 import java.util.Date;
 import java.util.Map;
@@ -32,7 +32,7 @@ import com.restfiddle.entity.User;
 @Controller
 @EnableAutoConfiguration
 @ComponentScan
-public class WebController {
+public class SampleWebController {
     @Value("${application.message:REST Fiddle}")
     private String message = "REST Fiddle";
 

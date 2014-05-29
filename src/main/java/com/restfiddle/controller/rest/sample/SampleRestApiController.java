@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.controller.rest;
+package com.restfiddle.controller.rest.sample;
 
 import java.io.IOException;
 
@@ -30,8 +30,8 @@ import com.restfiddle.handler.RequestHandler;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-public class RestApiController {
-    Logger logger = LoggerFactory.getLogger(RestApiController.class);
+public class SampleRestApiController {
+    Logger logger = LoggerFactory.getLogger(SampleRestApiController.class);
 
     @Autowired
     RequestHandler requestHandler;
