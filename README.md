@@ -25,17 +25,37 @@ Initial Design
 Building From Source
 ==========
 
+##### Prerequisites
+
 * JDK 7 or later
 
 * Maven 3.0+
 
-* MySQL
+* MySQL (optional)
 
-* mvn clean install
+##### Build
 
-* mvn spring-boot:run
+```
+mvn clean install
+```
 
+##### Run
+
+```
+mvn spring-boot:run
+```
+
+##### Access
+
+```
 Default username/password : rf/rf
+```
+
+##### Debug
+
+```
+mvnDebug spring-boot:run
+```
 
 Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
 
