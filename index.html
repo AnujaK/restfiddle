@@ -56,13 +56,38 @@
 <h1>
 <a name="building-from-source" class="anchor" href="#building-from-source"><span class="octicon octicon-link"></span></a>Building From Source</h1>
 
+<h5>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h5>
+
 <ul>
 <li><p>JDK 7 or later</p></li>
 <li><p>Maven 3.0+</p></li>
-<li><p>MySQL</p></li>
-<li><p>mvn clean install</p></li>
-<li><p>mvn spring-boot:run</p></li>
-</ul><p>Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:</p>
+<li><p>MySQL (optional)</p></li>
+</ul><h5>
+<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h5>
+
+<pre><code>mvn clean install
+</code></pre>
+
+<h5>
+<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h5>
+
+<pre><code>mvn spring-boot:run
+</code></pre>
+
+<h5>
+<a name="access" class="anchor" href="#access"><span class="octicon octicon-link"></span></a>Access</h5>
+
+<pre><code>Default username/password : rf/rf
+</code></pre>
+
+<h5>
+<a name="debug" class="anchor" href="#debug"><span class="octicon octicon-link"></span></a>Debug</h5>
+
+<pre><code>mvnDebug spring-boot:run
+</code></pre>
+
+<p>Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:</p>
 
 <pre><code>MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run 
 </code></pre>
