@@ -35,6 +35,7 @@ Building From Source
 
 * mvn spring-boot:run
 
+Default username/password : rf/rf
 
 Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
 
