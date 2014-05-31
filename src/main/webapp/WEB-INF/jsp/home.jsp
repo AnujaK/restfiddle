@@ -42,18 +42,7 @@
 		<div class="row">
 			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
 				<br>
-				<div class="dropdown" id="dd-workspace">
-					<button class="btn btn-default" data-toggle="dropdown">
-						Demo Workspace <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li role="presentation"><a role="menuitem" href="#">Social Workspace</a></li>
-						<li role="presentation"><a role="menuitem" href="#">Google API Workspace</a></li>
-						<li role="presentation"><a role="menuitem" href="#">Miscellaneous Workspace</a></li>
-						<li role="presentation" class="divider"></li>
-						<li role="presentation"><a role="menuitem" href="#">Add New Workspace</a></li>
-					</ul>
-				</div>
+				<div id="dd-workspace-wrapper"></div>
 				<hr>
 				<ul class="nav nav-sidebar">
 					<li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
@@ -74,68 +63,69 @@
 				<div id="tree"></div>
 			</div>
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
-
-				<form role="form" action="/api/rf" method="post">
-					<div class="form-group">
-						<br>
-						<button class="btn btn-primary">Run</button>
-						&nbsp&nbsp&nbsp&nbsp&nbsp
-						<div class="btn-group">
-							<button type="button" class="btn btn-default">Save</button>
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Save As</a></li>
-							</ul>
-						</div>
-						&nbsp&nbsp&nbsp&nbsp&nbsp
-						<div class="btn-group">
-							<button type="button" class="btn btn-default">Clear</button>
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Clear Body</a></li>
-								<li><a href="#">Clear Header</a></li>
-								<li><a href="#">Clear Cookie</a></li>
-								<li><a href="#">Clear Auth</a></li>
-							</ul>
-						</div>
-						<hr>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-xs-2">
-									<select>
-										<option>GET</option>
-										<option>POST</option>
-										<option>PUT</option>
-										<option>DELETE</option>
-									</select>
-								</div>
-								<div class="col-xs-10">
-									<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url">
-								</div>
-							</div>
-						</div>
-						<br>
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#">Body</a></li>
-							<li><a href="#">Header</a></li>
-							<li><a href="#">Cookie</a></li>
-							<li><a href="#">Auth</a></li>
+				<div class="form-group">
+					<br>
+					<button class="btn btn-primary">Run</button>
+					&nbsp&nbsp&nbsp&nbsp&nbsp
+					<div class="btn-group">
+						<button type="button" class="btn btn-default">Save</button>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Save As</a></li>
 						</ul>
-						<br>
-						<hr>
-						<p>Response</p>
-
-						<div class="container-fluid">
-							<div class="row">
-								<div id="dd-workspace-wrapper"></div>
+					</div>
+					&nbsp&nbsp&nbsp&nbsp&nbsp
+					<div class="btn-group">
+						<button type="button" class="btn btn-default">Clear</button>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Clear Body</a></li>
+							<li><a href="#">Clear Header</a></li>
+							<li><a href="#">Clear Cookie</a></li>
+							<li><a href="#">Clear Auth</a></li>
+						</ul>
+					</div>
+					<hr>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-2">
+								<select>
+									<option>GET</option>
+									<option>POST</option>
+									<option>PUT</option>
+									<option>DELETE</option>
+								</select>
+							</div>
+							<div class="col-xs-10">
+								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url">
 							</div>
 						</div>
 					</div>
-				</form>
+					<br>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#">Body</a></li>
+						<li><a href="#">Header</a></li>
+						<li><a href="#">Cookie</a></li>
+						<li><a href="#">Auth</a></li>
+					</ul>
+					<br>
+					<hr>
+					<span>Response</span>
+					<button class="btn btn-default" style="float: right">Show Saved Response</button>
+					<br><br>
+					<div class="container-fluid">
+						<div class="row">
+							<div id="response-wrapper">
+								<code> { title : " Folder 1 ", key : "2", folder : true, children : [ { title : " POST http://localhost:8080/modules ", key : "3" }, {
+									title : " GET http://localhost:8080/modules/1 ", key : "4" } </code>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>
