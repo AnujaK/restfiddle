@@ -60,6 +60,8 @@
 			</div>
 			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
+				<button class="btn btn-default">Add Folder</button>
+				<br> <br>
 				<div id="tree"></div>
 			</div>
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
@@ -116,7 +118,7 @@
 					<hr>
 					<span>Response</span>
 					<button class="btn btn-default" style="float: right">Show Saved Response</button>
-					<br><br>
+					<br> <br>
 					<div class="container-fluid">
 						<div class="row">
 							<div id="response-wrapper">
@@ -148,7 +150,7 @@
 			});
 		@>
 		<li role="presentation" class="divider"></li>
-		<li role="presentation"><a role="menuitem" href="#">Add New Workspace</a></li>
+		<li role="presentation"><a role="menuitem" href="#"><span class="glyphicon glyphicon-plus"></span> New Workspace</a></li>
 		</ul>
 		</div>
 	</script>
