@@ -68,7 +68,7 @@
 				<div class="form-group">
 					<br>
 					<button class="btn btn-primary">Run</button>
-					&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default">Save</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -78,7 +78,7 @@
 							<li><a href="#">Save As</a></li>
 						</ul>
 					</div>
-					&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default">Clear</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
