@@ -31,9 +31,9 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Dashboard</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Help</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon">About</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Help</a></li>
 				</ul>
 			</div>
 		</div>
@@ -46,21 +46,21 @@
 				<hr>
 				<ul class="nav nav-sidebar">
 					<li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
 				</ul>
 				<hr>
 				<ul class="nav nav-sidebar">
-					<li><a href=""><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
-					<li><a href=""><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
-					<li><a href=""><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
 				</ul>
 				<hr>
 			</div>
 			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default">Add Folder</button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Folder</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -70,25 +70,25 @@
 					<button class="btn btn-primary">Run</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
-						<button type="button" class="btn btn-default">Save</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Save</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Save As</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save As</a></li>
 						</ul>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
-						<button type="button" class="btn btn-default">Clear</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Clear</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Clear Body</a></li>
-							<li><a href="#">Clear Header</a></li>
-							<li><a href="#">Clear Cookie</a></li>
-							<li><a href="#">Clear Auth</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Body</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Header</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Cookie</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
 					<hr>
@@ -117,7 +117,7 @@
 					<br>
 					<hr>
 					<span>Response</span>
-					<button class="btn btn-default" style="float: right">Show Saved Response</button>
+					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
 					<br> <br>
 					<div class="container-fluid">
 						<div class="row">
@@ -130,6 +130,40 @@
 				</div>
 			</div>
 
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="comingSoon" tabindex="-1" role="dialog" aria-labelledby="comingSoonLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="comingSoonLabel">Coming Soon</h4>
+				</div>
+				<div class="modal-body">UnsupportedOperationException("Not implemented yet")</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -172,56 +206,7 @@
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 	<script src="js/app.js"></script>
-
-	<script type="text/javascript">
-	$(function() {
-	    $("#tree").fancytree({
-		extensions : [ "glyph", "edit" ],
-		glyph : {
-		    map : {
-			doc : "glyphicon glyphicon-file",
-			docOpen : "glyphicon glyphicon-file",
-			checkbox : "glyphicon glyphicon-unchecked",
-			checkboxSelected : "glyphicon glyphicon-check",
-			checkboxUnknown : "glyphicon glyphicon-share",
-			error : "glyphicon glyphicon-warning-sign",
-			expanderClosed : "glyphicon glyphicon-plus-sign",
-			expanderLazy : "glyphicon glyphicon-plus-sign",
-			expanderOpen : "glyphicon glyphicon-minus-sign",
-			folder : "glyphicon glyphicon-folder-close",
-			folderOpen : "glyphicon glyphicon-folder-open",
-			loading : "glyphicon glyphicon-refresh"
-		    }
-		},
-		source : [ {
-		    title : "<p>Folder 1<p>",
-		    key : "2",
-		    folder : true,
-		    children : [ {
-			title : "<p>POST http://localhost:8080/modules</p>",
-			key : "3"
-		    }, {
-			title : "<p>GET http://localhost:8080/modules/1</p>",
-			key : "4"
-		    } ]
-		}, {
-		    title : "<p>Folder 2<p>",
-		    key : "2",
-		    folder : true,
-		    children : [ {
-			title : "<p>GET http://localhost:8080/modules?name=payment</p>",
-			key : "3"
-		    }, {
-			title : "<p>GET http://localhost:8080/modules?name=order</p>",
-			key : "4"
-		    } ]
-		}, {
-		    title : "<p>GET http://localhost:8080/modules?name=cart</p>",
-		    key : "1"
-		}, ],
-	    });
-	});
-    </script>
+	<script src="js/utils/tree.js"></script>
 </body>
 
 </html>
