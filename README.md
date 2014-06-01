@@ -112,6 +112,11 @@ Technology Stack
 * Tomcat (http://tomcat.apache.org/)
 
 
+Coding Guidelines
+==========
+
+The contributing guidelines are in [CONTRIBUTING.md](https://github.com/ranjan-rk/restfiddle/blob/master/CONTRIBUTING.md)
+
 Release Date
 ==========
 
