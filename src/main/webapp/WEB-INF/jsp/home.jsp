@@ -67,7 +67,7 @@
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<div class="form-group">
 					<br>
-					<button class="btn btn-primary">Run</button>
+					<button class="btn btn-primary" id="run">Run</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Save</button>
@@ -207,6 +207,7 @@
 	<script src="js/routers/workspace-router.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/utils/tree.js"></script>
+	<script src="js/utils/caller.js"></script>
 </body>
 
 </html>
