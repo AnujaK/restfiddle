@@ -14,7 +14,7 @@ We all usually work as a team- be it software development or testing. What consu
 
 How does RESTFiddle help you? If you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
 
-Time is valueable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
+Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
 
 Initial Design
 ==========
