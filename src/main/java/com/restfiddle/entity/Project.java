@@ -15,16 +15,11 @@
  */
 package com.restfiddle.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Project extends BaseEntity {
@@ -33,10 +28,6 @@ public class Project extends BaseEntity {
     @ManyToOne
     @JsonBackReference
     private Workspace workspace;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-    @JsonManagedReference
-    private List<Module> modules;
 
     @OneToOne
     private BaseNode projectRef;
@@ -47,14 +38,6 @@ public class Project extends BaseEntity {
 
     public void setWorkspace(Workspace workspace) {
 	this.workspace = workspace;
-    }
-
-    public List<Module> getModules() {
-	return modules;
-    }
-
-    public void setModules(List<Module> modules) {
-	this.modules = modules;
     }
 
     public BaseNode getProjectRef() {

@@ -15,41 +15,10 @@
  */
 package com.restfiddle.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Module extends BaseEntity {
     private static final long serialVersionUID = 1L;
-
-    @ManyToOne
-    @JsonBackReference
-    private Project project;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "module")
-    @JsonManagedReference
-    private List<Item> items;
-
-    public Project getProject() {
-	return project;
-    }
-
-    public void setProject(Project project) {
-	this.project = project;
-    }
-
-    public List<Item> getItems() {
-	return items;
-    }
-
-    public void setItems(List<Item> items) {
-	this.items = items;
-    }
+    
 }

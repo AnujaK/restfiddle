@@ -19,28 +19,17 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Item extends BaseEntity {
+public class RfRequest extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne
-    private RfRequest rfRequest;
+    @OneToOne(mappedBy = "rfRequest")
+    private Item item;
 
-    @OneToOne
-    private RfResponse rfResponse;
-
-    public RfRequest getRfRequest() {
-	return rfRequest;
+    public Item getItem() {
+	return item;
     }
 
-    public void setRfRequest(RfRequest rfRequest) {
-	this.rfRequest = rfRequest;
-    }
-
-    public RfResponse getRfResponse() {
-	return rfResponse;
-    }
-
-    public void setRfResponse(RfResponse rfResponse) {
-	this.rfResponse = rfResponse;
+    public void setItem(Item item) {
+	this.item = item;
     }
 }
