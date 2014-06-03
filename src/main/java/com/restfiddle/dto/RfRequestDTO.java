@@ -13,30 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.handler;
+package com.restfiddle.dto;
 
-import java.io.IOException;
+public class RfRequestDTO extends BaseDTO {
+    private String apiUrl;
+    private String methodType;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.restfiddle.handler.http.GetHandler;
-import com.restfiddle.handler.http.PostHandler;
-
-@Component
-public class RequestHandler extends AbstractRequestHandler {
-
-    @Autowired
-    GetHandler getHandler;
-
-    @Autowired
-    PostHandler postHandler;
-
-    public String handleGet(String apiUrl) throws IOException {
-	return getHandler.process(apiUrl);
+    public String getApiUrl() {
+	return apiUrl;
     }
 
-    public void handlePost() throws IOException {
-	postHandler.process();
+    public void setApiUrl(String apiUrl) {
+	this.apiUrl = apiUrl;
+    }
+
+    public String getMethodType() {
+	return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+	this.methodType = methodType;
     }
 }

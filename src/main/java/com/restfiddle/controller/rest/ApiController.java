@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.controller.rest.sample;
+package com.restfiddle.controller.rest;
 
 import java.io.IOException;
 
@@ -22,32 +22,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.handler.RequestHandler;
 
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-public class SampleRestApiController {
-    Logger logger = LoggerFactory.getLogger(SampleRestApiController.class);
+public class ApiController {
+    Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
     RequestHandler requestHandler;
 
-    @RequestMapping("/api/channel")
-    String channel() {
+    @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
+    String processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
-	    requestHandler.handleGet(null);
+	    return requestHandler.handleGet(rfRequestDTO.getApiUrl());
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-	return "success!";
-    }
-
-    @RequestMapping("/api/ping")
-    String ping() {
-	return "Server is up and running!";
+	return "Error!";
     }
 }

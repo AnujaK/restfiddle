@@ -32,11 +32,12 @@ import org.springframework.stereotype.Component;
 public class GetHandler extends GenericHandler {
     Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-    public void process() throws IOException {
+    public String process(String apiUrl) throws IOException {
+	String response = "";
 
 	CloseableHttpClient httpclient = HttpClients.createDefault();
 	try {
-	    HttpGet httpGet = new HttpGet("http://targethost/");
+	    HttpGet httpGet = new HttpGet(apiUrl);
 
 	    Header[] requestHeaders = httpGet.getAllHeaders();
 	    logger.info("request headers length : " + requestHeaders.length);
@@ -59,6 +60,7 @@ public class GetHandler extends GenericHandler {
 		logger.info("response contentType : " + contentType);
 
 		// logger.info("content : " + EntityUtils.toString(responseEntity));
+		response = EntityUtils.toString(responseEntity);
 		EntityUtils.consume(responseEntity);
 	    } finally {
 		httpResponse.close();
@@ -66,5 +68,7 @@ public class GetHandler extends GenericHandler {
 	} finally {
 	    httpclient.close();
 	}
+
+	return response;
     }
 }

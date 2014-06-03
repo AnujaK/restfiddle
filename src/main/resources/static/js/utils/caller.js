@@ -1,16 +1,17 @@
 $(function() {
     function send() {
 	var item = {
-	    name : "my item",
-	    description : "my new item"
+	    apiUrl : $("#apiUrl").val(),
+	    methodType : "GET"
 	};
 
 	$.ajax({
-	    url : '/api/items',
+	    url : '/api/processor',
 	    type : 'post',
 	    dataType : 'json',
 	    contentType : "application/json",
 	    success : function(response) {
+		$("#response-wrapper").html(JSON.stringify(response));
 		console.log("####" + response.name);
 	    },
 	    data : JSON.stringify(item)
