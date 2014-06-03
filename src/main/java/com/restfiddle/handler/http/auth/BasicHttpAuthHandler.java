@@ -30,60 +30,48 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import sun.misc.BASE64Encoder;
 
-
 public class BasicHttpAuthHandler {
 
-	/**
-	 * @param args
-	 */
-	
-	public void Base64Auth()
-	{
-		
-		String authStr = "user1"+":"+"user1";
+    public void Base64Auth() {
 
-		String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
-		
-		HttpPost httppost = new HttpPost("http://test.webdav.org/auth-basic/");
-		httppost.setHeader("Authorization", "Basic " + encoding);
+	String authStr = "user1" + ":" + "user1";
 
-		System.out.println("executing request " + httppost.getRequestLine());
-		 HttpClient client = HttpClientBuilder.create().build();
-		HttpResponse response = null;
-		try {
-			response = client.execute(httppost);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 int statusCode = response.getStatusLine().getStatusCode();
-		 System.out.println(statusCode);
+	String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
+
+	HttpPost httppost = new HttpPost("http://test.webdav.org/auth-basic/");
+	httppost.setHeader("Authorization", "Basic " + encoding);
+
+	System.out.println("executing request " + httppost.getRequestLine());
+	HttpClient client = HttpClientBuilder.create().build();
+	HttpResponse response = null;
+	try {
+	    response = client.execute(httppost);
+	} catch (ClientProtocolException e) {
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    e.printStackTrace();
 	}
-	public static void main(String[] args) {
-		 try {
-			 BasicHttpAuthHandler authHandler= new BasicHttpAuthHandler();
-			 authHandler.Base64Auth();
-			 CredentialsProvider provider = new BasicCredentialsProvider();
-			 UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("user1", "user1");
-			 provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
-			 HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
-			  
-			 HttpResponse response = client.execute(new HttpGet("http://test.webdav.org/auth-basic/"));
-			 int statusCode = response.getStatusLine().getStatusCode();
-			 System.out.println(statusCode);
-			 
-		 
-		 } catch (ClientProtocolException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	        }
+	int statusCode = response.getStatusLine().getStatusCode();
+	System.out.println(statusCode);
+    }
 
+    public void processAuth() {
+	try {
+	    BasicHttpAuthHandler authHandler = new BasicHttpAuthHandler();
+	    authHandler.Base64Auth();
+	    CredentialsProvider provider = new BasicCredentialsProvider();
+	    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("user1", "user1");
+	    provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
+	    HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+
+	    HttpResponse response = client.execute(new HttpGet("http://test.webdav.org/auth-basic/"));
+	    int statusCode = response.getStatusLine().getStatusCode();
+	    System.out.println(statusCode);
+
+	} catch (ClientProtocolException e) {
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    e.printStackTrace();
 	}
-
+    }
 }
