@@ -45,7 +45,7 @@
 				<div id="dd-workspace-wrapper"></div>
 				<hr>
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
+					<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
@@ -60,7 +60,9 @@
 			</div>
 			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Folder</button>
+				<button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Folder</button>
+				&nbsp;&nbsp;
+				<button class="btn btn-default" data-toggle="modal" data-target="#comingSoon">New Request</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -95,7 +97,7 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-xs-2">
-								<select>
+								<select class="apiRequestType">
 									<option>GET</option>
 									<option>POST</option>
 									<option>PUT</option>

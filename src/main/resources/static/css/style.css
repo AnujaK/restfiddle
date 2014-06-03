@@ -10,3 +10,7 @@ body {
 .ui-fancytree {
 	border: 0 none !important;
 }
+
+.apiRequestType {
+	font-size: 50px;
+}
