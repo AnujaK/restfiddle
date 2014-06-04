@@ -34,7 +34,11 @@
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Logout</a></li>
+					<li>
+						<form action="/logout" method="post">
+							<button class="btn btn-link" style="margin-top: 7px; margin-right: 20px;" type="submit">Logout</button>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -78,8 +82,8 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
 						</ul>
-					</div>					
-					
+					</div>
+
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Save</button>
