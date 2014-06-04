@@ -42,7 +42,7 @@ mvn clean install
 ##### Run
 
 ```
-mvn spring-boot:run
+MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run
 ```
 
 ##### Access
@@ -60,7 +60,7 @@ mvnDebug spring-boot:run
 Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
 
 ```
-MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run 
+MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvnDebug spring-boot:run 
 ```
 
 ##### MySQL configuration:
