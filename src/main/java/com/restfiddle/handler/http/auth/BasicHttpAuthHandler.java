@@ -15,24 +15,21 @@
  */
 package com.restfiddle.handler.http.auth;
 
-import java.io.IOException;
-
-import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import sun.misc.BASE64Encoder;
-
 public class BasicHttpAuthHandler {
+	
+	public BasicHttpAuthHandler()
+	{
+		
+	}
 
-    public void Base64Auth() {
+   /* public void Base64Auth() {
 
 	String authStr = "user1" + ":" + "user1";
 
@@ -73,5 +70,16 @@ public class BasicHttpAuthHandler {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+    }*/
+    
+    public CloseableHttpClient prepareBasicAuth(String userName, String password)
+    {
+    	CredentialsProvider provider = new BasicCredentialsProvider();
+	    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(userName, userName);
+	    provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
+	    CloseableHttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+	    
+	    return client;
+    	
     }
 }

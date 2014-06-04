@@ -28,47 +28,79 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
+
 @Component
 public class GetHandler extends GenericHandler {
-    Logger logger = LoggerFactory.getLogger(GetHandler.class);
+	Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-    public String process(String apiUrl) throws IOException {
-	String response = "";
+	public String processHttpRequest(String apiUrl,
+			CloseableHttpClient httpclient) throws IOException {
 
-	CloseableHttpClient httpclient = HttpClients.createDefault();
-	try {
-	    HttpGet httpGet = new HttpGet(apiUrl);
+		String response;
 
-	    Header[] requestHeaders = httpGet.getAllHeaders();
-	    logger.info("request headers length : " + requestHeaders.length);
+		HttpGet httpGet = new HttpGet(apiUrl);
 
-	    for (Header requestHeader : requestHeaders) {
-		logger.info("request header - name : " + requestHeader.getName() + " value : " + requestHeader.getValue());
-	    }
+		Header[] requestHeaders = httpGet.getAllHeaders();
+		logger.info("request headers length : " + requestHeaders.length);
 
-	    CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
-	    try {
-		logger.info("response status : " + httpResponse.getStatusLine());
-
-		HttpEntity responseEntity = httpResponse.getEntity();
-		Header[] responseHeaders = httpResponse.getAllHeaders();
-		for (Header responseHeader : responseHeaders) {
-		    logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+		for (Header requestHeader : requestHeaders) {
+			logger.info("request header - name : " + requestHeader.getName()
+					+ " value : " + requestHeader.getValue());
 		}
 
-		Header contentType = responseEntity.getContentType();
-		logger.info("response contentType : " + contentType);
+		CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
+		try {
+			logger.info("response status : " + httpResponse.getStatusLine());
 
-		// logger.info("content : " + EntityUtils.toString(responseEntity));
-		response = EntityUtils.toString(responseEntity);
-		EntityUtils.consume(responseEntity);
-	    } finally {
-		httpResponse.close();
-	    }
-	} finally {
-	    httpclient.close();
+			HttpEntity responseEntity = httpResponse.getEntity();
+			Header[] responseHeaders = httpResponse.getAllHeaders();
+			for (Header responseHeader : responseHeaders) {
+				logger.info("response header - name : "
+						+ responseHeader.getName() + " value : "
+						+ responseHeader.getValue());
+			}
+
+			Header contentType = responseEntity.getContentType();
+			logger.info("response contentType : " + contentType);
+
+			// logger.info("content : " + EntityUtils.toString(responseEntity));
+			response = EntityUtils.toString(responseEntity);
+			EntityUtils.consume(responseEntity);
+		} finally {
+			httpResponse.close();
+		}
+
+		return response;
 	}
 
-	return response;
-    }
+	public String process(String apiUrl) throws IOException {
+		String response = "";
+
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+
+		try {
+			response=processHttpRequest(apiUrl, httpclient);
+
+		} finally {
+			httpclient.close();
+		}
+
+		return response;
+	}
+
+	public String process(String apiUrl, String userName, String password)
+			throws IOException {
+		String response = "";
+		BasicHttpAuthHandler basicHttpAuthHandler= new BasicHttpAuthHandler();
+		CloseableHttpClient httpclient=basicHttpAuthHandler.prepareBasicAuth(userName, password);
+
+		try {
+			response=processHttpRequest(apiUrl, httpclient);
+		} finally {
+			httpclient.close();
+		}
+
+		return response;
+	}
 }
