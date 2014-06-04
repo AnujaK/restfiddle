@@ -32,75 +32,70 @@ import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
 
 @Component
 public class GetHandler extends GenericHandler {
-	Logger logger = LoggerFactory.getLogger(GetHandler.class);
+    Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-	public String processHttpRequest(String apiUrl,
-			CloseableHttpClient httpclient) throws IOException {
+    public String processHttpRequest(String apiUrl, CloseableHttpClient httpclient) throws IOException {
 
-		String response;
+	String response;
 
-		HttpGet httpGet = new HttpGet(apiUrl);
+	HttpGet httpGet = new HttpGet(apiUrl);
 
-		Header[] requestHeaders = httpGet.getAllHeaders();
-		logger.info("request headers length : " + requestHeaders.length);
+	Header[] requestHeaders = httpGet.getAllHeaders();
+	logger.info("request headers length : " + requestHeaders.length);
 
-		for (Header requestHeader : requestHeaders) {
-			logger.info("request header - name : " + requestHeader.getName()
-					+ " value : " + requestHeader.getValue());
-		}
-
-		CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
-		try {
-			logger.info("response status : " + httpResponse.getStatusLine());
-
-			HttpEntity responseEntity = httpResponse.getEntity();
-			Header[] responseHeaders = httpResponse.getAllHeaders();
-			for (Header responseHeader : responseHeaders) {
-				logger.info("response header - name : "
-						+ responseHeader.getName() + " value : "
-						+ responseHeader.getValue());
-			}
-
-			Header contentType = responseEntity.getContentType();
-			logger.info("response contentType : " + contentType);
-
-			// logger.info("content : " + EntityUtils.toString(responseEntity));
-			response = EntityUtils.toString(responseEntity);
-			EntityUtils.consume(responseEntity);
-		} finally {
-			httpResponse.close();
-		}
-
-		return response;
+	for (Header requestHeader : requestHeaders) {
+	    logger.info("request header - name : " + requestHeader.getName() + " value : " + requestHeader.getValue());
 	}
 
-	public String process(String apiUrl) throws IOException {
-		String response = "";
+	CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
+	try {
+	    logger.info("response status : " + httpResponse.getStatusLine());
 
-		CloseableHttpClient httpclient = HttpClients.createDefault();
+	    HttpEntity responseEntity = httpResponse.getEntity();
+	    Header[] responseHeaders = httpResponse.getAllHeaders();
+	    for (Header responseHeader : responseHeaders) {
+		logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+	    }
 
-		try {
-			response=processHttpRequest(apiUrl, httpclient);
+	    Header contentType = responseEntity.getContentType();
+	    logger.info("response contentType : " + contentType);
 
-		} finally {
-			httpclient.close();
-		}
-
-		return response;
+	    // logger.info("content : " + EntityUtils.toString(responseEntity));
+	    response = EntityUtils.toString(responseEntity);
+	    EntityUtils.consume(responseEntity);
+	} finally {
+	    httpResponse.close();
 	}
 
-	public String process(String apiUrl, String userName, String password)
-			throws IOException {
-		String response = "";
-		BasicHttpAuthHandler basicHttpAuthHandler= new BasicHttpAuthHandler();
-		CloseableHttpClient httpclient=basicHttpAuthHandler.prepareBasicAuth(userName, password);
+	return response;
+    }
 
-		try {
-			response=processHttpRequest(apiUrl, httpclient);
-		} finally {
-			httpclient.close();
-		}
+    public String process(String apiUrl) throws IOException {
+	String response = "";
 
-		return response;
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+
+	try {
+	    response = processHttpRequest(apiUrl, httpclient);
+
+	} finally {
+	    httpclient.close();
 	}
+
+	return response;
+    }
+
+    public String process(String apiUrl, String userName, String password) throws IOException {
+	String response = "";
+	BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();
+	CloseableHttpClient httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
+
+	try {
+	    response = processHttpRequest(apiUrl, httpclient);
+	} finally {
+	    httpclient.close();
+	}
+
+	return response;
+    }
 }
