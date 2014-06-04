@@ -34,11 +34,11 @@ import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
 public class GetHandler extends GenericHandler {
     Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-    public String processHttpRequest(String apiUrl, CloseableHttpClient httpclient) throws IOException {
+    public String processHttpRequest(HttpGet httpGet , CloseableHttpClient httpclient) throws IOException {
 
 	String response;
 
-	HttpGet httpGet = new HttpGet(apiUrl);
+	
 
 	Header[] requestHeaders = httpGet.getAllHeaders();
 	logger.info("request headers length : " + requestHeaders.length);
@@ -74,9 +74,10 @@ public class GetHandler extends GenericHandler {
 	String response = "";
 
 	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpGet httpGet = new HttpGet(apiUrl);
 
 	try {
-	    response = processHttpRequest(apiUrl, httpclient);
+	    response = processHttpRequest(httpGet, httpclient);
 
 	} finally {
 	    httpclient.close();
@@ -85,13 +86,23 @@ public class GetHandler extends GenericHandler {
 	return response;
     }
 
-    public String process(String apiUrl, String userName, String password) throws IOException {
+    public String process(String apiUrl, String userName, String password,boolean useBasic64Auth) throws IOException {
 	String response = "";
 	BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();
-	CloseableHttpClient httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
+	CloseableHttpClient httpclient=null;
+	HttpGet httpGet = new HttpGet(apiUrl);
+	
+	if(useBasic64Auth)
+	{
+		httpclient = basicHttpAuthHandler.prepareBasicAuthWithBase64Encode(httpGet, userName, password);
+	}
+	else
+	{
+		httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
+	}
 
 	try {
-	    response = processHttpRequest(apiUrl, httpclient);
+	    response = processHttpRequest(httpGet, httpclient);
 	} finally {
 	    httpclient.close();
 	}
