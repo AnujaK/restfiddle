@@ -124,8 +124,7 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div id="response-wrapper">
-								<code> { title : " Folder 1 ", key : "2", folder : true, children : [ { title : " POST http://localhost:8080/modules ", key : "3" }, {
-									title : " GET http://localhost:8080/modules/1 ", key : "4" } </code>
+								<code>  </code>
 							</div>
 						</div>
 					</div>
