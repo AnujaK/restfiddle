@@ -32,8 +32,9 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon">About</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Help</a></li>
+					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
+					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -69,7 +70,16 @@
 			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<div class="form-group">
 					<br>
-					<button class="btn btn-primary" id="run">Run</button>
+					<div class="btn-group">
+						<button class="btn btn-primary" id="run">Run</button>
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
+						</ul>
+					</div>					
+					
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Save</button>
@@ -123,9 +133,7 @@
 					<br> <br>
 					<div class="container-fluid">
 						<div class="row">
-							<div id="response-wrapper">
-								<code>  </code>
-							</div>
+							<div id="response-wrapper"></div>
 						</div>
 					</div>
 				</div>
