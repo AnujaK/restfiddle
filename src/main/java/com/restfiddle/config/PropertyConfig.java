@@ -61,7 +61,7 @@ public class PropertyConfig {
      */
     @Configuration
     @Profile("test")
-    @PropertySource("classpath:env-dev.properties")
+    @PropertySource("classpath:env-test.properties")
     static class Test {
     }
 }
