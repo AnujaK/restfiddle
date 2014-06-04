@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,29 +40,17 @@ public class AppController {
 	model.put("time", new Date());
 	model.put("message", this.message);
 	return "home";
-	// return "sample";
     }
 
-    @RequestMapping(value = "/api/rf", method = RequestMethod.GET)
+    @RequestMapping(value = "/ui/sample", method = RequestMethod.GET)
     public String userForm(Model model) {
-	logger.info("URL : /api/rf and method : GET");
+	logger.info("URL : /ui/sample and method : GET");
 
 	model.addAttribute("user", new User());
 	model.addAttribute("time", new Date());
 	model.addAttribute("message", this.message);
 
-	return "welcome";
-    }
-
-    @RequestMapping(value = "/api/rf", method = RequestMethod.POST)
-    public String userSubmit(@ModelAttribute User user, Model model) {
-	logger.info("URL : /api/rf and method : POST");
-
-	model.addAttribute("user", user);
-	model.addAttribute("time", new Date());
-	model.addAttribute("message", this.message);
-
-	return "result";
+	return "sample";
     }
 
 }
