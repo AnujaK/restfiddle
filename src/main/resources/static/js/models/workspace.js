@@ -5,6 +5,7 @@ var app = app || {};
     'use strict';
 
     app.Workspace = Backbone.Model.extend({
+	urlRoot : "/api/workspaces",
 	defaults : {
 	    name : '',
 	    description : ''

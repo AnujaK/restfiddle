@@ -164,6 +164,23 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="workspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="workspaceModalLabel">New Workspace</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="comingSoon" tabindex="-1" role="dialog" aria-labelledby="comingSoonLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -198,7 +215,7 @@
 		@>
 		<li role="presentation" class="divider"></li>
 		<li role="presentation">
-			<a href="#" role="menuitem" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-plus"></span> New Workspace</a>
+			<a href="#" role="menuitem" data-toggle="modal" data-target="#workspaceModal"><span class="glyphicon glyphicon-plus"></span> New Workspace</a>
 		</li>
 		</ul>
 		</div>

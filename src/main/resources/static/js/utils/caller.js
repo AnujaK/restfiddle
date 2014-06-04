@@ -1,4 +1,9 @@
+/* global Backbone, jQuery, _, ENTER_KEY */
+var app = app || {};
+
 $(function() {
+    'use strict';
+
     function send() {
 	var item = {
 	    apiUrl : $("#apiUrl").val(),
@@ -18,6 +23,16 @@ $(function() {
 	});
     }
 
+    function saveWorkspace() {
+	var newWorkspace = new app.Workspace({
+	    name : $("#workspaceTextField").val(),
+	});
+	newWorkspace.save();
+	// app.workspaces.fetch();
+	// newWorkspace.render();
+    }
+
     $("#run").bind("click", send);
+    $("#saveWorkspaceBtn").bind("click", saveWorkspace);
 
 });
