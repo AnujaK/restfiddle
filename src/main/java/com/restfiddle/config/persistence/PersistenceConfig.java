@@ -27,14 +27,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * Created by santoshm1 on 04/06/14.
- * Moving persistence config out to decouple from Application booter.
- *
+ * Created by santoshm1 on 04/06/14. Moving persistence config out to decouple from Application booter.
+ * 
  */
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"com.restfiddle.dao"})
+@EnableJpaRepositories(basePackages = { "com.restfiddle.dao" })
 public class PersistenceConfig {
 
     @Autowired
@@ -43,13 +42,11 @@ public class PersistenceConfig {
     @Primary
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("database.driver"));
-        dataSource.setUrl(env.getProperty("database.url"));
-        dataSource.setUsername(env.getProperty("database.username"));
-        dataSource.setPassword(env.getProperty("database.password"));
-        return dataSource;
-
+	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	dataSource.setDriverClassName(env.getProperty("database.driver"));
+	dataSource.setUrl(env.getProperty("database.url"));
+	dataSource.setUsername(env.getProperty("database.username"));
+	dataSource.setPassword(env.getProperty("database.password"));
+	return dataSource;
     }
-
 }

@@ -23,63 +23,42 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 public class BasicHttpAuthHandler {
-	
-	public BasicHttpAuthHandler()
-	{
-		
-	}
 
-   /* public void Base64Auth() {
+    public BasicHttpAuthHandler() {
 
-	String authStr = "user1" + ":" + "user1";
-
-	String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
-
-	HttpPost httppost = new HttpPost("http://test.webdav.org/auth-basic/");
-	httppost.setHeader("Authorization", "Basic " + encoding);
-
-	System.out.println("executing request " + httppost.getRequestLine());
-	HttpClient client = HttpClientBuilder.create().build();
-	HttpResponse response = null;
-	try {
-	    response = client.execute(httppost);
-	} catch (ClientProtocolException e) {
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	int statusCode = response.getStatusLine().getStatusCode();
-	System.out.println(statusCode);
     }
 
-    public void processAuth() {
-	try {
-	    BasicHttpAuthHandler authHandler = new BasicHttpAuthHandler();
-	    authHandler.Base64Auth();
-	    CredentialsProvider provider = new BasicCredentialsProvider();
-	    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("user1", "user1");
-	    provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
-	    HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+    /*
+     * public void Base64Auth() {
+     * 
+     * String authStr = "user1" + ":" + "user1";
+     * 
+     * String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
+     * 
+     * HttpPost httppost = new HttpPost("http://test.webdav.org/auth-basic/"); httppost.setHeader("Authorization", "Basic " + encoding);
+     * 
+     * System.out.println("executing request " + httppost.getRequestLine()); HttpClient client = HttpClientBuilder.create().build(); HttpResponse
+     * response = null; try { response = client.execute(httppost); } catch (ClientProtocolException e) { e.printStackTrace(); } catch (IOException e)
+     * { e.printStackTrace(); } int statusCode = response.getStatusLine().getStatusCode(); System.out.println(statusCode); }
+     * 
+     * public void processAuth() { try { BasicHttpAuthHandler authHandler = new BasicHttpAuthHandler(); authHandler.Base64Auth(); CredentialsProvider
+     * provider = new BasicCredentialsProvider(); UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("user1", "user1");
+     * provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials); HttpClient client =
+     * HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+     * 
+     * HttpResponse response = client.execute(new HttpGet("http://test.webdav.org/auth-basic/")); int statusCode =
+     * response.getStatusLine().getStatusCode(); System.out.println(statusCode);
+     * 
+     * } catch (ClientProtocolException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } }
+     */
 
-	    HttpResponse response = client.execute(new HttpGet("http://test.webdav.org/auth-basic/"));
-	    int statusCode = response.getStatusLine().getStatusCode();
-	    System.out.println(statusCode);
+    public CloseableHttpClient prepareBasicAuth(String userName, String password) {
+	CredentialsProvider provider = new BasicCredentialsProvider();
+	UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(userName, userName);
+	provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
+	CloseableHttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
 
-	} catch (ClientProtocolException e) {
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-    }*/
-    
-    public CloseableHttpClient prepareBasicAuth(String userName, String password)
-    {
-    	CredentialsProvider provider = new BasicCredentialsProvider();
-	    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(userName, userName);
-	    provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
-	    CloseableHttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
-	    
-	    return client;
-    	
+	return client;
+
     }
 }

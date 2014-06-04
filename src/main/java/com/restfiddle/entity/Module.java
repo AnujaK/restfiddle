@@ -20,5 +20,5 @@ import javax.persistence.Entity;
 @Entity
 public class Module extends BaseEntity {
     private static final long serialVersionUID = 1L;
-    
+
 }

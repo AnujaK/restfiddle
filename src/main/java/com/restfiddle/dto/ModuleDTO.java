@@ -15,6 +15,6 @@
  */
 package com.restfiddle.dto;
 
-public class ModuleDTO extends BaseDTO{
+public class ModuleDTO extends BaseDTO {
 
 }

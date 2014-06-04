@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Ranjan Kumar, Santosh Mishra
+ * Copyright 2014 Ranjan Kumar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
 public class RestFiddleApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(RestFiddleApplication.class, args);
+	SpringApplication.run(RestFiddleApplication.class, args);
     }
 
 }

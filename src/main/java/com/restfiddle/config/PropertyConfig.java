@@ -24,21 +24,17 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
  * Created by santoshm1 on 04/06/14.
- *
- * Adds support for runtime property files.
- * Run with -Dspring.profiles.active={production,default,development,test}
- * defaults to development.
- *
+ * 
+ * Adds support for runtime property files. Run with -Dspring.profiles.active={production,default,development,test} defaults to development.
+ * 
  */
 
 @Configuration
-@PropertySource({"classpath:common.properties"})
-public class PropertyConfig
-{
+@PropertySource({ "classpath:common.properties" })
+public class PropertyConfig {
     static @Bean
-    public PropertySourcesPlaceholderConfigurer myPropertySourcesPlaceholderConfigurer()
-    {
-        return new PropertySourcesPlaceholderConfigurer();
+    public PropertySourcesPlaceholderConfigurer myPropertySourcesPlaceholderConfigurer() {
+	return new PropertySourcesPlaceholderConfigurer();
     }
 
     /**
@@ -47,20 +43,17 @@ public class PropertyConfig
     @Configuration
     @Profile("production")
     @PropertySource("classpath:env-production.properties")
-    static class Production
-    {
-        // Define additional beans for this profile here
+    static class Production {
+	// Define additional beans for this profile here
     }
-
 
     /**
      * Properties to support the 'test' mode of operation.
      */
     @Configuration
-    @Profile({"devlopment", "default"})
+    @Profile({ "devlopment", "default" })
     @PropertySource("classpath:env-development.properties")
-    static class Dev
-    {
+    static class Dev {
     }
 
     /**
@@ -69,7 +62,6 @@ public class PropertyConfig
     @Configuration
     @Profile("test")
     @PropertySource("classpath:env-dev.properties")
-    static class Test
-    {
+    static class Test {
     }
 }
