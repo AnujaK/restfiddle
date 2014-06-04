@@ -185,7 +185,9 @@
 			});
 		@>
 		<li role="presentation" class="divider"></li>
-		<li role="presentation"><a role="menuitem" href="#"><span class="glyphicon glyphicon-plus"></span> New Workspace</a></li>
+		<li role="presentation">
+			<a href="#" role="menuitem" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-plus"></span> New Workspace</a>
+		</li>
 		</ul>
 		</div>
 	</script>
