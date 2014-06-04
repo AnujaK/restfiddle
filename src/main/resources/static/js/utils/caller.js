@@ -11,8 +11,8 @@ $(function() {
 	    dataType : 'json',
 	    contentType : "application/json",
 	    success : function(response) {
+		console.log("####" + response);
 		$("#response-wrapper").html(JSON.stringify(response));
-		console.log("####" + response.name);
 	    },
 	    data : JSON.stringify(item)
 	});

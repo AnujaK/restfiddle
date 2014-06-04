@@ -25,6 +25,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dto.RfRequestDTO;
@@ -40,6 +41,7 @@ public class ApiController {
     RequestHandler requestHandler;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    return requestHandler.handleGet(rfRequestDTO.getApiUrl());
