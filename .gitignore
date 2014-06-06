@@ -25,3 +25,6 @@
 #idea specific
 .idea
 *.iml
+
+#netbeans specific
+nb-configuration.xml

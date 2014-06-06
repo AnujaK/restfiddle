@@ -16,51 +16,28 @@
 package com.restfiddle.handler.http;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PostHandler {
+public class PostHandler extends GenericHandler {
+
     Logger logger = LoggerFactory.getLogger(PostHandler.class);
 
-    public void process() throws IOException {
-
-	CloseableHttpClient httpclient = HttpClients.createDefault();
-	try {
-	    HttpPost httpPost = new HttpPost("http://targethost/login");
-
-	    List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-	    nvps.add(new BasicNameValuePair("username", "vip"));
-	    nvps.add(new BasicNameValuePair("password", "secret"));
-
-	    httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-
-	    CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
-
-	    try {
-		logger.info("http response status : " + httpResponse.getStatusLine());
-		HttpEntity responseEntity = httpResponse.getEntity();
-
-		EntityUtils.consume(responseEntity);
-	    } finally {
-		httpResponse.close();
-	    }
-	} finally {
-	    httpclient.close();
-	}
-
+    public String process(String apiUrl) throws IOException {
+        String response = "";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(apiUrl);
+        try {
+            response = processHttpRequest(httpPost, httpclient);
+        } finally {
+            httpclient.close();
+        }
+        return response;
     }
+
 }

@@ -15,13 +15,15 @@
  */
 package com.restfiddle.handler;
 
-import java.io.IOException;
+import com.restfiddle.handler.http.DeleteHandler;
+import com.restfiddle.handler.http.GenericHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.handler.http.GetHandler;
 import com.restfiddle.handler.http.PostHandler;
+import com.restfiddle.handler.http.PutHandler;
 
 @Component
 public class RequestHandler extends AbstractRequestHandler {
@@ -32,11 +34,24 @@ public class RequestHandler extends AbstractRequestHandler {
     @Autowired
     PostHandler postHandler;
 
-    public String handleGet(String apiUrl) throws IOException {
-	return getHandler.process(apiUrl);
+    @Autowired
+    PutHandler putHandler;
+
+    @Autowired
+    DeleteHandler deleteHandler;
+
+    public GenericHandler getHandler(String methodType) {
+        switch (methodType.toLowerCase()) {
+            case "get":
+                return getHandler;
+            case "put":
+                return putHandler;
+            case "delete":
+                return deleteHandler;
+            case "post":
+                return postHandler;
+        }
+        return getHandler;
     }
 
-    public void handlePost() throws IOException {
-	postHandler.process();
-    }
 }
