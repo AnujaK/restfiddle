@@ -16,23 +16,28 @@
 package com.restfiddle.handler.http;
 
 import java.io.IOException;
+
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.RfRequestDTO;
+
 @Component
 public class PostHandler extends GenericHandler {
 
     Logger logger = LoggerFactory.getLogger(PostHandler.class);
 
-    public String process(String apiUrl) throws IOException {
+    public String process(RfRequestDTO rfRequestDTO) throws IOException {
 	String response = "";
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpPost httpPost = new HttpPost(apiUrl);
+	HttpPost httpPost = new HttpPost(rfRequestDTO.getApiUrl());
 	httpPost.addHeader("Content-Type", "application/json");
+	httpPost.setEntity(new StringEntity(rfRequestDTO.getApiBody()));
 	try {
 	    response = processHttpRequest(httpPost, httpclient);
 	} finally {

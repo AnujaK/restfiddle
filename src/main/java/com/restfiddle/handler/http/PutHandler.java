@@ -22,19 +22,21 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.RfRequestDTO;
+
 @Component
 public class PutHandler extends GenericHandler {
 
-    public String process(String apiUrl) throws IOException {
-        String response = "";
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPut httpPost = new HttpPut(apiUrl);
-        try {
-            response = processHttpRequest(httpPost, httpclient);
-        } finally {
-            httpclient.close();
-        }
-        return response;
+    public String process(RfRequestDTO rfRequestDTO) throws IOException {
+	String response = "";
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpPut httpPost = new HttpPut(rfRequestDTO.getApiUrl());
+	try {
+	    response = processHttpRequest(httpPost, httpclient);
+	} finally {
+	    httpclient.close();
+	}
+	return response;
     }
 
 }

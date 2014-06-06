@@ -44,14 +44,14 @@ public class ApiController {
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
-        try {
-            GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
-            return handler.process(rfRequestDTO.getApiUrl());
+	try {
+	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+	    return handler.process(rfRequestDTO);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+	return "Error!";
     }
 
 }

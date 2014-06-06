@@ -16,6 +16,7 @@
 package com.restfiddle.handler.http;
 
 import java.io.IOException;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -25,41 +26,44 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.restfiddle.dto.RfRequestDTO;
+
 public abstract class GenericHandler {
-    
-     Logger logger = LoggerFactory.getLogger(GenericHandler.class);
-    
+
+    Logger logger = LoggerFactory.getLogger(GenericHandler.class);
+
     public String processHttpRequest(HttpRequestBase baseRequest, CloseableHttpClient httpclient) throws IOException {
 
-        Header[] requestHeaders = baseRequest.getAllHeaders();
-        logger.info("request headers length : " + requestHeaders.length);
+	Header[] requestHeaders = baseRequest.getAllHeaders();
+	logger.info("request headers length : " + requestHeaders.length);
 
-        for (Header requestHeader : requestHeaders) {
-            logger.info("request header - name : " + requestHeader.getName() + " value : " + requestHeader.getValue());
-        }
+	for (Header requestHeader : requestHeaders) {
+	    logger.info("request header - name : " + requestHeader.getName() + " value : " + requestHeader.getValue());
+	}
 
-        CloseableHttpResponse httpResponse = httpclient.execute(baseRequest);
+	CloseableHttpResponse httpResponse = httpclient.execute(baseRequest);
 
-        String response = "";
-        try {
-            logger.info("response status : " + httpResponse.getStatusLine());
-            HttpEntity responseEntity = httpResponse.getEntity();
-            Header[] responseHeaders = httpResponse.getAllHeaders();
-            for (Header responseHeader : responseHeaders) {
-                logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
-            }
+	String response = "";
+	try {
+	    logger.info("response status : " + httpResponse.getStatusLine());
+	    HttpEntity responseEntity = httpResponse.getEntity();
+	    Header[] responseHeaders = httpResponse.getAllHeaders();
+	    for (Header responseHeader : responseHeaders) {
+		logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+	    }
 
-            Header contentType = responseEntity.getContentType();
-            logger.info("response contentType : " + contentType);
+	    Header contentType = responseEntity.getContentType();
+	    logger.info("response contentType : " + contentType);
 
-            // logger.info("content : " + EntityUtils.toString(responseEntity));
-            response = EntityUtils.toString(responseEntity);
-            EntityUtils.consume(responseEntity);
-        } finally {
-            httpResponse.close();
-        }
+	    // logger.info("content : " + EntityUtils.toString(responseEntity));
+	    response = EntityUtils.toString(responseEntity);
+	    EntityUtils.consume(responseEntity);
+	} finally {
+	    httpResponse.close();
+	}
 
-        return response;
+	return response;
     }
-     public abstract String process(String apiUrl) throws IOException;
+
+    public abstract String process(RfRequestDTO rfRequestDTO) throws IOException;
 }

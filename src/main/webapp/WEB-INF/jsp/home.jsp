@@ -131,7 +131,7 @@
 						<li><a href="#">Auth</a></li>
 					</ul>
 					<br>
-					<textarea id="apiBody" style="width: 100%"></textarea>
+					<textarea id="apiBody" style="width: 100%; height: 70px;"></textarea>
 					<hr>
 					<span>Response</span>
 					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
