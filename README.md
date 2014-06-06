@@ -123,7 +123,7 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 - Make your changes
 - Make sure everything is working fine
 - Submit a pull request
-([how to create a pull request](https://help.github.com/articles/fork-a-repo))
+([how to create a pull request](https://help.github.com/articles/creating-a-pull-request))
 
 Note : How to fork a repo - https://help.github.com/articles/fork-a-repo
  

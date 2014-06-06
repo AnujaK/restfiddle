@@ -2,14 +2,14 @@
 var app = app || {};
 
 (function($) {
-	function commonService(){
-		
+    function commonService() {
+
+    }
+    commonService.prototype = {
+	saveWorkspace : function(workSpaceModel, successcb, failcb) {
+	    var url = "/api/workspaces";
+	    app.apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
 	}
-	commonService.prototype = {
-		saveWorkspace : function(workSpaceModel,successcb,failcb){
-			var url = "/api/workspaces";
-			app.apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
-		}	
-	};
-	app.commonService = commonService;
+    };
+    app.commonService = commonService;
 })(jQuery);

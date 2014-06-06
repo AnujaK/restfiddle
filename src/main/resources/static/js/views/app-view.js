@@ -13,13 +13,11 @@ var app = app || {};
 	    var view = new app.WorkspaceView({
 		model : app.workspaces
 	    });
-	    
 	    this.render();
 	},
 
 	render : function() {
 	    console.log("app-view#render");
-	    //$('#tree').append(view.render().el);
 	}
     });
 })(jQuery);
