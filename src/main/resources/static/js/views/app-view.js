@@ -10,7 +10,6 @@ var app = app || {};
 	},
 
 	initialize : function() {
-
 	    var view = new app.WorkspaceView({
 		model : app.workspaces
 	    });

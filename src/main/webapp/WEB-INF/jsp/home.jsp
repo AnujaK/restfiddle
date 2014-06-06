@@ -231,7 +231,8 @@
 
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
-
+	<script src="js/utils/caller.js"></script>
+	<script src="js/services/common-service.js"></script>
 	<script src="js/models/workspace.js"></script>
 	<script src="js/collections/workspaces.js"></script>
 	<script src="js/views/workspace-view.js"></script>
@@ -239,7 +240,6 @@
 	<script src="js/routers/workspace-router.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/utils/tree.js"></script>
-	<script src="js/utils/caller.js"></script>
 </body>
 
 </html>

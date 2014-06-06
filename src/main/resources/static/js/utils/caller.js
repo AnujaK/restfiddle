@@ -34,5 +34,50 @@ $(function() {
 
     $("#run").bind("click", send);
     $("#saveWorkspaceBtn").bind("click", saveWorkspace);
+    function apiRestRequestPost(url, postData, callbackOnSuccess, options, callbackOnFailure){
+    	        var ad = this;
+    	        var defaultOptions = {
+    	            url: url,
+    	            success: function (response) {
+    	            	if(callbackOnSuccess){
+    	            	callbackOnSuccess(response);
+    	            	}
+    	            },
+    	            type: "POST",
+    	            data: JSON.stringify(postData),
+    	            dataType: "json",
+    	            contentType: "application/json",
+    	            mimeType: "application/json",
+    	            async: true,
+    	            error: function (jqXHR, textStatus, errorThrown) {
+    	                if(callbackOnFailure){
+    	                	callbackOnFailure(jqXHR, textStatus, errorThrown);
+    	                }
+    	            }
+    	        };
+    	        options = $.extend(defaultOptions, options);
+
+    	        $.ajax(options);
+    		};
+    		function apiRestRequestGet (url, postData, callbackOnSuccess, options, callbackOnFailure){
+            var defaultOptions = {
+                url: url,
+                success: function (response) {
+	            	if(callbackOnSuccess){
+    	            	callbackOnSuccess(response);
+    	            	}
+                },
+                type: "GET",
+                async: false,
+                error: function (jqXHR, textStatus, errorThrown) {
+	                if(callbackOnFailure){
+	                	callbackOnFailure(jqXHR, textStatus, errorThrown);
+	                }
+                }
+            };
+
+            options = $.extend(defaultOptions, options);
+            $.ajax(options);
+    	};
 
 });
