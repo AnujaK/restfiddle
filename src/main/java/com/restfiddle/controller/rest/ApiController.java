@@ -15,8 +15,10 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.io.IOException;
-
+import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.exceptions.ApiException;
+import com.restfiddle.handler.RequestHandler;
+import com.restfiddle.handler.http.GenericHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.dto.RfRequestDTO;
-import com.restfiddle.handler.RequestHandler;
-import com.restfiddle.handler.http.GenericHandler;
+import java.io.IOException;
 
 @RestController
 @EnableAutoConfiguration
@@ -42,16 +41,14 @@ public class ApiController {
     @Autowired
     RequestHandler requestHandler;
 
-    @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    String processor(@RequestBody RfRequestDTO rfRequestDTO) {
-        try {
-            GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
-            return handler.process(rfRequestDTO.getApiUrl());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
+    @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json") String processor(
+		    @RequestBody RfRequestDTO rfRequestDTO) {
+	try {
+	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+	    return handler.process(rfRequestDTO.getApiUrl());
+	} catch (IOException e) {
+	    logger.error("IO Exception", e);
+	    throw new ApiException(e);
+	}
     }
-
 }
