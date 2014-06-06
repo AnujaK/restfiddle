@@ -119,7 +119,7 @@
 								</select>
 							</div>
 							<div class="col-xs-10">
-								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url">
+								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
 							</div>
 						</div>
 					</div>
@@ -131,6 +131,7 @@
 						<li><a href="#">Auth</a></li>
 					</ul>
 					<br>
+					<textarea id="apiBody" style="width: 100%"></textarea>
 					<hr>
 					<span>Response</span>
 					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>

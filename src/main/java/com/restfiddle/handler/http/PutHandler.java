@@ -16,7 +16,7 @@
 package com.restfiddle.handler.http;
 
 import java.io.IOException;
-import org.apache.http.client.methods.HttpPost;
+
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;

@@ -7,7 +7,8 @@ $(function() {
     function send() {
 	var item = {
 	    apiUrl : $("#apiUrl").val(),
-	    methodType :$(".apiRequestType").val()
+	    methodType : $(".apiRequestType").val(),
+	    apiBody : $("#apiBody").val()
 	};
 
 	$.ajax({

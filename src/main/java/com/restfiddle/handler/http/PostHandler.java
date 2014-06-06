@@ -29,15 +29,16 @@ public class PostHandler extends GenericHandler {
     Logger logger = LoggerFactory.getLogger(PostHandler.class);
 
     public String process(String apiUrl) throws IOException {
-        String response = "";
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(apiUrl);
-        try {
-            response = processHttpRequest(httpPost, httpclient);
-        } finally {
-            httpclient.close();
-        }
-        return response;
+	String response = "";
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpPost httpPost = new HttpPost(apiUrl);
+	httpPost.addHeader("Content-Type", "application/json");
+	try {
+	    response = processHttpRequest(httpPost, httpclient);
+	} finally {
+	    httpclient.close();
+	}
+	return response;
     }
 
 }

@@ -18,6 +18,7 @@ package com.restfiddle.dto;
 public class RfRequestDTO extends BaseDTO {
     private String apiUrl;
     private String methodType;
+    private String apiBody;
 
     public String getApiUrl() {
 	return apiUrl;
@@ -33,5 +34,13 @@ public class RfRequestDTO extends BaseDTO {
 
     public void setMethodType(String methodType) {
 	this.methodType = methodType;
+    }
+
+    public String getApiBody() {
+	return apiBody;
+    }
+
+    public void setApiBody(String apiBody) {
+	this.apiBody = apiBody;
     }
 }

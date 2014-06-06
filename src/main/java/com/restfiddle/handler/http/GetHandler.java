@@ -31,38 +31,36 @@ public class GetHandler extends GenericHandler {
 
     Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-    
-
     public String process(String apiUrl) throws IOException {
-        String response = "";
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(apiUrl);
-        try {
-            response = processHttpRequest(httpGet, httpclient);
+	String response = "";
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpGet httpGet = new HttpGet(apiUrl);
+	try {
+	    response = processHttpRequest(httpGet, httpclient);
 
-        } finally {
-            httpclient.close();
-        }
-        return response;
+	} finally {
+	    httpclient.close();
+	}
+	return response;
     }
 
     public String process(String apiUrl, String userName, String password, boolean useBasic64Auth) throws IOException {
-        String response = "";
+	String response = "";
 
-        CloseableHttpClient httpclient = null;
-        BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();
-        HttpGet httpRequest = new HttpGet(apiUrl);
-        if (useBasic64Auth) {
-            httpclient = basicHttpAuthHandler.prepareBasicAuthWithBase64Encode(httpRequest, userName, password);
-        } else {
-            httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
-        }
-        try {
-            response = processHttpRequest(httpRequest, httpclient);
-        } finally {
-            httpclient.close();
-        }
+	CloseableHttpClient httpclient = null;
+	BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();
+	HttpGet httpRequest = new HttpGet(apiUrl);
+	if (useBasic64Auth) {
+	    httpclient = basicHttpAuthHandler.prepareBasicAuthWithBase64Encode(httpRequest, userName, password);
+	} else {
+	    httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
+	}
+	try {
+	    response = processHttpRequest(httpRequest, httpclient);
+	} finally {
+	    httpclient.close();
+	}
 
-        return response;
+	return response;
     }
 }

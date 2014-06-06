@@ -41,17 +41,17 @@ public class RequestHandler extends AbstractRequestHandler {
     DeleteHandler deleteHandler;
 
     public GenericHandler getHandler(String methodType) {
-        switch (methodType.toLowerCase()) {
-            case "get":
-                return getHandler;
-            case "put":
-                return putHandler;
-            case "delete":
-                return deleteHandler;
-            case "post":
-                return postHandler;
-        }
-        return getHandler;
+	switch (methodType.toLowerCase()) {
+	case "get":
+	    return getHandler;
+	case "put":
+	    return putHandler;
+	case "delete":
+	    return deleteHandler;
+	case "post":
+	    return postHandler;
+	}
+	return getHandler;
     }
 
 }
