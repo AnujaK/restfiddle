@@ -15,6 +15,7 @@
  */
 package com.restfiddle.handler;
 
+import com.restfiddle.handler.http.DeleteHandler;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import com.restfiddle.handler.http.GetHandler;
 import com.restfiddle.handler.http.PostHandler;
+import com.restfiddle.handler.http.PutHandler;
 
 @Component
 public class RequestHandler extends AbstractRequestHandler {
@@ -32,11 +34,25 @@ public class RequestHandler extends AbstractRequestHandler {
     @Autowired
     PostHandler postHandler;
 
+    @Autowired
+    PutHandler putHandler;
+
+    @Autowired
+    DeleteHandler deleteHandler;
+
     public String handleGet(String apiUrl) throws IOException {
-	return getHandler.process(apiUrl);
+        return getHandler.process(apiUrl);
     }
 
-    public void handlePost() throws IOException {
-	postHandler.process();
+    public void handlePost(String apiUrl) throws IOException {
+        postHandler.process(apiUrl);
+    }
+
+    public void handlePut(String apiUrl) throws IOException {
+        putHandler.process(apiUrl);
+    }
+
+    public void handleDelete(String apiUrl) throws IOException {
+        deleteHandler.process(apiUrl);
     }
 }
