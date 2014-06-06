@@ -25,10 +25,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.RequestHandler;
 import com.restfiddle.handler.http.GenericHandler;
 
@@ -49,9 +49,9 @@ public class ApiController {
 	    return handler.process(rfRequestDTO);
 
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    logger.error("IO Exception", e);
+	    throw new ApiException(e);
 	}
-	return "Error!";
     }
 
 }
