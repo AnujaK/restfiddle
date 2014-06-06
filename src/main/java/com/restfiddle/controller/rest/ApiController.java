@@ -30,24 +30,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.handler.RequestHandler;
+import com.restfiddle.handler.http.GenericHandler;
 
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
 public class ApiController {
+
     Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
     RequestHandler requestHandler;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    public @ResponseBody
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
-	try {
-	    return requestHandler.handleGet(rfRequestDTO.getApiUrl());
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	return "Error!";
+        try {
+            GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+            return handler.process(rfRequestDTO.getApiUrl());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Error!";
     }
+
 }

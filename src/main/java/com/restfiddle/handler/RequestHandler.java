@@ -16,7 +16,7 @@
 package com.restfiddle.handler;
 
 import com.restfiddle.handler.http.DeleteHandler;
-import java.io.IOException;
+import com.restfiddle.handler.http.GenericHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,19 +40,18 @@ public class RequestHandler extends AbstractRequestHandler {
     @Autowired
     DeleteHandler deleteHandler;
 
-    public String handleGet(String apiUrl) throws IOException {
-        return getHandler.process(apiUrl);
+    public GenericHandler getHandler(String methodType) {
+        switch (methodType.toLowerCase()) {
+            case "get":
+                return getHandler;
+            case "put":
+                return putHandler;
+            case "delete":
+                return deleteHandler;
+            case "post":
+                return postHandler;
+        }
+        return getHandler;
     }
 
-    public void handlePost(String apiUrl) throws IOException {
-        postHandler.process(apiUrl);
-    }
-
-    public void handlePut(String apiUrl) throws IOException {
-        putHandler.process(apiUrl);
-    }
-
-    public void handleDelete(String apiUrl) throws IOException {
-        deleteHandler.process(apiUrl);
-    }
 }

@@ -15,13 +15,26 @@
  */
 package com.restfiddle.handler.http;
 
+import java.io.IOException;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeleteHandler {
+public class DeleteHandler extends GenericHandler {
 
-    public void process(String apiUrl) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String process(String apiUrl) throws IOException {
+        String response = "";
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpDelete httpPost = new HttpDelete(apiUrl);
+        try {
+            response = processHttpRequest(httpPost, httpclient);
+        } finally {
+            httpclient.close();
+        }
+        return response;
     }
 
 }
