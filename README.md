@@ -42,7 +42,7 @@ mvn clean install
 ##### Run
 
 ```
-MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run
+mvn spring-boot:run
 ```
 
 ##### Access
@@ -60,7 +60,7 @@ mvnDebug spring-boot:run
 Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
 
 ```
-MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvnDebug spring-boot:run 
+MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run 
 ```
 
 ##### MySQL configuration:
@@ -112,11 +112,21 @@ Technology Stack
 * Tomcat (http://tomcat.apache.org/)
 
 
-Coding Guidelines
+Contribute
 ==========
 
-The contributing guidelines are in [CONTRIBUTING.md](https://github.com/ranjan-rk/restfiddle/blob/master/CONTRIBUTING.md)
+You're interested in contributing to RESTFiddle? AWESOME. Here are the basic steps:
 
+- Make sure you have a [GitHub Account](https://github.com/signup/free)
+- Fork RESTFiddle from here : https://github.com/ranjan-rk/restfiddle/
+- Clone your fork  
+- Make your changes
+- Make sure everything is working fine
+- Submit a pull request
+([how to create a pull request](https://help.github.com/articles/fork-a-repo))
+
+Note : How to fork a repo - https://help.github.com/articles/fork-a-repo
+ 
 Release Date
 ==========
 
