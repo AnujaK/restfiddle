@@ -3,7 +3,6 @@ var app = app || {};
 
 (function($) {
     'use strict';
-
     app.WorkspaceView = Backbone.View.extend({
 	tagName : 'li',
 	el : '#dd-workspace-wrapper',
@@ -15,7 +14,7 @@ var app = app || {};
 	},
 	bindEvent : function(selector,callback){
 		var self = this;
-    	$(selector).click(function(){
+    	$(selector).unbind("click").click(function(){
     		if(callback){
     		callback();
     		}
@@ -33,7 +32,6 @@ var app = app || {};
 	    $(this.el).html(this.template({
 		list : this.model.toJSON()
 	    }));
-	    // we are binding event using jquery because save button is part of Modal window and modal window is not a child of el mentioned baove.
 	    self.bindEvent("#saveWorkspaceBtn",self.saveWorkSpace);
 	    // $('#tree').append(view.render().el);
 	    // console.log(eventName + ">>>" + app.workspaces.toJSON());
@@ -44,11 +42,12 @@ var app = app || {};
 		var wkView = this;
 	    var newModel = new app.Workspace();
 	    newModel.set({
-	    	"name" : "check"
+	    	"name" : $("#workspaceTextField").val()
 	    });
 	 //   newModel.save();
-	    wkView.services.saveWorkspace(newModel.oJSON(),wkView.onSaveWorkspceSuc,wkView.onSaveWorkspceSuc);
+	    wkView.services.saveWorkspace(newModel.toJSON(),wkView.onSaveWorkspceSuc,wkView.onSaveWorkspceSuc);
 	    wkView.model.add(newModel);
+	    wkView.render();
 	},
 	onSaveWorkspceSuc : function(responseData){
 	    $('#workspaceModal').modal("hide");

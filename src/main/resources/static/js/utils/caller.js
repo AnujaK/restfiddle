@@ -79,5 +79,6 @@ $(function() {
             options = $.extend(defaultOptions, options);
             $.ajax(options);
     	};
-
+    	app.apiRestRequestPost = apiRestRequestPost;
+    	app.apiRestRequestGet = apiRestRequestGet;
 });

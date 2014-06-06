@@ -7,8 +7,8 @@ var app = app || {};
 	}
 	commonService.prototype = {
 		saveWorkspace : function(workSpaceModel,successcb,failcb){
-			var url = "";
-			apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
+			var url = "/api/workspaces";
+			app.apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
 		}	
 	};
 	app.commonService = commonService;
