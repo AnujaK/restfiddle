@@ -50,6 +50,7 @@
 				<div id="dd-workspace-wrapper"></div>
 				<hr>
 				<ul class="nav nav-sidebar">
+					<li></li>
 					<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
@@ -57,6 +58,7 @@
 				</ul>
 				<hr>
 				<ul class="nav nav-sidebar">
+					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-plus"></span> New Project</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
@@ -131,7 +133,7 @@
 						<li><a href="#">Auth</a></li>
 					</ul>
 					<br>
-					<textarea id="apiBody" style="width: 100%; height: 70px;"></textarea>
+					<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
 					<hr>
 					<span>Response</span>
 					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
