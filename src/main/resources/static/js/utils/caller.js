@@ -33,8 +33,8 @@ $(function() {
 
     $("#run").bind("click", send);
     $("#saveWorkspaceBtn").bind("click", saveWorkspace);
+
     function apiRestRequestPost(url, postData, callbackOnSuccess, options, callbackOnFailure) {
-	var ad = this;
 	var defaultOptions = {
 	    url : url,
 	    success : function(response) {

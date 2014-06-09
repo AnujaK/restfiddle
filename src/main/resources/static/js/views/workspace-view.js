@@ -21,7 +21,7 @@ var app = app || {};
 	    });
 	},
 	initialize : function() {
-	    _(this).bindAll('saveWorkSpace');
+	    _(this).bindAll('saveWorkspace');
 	    this.listenTo(app.workspaces, 'sync', this.render);
 	    app.workspaces.fetch();
 	},
@@ -32,10 +32,10 @@ var app = app || {};
 	    $(this.el).html(this.template({
 		list : this.model.toJSON()
 	    }));
-	    self.bindEvent("#saveWorkspaceBtn", self.saveWorkSpace);
+	    self.bindEvent("#saveWorkspaceBtn", self.saveWorkspace);
 	    return this;
 	},
-	saveWorkSpace : function() {
+	saveWorkspace : function() {
 	    var wkView = this;
 	    var newModel = new app.Workspace();
 	    newModel.set({
