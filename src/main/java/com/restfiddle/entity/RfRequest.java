@@ -16,13 +16,14 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 @Entity
 public class RfRequest extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(mappedBy = "rfRequest")
+    @OneToOne(fetch = FetchType.LAZY)
     private Item item;
 
     public Item getItem() {

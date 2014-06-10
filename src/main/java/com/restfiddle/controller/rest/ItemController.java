@@ -35,6 +35,8 @@ import com.restfiddle.dao.ItemRepository;
 import com.restfiddle.dto.ItemDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.entity.Item;
+import com.restfiddle.entity.RfRequest;
+import com.restfiddle.entity.RfResponse;
 
 @RestController
 @EnableAutoConfiguration
@@ -55,6 +57,14 @@ public class ItemController {
 
 	item.setName(itemDTO.getName());
 	item.setDescription(itemDTO.getDescription());
+	
+	RfRequest rfRequest = new RfRequest();
+	rfRequest.setName("req1");
+	item.setRfRequest(rfRequest);
+	
+	RfResponse rfResponse = new RfResponse();
+	rfResponse.setName("res1");
+	item.setRfResponse(rfResponse);
 
 	return itemRepository.save(item);
     }

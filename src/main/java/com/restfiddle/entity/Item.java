@@ -15,17 +15,19 @@
  */
 package com.restfiddle.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Item extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private RfRequest rfRequest;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private RfResponse rfResponse;
 
     public RfRequest getRfRequest() {
