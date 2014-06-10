@@ -30,9 +30,10 @@ public class DeleteHandler extends GenericHandler {
     public String process(RfRequestDTO rfRequestDTO) throws IOException {
 	String response = "";
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpDelete httpPost = new HttpDelete(rfRequestDTO.getApiUrl());
+	HttpDelete httpDelete = new HttpDelete(rfRequestDTO.getApiUrl());
+	httpDelete.addHeader("Content-Type", "application/json");
 	try {
-	    response = processHttpRequest(httpPost, httpclient);
+	    response = processHttpRequest(httpDelete, httpclient);
 	} finally {
 	    httpclient.close();
 	}

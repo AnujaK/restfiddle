@@ -15,6 +15,7 @@
  */
 package com.restfiddle.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Workspace extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workspace")
     @JsonManagedReference
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<Project>();
 
     public List<Project> getProjects() {
 	return projects;
