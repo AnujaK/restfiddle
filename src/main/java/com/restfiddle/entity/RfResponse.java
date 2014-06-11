@@ -15,29 +15,35 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class RfResponse extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    
-    @Column(columnDefinition="TEXT")
     private String body;
 
-	public String getBody() {
-		return body;
-	}
+    @OneToOne(mappedBy = "rfResponse")
+    @JsonBackReference
+    private Item item;
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public String getBody() {
+	return body;
+    }
+
+    public void setBody(String body) {
+	this.body = body;
+    }
+
+    public Item getItem() {
+	return item;
+    }
+
+    public void setItem(Item item) {
+	this.item = item;
+    }
 
 }

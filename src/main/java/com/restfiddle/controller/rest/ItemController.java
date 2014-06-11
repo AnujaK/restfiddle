@@ -23,6 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,11 +60,11 @@ public class ItemController {
 
 	item.setName(itemDTO.getName());
 	item.setDescription(itemDTO.getDescription());
-	
+
 	RfRequest rfRequest = new RfRequest();
 	rfRequest.setName("req1");
 	item.setRfRequest(rfRequest);
-	
+
 	RfResponse rfResponse = new RfResponse();
 	rfResponse.setName("res1");
 	item.setRfResponse(rfResponse);
@@ -86,7 +89,11 @@ public class ItemController {
     List<Item> findAll() {
 	logger.debug("Finding all items");
 
-	return itemRepository.findAll();
+	// Return 10 records for now.
+	Pageable topRecords = new PageRequest(0, 10);
+	Page<Item> result = itemRepository.findAll(topRecords);
+
+	return result.getContent();
     }
 
     @RequestMapping(value = "/api/items/{id}", method = RequestMethod.GET)

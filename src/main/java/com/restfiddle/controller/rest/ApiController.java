@@ -47,21 +47,24 @@ public class ApiController {
 
     @Autowired
     RequestHandler requestHandler;
-    
+
     @Resource
     private ItemRepository itemRepository;
-    
+
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
 	    String result = handler.process(rfRequestDTO);
+
 	    Item item = ItemConverter.convertDTOtoEntity(rfRequestDTO, result);
-	    //TODO: Should be supported by other datasource which we are going to support.
-	    try{
-	    	itemRepository.save(item);
-	    }catch(InvalidDataAccessResourceUsageException e){
-	    	throw new ApiException("Please use sql as datasource, some of features are not supported by hsql",e);
+
+	    // TODO : Support all the databases.
+	    // TODO : Use Item controller here.
+	    try {
+		itemRepository.save(item);
+	    } catch (InvalidDataAccessResourceUsageException e) {
+		throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	    }
 	    return result;
 
