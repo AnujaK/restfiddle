@@ -17,20 +17,32 @@ package com.restfiddle.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class RfRequest extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Item item;
+    private String method;
+    private String URI;
 
-    public Item getItem() {
-	return item;
-    }
+	public String getMethod() {
+		return method;
+	}
 
-    public void setItem(Item item) {
-	this.item = item;
-    }
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getURI() {
+		return URI;
+	}
+
+	public void setURI(String uRI) {
+		URI = uRI;
+	}
+	
 }

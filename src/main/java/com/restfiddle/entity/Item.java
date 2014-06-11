@@ -19,15 +19,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Item extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private RfRequest rfRequest;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private RfResponse rfResponse;
 
     public RfRequest getRfRequest() {

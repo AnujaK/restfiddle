@@ -15,22 +15,29 @@
  */
 package com.restfiddle.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class RfResponse extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Item item;
+    
+    @Column(columnDefinition="TEXT")
+    private String body;
 
-    public Item getItem() {
-	return item;
-    }
+	public String getBody() {
+		return body;
+	}
 
-    public void setItem(Item item) {
-	this.item = item;
-    }
+	public void setBody(String body) {
+		this.body = body;
+	}
+
 }

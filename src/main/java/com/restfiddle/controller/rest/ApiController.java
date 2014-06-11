@@ -17,17 +17,23 @@ package com.restfiddle.controller.rest;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.ItemRepository;
+import com.restfiddle.dao.util.ItemConverter;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.entity.Item;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.RequestHandler;
 import com.restfiddle.handler.http.GenericHandler;
@@ -41,12 +47,23 @@ public class ApiController {
 
     @Autowired
     RequestHandler requestHandler;
-
+    
+    @Resource
+    private ItemRepository itemRepository;
+    
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
-	    return handler.process(rfRequestDTO);
+	    String result = handler.process(rfRequestDTO);
+	    Item item = ItemConverter.convertDTOtoEntity(rfRequestDTO, result);
+	    //TODO: Should be supported by other datasource which we are going to support.
+	    try{
+	    	itemRepository.save(item);
+	    }catch(InvalidDataAccessResourceUsageException e){
+	    	throw new ApiException("Please use sql as datasource, some of features are not supported by hsql",e);
+	    }
+	    return result;
 
 	} catch (IOException e) {
 	    logger.error("IO Exception", e);
