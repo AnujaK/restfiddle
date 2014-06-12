@@ -127,15 +127,14 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 
 ##### Code formatting :
 
-If you're an Eclipse user, use the following code formatter : https://github.com/ranjan-rk/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
-
-You should also activate automatic formatting and organizing imports on save.
+- If you're an Eclipse user, use the following code formatter : https://github.com/ranjan-rk/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
+- You should also activate automatic formatting and organizing imports on save.
 
 ##### GitHub help : 
 
-How to fork a repo - https://help.github.com/articles/fork-a-repo
-
-How to create a pull request - https://help.github.com/articles/creating-a-pull-request
+- Forking a repo - https://help.github.com/articles/fork-a-repo
+- Creating a pull request - https://help.github.com/articles/creating-a-pull-request
+- Syncing a fork - https://help.github.com/articles/syncing-a-fork
  
 Release Date
 ==========
