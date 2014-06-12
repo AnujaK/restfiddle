@@ -57,7 +57,7 @@ public class ApiController {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
 	    String result = handler.process(rfRequestDTO);
 
-	    Item item = ItemConverter.convertDTOtoEntity(rfRequestDTO, result);
+	    Item item = ItemConverter.convertToEntity(rfRequestDTO, result);
 
 	    // TODO : Support all the databases.
 	    // TODO : Use Item controller here.

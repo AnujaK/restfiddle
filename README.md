@@ -122,10 +122,20 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 - Clone your fork  
 - Make your changes
 - Make sure everything is working fine
+- Format your code (see below)
 - Submit a pull request
-([how to create a pull request](https://help.github.com/articles/creating-a-pull-request))
 
-Note : How to fork a repo - https://help.github.com/articles/fork-a-repo
+##### Code formatting :
+
+If you're an Eclipse user, use the following code formatter : https://github.com/ranjan-rk/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
+
+You should also activate automatic formatting and organizing imports on save.
+
+##### GitHub help : 
+
+How to fork a repo - https://help.github.com/articles/fork-a-repo
+
+How to create a pull request - https://help.github.com/articles/creating-a-pull-request
  
 Release Date
 ==========

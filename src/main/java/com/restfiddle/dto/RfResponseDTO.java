@@ -15,29 +15,28 @@
  */
 package com.restfiddle.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-public class ItemDTO extends BaseDTO {
+public class RfResponseDTO extends BaseDTO {
+    private String body;
 
-    @JsonManagedReference
-    private RfRequestDTO rfRequestDTO;
+    @JsonBackReference
+    private ItemDTO itemDTO;
 
-    @JsonManagedReference
-    private RfResponseDTO rfResponseDTO;
-
-    public RfRequestDTO getRfRequestDTO() {
-	return rfRequestDTO;
+    public String getBody() {
+	return body;
     }
 
-    public void setRfRequestDTO(RfRequestDTO rfRequestDTO) {
-	this.rfRequestDTO = rfRequestDTO;
+    public void setBody(String body) {
+	this.body = body;
     }
 
-    public RfResponseDTO getRfResponseDTO() {
-	return rfResponseDTO;
+    public ItemDTO getItemDTO() {
+	return itemDTO;
     }
 
-    public void setRfResponseDTO(RfResponseDTO rfResponseDTO) {
-	this.rfResponseDTO = rfResponseDTO;
+    public void setItemDTO(ItemDTO itemDTO) {
+	this.itemDTO = itemDTO;
     }
+
 }

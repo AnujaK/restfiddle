@@ -1,13 +1,15 @@
 package com.restfiddle.dao.util;
 
+import com.restfiddle.dto.ItemDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.entity.Item;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
 
+//TODO : Need to use Spring Object Mapping : http://docs.spring.io/spring/previews/mapping.html
 public class ItemConverter {
 
-    public static Item convertDTOtoEntity(RfRequestDTO requestDto, String body) {
+    public static Item convertToEntity(RfRequestDTO requestDto, String body) {
 	Item item = new Item();
 
 	RfRequest request = new RfRequest();
@@ -22,6 +24,18 @@ public class ItemConverter {
 
 	return item;
 
+    }
+
+    public static ItemDTO convertToDTO(Item item) {
+	ItemDTO itemDTO = new ItemDTO();
+
+	RfRequestDTO rfRequestDTO = new RfRequestDTO();
+	RfRequest rfRequest = item.getRfRequest();
+	rfRequestDTO.setApiBody(rfRequest.getApiBody());
+	rfRequestDTO.setApiUrl(rfRequest.getApiUrl());
+	rfRequestDTO.setMethodType(rfRequest.getMethodType());
+
+	return itemDTO;
     }
 
 }
