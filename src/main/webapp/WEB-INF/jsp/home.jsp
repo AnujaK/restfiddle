@@ -31,6 +31,8 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" id="col-1-toggle-btn">Toggle First Panel</a></li>
+					<!-- li><a href="#" id="col-2-toggle-btn">Toggle Second Panel</a></li -->
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>

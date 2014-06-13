@@ -8,15 +8,24 @@ $("#rf-col-1-btn").click(function() {
     $("#rf-col-1-body").slideToggle();
 });
 
-// TODO : This will go to project-view.js
-var projNewModel = new app.Project();
-projNewModel.set({
-    "name" : $("#projectTextField").val()
+$('#col-1-toggle-btn').toggle(function() {
+    $('.rf-col-1').hide();
+    $('.rf-col-2').css('left', '0%');
+    $('.rf-col-3').css('left', '33%');
+    $('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-8");
+
+}, function() {
+    $('.rf-col-1').show();
+    $('.rf-col-2').css('left', '17%');
+    $('.rf-col-3').css('left', '50%');
+    $('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
 });
+
 // TODO : remove hard-coded workspace id
 $("#saveProjectBtn").bind("click", function() {
-    alert("hi");
-    new app.commonService().saveProject("1", projNewModel.toJSON(), onSaveProjectSuccess, onSaveProjectFail);
+    new app.commonService().saveProject("1", {
+	"name" : $("#projectTextField").val()
+    }, onSaveProjectSuccess, onSaveProjectFail);
 });
 var onSaveProjectSuccess = function(responseData) {
     console.log("project created successfully!");
