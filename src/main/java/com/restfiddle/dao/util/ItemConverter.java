@@ -17,7 +17,7 @@ public class ItemConverter {
 	request.setApiUrl(requestDto.getApiUrl());
 	request.setMethodType(requestDto.getMethodType());
 
-	// Note : By default we should not save response. Will plan to make it configurable.
+	// Note : We can plan to make it configurable.
 	RfResponse response = new RfResponse();
 	item.setRfResponse(response);
 	if (!body.isEmpty()) {

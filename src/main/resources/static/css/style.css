@@ -14,3 +14,7 @@ body {
 .apiRequestType {
 	
 }
+
+.rf-col-btn {
+	cursor: pointer;
+}

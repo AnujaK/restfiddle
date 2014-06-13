@@ -47,9 +47,10 @@ var app = app || {};
 	},
 	onSaveWorkspceSuc : function(responseData) {
 	    $('#workspaceModal').modal("hide");
-	    alert("success");
+	    console.log("success");
 	},
 	onSaveWorkspceFail : function() {
+	    console.log("failed");
 	    alert("failed");
 	},
 	clear : function() {

@@ -45,27 +45,35 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-2 sidebar" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
+			<div class="col-xs-2 sidebar rf-col-1" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
+				<div id="rf-col-1-header" style="display: none;">
+					<br>
+					<div class="rf-col-btn" id="rf-col-1-btn">
+						<span class='glyphicon glyphicon-resize-small'></span>
+					</div>
+				</div>
 				<br>
-				<div id="dd-workspace-wrapper"></div>
-				<hr>
-				<ul class="nav nav-sidebar">
-					<li></li>
-					<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
-				</ul>
-				<hr>
-				<ul class="nav nav-sidebar">
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-plus"></span> New Project</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
-				</ul>
-				<hr>
+				<div id="rf-col-1-body">
+					<div id="dd-workspace-wrapper"></div>
+					<hr>
+					<ul class="nav nav-sidebar">
+						<li></li>
+						<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
+					</ul>
+					<hr>
+					<ul class="nav nav-sidebar">
+						<li><a href="#" data-toggle="modal" data-target="#projectModal"><span class="glyphicon glyphicon-plus"></span> New Project</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
+					</ul>
+					<hr>
+				</div>
 			</div>
-			<div class="col-xs-4" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
 				<button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Folder</button>
 				&nbsp;&nbsp;
@@ -73,7 +81,7 @@
 				<br> <br>
 				<div id="tree"></div>
 			</div>
-			<div class="col-xs-6" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<div class="form-group">
 					<br>
 					<div class="btn-group">
@@ -184,6 +192,23 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="comingSoon" tabindex="-1" role="dialog" aria-labelledby="comingSoonLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -231,18 +256,25 @@
 	<script src="js/libs/underscore-min.js"></script>
 	<script src="js/commons/base.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
-
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
+
 	<script src="js/utils/caller.js"></script>
 	<script src="js/services/common-service.js"></script>
+
 	<script src="js/models/workspace.js"></script>
 	<script src="js/collections/workspaces.js"></script>
 	<script src="js/views/workspace-view.js"></script>
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
+
+	<script src="js/models/project.js"></script>
+	<script src="js/collections/projects.js"></script>
+
 	<script src="js/app.js"></script>
+
 	<script src="js/utils/tree.js"></script>
+	<script src="js/utils/util.js"></script>
 </body>
 
 </html>
