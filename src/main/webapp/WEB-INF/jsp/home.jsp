@@ -31,6 +31,8 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" id="col-1-toggle-btn">Toggle Left Panel</a></li>
+					<!-- li><a href="#" id="col-2-toggle-btn">Toggle Second Panel</a></li -->
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>
@@ -56,12 +58,8 @@
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<hr>
-					<ul class="nav nav-sidebar">
+					<ul class="nav nav-sidebar project-list">
 						<li></li>
-						<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
 					</ul>
 					<hr>
 					<ul class="nav nav-sidebar">
@@ -75,7 +73,7 @@
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Folder</button>
+				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#comingSoon">New Request</button>
 				<br> <br>
@@ -158,7 +156,7 @@
 	</div>
 
 	<!-- Modals -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="folderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

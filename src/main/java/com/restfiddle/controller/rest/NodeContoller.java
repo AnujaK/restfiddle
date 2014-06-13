@@ -36,6 +36,7 @@ import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
+import com.restfiddle.entity.TreeNode;
 
 @RestController
 @EnableAutoConfiguration
@@ -122,7 +123,28 @@ public class NodeContoller {
 
     // Get sub-tree for a particular project
     public void getSubTree(Long projectId) {
-	
+	Project project = projectRepository.findOne(projectId);
+
+	List<BaseNode> listOfNodes = nodeRepository.getNodesForAProject(projectId);
+
+	TreeNode rootNode = null;
+
+	TreeNode treeNode = null;
+	for (BaseNode baseNode : listOfNodes) {
+	    treeNode = new TreeNode();
+	    treeNode.setId(baseNode.getId());
+	    treeNode.setName(baseNode.getName());
+	    treeNode.setNodeType(baseNode.getNodeType());
+
+	    if ("PROJECT".equals(baseNode.getNodeType())) {
+		rootNode = treeNode;
+	    } else {
+		Long parentId = baseNode.getParentId();
+
+	    }
+
+	}
+
     }
 
 }
