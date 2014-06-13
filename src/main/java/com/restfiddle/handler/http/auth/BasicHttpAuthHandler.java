@@ -26,7 +26,7 @@ public class BasicHttpAuthHandler {
     }
 
     public CloseableHttpClient prepareBasicAuthWithBase64Encode(HttpRequestBase httpGet, String userName, String password) {
-	String authStr = "user1" + ":" + "user1";
+	String authStr = userName + ":" + password;
 	String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
 	httpGet.setHeader("Authorization", "Basic " + encoding);
 	CloseableHttpClient client = HttpClientBuilder.create().build();
