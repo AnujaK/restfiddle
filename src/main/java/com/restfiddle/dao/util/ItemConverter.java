@@ -20,7 +20,9 @@ public class ItemConverter {
 	// Note : By default we should not save response. Will plan to make it configurable.
 	RfResponse response = new RfResponse();
 	item.setRfResponse(response);
-	response.setBody(body);
+	if (!body.isEmpty()) {
+	    response.setBody(body.getBytes());
+	}
 
 	return item;
 

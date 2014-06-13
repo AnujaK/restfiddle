@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +42,7 @@ import com.restfiddle.handler.http.GenericHandler;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
+@Transactional
 public class ApiController {
 
     Logger logger = LoggerFactory.getLogger(ApiController.class);

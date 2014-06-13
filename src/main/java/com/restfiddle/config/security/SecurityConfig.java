@@ -31,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	auth.inMemoryAuthentication().withUser("rf").password("rf").roles("USER");
     }
 
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
 	http.csrf().disable();
+	http.authorizeRequests().antMatchers("/api/**", "/about").permitAll().anyRequest().authenticated().and().formLogin().and().httpBasic();
 	http.logout().logoutSuccessUrl("/");
     }
 }

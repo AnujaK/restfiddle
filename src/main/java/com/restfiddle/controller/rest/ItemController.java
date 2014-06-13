@@ -93,7 +93,15 @@ public class ItemController {
 	Pageable topRecords = new PageRequest(0, 10);
 	Page<Item> result = itemRepository.findAll(topRecords);
 
-	return result.getContent();
+	List<Item> content = result.getContent();
+
+	// TODO : work in progress
+	for (Item item : content) {
+	    byte[] body = item.getRfResponse().getBody();
+	    String strBody = new String(body);
+	    System.out.println(strBody);
+	}
+	return content;
     }
 
     @RequestMapping(value = "/api/items/{id}", method = RequestMethod.GET)

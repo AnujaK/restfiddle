@@ -35,7 +35,7 @@
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>
 					<li>
-						<form action="/logout" method="post">
+						<form action="/logout">
 							<button class="btn btn-link" style="margin-top: 7px; margin-right: 20px;" type="submit">Logout</button>
 						</form>
 					</li>
