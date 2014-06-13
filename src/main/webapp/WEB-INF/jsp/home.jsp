@@ -58,12 +58,8 @@
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<hr>
-					<ul class="nav nav-sidebar">
+					<ul class="nav nav-sidebar project-list">
 						<li></li>
-						<li class="active"><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project1</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project2</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project3</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Project4</a></li>
 					</ul>
 					<hr>
 					<ul class="nav nav-sidebar">

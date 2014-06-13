@@ -14,6 +14,12 @@ $('#col-1-toggle-btn').toggle(function() {
 });
 
 var onGetProjectsSuccess = function(responseData) {
+    $.each(responseData, function(idx, project) {
+	$(".project-list").append(
+		'<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'
+			+ project.name + '</a></li>');
+	console.log("idx = " + idx + " project = " + project.name);
+    });
     console.log("projects retrieved successfully!");
 };
 
@@ -31,6 +37,9 @@ $("#saveProjectBtn").bind("click", function() {
     }, onSaveProjectSuccess, onSaveProjectFailure);
 });
 var onSaveProjectSuccess = function(responseData) {
+    $(".project-list").append(
+	    '<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'
+		    + responseData.name + '</a></li>');
     console.log("project created successfully!");
     $('#projectModal').modal("hide");
 };

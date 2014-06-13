@@ -28,7 +28,7 @@ var app = app || {};
 
 	render : function(eventName) {
 	    var self = this;
-	    console.log(eventName + ">>>" + JSON.stringify(this.model.toJSON()));
+	    // console.log(eventName + ">>>" + JSON.stringify(this.model.toJSON()));
 	    $(this.el).html(this.template({
 		list : this.model.toJSON()
 	    }));
