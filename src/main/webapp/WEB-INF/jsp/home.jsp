@@ -77,7 +77,7 @@
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Folder</button>
+				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#comingSoon">New Request</button>
 				<br> <br>
@@ -160,7 +160,7 @@
 	</div>
 
 	<!-- Modals -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="folderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

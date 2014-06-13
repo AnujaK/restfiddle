@@ -38,7 +38,10 @@ var app = app || {};
 		}
 	    },
 	    type : "GET",
-	    async : false,
+	    dataType : "json",
+	    contentType : "application/json",
+	    mimeType : "application/json",
+	    async : true,
 	    error : function(jqXHR, textStatus, errorThrown) {
 		if (callbackOnFailure) {
 		    callbackOnFailure(jqXHR, textStatus, errorThrown);
@@ -54,9 +57,15 @@ var app = app || {};
     app.apiRestRequestGet = apiRestRequestGet;
 
     commonService.prototype = {
+	// Workspace related service calls
 	saveWorkspace : function(workSpaceModel, successcb, failcb) {
 	    var url = "/api/workspaces";
 	    app.apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
+	},
+	// Project related service calls
+	getProjects : function(workspaceId, projectModel, successcb, failcb) {
+	    var url = "api/workspaces/" + workspaceId + "/projects";
+	    app.apiRestRequestGet(url, projectModel, successcb, "", failcb);
 	},
 	saveProject : function(workspaceId, projectModel, successcb, failcb) {
 	    var url = "api/workspaces/" + workspaceId + "/projects";

@@ -1,12 +1,4 @@
-// TODO : Implement it properly
-$("#rf-col-1-btn").click(function() {
-    if ($(this).html() == "<span class='glyphicon glyphicon-resize-small'></span>") {
-	$(this).html("<span class='glyphicon glyphicon-resize-full'></span>");
-    } else {
-	$(this).html("<span class='glyphicon glyphicon-resize-small'></span>");
-    }
-    $("#rf-col-1-body").slideToggle();
-});
+// TODO : This file must be written properly
 
 $('#col-1-toggle-btn').toggle(function() {
     $('.rf-col-1').hide();
@@ -21,18 +13,28 @@ $('#col-1-toggle-btn').toggle(function() {
     $('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
 });
 
+var onGetProjectsSuccess = function(responseData) {
+    console.log("projects retrieved successfully!");
+};
+
+var onGetProjectsFailure = function() {
+    console.log("failed");
+    alert("failed");
+};
+
 // TODO : remove hard-coded workspace id
+new app.commonService().getProjects("1", null, onGetProjectsSuccess, onGetProjectsFailure);
+
 $("#saveProjectBtn").bind("click", function() {
     new app.commonService().saveProject("1", {
 	"name" : $("#projectTextField").val()
-    }, onSaveProjectSuccess, onSaveProjectFail);
+    }, onSaveProjectSuccess, onSaveProjectFailure);
 });
 var onSaveProjectSuccess = function(responseData) {
     console.log("project created successfully!");
     $('#projectModal').modal("hide");
-    console.log("success");
 };
-var onSaveProjectFail = function() {
+var onSaveProjectFailure = function() {
     console.log("failed");
     alert("failed");
 };
