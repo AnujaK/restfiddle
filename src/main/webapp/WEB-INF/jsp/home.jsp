@@ -27,15 +27,19 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<div class="dropdown" style="float: left; padding: 8px; margin-right:12px;">
+				<div class="dropdown" style="float: left; padding: 8px; margin-right: 12px;">
 					<button class="btn btn-default" type="button" data-toggle="dropdown">
 						<span class='glyphicon glyphicon-align-justify'></span>
 					</button>
 					<ul class="dropdown-menu">
 						<li><a href="#">New Workspace</a></li>
 						<li><a href="#">New Project</a></li>
+						<li class="divider"></li>
 						<li><a href="#">Activity Log</a></li>
+						<li class="divider"></li>
 						<li><a href="#">Settings</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Toggle Left Panel</a></li>
 					</ul>
 				</div>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
