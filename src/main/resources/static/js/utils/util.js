@@ -1,6 +1,6 @@
 // TODO : This file must be written properly
 
-$('#col-1-toggle-btn').toggle(function() {
+$('.col-1-toggle-btn').toggle(function() {
     $('.rf-col-1').hide();
     $('.rf-col-2').css('left', '0%');
     $('.rf-col-3').css('left', '33%');

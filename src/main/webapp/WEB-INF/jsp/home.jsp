@@ -32,21 +32,21 @@
 						<span class='glyphicon glyphicon-align-justify'></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li><a href="#">New Workspace</a></li>
-						<li><a href="#">New Project</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#projectModal">New Project</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Activity Log</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Activity Log</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Settings</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Settings</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Toggle Left Panel</a></li>
+						<li><a href="#" class="col-1-toggle-btn">Toggle Left Panel</a></li>
 					</ul>
 				</div>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" id="col-1-toggle-btn">Toggle Left Panel</a></li>
+					<li><a href="#" id="col-1-toggle-btn" class="col-1-toggle-btn">Toggle Left Panel</a></li>
 					<!-- li><a href="#" id="col-2-toggle-btn">Toggle Second Panel</a></li -->
 					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
@@ -75,13 +75,6 @@
 					<hr>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
-					</ul>
-					<hr>
-					<ul class="nav nav-sidebar">
-						<li><a href="#" data-toggle="modal" data-target="#projectModal"><span class="glyphicon glyphicon-plus"></span> New Project</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Settings</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;More</a></li>
 					</ul>
 					<hr>
 				</div>
