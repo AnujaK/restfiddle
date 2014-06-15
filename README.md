@@ -139,7 +139,21 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 Release Date
 ==========
 
-Version 1.0 is expected to be released on 15th June 2014.
+Version 1.0 is coming soon. Here is the current status of the project:
+
+Login/Logout working (default username/password : rf/rf).
+
+Creating and showing Workspaces working.
+
+Creating and showing Projects working.
+
+GET/POST/PUT/DELETE operation with JSON data is supported for now.
+
+Sample API to test:
+
+http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
+
+For more details go through the Wiki pages.
 
 Copyright and License
 ==========
