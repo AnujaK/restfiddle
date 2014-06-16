@@ -15,7 +15,9 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
+import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
@@ -121,30 +124,55 @@ public class NodeContoller {
 	return node;
     }
 
-    // Get sub-tree for a particular project
-    public void getSubTree(Long projectId) {
-	Project project = projectRepository.findOne(projectId);
+    // Get tree-structure for a project. Id parameter is the project-reference node-id.
+    @RequestMapping(value = "/api/nodes/{id}/tree", method = RequestMethod.GET)
+    public @ResponseBody
+    TreeNode getProjectTree(@PathVariable("id") Long id) {
+	// Note : There must be a better way of doing it. This method is written in a hurry.
 
+	// Get project Id from the reference node
+	BaseNode projectRefNode = nodeRepository.getOne(id);
+	Long projectId = projectRefNode.getProject().getId();
+
+	// Get the list of nodes for a project.
 	List<BaseNode> listOfNodes = nodeRepository.getNodesForAProject(projectId);
 
-	TreeNode rootNode = null;
-
-	TreeNode treeNode = null;
+	// Creating a map of nodes with node-id as key
+	Map<Long, BaseNode> nodeIdMap = new HashMap<Long, BaseNode>();
 	for (BaseNode baseNode : listOfNodes) {
-	    treeNode = new TreeNode();
-	    treeNode.setId(baseNode.getId());
-	    treeNode.setName(baseNode.getName());
-	    treeNode.setNodeType(baseNode.getNodeType());
-
-	    if ("PROJECT".equals(baseNode.getNodeType())) {
-		rootNode = treeNode;
-	    } else {
-		Long parentId = baseNode.getParentId();
-
-	    }
-
+	    nodeIdMap.put(baseNode.getId(), baseNode);
 	}
 
-    }
+	TreeNode rootNode = null;
+	TreeNode treeNode = null;
+	TreeNode parentTreeNode = null;
+	Map<Long, TreeNode> treeNodeMap = new HashMap<Long, TreeNode>();
 
+	for (BaseNode baseNode : listOfNodes) {
+	    Long nodeId = baseNode.getId();
+	    Long parentId = baseNode.getParentId();
+
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType());
+	    treeNodeMap.put(nodeId, treeNode);
+
+	    if ("PROJECT".equals(baseNode.getNodeType())) {
+		// Identify root node for a project
+		rootNode = treeNode;
+	    } else {
+		// Build parent node
+		BaseNode baseParentNode = nodeIdMap.get(parentId);
+		parentTreeNode = treeNodeMap.get(parentId);
+		if (parentTreeNode == null) {
+		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType());
+		}
+
+		// Set parent tree node
+		treeNode.setParent(parentTreeNode);
+
+		// Add child node to the parent
+		parentTreeNode.getChildren().add(treeNode);
+	    }
+	}
+	return rootNode;
+    }
 }

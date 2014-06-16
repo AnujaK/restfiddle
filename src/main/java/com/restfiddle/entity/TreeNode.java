@@ -18,27 +18,32 @@ package com.restfiddle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //NOTE : TreeNode is NOT an Entity.
 public class TreeNode extends BaseNode {
     private static final long serialVersionUID = 1L;
 
-    private BaseNode parent;
+    @JsonBackReference
+    private TreeNode parent;
 
-    private List<BaseNode> children = new ArrayList<BaseNode>();
+    @JsonManagedReference
+    private List<TreeNode> children = new ArrayList<TreeNode>();
 
-    public BaseNode getParent() {
+    public TreeNode getParent() {
 	return parent;
     }
 
-    public void setParent(BaseNode parent) {
+    public void setParent(TreeNode parent) {
 	this.parent = parent;
     }
 
-    public List<BaseNode> getChildren() {
+    public List<TreeNode> getChildren() {
 	return children;
     }
 
-    public void setChildren(List<BaseNode> children) {
+    public void setChildren(List<TreeNode> children) {
 	this.children = children;
     }
 }

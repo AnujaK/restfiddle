@@ -75,6 +75,11 @@ public class ProjectContoller {
 	projectRef.setNodeType("PROJECT");
 	projectRef.setParentId(Long.valueOf(-1));
 	projectRef.setPosition(Long.valueOf(0));
+
+	// Set project to the reference node
+	projectRef.setProject(project);
+
+	// Save project reference node
 	BaseNode savedRef = nodeRepository.save(projectRef);
 
 	// Set project reference node

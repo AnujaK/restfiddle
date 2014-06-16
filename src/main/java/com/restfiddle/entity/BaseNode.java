@@ -18,6 +18,8 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class BaseNode extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class BaseNode extends BaseEntity {
     private Long position;// location in the parent node
 
     @ManyToOne
+    @JsonBackReference
     private Project project;
 
     public String getNodeType() {
