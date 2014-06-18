@@ -33,6 +33,8 @@
 					</button>
 					<ul class="dropdown-menu">
 						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
+						<li><a href="#" class="dummySwitchWorkspace">Switch Workspace</a></li>
+						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#projectModal">New Project</a></li>
 						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Activity Log</a></li>
@@ -40,7 +42,6 @@
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Settings</a></li>
 						<li class="divider"></li>
 						<li><a href="#" class="col-1-toggle-btn">Toggle Left Panel</a></li>
-						<li><a href="#" class="dummySwitchWorkspace">Switch Workspace</a></li>
 					</ul>
 				</div>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
@@ -221,7 +222,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
+					<h4 class="modal-title" id="projectModalLabel">Switch Workspace</h4>
 				</div>
 				<div class="modal-body">
 
