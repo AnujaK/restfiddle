@@ -135,7 +135,7 @@ public class NodeContoller {
 	Long projectId = projectRefNode.getProject().getId();
 
 	// Get the list of nodes for a project.
-	List<BaseNode> listOfNodes = nodeRepository.getNodesForAProject(projectId);
+	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(projectId);
 
 	// Creating a map of nodes with node-id as key
 	Map<Long, BaseNode> nodeIdMap = new HashMap<Long, BaseNode>();

@@ -33,5 +33,5 @@ public interface NodeRepository extends JpaRepository<BaseNode, Long> {
     public List<BaseNode> getChildren(@Param("nodeId") Long nodeId);
 
     @Query("SELECT bn FROM BaseNode bn WHERE bn.project.id = :projectId")
-    public List<BaseNode> getNodesForAProject(@Param("projectId") Long projectId);
+    public List<BaseNode> findNodesFromAProject(@Param("projectId") Long projectId);
 }

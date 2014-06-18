@@ -102,7 +102,13 @@ public class ProjectContoller {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.GET)
     public @ResponseBody
-    List<Project> findAll(@PathVariable("workspaceId") Long workspaceId) {
+    List<Project> findProjectsFromAWorkspace(@PathVariable("workspaceId") Long workspaceId) {
+	logger.debug("Finding all projects from workspace with id " + workspaceId);
+
+	return projectRepository.findProjectsFromAWorkspace(workspaceId);
+    }
+
+    public List<Project> findAll() {
 	logger.debug("Finding all projects");
 
 	return projectRepository.findAll();
