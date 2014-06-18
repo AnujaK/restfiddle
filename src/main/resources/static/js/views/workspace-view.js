@@ -10,7 +10,7 @@ var app = app || {};
 	template : _.template($('#tpl-workspace-list-item').html()),
 	services : new app.commonService(),
 	events : {
-
+		"change #dd-workspace" : "handleWorkspaceChange"
 	},
 	bindEvent : function(selector, callback) {
 	    var self = this;
@@ -55,6 +55,9 @@ var app = app || {};
 	},
 	clear : function() {
 	    this.model.destroy();
+	},
+	handleWorkspaceChange : function(event){
+		alert("workspace changed");
 	}
     });
 })(jQuery);

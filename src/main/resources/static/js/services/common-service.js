@@ -70,6 +70,10 @@ var app = app || {};
 	saveProject : function(workspaceId, projectModel, successcb, failcb) {
 	    var url = "api/workspaces/" + workspaceId + "/projects";
 	    app.apiRestRequestPost(url, projectModel, successcb, "", failcb);
+	},
+	getWorkspaces : function(successcb, failcb) {
+	    var url = "/api/workspaces";
+	    app.apiRestRequestGet(url, "", successcb, "", failcb);
 	}
     };
     app.commonService = commonService;

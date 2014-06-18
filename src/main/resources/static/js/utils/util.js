@@ -14,12 +14,12 @@ $('.col-1-toggle-btn').toggle(function() {
 });
 
 var onGetProjectsSuccess = function(responseData) {
+	var projectList = "";
     $.each(responseData, function(idx, project) {
-	$(".project-list").append(
-		'<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'
-			+ project.name + '</a></li>');
+			projectList = projectList + '<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'+ project.name + '</a></li>';
 	console.log("idx = " + idx + " project = " + project.name);
     });
+	$(".project-list").html(projectList);
     console.log("projects retrieved successfully!");
 };
 
@@ -47,3 +47,35 @@ var onSaveProjectFailure = function() {
     console.log("failed");
     alert("failed");
 };
+var bindClickEvent = function(selector,callback){
+	$(selector).unbind("click").bind("click",function(event){
+		if(callback){
+			callback(event);
+		}
+	});
+};
+var handleSwitchWS = function(event){
+	var wId = $(event.target).attr("id");
+	console.log(wId);
+	$("#switchWorkspaceModal").modal("hide");
+    new app.commonService().getProjects(wId, null, onGetProjectsSuccess, onGetProjectsFailure);
+};
+$(".dummySwitchWorkspace").unbind("click").bind("click", function() {
+/*	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
+	$("#switchWorkspaceModal").modal("show");
+	alert("test it");*/
+	new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
+	function onGetWSSuccess(responsdata){
+		var workSpceList = "";
+		 $.each(responsdata, function(ids,workSpace) {
+			 workSpceList =workSpceList +  '<li><a href="#" id = '+workSpace.id+' class="dummyWSli">'+workSpace.name+'</a></li>';
+		 });
+		 $("#switchWorkspaceModal .modal-body").html(workSpceList);
+		 $("#switchWorkspaceModal").modal("show");
+		 bindClickEvent(".dummyWSli",handleSwitchWS);
+	};
+	function onGetWSFail(responsdata){
+		console.log(responsdata);
+		alert("fail");
+	};
+});
