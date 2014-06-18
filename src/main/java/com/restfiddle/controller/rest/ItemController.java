@@ -51,7 +51,7 @@ public class ItemController {
     @Resource
     private ItemRepository itemRepository;
 
-    @RequestMapping(value = "/api/items", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/conversations", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Item create(@RequestBody ItemDTO itemDTO) {
 	logger.debug("Creating a new item with information: " + itemDTO);
@@ -72,19 +72,19 @@ public class ItemController {
 	return itemRepository.save(item);
     }
 
-    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Item delete(@PathVariable("id") Long id) {
-	logger.debug("Deleting item with id: " + id);
+    Item delete(@PathVariable("conversationId") Long conversationId) {
+	logger.debug("Deleting item with id: " + conversationId);
 
-	Item deleted = itemRepository.findOne(id);
+	Item deleted = itemRepository.findOne(conversationId);
 
 	itemRepository.delete(deleted);
 
 	return deleted;
     }
 
-    @RequestMapping(value = "/api/items", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
     List<Item> findAll() {
 	logger.debug("Finding all items");
@@ -104,17 +104,17 @@ public class ItemController {
 	return content;
     }
 
-    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.GET)
     public @ResponseBody
-    Item findById(@PathVariable("id") Long id) {
-	logger.debug("Finding item by id: " + id);
+    Item findById(@PathVariable("conversationId") Long conversationId) {
+	logger.debug("Finding item by id: " + conversationId);
 
-	return itemRepository.findOne(id);
+	return itemRepository.findOne(conversationId);
     }
 
-    @RequestMapping(value = "/api/items/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Item update(@PathVariable("id") Long id, @RequestBody ProjectDTO updated) {
+    Item update(@PathVariable("conversationId") Long conversationId, @RequestBody ProjectDTO updated) {
 	logger.debug("Updating item with information: " + updated);
 
 	Item item = itemRepository.findOne(updated.getId());
