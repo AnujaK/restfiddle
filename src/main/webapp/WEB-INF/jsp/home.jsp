@@ -40,6 +40,7 @@
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Settings</a></li>
 						<li class="divider"></li>
 						<li><a href="#" class="col-1-toggle-btn">Toggle Left Panel</a></li>
+						<li><a href="#" class="dummySwitchWorkspace">Switch Workspace</a></li>
 					</ul>
 				</div>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
@@ -211,6 +212,22 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button id="saveProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="modal fade" id="switchWorkspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
+				</div>
+				<div class="modal-body">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
