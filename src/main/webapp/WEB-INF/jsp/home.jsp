@@ -76,11 +76,13 @@
 				<br>
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
-					<hr>
+					<br>
+					<div style="border-top: 1px solid lightgray;">
+						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
+					</div>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
 					</ul>
-					<hr>
 				</div>
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
@@ -127,7 +129,10 @@
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
-					<hr>
+					<br> <br>
+					<div style="border-top: 1px solid lightgray;">
+						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Request</h6>
+					</div>
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-xs-2">
@@ -152,8 +157,11 @@
 					</ul>
 					<br>
 					<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
-					<hr>
-					<span>Response</span>
+					<br> <br>
+					<div style="border-top: 1px solid lightgray;">
+						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
+					</div>
+
 					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
 					<br> <br>
 					<div class="container-fluid">
