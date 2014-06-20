@@ -18,7 +18,8 @@ $(function() {
 	    contentType : "application/json",
 	    success : function(response) {
 		console.log("####" + response);
-		$("#response-wrapper").html(JSON.stringify(response));
+		$("#response-wrapper").html('<pre class="prettyprint">' + JSON.stringify(response, null, 4) + '</pre>');
+		prettyPrint();
 	    },
 	    data : JSON.stringify(item)
 	});

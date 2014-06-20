@@ -10,6 +10,7 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/ui.fancytree.css" rel="stylesheet">
+<link href="css/prettify/prettify.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -217,16 +218,14 @@
 			</div>
 		</div>
 	</div>
-		<div class="modal fade" id="switchWorkspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
+	<div class="modal fade" id="switchWorkspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="projectModalLabel">Switch Workspace</h4>
 				</div>
-				<div class="modal-body">
-
-				</div>
+				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -282,6 +281,10 @@
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
+	<script src="js/libs/prettify/prettify.js"></script>
+	<script>
+	prettyPrint();
+    </script>
 
 	<script src="js/utils/caller.js"></script>
 	<script src="js/services/common-service.js"></script>
@@ -299,6 +302,9 @@
 
 	<script src="js/utils/tree.js"></script>
 	<script src="js/utils/util.js"></script>
+
+
+
 </body>
 
 </html>
