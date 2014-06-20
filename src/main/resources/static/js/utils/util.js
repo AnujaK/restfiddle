@@ -66,10 +66,11 @@ $(".dummySwitchWorkspace").unbind("click").bind("click", function() {
 	alert("test it");*/
 	new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
 	function onGetWSSuccess(responsdata){
-		var workSpceList = "";
+		var workSpceList = '<div class="list-group">';
 		 $.each(responsdata, function(ids,workSpace) {
-			 workSpceList =workSpceList +  '<li><a href="#" id = '+workSpace.id+' class="dummyWSli">'+workSpace.name+'</a></li>';
+			 workSpceList =workSpceList +  '<a href="#" id = '+workSpace.id+' class="dummyWSli list-group-item">'+workSpace.name+'</a>';
 		 });
+		 workSpceList =workSpceList + '</div>';
 		 $("#switchWorkspaceModal .modal-body").html(workSpceList);
 		 $("#switchWorkspaceModal").modal("show");
 		 bindClickEvent(".dummyWSli",handleSwitchWS);
