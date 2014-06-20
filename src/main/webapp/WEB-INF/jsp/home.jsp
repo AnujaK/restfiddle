@@ -11,6 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/ui.fancytree.css" rel="stylesheet">
 <link href="css/prettify/prettify.css" rel="stylesheet">
+<link href="css/octicons/octicons.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
