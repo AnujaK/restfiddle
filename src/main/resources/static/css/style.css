@@ -18,3 +18,8 @@ body {
 .rf-col-btn {
 	cursor: pointer;
 }
+
+#response-wrapper pre {
+	word-break: normal;
+	word-wrap: normal;
+}
