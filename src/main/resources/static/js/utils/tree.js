@@ -1,4 +1,22 @@
 $(function() {
+    var serviceSideTreeData = {};
+    var uiSideTreeData = {};
+
+    function nodeConverter(serverNode, uiNode) {
+	if (serverNode.children == undefined || serverNode.children.length == 0) {
+	    return;
+	}
+	uiNode.folder = true;
+	uiNode.children = [];
+	for (var i = serverNode.children.length - 1; i >= 0; i--) {
+	    uiNode.children.push({
+		title : serverNode.children[i].name
+	    });
+	    nodeConverter(serverNode.children[i], uiNode.children[i]);
+	}
+    }
+    nodeConverter(serviceSideTreeData, uiSideTreeData);
+
     $("#tree").fancytree({
 	extensions : [ "glyph" ],
 	glyph : {
