@@ -41,19 +41,40 @@ public class SampleDataGenerator {
     }
 
     private void loadWorkspaceData() {
-	WorkspaceDTO workspaceDTO = new WorkspaceDTO();
+	WorkspaceDTO demoWorkspace = new WorkspaceDTO();
+	demoWorkspace.setName("Demo Workspace");
+	demoWorkspace.setDescription("This is a demo workspace");
+	workspaceController.create(demoWorkspace);
 
-	workspaceDTO.setName("Demo Workspace");
-	workspaceDTO.setDescription("Demo Workspace ");
-
-	workspaceController.create(workspaceDTO);
+	WorkspaceDTO socialWorkspace = new WorkspaceDTO();
+	socialWorkspace.setName("Social Workspace");
+	socialWorkspace.setDescription("This is my social workspace");
+	workspaceController.create(socialWorkspace);
     }
 
     private void loadProjectData() {
-	ProjectDTO projectDTO = new ProjectDTO();
-	
-	projectDTO.setName("My First Project");
+	ProjectDTO firstProject = new ProjectDTO();
+	firstProject.setName("My First Project");
+	projectController.create(1L, firstProject);
 
-	projectController.create(1L, projectDTO);
+	ProjectDTO secondProject = new ProjectDTO();
+	secondProject.setName("My Second Project");
+	projectController.create(1L, secondProject);
+
+	ProjectDTO googleProject = new ProjectDTO();
+	googleProject.setName("Google");
+	projectController.create(2L, googleProject);
+
+	ProjectDTO facebookProject = new ProjectDTO();
+	facebookProject.setName("Facebook");
+	projectController.create(2L, facebookProject);
+
+	ProjectDTO twitterProject = new ProjectDTO();
+	twitterProject.setName("Twitter");
+	projectController.create(2L, twitterProject);
+
+	ProjectDTO linkedinProject = new ProjectDTO();
+	linkedinProject.setName("LinkedIn");
+	projectController.create(2L, linkedinProject);
     }
 }
