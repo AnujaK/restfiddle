@@ -15,7 +15,45 @@
  */
 package com.restfiddle.sample.data;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.restfiddle.controller.rest.ProjectController;
+import com.restfiddle.controller.rest.WorkspaceController;
+import com.restfiddle.dto.ProjectDTO;
+import com.restfiddle.dto.WorkspaceDTO;
+
+@Component
 public class SampleDataGenerator {
-    
-    
+
+    @Autowired
+    private WorkspaceController workspaceController;
+
+    @Autowired
+    private ProjectController projectController;
+
+    @PostConstruct
+    public void initialize() {
+	loadWorkspaceData();
+	loadProjectData();
+    }
+
+    private void loadWorkspaceData() {
+	WorkspaceDTO workspaceDTO = new WorkspaceDTO();
+
+	workspaceDTO.setName("Demo Workspace");
+	workspaceDTO.setDescription("Demo Workspace ");
+
+	workspaceController.create(workspaceDTO);
+    }
+
+    private void loadProjectData() {
+	ProjectDTO projectDTO = new ProjectDTO();
+	
+	projectDTO.setName("My First Project");
+
+	projectController.create(1L, projectDTO);
+    }
 }

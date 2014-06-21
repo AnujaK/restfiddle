@@ -45,8 +45,8 @@ import com.restfiddle.entity.TreeNode;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
-public class NodeContoller {
-    Logger logger = LoggerFactory.getLogger(NodeContoller.class);
+public class NodeController {
+    Logger logger = LoggerFactory.getLogger(NodeController.class);
 
     @Resource
     private ProjectRepository projectRepository;

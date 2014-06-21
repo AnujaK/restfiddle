@@ -43,8 +43,8 @@ import com.restfiddle.entity.Workspace;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
-public class ProjectContoller {
-    Logger logger = LoggerFactory.getLogger(ProjectContoller.class);
+public class ProjectController {
+    Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
     @Resource
     private WorkspaceRepository workspaceRepository;
