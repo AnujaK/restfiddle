@@ -17,7 +17,7 @@ $(function() {
 
     $.ajax({
 	// TODO : populate project-reference node-id for the selected project
-	url : '/api/nodes/2/tree',
+	url : '/api/nodes/1/tree',
 	type : 'get',
 	dataType : 'json',
 	contentType : "application/json",

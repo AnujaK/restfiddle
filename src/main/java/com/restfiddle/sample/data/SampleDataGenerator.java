@@ -20,8 +20,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.ProjectController;
 import com.restfiddle.controller.rest.WorkspaceController;
+import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 
@@ -34,10 +36,14 @@ public class SampleDataGenerator {
     @Autowired
     private ProjectController projectController;
 
+    @Autowired
+    private NodeController nodeController;
+
     @PostConstruct
     public void initialize() {
 	loadWorkspaceData();
 	loadProjectData();
+	loadNodeData();
     }
 
     private void loadWorkspaceData() {
@@ -76,5 +82,33 @@ public class SampleDataGenerator {
 	ProjectDTO linkedinProject = new ProjectDTO();
 	linkedinProject.setName("LinkedIn");
 	projectController.create(2L, linkedinProject);
+    }
+
+    // Note : set node parent id carefully as every project has a root node reference
+    private void loadNodeData() {
+	NodeDTO firstFolderNode = new NodeDTO();
+	firstFolderNode.setName("First Folder Node");
+	firstFolderNode.setProjectId(1L);
+	nodeController.create(1L, firstFolderNode);
+
+	NodeDTO childNode = new NodeDTO();
+	childNode.setName("Child Node");
+	childNode.setProjectId(1L);
+	nodeController.create(7L, childNode);
+
+	NodeDTO secondNode = new NodeDTO();
+	secondNode.setName("Second Node");
+	secondNode.setProjectId(1L);
+	nodeController.create(1L, secondNode);
+
+	NodeDTO dummyNode = new NodeDTO();
+	dummyNode.setName("Dummy Node");
+	dummyNode.setProjectId(1L);
+	nodeController.create(1L, dummyNode);
+
+	NodeDTO testNode = new NodeDTO();
+	testNode.setName("Test Node");
+	testNode.setProjectId(1L);
+	nodeController.create(1L, testNode);
     }
 }
