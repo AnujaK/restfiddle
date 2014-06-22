@@ -20,15 +20,22 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.controller.rest.ConfigController;
 import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.ProjectController;
 import com.restfiddle.controller.rest.WorkspaceController;
+import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.WorkspaceDTO;
+import com.restfiddle.entity.BaseNode;
+import com.restfiddle.entity.Config;
 
 @Component
 public class SampleDataGenerator {
+
+    @Autowired
+    private ConfigController configController;
 
     @Autowired
     private WorkspaceController workspaceController;
@@ -41,9 +48,26 @@ public class SampleDataGenerator {
 
     @PostConstruct
     public void initialize() {
+	if (isSampleDataPresent()) {
+	    return;
+	}
 	loadWorkspaceData();
 	loadProjectData();
 	loadNodeData();
+    }
+
+    private boolean isSampleDataPresent() {
+	// TODO : find sampleDataConfig by key
+	Config sampleDataConfig = configController.findById(1L);
+
+	if (sampleDataConfig == null || sampleDataConfig.getConfigKey() == null) {
+	    ConfigDTO configDTO = new ConfigDTO();
+	    configDTO.setName("Sample Data Present");
+	    configDTO.setConfigKey("SAMPLE_DATA_PRESENT");
+	    configController.create(configDTO);
+	    return false;
+	}
+	return true;
     }
 
     private void loadWorkspaceData() {
@@ -84,17 +108,16 @@ public class SampleDataGenerator {
 	projectController.create(2L, linkedinProject);
     }
 
-    // Note : set node parent id carefully as every project has a root node reference
     private void loadNodeData() {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setProjectId(1L);
-	nodeController.create(1L, firstFolderNode);
+	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
 	childNode.setName("Child Node");
 	childNode.setProjectId(1L);
-	nodeController.create(7L, childNode);
+	nodeController.create(createdFolderNode.getId(), childNode);
 
 	NodeDTO secondNode = new NodeDTO();
 	secondNode.setName("Second Node");

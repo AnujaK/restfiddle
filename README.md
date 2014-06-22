@@ -65,7 +65,7 @@ MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run
 
 ##### MySQL configuration:
 
-Go to *src/main/resources/application.properties* and update database url, username and password. Here is how the sample configuration looks like:
+Go to *src/main/resources/env-development.properties* and update database url, username and password. Here is how the sample configuration looks like:
 
 ```
 database.driver=com.mysql.jdbc.Driver
@@ -143,7 +143,7 @@ Version 1.0 is coming soon. Here is the current status of the project:
 
 Login/Logout working (default username/password : rf/rf).
 
-Creating and showing Workspaces working.
+Creating and switching between Workspaces working.
 
 Creating and showing Projects working.
 
