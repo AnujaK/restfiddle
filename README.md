@@ -151,7 +151,7 @@ GET/POST/PUT/DELETE operation with JSON data is supported for now.
 
 Sample API to test:
 
-http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
+http://localhost:8080/api/workspaces
 
 For more details go through the Wiki pages.
 
