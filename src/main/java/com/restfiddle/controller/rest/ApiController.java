@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.dao.ItemRepository;
-import com.restfiddle.dao.util.ItemConverter;
+import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.RfRequestDTO;
-import com.restfiddle.entity.Item;
+import com.restfiddle.entity.Conversation;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.RequestHandler;
 import com.restfiddle.handler.http.GenericHandler;
@@ -51,7 +51,7 @@ public class ApiController {
     RequestHandler requestHandler;
 
     @Resource
-    private ItemRepository itemRepository;
+    private ConversationRepository itemRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
@@ -59,7 +59,7 @@ public class ApiController {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
 	    String result = handler.process(rfRequestDTO);
 
-	    Item item = ItemConverter.convertToEntity(rfRequestDTO, result);
+	    Conversation item = ConversationConverter.convertToEntity(rfRequestDTO, result);
 
 	    // TODO : Support all the databases.
 	    // TODO : Use Item controller here.

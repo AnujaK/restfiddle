@@ -17,51 +17,45 @@ package com.restfiddle.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+/**
+ * TODO Activity Log can have filters like workspace, project etc
+ * 
+ */
 @Entity
-public class BaseNode extends BaseEntity {
+public class ActivityLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/MODULE/FEATURE/SCENARIO/ITEM/REQUEST/FOLDER etc
+    private String type; // e.g. CONVERSATION
 
-    private Long parentId;
-
-    private Long position;// location in the parent node
-
-    @OneToOne
-    @JsonManagedReference
-    private Conversation conversation;
+    @ManyToOne
+    @JsonBackReference
+    private Workspace workspace; //
 
     @ManyToOne
     @JsonBackReference
     private Project project;
 
-    public String getNodeType() {
-	return nodeType;
+    @ManyToOne
+    @JsonBackReference
+    private Conversation conversation;
+
+    public String getType() {
+	return type;
     }
 
-    public void setNodeType(String nodeType) {
-	this.nodeType = nodeType;
+    public void setType(String type) {
+	this.type = type;
     }
 
-    public Long getParentId() {
-	return parentId;
+    public Workspace getWorkspace() {
+	return workspace;
     }
 
-    public void setParentId(Long parentId) {
-	this.parentId = parentId;
-    }
-
-    public Long getPosition() {
-	return position;
-    }
-
-    public void setPosition(Long position) {
-	this.position = position;
+    public void setWorkspace(Workspace workspace) {
+	this.workspace = workspace;
     }
 
     public Project getProject() {
@@ -79,5 +73,4 @@ public class BaseNode extends BaseEntity {
     public void setConversation(Conversation conversation) {
 	this.conversation = conversation;
     }
-
 }

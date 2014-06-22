@@ -33,11 +33,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
+import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.TreeNode;
 
@@ -54,6 +56,9 @@ public class NodeController {
     @Resource
     private NodeRepository nodeRepository;
 
+    @Resource
+    private ConversationRepository conversationRepository;
+
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
@@ -68,6 +73,11 @@ public class NodeController {
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
 	node.setPosition(0L);
+
+	if (nodeDTO.getConversationDTO() != null && nodeDTO.getConversationDTO().getId() != null) {
+	    Conversation conversation = conversationRepository.findOne(nodeDTO.getConversationDTO().getId());
+	    node.setConversation(conversation);
+	}
 
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
 	node.setProject(project);

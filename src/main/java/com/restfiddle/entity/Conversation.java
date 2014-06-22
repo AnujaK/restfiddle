@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Item extends BaseEntity {
+public class Conversation extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToOne(cascade = CascadeType.ALL)

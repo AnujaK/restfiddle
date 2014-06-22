@@ -21,6 +21,8 @@ public class NodeDTO extends BaseDTO {
 
     private Long projectId;
 
+    private ConversationDTO conversationDTO;
+
     public Long getProjectId() {
 	return projectId;
     }
@@ -35,6 +37,14 @@ public class NodeDTO extends BaseDTO {
 
     public void setParentId(Long parentId) {
 	this.parentId = parentId;
+    }
+
+    public ConversationDTO getConversationDTO() {
+	return conversationDTO;
+    }
+
+    public void setConversationDTO(ConversationDTO conversationDTO) {
+	this.conversationDTO = conversationDTO;
     }
 
 }

@@ -23,7 +23,7 @@ public class RfRequestDTO extends BaseDTO {
     private String apiBody;
     
     @JsonBackReference
-    private ItemDTO itemDTO;
+    private ConversationDTO itemDTO;
 
     public String getApiUrl() {
 	return apiUrl;
@@ -49,11 +49,11 @@ public class RfRequestDTO extends BaseDTO {
 	this.apiBody = apiBody;
     }
 
-    public ItemDTO getItemDTO() {
+    public ConversationDTO getItemDTO() {
         return itemDTO;
     }
 
-    public void setItemDTO(ItemDTO itemDTO) {
+    public void setItemDTO(ConversationDTO itemDTO) {
         this.itemDTO = itemDTO;
     }
 }

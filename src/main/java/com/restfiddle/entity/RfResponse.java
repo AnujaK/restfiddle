@@ -30,7 +30,7 @@ public class RfResponse extends BaseEntity {
 
     @OneToOne(mappedBy = "rfResponse")
     @JsonBackReference
-    private Item item;
+    private Conversation item;
 
     public byte[] getBody() {
 	return body;
@@ -40,11 +40,11 @@ public class RfResponse extends BaseEntity {
 	this.body = body;
     }
 
-    public Item getItem() {
+    public Conversation getItem() {
 	return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(Conversation item) {
 	this.item = item;
     }
 

@@ -30,13 +30,13 @@ public class RfRequest extends BaseEntity {
 
     @OneToOne(mappedBy = "rfRequest")
     @JsonBackReference
-    private Item item;
+    private Conversation item;
 
-    public Item getItem() {
+    public Conversation getItem() {
 	return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(Conversation item) {
 	this.item = item;
     }
 

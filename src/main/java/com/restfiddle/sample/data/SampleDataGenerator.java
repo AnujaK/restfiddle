@@ -21,15 +21,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.controller.rest.ConfigController;
+import com.restfiddle.controller.rest.ConversationController;
 import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.ProjectController;
 import com.restfiddle.controller.rest.WorkspaceController;
 import com.restfiddle.dto.ConfigDTO;
+import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
+import com.restfiddle.entity.Conversation;
 
 @Component
 public class SampleDataGenerator {
@@ -45,6 +48,9 @@ public class SampleDataGenerator {
 
     @Autowired
     private NodeController nodeController;
+
+    @Autowired
+    private ConversationController conversationController;
 
     @PostConstruct
     public void initialize() {
@@ -112,6 +118,10 @@ public class SampleDataGenerator {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setProjectId(1L);
+	ConversationDTO conversationDTO = new ConversationDTO();
+	Conversation createdConversation = conversationController.create(conversationDTO);
+	conversationDTO.setId(createdConversation.getId());
+	firstFolderNode.setConversationDTO(conversationDTO);
 	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
