@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -105,7 +105,7 @@
 						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
-						<ul class="dropdown-menu" role="menu">
+						<ul class="dropdown-menu">
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
 						</ul>
 					</div>
@@ -116,7 +116,7 @@
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
-						<ul class="dropdown-menu" role="menu">
+						<ul class="dropdown-menu">
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save As</a></li>
 						</ul>
 					</div>
@@ -126,7 +126,7 @@
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
-						<ul class="dropdown-menu" role="menu">
+						<ul class="dropdown-menu">
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Body</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Header</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Cookie</a></li>
@@ -180,11 +180,11 @@
 	</div>
 
 	<!-- Modals -->
-	<div class="modal fade" id="folderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="folderModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Add Folder</h4>
 				</div>
 				<div class="modal-body">
@@ -197,11 +197,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="workspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
+	<div class="modal fade" id="workspaceModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="workspaceModalLabel">New Workspace</h4>
 				</div>
 				<div class="modal-body">
@@ -214,11 +214,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+	<div class="modal fade" id="projectModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
 				</div>
 				<div class="modal-body">
@@ -231,11 +231,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="switchWorkspaceModal" tabindex="-1" role="dialog" aria-labelledby="workspaceModalLabel" aria-hidden="true">
+	<div class="modal fade" id="switchWorkspaceModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="projectModalLabel">Switch Workspace</h4>
 				</div>
 				<div class="modal-body"></div>
@@ -245,11 +245,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="comingSoon" tabindex="-1" role="dialog" aria-labelledby="comingSoonLabel" aria-hidden="true">
+	<div class="modal fade" id="comingSoon" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="comingSoonLabel">Coming Soon</h4>
 				</div>
 				<div class="modal-body">UnsupportedOperationException("Not implemented yet")</div>
@@ -284,8 +284,8 @@
 		</ul>
 		</div>
 	</script>
-	<!-- JavaScript -->
 
+	<!-- JavaScript -->
 	<script src="js/libs/jquery-1.7.2.js"></script>
 	<script src="js/libs/jquery-ui.min.js"></script>
 
@@ -315,8 +315,6 @@
 
 	<script src="js/utils/tree.js"></script>
 	<script src="js/utils/util.js"></script>
-
-
 
 </body>
 
