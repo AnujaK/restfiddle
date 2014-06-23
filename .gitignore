@@ -4,3 +4,17 @@
 /.classpath
 /.project
 /.DS_Store
+
+gae/target/maven-archiver/pom.properties
+
+gae/target/restfiddle-1.0-SNAPSHOT.war
+
+gae/target/restfiddle-1.0-SNAPSHOT/WEB-INF/appengine-web.xml
+
+gae/target/restfiddle-1.0-SNAPSHOT/WEB-INF/lib/appengine-api-1.0-sdk-1.9.5.jar
+
+gae/target/restfiddle-1.0-SNAPSHOT/WEB-INF/lib/jstl-1.2.jar
+
+gae/target/restfiddle-1.0-SNAPSHOT/WEB-INF/logging.properties
+
+gae/target/restfiddle-1.0-SNAPSHOT/WEB-INF/web.xml
