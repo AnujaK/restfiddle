@@ -87,6 +87,22 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Labels</h6>
 					</div>
+					<ul class="nav nav-sidebar">
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Important
+						</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Wishlist
+						</a></li>
+					</ul>
+					<br>
+					<div style="border-top: 1px solid lightgray;">
+						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
+					</div>
+					<ul class="nav nav-sidebar">
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
+						</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
+						</a></li>
+					</ul>
 				</div>
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
