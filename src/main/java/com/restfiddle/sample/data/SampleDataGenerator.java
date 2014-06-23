@@ -29,6 +29,7 @@ import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
+import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
@@ -119,6 +120,8 @@ public class SampleDataGenerator {
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setProjectId(1L);
 	ConversationDTO conversationDTO = new ConversationDTO();
+	RfRequestDTO rfRequestDTO = new RfRequestDTO();
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
 	Conversation createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 	firstFolderNode.setConversationDTO(conversationDTO);
