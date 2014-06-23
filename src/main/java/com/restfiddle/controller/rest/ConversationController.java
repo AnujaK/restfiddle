@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.ProjectDTO;
+import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
@@ -53,23 +54,25 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation create(@RequestBody ConversationDTO itemDTO) {
-	logger.debug("Creating a new item with information: " + itemDTO);
+    Conversation create(@RequestBody ConversationDTO conversationDTO) {
+	logger.debug("Creating a new item with information: " + conversationDTO);
 
-	Conversation item = new Conversation();
+	Conversation conversation = new Conversation();
+	conversation.setName(conversationDTO.getName());
+	conversation.setDescription(conversationDTO.getDescription());
 
-	item.setName(itemDTO.getName());
-	item.setDescription(itemDTO.getDescription());
-
+	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
 	RfRequest rfRequest = new RfRequest();
-	rfRequest.setName("req1");
-	item.setRfRequest(rfRequest);
+	rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	rfRequest.setApiBody(rfRequestDTO.getApiBody());
+	rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	conversation.setRfRequest(rfRequest);
 
 	RfResponse rfResponse = new RfResponse();
 	rfResponse.setName("res1");
-	item.setRfResponse(rfResponse);
+	conversation.setRfResponse(rfResponse);
 
-	return itemRepository.save(item);
+	return itemRepository.save(conversation);
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")
@@ -98,8 +101,10 @@ public class ConversationController {
 	// TODO : work in progress
 	for (Conversation item : content) {
 	    byte[] body = item.getRfResponse().getBody();
-	    String strBody = new String(body);
-	    System.out.println(strBody);
+	    if (body != null) {
+		String strBody = new String(body);
+		System.out.println(strBody);
+	    }
 	}
 	return content;
     }

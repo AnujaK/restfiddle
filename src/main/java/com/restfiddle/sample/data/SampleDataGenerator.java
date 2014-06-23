@@ -119,9 +119,13 @@ public class SampleDataGenerator {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setProjectId(1L);
+	
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
 	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO.setMethodType("GET");
+	conversationDTO.setRfRequestDTO(rfRequestDTO);
+
 	Conversation createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 	firstFolderNode.setConversationDTO(conversationDTO);
