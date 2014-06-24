@@ -1,9 +1,12 @@
 $(function() {
+    var uiTree = new Array();
+    
     var uiSideTreeData = {};
 
     function nodeConverter(serverNode, uiNode) {
 	if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER') {
 	    uiNode.folder = true;
+	    uiNode.title = '<p>' + serverNode.name + '</p>';
 	}
 	if (serverNode.children == undefined || serverNode.children.length == 0) {
 	    return;
@@ -11,9 +14,12 @@ $(function() {
 
 	uiNode.children = [];
 	for (var i = serverNode.children.length - 1; i >= 0; i--) {
-	    uiNode.children.push({
-		title : '<p>GET ' + serverNode.children[i].name + '</p>' + '<p>http://localhost:8080/api/workspaces</p>'
-	    });
+	    if (serverNode.children[i].nodeType != 'FOLDER') {
+		uiNode.children.push({
+		    title : '<p>' + serverNode.children[i].name + '</p>'
+		});
+	    }
+
 	    nodeConverter(serverNode.children[i], uiNode.children[i]);
 	}
     }
@@ -27,7 +33,8 @@ $(function() {
 	success : function(serviceSideTreeData) {
 	    console.log("server side tree data : " + serviceSideTreeData);
 	    nodeConverter(serviceSideTreeData, uiSideTreeData);
-
+	    uiTree.push(uiSideTreeData);
+	    
 	    $("#tree").fancytree({
 		extensions : [ "glyph" ],
 		glyph : {
@@ -46,7 +53,7 @@ $(function() {
 			loading : "glyphicon glyphicon-refresh"
 		    }
 		},
-		source : uiSideTreeData
+		source : uiTree
 	    });
 	}
     });
