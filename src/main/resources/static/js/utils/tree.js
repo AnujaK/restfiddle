@@ -9,7 +9,7 @@ $(function() {
 	uiNode.children = [];
 	for (var i = serverNode.children.length - 1; i >= 0; i--) {
 	    uiNode.children.push({
-		title : serverNode.children[i].name
+		title : '<p>GET ' + serverNode.children[i].name + '</p>' + '<p>Test Description</p>'
 	    });
 	    nodeConverter(serverNode.children[i], uiNode.children[i]);
 	}
