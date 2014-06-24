@@ -2,6 +2,12 @@ body {
 	padding-top: 50px;
 }
 
+.nav-sidebar>li>a {
+	position: relative;
+	display: block;
+	padding: 4px 2px;
+}
+
 .main {
 	padding: 40px 15px;
 	text-align: center;

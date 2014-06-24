@@ -50,11 +50,10 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" id="col-1-toggle-btn" class="col-1-toggle-btn">Toggle Left Panel</a></li>
-					<!-- li><a href="#" id="col-2-toggle-btn">Toggle Second Panel</a></li -->
-					<li><a href="#" data-toggle="modal" data-target="#comingSoon">Dashboard</a></li>
 					<li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
-					<li><a href="http://www.restfiddle.com/" target="_blank">Help</a></li>
+					<li><a href="https://github.com/ranjan-rk/restfiddle" target="_blank">GitHub</a></li>
+					<li><a href="http://restfiddle.blogspot.com/" target="_blank">Blog</a></li>
+					<li><a href="https://github.com/ranjan-rk" target="_blank">Contact</a></li>
 					<li>
 						<form action="/logout">
 							<button class="btn btn-link" style="margin-top: 7px; margin-right: 20px;" type="submit">Logout</button>
@@ -107,6 +106,8 @@
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
+				<button class="btn btn-default col-1-toggle-btn">Toggle</button>
+				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#comingSoon">New Request</button>
