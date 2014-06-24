@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
+import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
@@ -69,6 +70,7 @@ public class NodeController {
 
 	node.setName(nodeDTO.getName());
 	node.setDescription(nodeDTO.getDescription());
+	node.setNodeType(nodeDTO.getNodeType());
 
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
@@ -165,7 +167,7 @@ public class NodeController {
 	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType());
 	    treeNodeMap.put(nodeId, treeNode);
 
-	    if ("PROJECT".equals(baseNode.getNodeType())) {
+	    if (NodeTypes.PROJECT.name().equals(baseNode.getNodeType())) {
 		// Identify root node for a project
 		rootNode = treeNode;
 	    } else {

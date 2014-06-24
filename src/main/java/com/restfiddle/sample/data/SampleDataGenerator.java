@@ -25,6 +25,7 @@ import com.restfiddle.controller.rest.ConversationController;
 import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.ProjectController;
 import com.restfiddle.controller.rest.WorkspaceController;
+import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
@@ -118,8 +119,9 @@ public class SampleDataGenerator {
     private void loadNodeData() {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
+	firstFolderNode.setNodeType(NodeTypes.FOLDER.name());
 	firstFolderNode.setProjectId(1L);
-	
+
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
 	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");

@@ -2,10 +2,13 @@ $(function() {
     var uiSideTreeData = {};
 
     function nodeConverter(serverNode, uiNode) {
+	if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER') {
+	    uiNode.folder = true;
+	}
 	if (serverNode.children == undefined || serverNode.children.length == 0) {
 	    return;
 	}
-	uiNode.folder = true;
+
 	uiNode.children = [];
 	for (var i = serverNode.children.length - 1; i >= 0; i--) {
 	    uiNode.children.push({

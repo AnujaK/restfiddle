@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class BaseNode extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/MODULE/FEATURE/SCENARIO/ITEM/REQUEST/FOLDER etc
+    private String nodeType;// PROJECT/FOLDER etc
 
     private Long parentId;
 
