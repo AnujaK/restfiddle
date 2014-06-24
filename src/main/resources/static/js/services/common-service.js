@@ -71,8 +71,8 @@ var app = app || {};
 	    var url = "api/workspaces/" + workspaceId + "/projects";
 	    app.apiRestRequestPost(url, projectModel, successcb, "", failcb);
 	},
-	getWorkspaces : function(successcb, failcb) {
-	    var url = "/api/workspaces";
+	getWorkspaces : function(successcb, failcb,id) {
+	    var url = id? "/api/workspaces"+"/"+id : "/api/workspaces";
 	    app.apiRestRequestGet(url, "", successcb, "", failcb);
 	}
     };

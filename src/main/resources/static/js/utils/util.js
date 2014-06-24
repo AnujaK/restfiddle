@@ -54,11 +54,19 @@ var bindClickEvent = function(selector,callback){
 		}
 	});
 };
+var onGetSingleWSSuccess = function(workspace){
+	$(".dummyWorkspaceName").val(workspace.name);
+};
 var handleSwitchWS = function(event){
 	var wId = $(event.target).attr("id");
 	console.log(wId);
 	$("#switchWorkspaceModal").modal("hide");
+	new app.commonService().getWorkspaces(onGetSingleWSSuccess, onGetWSFail,wId);
     new app.commonService().getProjects(wId, null, onGetProjectsSuccess, onGetProjectsFailure);
+};
+var onGetWSFail = function(responsdata){
+	console.log(responsdata);
+	alert("fail");
 };
 $(".dummySwitchWorkspace").unbind("click").bind("click", function() {
 /*	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
@@ -74,9 +82,5 @@ $(".dummySwitchWorkspace").unbind("click").bind("click", function() {
 		 $("#switchWorkspaceModal .modal-body").html(workSpceList);
 		 $("#switchWorkspaceModal").modal("show");
 		 bindClickEvent(".dummyWSli",handleSwitchWS);
-	};
-	function onGetWSFail(responsdata){
-		console.log(responsdata);
-		alert("fail");
 	};
 });

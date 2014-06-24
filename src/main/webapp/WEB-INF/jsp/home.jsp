@@ -281,24 +281,7 @@
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
 		<div class="dropdown" id="dd-workspace">
-			<button class="btn btn-default" data-toggle="dropdown">
-				Demo Workspace <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-		<@
-			_.each(list,function(workspace){
-		@>
-		<li role="presentation"><a role="menuitem" href="#">
-		<@=workspace.name@>
-		</a></li>
-		<@
-			});
-		@>
-		<li role="presentation" class="divider"></li>
-		<li role="presentation">
-			<a href="#" role="menuitem" data-toggle="modal" data-target="#workspaceModal"><span class="glyphicon glyphicon-plus"></span> New Workspace</a>
-		</li>
-		</ul>
+          <input style="display: inline;" type="text" class="form-control dummyWorkspaceName"  value="<@=workspace.name@>" readonly>
 		</div>
 	</script>
 

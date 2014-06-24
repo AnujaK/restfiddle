@@ -30,7 +30,7 @@ var app = app || {};
 	    var self = this;
 	    // console.log(eventName + ">>>" + JSON.stringify(this.model.toJSON()));
 	    $(this.el).html(this.template({
-		list : this.model.toJSON()
+	    	workspace : this.model.toJSON()[0]
 	    }));
 	    self.bindEvent("#saveWorkspaceBtn", self.saveWorkspace);
 	    return this;
