@@ -19,7 +19,7 @@ Time is valuable, so productivity is important. We have crafted RESTFiddle to av
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot2.jpg "Initial Design")
 
 
 Building From Source
