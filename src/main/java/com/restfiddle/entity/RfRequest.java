@@ -15,18 +15,28 @@
  */
 package com.restfiddle.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+/**
+ * TODO : This class should save all the fields defined in the org.apache.http.client.methods.RequestBuilder class.
+ * 
+ */
 @Entity
-public class RfRequest extends BaseEntity {
+public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String apiUrl;
     private String methodType;
     private String apiBody;
+
+    @OneToMany
+    private List<RfHeader> rfHeaders;
 
     @OneToOne(mappedBy = "rfRequest")
     @JsonBackReference
@@ -62,6 +72,14 @@ public class RfRequest extends BaseEntity {
 
     public void setApiBody(String apiBody) {
 	this.apiBody = apiBody;
+    }
+
+    public List<RfHeader> getRfHeaders() {
+	return rfHeaders;
+    }
+
+    public void setRfHeaders(List<RfHeader> rfHeaders) {
+	this.rfHeaders = rfHeaders;
     }
 
 }

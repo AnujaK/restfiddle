@@ -22,7 +22,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class RfResponse extends BaseEntity {
+public class RfResponse extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @Lob

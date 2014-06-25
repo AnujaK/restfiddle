@@ -18,7 +18,7 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 
 @Entity
-public class Config extends BaseEntity {
+public class Config extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     // Note : Name field is used for display purpose whereas key is the unique name for a particular configuration.

@@ -25,7 +25,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Role extends BaseEntity {
+public class Role extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String type;

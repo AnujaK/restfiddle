@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_role")
-public class UserRole extends BaseEntity {
+public class UserRole extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId

@@ -16,36 +16,32 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
+/**
+ * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
+ * 
+ */
 @Entity
-@Table(name = "role_permission")
-public class RolePermission extends NamedEntity {
+public class RfHeader extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "permission_id")
-    private Permission permission;
+    private String headerKey;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    private String headerValue;
 
-    public Permission getPermission() {
-	return permission;
+    public String getHeaderKey() {
+	return headerKey;
     }
 
-    public void setPermission(Permission permission) {
-	this.permission = permission;
+    public void setHeaderKey(String headerKey) {
+	this.headerKey = headerKey;
     }
 
-    public Role getRole() {
-	return role;
+    public String getHeaderValue() {
+	return headerValue;
     }
 
-    public void setRole(Role role) {
-	this.role = role;
+    public void setHeaderValue(String headerValue) {
+	this.headerValue = headerValue;
     }
 }

@@ -15,37 +15,28 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Table(name = "role_permission")
-public class RolePermission extends NamedEntity {
+@MappedSuperclass
+public abstract class NamedEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "permission_id")
-    private Permission permission;
+    private String name;
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    public Permission getPermission() {
-	return permission;
+    public String getName() {
+	return name;
     }
 
-    public void setPermission(Permission permission) {
-	this.permission = permission;
+    public void setName(String name) {
+	this.name = name;
     }
 
-    public Role getRole() {
-	return role;
+    public String getDescription() {
+	return description;
     }
 
-    public void setRole(Role role) {
-	this.role = role;
+    public void setDescription(String description) {
+	this.description = description;
     }
 }

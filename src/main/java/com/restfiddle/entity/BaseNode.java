@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class BaseNode extends BaseEntity {
+public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String nodeType;// PROJECT/FOLDER etc

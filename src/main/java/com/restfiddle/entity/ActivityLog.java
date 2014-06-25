@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  * 
  */
 @Entity
-public class ActivityLog extends BaseEntity {
+public class ActivityLog extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String type; // e.g. CONVERSATION

@@ -28,7 +28,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-public class User extends BaseEntity {
+public class User extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)

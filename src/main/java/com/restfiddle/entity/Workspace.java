@@ -25,7 +25,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Workspace extends BaseEntity {
+public class Workspace extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workspace")
