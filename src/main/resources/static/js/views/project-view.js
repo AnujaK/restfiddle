@@ -35,9 +35,8 @@ var app = app || {};
 		},
 		showProjectTree : function(){
 			app.projectEvents.triggerChange(this.$el.find('a').data('project-id'));
-			console.log('current project id is ' + app.appView.getCurrentProjectId())
-			app.tree.showTree(app.appView.getCurrentProjectId());
-			//console.log('will fetch project tree');
+			console.log('current project id is ' + app.appView.getCurrentProjectId());
+			app.tree.showTree(this.$el.find('a').data('project-ref-id'));
 		},
 
 		render : function() {

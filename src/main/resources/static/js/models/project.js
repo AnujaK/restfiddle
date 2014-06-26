@@ -8,6 +8,7 @@ var app = app || {};
 	urlRoot : "/api/projects",
 	defaults : {
 		id : '',
+		projectRef : '',
 	    name : '',
 	    description : ''
 	}

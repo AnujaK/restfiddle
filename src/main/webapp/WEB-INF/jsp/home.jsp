@@ -293,7 +293,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
-		<a href="#" data-project-id = <@=project.id@> >
+		<a href="#" data-project-id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> >
 		<span class="glyphicon glyphicon-list-alt">
 		</span>&nbsp;&nbsp;<@=project.name@></a>
 	</script>
