@@ -8,14 +8,32 @@ var app = app || {};
 	events : {
 
 	},
-
+	workspaceId : '',
+	projectId : '',
 	initialize : function() {
 	    var view = new app.WorkspaceView({
-		model : app.workspaces
+	    	model : app.workspaces
 	    });
+	    view.showDefault();
+	    this.listenTo(app.workspaceEvents, 'change',this.handleWorkspaceChange);
+	    this.listenTo(app.projectEvents, 'change',this.handleProjectChange);
 	    this.render();
 	},
-
+	
+	handleWorkspaceChange : function(id){
+		console.log('workspace changed :' + id);
+		this.workspaceId = id;
+	},
+	handleProjectChange : function(id){
+		console.log('project changed :'+ id);
+		this.projectId = id;
+	},
+	getCurrentWorkspaceId : function(){
+		return this.workspaceId;
+	},
+	getCurrentProjectId : function(){
+		return this.projectId;
+	},
 	render : function() {
 	    console.log("app-view#render");
 	}

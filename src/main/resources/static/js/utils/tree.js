@@ -1,4 +1,6 @@
+var app = app || {};
 $(function() {
+	app.tree = {}
     var uiTree = new Array();
     
     var uiSideTreeData = {};
@@ -23,39 +25,41 @@ $(function() {
 	    nodeConverter(serverNode.children[i], uiNode.children[i]);
 	}
     }
-
-    $.ajax({
-	// TODO : populate project-reference node-id for the selected project
-	url : '/api/nodes/1/tree',
-	type : 'get',
-	dataType : 'json',
-	contentType : "application/json",
-	success : function(serviceSideTreeData) {
-	    console.log("server side tree data : " + serviceSideTreeData);
-	    nodeConverter(serviceSideTreeData, uiSideTreeData);
-	    uiTree.push(uiSideTreeData);
-	    
-	    $("#tree").fancytree({
-		extensions : [ "glyph" ],
-		glyph : {
-		    map : {
-			doc : "glyphicon glyphicon-file",
-			docOpen : "glyphicon glyphicon-file",
-			checkbox : "glyphicon glyphicon-unchecked",
-			checkboxSelected : "glyphicon glyphicon-check",
-			checkboxUnknown : "glyphicon glyphicon-share",
-			error : "glyphicon glyphicon-warning-sign",
-			expanderClosed : "glyphicon glyphicon-plus-sign",
-			expanderLazy : "glyphicon glyphicon-plus-sign",
-			expanderOpen : "glyphicon glyphicon-minus-sign",
-			folder : "glyphicon glyphicon-folder-close",
-			folderOpen : "glyphicon glyphicon-folder-open",
-			loading : "glyphicon glyphicon-refresh"
-		    }
-		},
-		source : uiTree
+    app.tree.showTree = function(projectRefNodeId){
+	    $.ajax({
+		// TODO : populate project-reference node-id for the selected project
+		url : '/api/nodes/' + projectRefNodeId +'/tree',
+		type : 'get',
+		dataType : 'json',
+		contentType : "application/json",
+		success : function(serviceSideTreeData) {
+		    console.log("server side tree data : " + serviceSideTreeData);
+		    nodeConverter(serviceSideTreeData, uiSideTreeData);
+		    uiTree.push(uiSideTreeData);
+		    $("#tree").html('');
+		    console.log(uiSideTreeData)
+		    $("#tree").fancytree({
+			extensions : [ "glyph" ],
+			glyph : {
+			    map : {
+				doc : "glyphicon glyphicon-file",
+				docOpen : "glyphicon glyphicon-file",
+				checkbox : "glyphicon glyphicon-unchecked",
+				checkboxSelected : "glyphicon glyphicon-check",
+				checkboxUnknown : "glyphicon glyphicon-share",
+				error : "glyphicon glyphicon-warning-sign",
+				expanderClosed : "glyphicon glyphicon-plus-sign",
+				expanderLazy : "glyphicon glyphicon-plus-sign",
+				expanderOpen : "glyphicon glyphicon-minus-sign",
+				folder : "glyphicon glyphicon-folder-close",
+				folderOpen : "glyphicon glyphicon-folder-open",
+				loading : "glyphicon glyphicon-refresh"
+			    }
+			},
+			source : uiTree
+		    });
+		}
 	    });
-	}
-    });
-
+    };
+    
 });
