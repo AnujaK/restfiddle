@@ -18,31 +18,31 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 
 /**
- * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
+ * Since cookies will not be saved separately, we are using AbstractEntity and not BaseEntity.
  * 
  */
 @Entity
-public class RfHeader extends AbstractEntity {
+public class RfCookie extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    private String headerName;
+    private String cookieName;
 
-    private String headerValue;
+    private String cookieValue;
 
-    public String getHeaderName() {
-	return headerName;
+    public String getCookieName() {
+	return cookieName;
     }
 
-    public void setHeaderName(String headerName) {
-	this.headerName = headerName;
+    public void setCookieName(String cookieName) {
+	this.cookieName = cookieName;
     }
 
-    public String getHeaderValue() {
-	return headerValue;
+    public String getCookieValue() {
+	return cookieValue;
     }
 
-    public void setHeaderValue(String headerValue) {
-	this.headerValue = headerValue;
+    public void setCookieValue(String cookieValue) {
+	this.cookieValue = cookieValue;
     }
 
 }

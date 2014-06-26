@@ -17,32 +17,29 @@ package com.restfiddle.entity;
 
 import javax.persistence.Entity;
 
-/**
- * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
- * 
- */
 @Entity
-public class RfHeader extends AbstractEntity {
+public class Color extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    private String headerName;
+    // Color code which can be rendered on the UI
+    private String colorCode;
+    // Display Name
+    private String displayName;
 
-    private String headerValue;
-
-    public String getHeaderName() {
-	return headerName;
+    public String getColorCode() {
+	return colorCode;
     }
 
-    public void setHeaderName(String headerName) {
-	this.headerName = headerName;
+    public void setColorCode(String colorCode) {
+	this.colorCode = colorCode;
     }
 
-    public String getHeaderValue() {
-	return headerValue;
+    public String getDisplayName() {
+	return displayName;
     }
 
-    public void setHeaderValue(String headerValue) {
-	this.headerValue = headerValue;
+    public void setDisplayName(String displayName) {
+	this.displayName = displayName;
     }
 
 }

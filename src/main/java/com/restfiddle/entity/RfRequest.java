@@ -23,10 +23,6 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-/**
- * TODO : This class should save all the fields defined in the org.apache.http.client.methods.RequestBuilder class.
- * 
- */
 @Entity
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
@@ -37,6 +33,9 @@ public class RfRequest extends NamedEntity {
 
     @OneToMany
     private List<RfHeader> rfHeaders;
+
+    @OneToMany
+    private List<RfCookie> rfCookies;
 
     @OneToOne(mappedBy = "rfRequest")
     @JsonBackReference
@@ -80,6 +79,14 @@ public class RfRequest extends NamedEntity {
 
     public void setRfHeaders(List<RfHeader> rfHeaders) {
 	this.rfHeaders = rfHeaders;
+    }
+
+    public List<RfCookie> getRfCookies() {
+        return rfCookies;
+    }
+
+    public void setRfCookies(List<RfCookie> rfCookies) {
+        this.rfCookies = rfCookies;
     }
 
 }

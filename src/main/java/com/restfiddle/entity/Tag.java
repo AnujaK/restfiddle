@@ -16,33 +16,33 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-/**
- * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
- * 
- */
 @Entity
-public class RfHeader extends AbstractEntity {
+public class Tag extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String headerName;
+    @OneToOne
+    private Color color;
 
-    private String headerValue;
+    @ManyToOne
+    private Workspace workspace;
 
-    public String getHeaderName() {
-	return headerName;
+    public Color getColor() {
+	return color;
     }
 
-    public void setHeaderName(String headerName) {
-	this.headerName = headerName;
+    public void setColor(Color color) {
+	this.color = color;
     }
 
-    public String getHeaderValue() {
-	return headerValue;
+    public Workspace getWorkspace() {
+	return workspace;
     }
 
-    public void setHeaderValue(String headerValue) {
-	this.headerValue = headerValue;
+    public void setWorkspace(Workspace workspace) {
+	this.workspace = workspace;
     }
 
 }
