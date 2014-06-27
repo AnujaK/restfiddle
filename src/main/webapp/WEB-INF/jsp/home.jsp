@@ -109,9 +109,12 @@
 						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li>&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span
-							class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span
-							class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span></li>
+						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span></li>
 					</ul>
 				</div>
 			</div>
