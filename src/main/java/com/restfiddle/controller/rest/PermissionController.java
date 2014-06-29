@@ -51,7 +51,7 @@ public class PermissionController {
 	logger.debug("Creating a new permission with information: " + permissionDTO);
 
 	Permission permission = new Permission();
-
+	permission.setType(permissionDTO.getType());
 	permission.setName(permissionDTO.getName());
 	permission.setDescription(permissionDTO.getDescription());
 

@@ -51,7 +51,7 @@ public class RoleController {
 	logger.debug("Creating a new role with information: " + roleDTO);
 
 	Role role = new Role();
-
+	role.setType(roleDTO.getType());
 	role.setName(roleDTO.getName());
 	role.setDescription(roleDTO.getDescription());
 
