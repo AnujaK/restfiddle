@@ -24,6 +24,7 @@ import com.restfiddle.controller.rest.ConfigController;
 import com.restfiddle.controller.rest.ConversationController;
 import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.ProjectController;
+import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
 import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dto.ConfigDTO;
@@ -31,6 +32,7 @@ import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.UserDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
@@ -41,6 +43,9 @@ public class SampleDataGenerator {
 
     @Autowired
     private ConfigController configController;
+
+    @Autowired
+    private UserController userController;
 
     @Autowired
     private WorkspaceController workspaceController;
@@ -59,9 +64,22 @@ public class SampleDataGenerator {
 	if (isSampleDataPresent()) {
 	    return;
 	}
+	loadUserData();
 	loadWorkspaceData();
 	loadProjectData();
 	loadNodeData();
+    }
+
+    private void loadUserData() {
+	UserDTO adminUserDTO = new UserDTO();
+	adminUserDTO.setFirstName("Rest");
+	adminUserDTO.setLastName("Fiddle");
+	userController.create(adminUserDTO);
+
+	UserDTO userDTO = new UserDTO();
+	userDTO.setFirstName("Ranjan");
+	userDTO.setLastName("Kumar");
+	userController.create(userDTO);
     }
 
     private boolean isSampleDataPresent() {
