@@ -15,6 +15,6 @@
  */
 package com.restfiddle.dao.util;
 
-public enum NodeTypes {
-    PROJECT, FOLDER;
+public enum PermissionTypes {
+    WORKSPACE_VIEW, WORKSPACE_MODIFY, WORKSPACE_CREATE, WORKSPACE_DELETE, PROJECT_VIEW, PROJECT_MODIFY, PROJECT_CREATE, PROJECT_DELETE;
 }
