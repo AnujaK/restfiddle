@@ -20,6 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "acl_class")
-public class AclClass {
+public class AclClass extends AbstractEntity {
+    private static final long serialVersionUID = 1L;
 
 }
