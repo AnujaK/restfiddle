@@ -7,6 +7,8 @@ var app = app || {};
     app.Project = Backbone.Model.extend({
 	urlRoot : "/api/projects",
 	defaults : {
+		id : '',
+		projectRef : '',
 	    name : '',
 	    description : ''
 	}

@@ -29,19 +29,23 @@ var onGetProjectsFailure = function() {
 };
 
 // TODO : remove hard-coded workspace id
-new app.commonService().getProjects("1", null, onGetProjectsSuccess, onGetProjectsFailure);
+//new app.commonService().getProjects("1", null, onGetProjectsSuccess, onGetProjectsFailure);
 
 $("#saveProjectBtn").bind("click", function() {
-    new app.commonService().saveProject("1", {
+    new app.commonService().saveProject(app.appView.getCurrentWorkspaceId(), {
 	"name" : $("#projectTextField").val()
     }, onSaveProjectSuccess, onSaveProjectFailure);
 });
 var onSaveProjectSuccess = function(responseData) {
-    $(".project-list").append(
+	var project = new app.Project(responseData);
+	var projectView = new app.ProjectView();
+	projectView.addOne(project);
+	$('#projectModal').modal("hide");
+/*    $(".project-list").append(
 	    '<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'
 		    + responseData.name + '</a></li>');
     console.log("project created successfully!");
-    $('#projectModal').modal("hide");
+    $('#projectModal').modal("hide");*/
 };
 var onSaveProjectFailure = function() {
     console.log("failed");
@@ -68,11 +72,11 @@ var onGetWSFail = function(responsdata){
 	console.log(responsdata);
 	alert("fail");
 };
-$(".dummySwitchWorkspace").unbind("click").bind("click", function() {
-/*	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
+/*$(".dummySwitchWorkspace").unbind("click").bind("click", function() {
+	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
 	$("#switchWorkspaceModal").modal("show");
 	alert("test it");*/
-	new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
+	/*new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
 	function onGetWSSuccess(responsdata){
 		var workSpceList = '<div class="list-group">';
 		 $.each(responsdata, function(ids,workSpace) {
@@ -83,4 +87,4 @@ $(".dummySwitchWorkspace").unbind("click").bind("click", function() {
 		 $("#switchWorkspaceModal").modal("show");
 		 bindClickEvent(".dummyWSli",handleSwitchWS);
 	};
-});
+});*/

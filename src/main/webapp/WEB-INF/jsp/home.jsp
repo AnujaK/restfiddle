@@ -35,7 +35,7 @@
 					</button>
 					<ul class="dropdown-menu">
 						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
-						<li><a href="#" class="dummySwitchWorkspace">Switch Workspace</a></li>
+						<li><a href="#" id="switchWorkSpace" class="dummySwitchWorkspace">Switch Workspace</a></li>
 						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#projectModal">New Project</a></li>
 						<li class="divider"></li>
@@ -79,6 +79,8 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
 					</div>
+					<ul class="nav nav-sidebar" id="test_project">
+					</ul>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
 					</ul>
@@ -298,7 +300,14 @@
           <input style="display: inline;" type="text" class="form-control dummyWorkspaceName"  value="<@=workspace.name@>" readonly>
 		</div>
 	</script>
-
+	<script type="text/template" id="tpl-project-list-item">
+		<a href="#" data-project-id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> >
+		<span class="glyphicon glyphicon-list-alt">
+		</span>&nbsp;&nbsp;<@=project.name@></a>
+	</script>
+	<script  type="text/template" id="tpl-workspace-all-list-item">
+		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
+	</script>
 	<!-- JavaScript -->
 	<script src="js/libs/jquery-1.7.2.js"></script>
 	<script src="js/libs/jquery-ui.min.js"></script>
@@ -315,10 +324,14 @@
 
 	<script src="js/utils/caller.js"></script>
 	<script src="js/services/common-service.js"></script>
-
+	<script src="js/utils/tree.js"></script>
 	<script src="js/models/workspace.js"></script>
+	<script src="js/models/app.js"></script>
 	<script src="js/collections/workspaces.js"></script>
+	<script src="js/events/workspace-event.js"></script>
+	<script src="js/events/project-event.js"></script>
 	<script src="js/views/workspace-view.js"></script>
+	<script src="js/views/project-view.js"></script>
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 
@@ -327,7 +340,7 @@
 
 	<script src="js/app.js"></script>
 
-	<script src="js/utils/tree.js"></script>
+	
 	<script src="js/utils/util.js"></script>
 </body>
 
