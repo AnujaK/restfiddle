@@ -37,9 +37,7 @@ $("#saveProjectBtn").bind("click", function() {
     }, onSaveProjectSuccess, onSaveProjectFailure);
 });
 var onSaveProjectSuccess = function(responseData) {
-	var project = new app.Project({
-		name : responseData.name,
-	});
+	var project = new app.Project(responseData);
 	var projectView = new app.ProjectView();
 	projectView.addOne(project);
 	$('#projectModal').modal("hide");
