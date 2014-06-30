@@ -23,14 +23,22 @@ import org.springframework.stereotype.Component;
 import com.restfiddle.controller.rest.ConfigController;
 import com.restfiddle.controller.rest.ConversationController;
 import com.restfiddle.controller.rest.NodeController;
+import com.restfiddle.controller.rest.PermissionController;
 import com.restfiddle.controller.rest.ProjectController;
+import com.restfiddle.controller.rest.RoleController;
+import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
 import com.restfiddle.dao.util.NodeTypes;
+import com.restfiddle.dao.util.PermissionTypes;
+import com.restfiddle.dao.util.RoleTypes;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.PermissionDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RoleDTO;
+import com.restfiddle.dto.UserDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
@@ -41,6 +49,15 @@ public class SampleDataGenerator {
 
     @Autowired
     private ConfigController configController;
+
+    @Autowired
+    private RoleController roleController;
+
+    @Autowired
+    private PermissionController permissionController;
+
+    @Autowired
+    private UserController userController;
 
     @Autowired
     private WorkspaceController workspaceController;
@@ -59,9 +76,68 @@ public class SampleDataGenerator {
 	if (isSampleDataPresent()) {
 	    return;
 	}
+	loadRoleData();
+	loadPermissionData();
+	loadUserData();
 	loadWorkspaceData();
 	loadProjectData();
 	loadNodeData();
+    }
+
+    private void loadRoleData() {
+	RoleDTO adminRoleDTO = new RoleDTO();
+	adminRoleDTO.setType(RoleTypes.ROLE_ADMIN.name());
+	roleController.create(adminRoleDTO);
+
+	RoleDTO userRoleDTO = new RoleDTO();
+	userRoleDTO.setType(RoleTypes.ROLE_USER.name());
+	roleController.create(userRoleDTO);
+    }
+
+    private void loadPermissionData() {
+	PermissionDTO viewWorkspacePermission = new PermissionDTO();
+	viewWorkspacePermission.setType(PermissionTypes.VIEW_WORKSPACE.name());
+	permissionController.create(viewWorkspacePermission);
+
+	PermissionDTO modifyWorkspacePermission = new PermissionDTO();
+	modifyWorkspacePermission.setType(PermissionTypes.MODIFY_WORKSPACE.name());
+	permissionController.create(modifyWorkspacePermission);
+
+	PermissionDTO createWorkspacePermission = new PermissionDTO();
+	createWorkspacePermission.setType(PermissionTypes.CREATE_WORKSPACE.name());
+	permissionController.create(createWorkspacePermission);
+
+	PermissionDTO deleteWorkspacePermission = new PermissionDTO();
+	deleteWorkspacePermission.setType(PermissionTypes.DELETE_WORKSPACE.name());
+	permissionController.create(deleteWorkspacePermission);
+
+	PermissionDTO viewProject = new PermissionDTO();
+	viewProject.setType(PermissionTypes.VIEW_PROJECT.name());
+	permissionController.create(viewProject);
+
+	PermissionDTO modifyProjectPermission = new PermissionDTO();
+	modifyProjectPermission.setType(PermissionTypes.MODIFY_PROJECT.name());
+	permissionController.create(modifyProjectPermission);
+
+	PermissionDTO createProjectPermission = new PermissionDTO();
+	createProjectPermission.setType(PermissionTypes.CREATE_PROJECT.name());
+	permissionController.create(createProjectPermission);
+
+	PermissionDTO deleteProjectPermission = new PermissionDTO();
+	deleteProjectPermission.setType(PermissionTypes.DELETE_PROJECT.name());
+	permissionController.create(deleteProjectPermission);
+    }
+
+    private void loadUserData() {
+	UserDTO adminUserDTO = new UserDTO();
+	adminUserDTO.setFirstName("Rest");
+	adminUserDTO.setLastName("Fiddle");
+	userController.create(adminUserDTO);
+
+	UserDTO userDTO = new UserDTO();
+	userDTO.setFirstName("Ranjan");
+	userDTO.setLastName("Kumar");
+	userController.create(userDTO);
     }
 
     private boolean isSampleDataPresent() {

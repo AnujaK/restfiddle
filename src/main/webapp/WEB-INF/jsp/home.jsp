@@ -110,6 +110,14 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Members</h6>
 					</div>
+					<ul class="nav nav-sidebar">
+						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span></li>
+					</ul>
 				</div>
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
@@ -334,7 +342,6 @@
 
 	
 	<script src="js/utils/util.js"></script>
-
 </body>
 
 </html>

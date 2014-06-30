@@ -13,8 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao.util;
+package com.restfiddle.dto;
 
-public enum NodeTypes {
-    PROJECT, FOLDER;
+public class RoleDTO extends BaseDTO {
+
+    private String type;
+
+    public String getType() {
+	return type;
+    }
+
+    public void setType(String type) {
+	this.type = type;
+    }
 }

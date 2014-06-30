@@ -15,6 +15,6 @@
  */
 package com.restfiddle.dao.util;
 
-public enum NodeTypes {
-    PROJECT, FOLDER;
+public enum RoleTypes {
+    ROLE_ADMIN, ROLE_USER;
 }
