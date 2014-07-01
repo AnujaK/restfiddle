@@ -186,15 +186,25 @@
 						</div>
 					</div>
 					<br>
+					<!-- Nav tabs -->
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#">Body</a></li>
-						<li><a href="#">Header</a></li>
-						<li><a href="#">Cookie</a></li>
-						<li><a href="#">Auth</a></li>
+						<li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
+						<li><a href="#tab-header" data-toggle="tab">Header</a></li>
+						<li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li>
+						<li><a href="#tab-auth" data-toggle="tab">Auth</a></li>
 					</ul>
-					<br>
-					<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
-					<br> <br>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-body">
+							<br>
+							<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
+						</div>
+						<div class="tab-pane" id="tab-header">...</div>
+						<div class="tab-pane" id="tab-cookie">...</div>
+						<div class="tab-pane" id="tab-auth">...</div>
+					</div>
+
+					<br> <br> <br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
 					</div>
@@ -305,7 +315,7 @@
 		<span class="glyphicon glyphicon-list-alt">
 		</span>&nbsp;&nbsp;<@=project.name@></a>
 	</script>
-	<script  type="text/template" id="tpl-workspace-all-list-item">
+	<script type="text/template" id="tpl-workspace-all-list-item">
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<!-- JavaScript -->
@@ -340,7 +350,7 @@
 
 	<script src="js/app.js"></script>
 
-	
+
 	<script src="js/utils/util.js"></script>
 </body>
 
