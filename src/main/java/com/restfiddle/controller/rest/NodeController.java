@@ -115,7 +115,7 @@ public class NodeController {
 
 	BaseNode baseNode = nodeRepository.findOne(id);
 	baseNode.getConversation();
-	
+
 	return baseNode;
     }
 
@@ -191,5 +191,14 @@ public class NodeController {
 	    }
 	}
 	return rootNode;
+    }
+
+    @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> findStarredNodes() {
+	logger.debug("Finding starred nodes.");
+
+	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(Boolean.TRUE);
+	return starredNodes;
     }
 }
