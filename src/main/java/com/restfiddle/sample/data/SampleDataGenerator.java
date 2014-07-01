@@ -228,5 +228,11 @@ public class SampleDataGenerator {
 	testNode.setName("Test Node");
 	testNode.setProjectId(1L);
 	nodeController.create(1L, testNode);
+
+	NodeDTO starredNode = new NodeDTO();
+	starredNode.setName("Starred Node");
+	starredNode.setStarred(Boolean.TRUE);
+	starredNode.setProjectId(1L);
+	nodeController.create(1L, starredNode);
     }
 }

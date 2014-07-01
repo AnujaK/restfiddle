@@ -25,6 +25,8 @@ public class NodeDTO extends BaseDTO {
 
     private Long projectId;
 
+    private Boolean starred;
+    
     private ConversationDTO conversationDTO;
 
     public Long getProjectId() {
@@ -65,6 +67,14 @@ public class NodeDTO extends BaseDTO {
 
     public void setPosition(Long position) {
 	this.position = position;
+    }
+
+    public Boolean getStarred() {
+        return starred;
+    }
+
+    public void setStarred(Boolean starred) {
+        this.starred = starred;
     }
 
 }

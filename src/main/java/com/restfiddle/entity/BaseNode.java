@@ -32,6 +32,8 @@ public class BaseNode extends NamedEntity {
 
     private Long position;// location in the parent node
 
+    private Boolean starred;
+
     @OneToOne
     @JsonManagedReference
     private Conversation conversation;
@@ -78,6 +80,14 @@ public class BaseNode extends NamedEntity {
 
     public void setConversation(Conversation conversation) {
 	this.conversation = conversation;
+    }
+
+    public Boolean getStarred() {
+	return starred;
+    }
+
+    public void setStarred(Boolean starred) {
+	this.starred = starred;
     }
 
 }

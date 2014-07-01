@@ -71,6 +71,7 @@ public class NodeController {
 	node.setName(nodeDTO.getName());
 	node.setDescription(nodeDTO.getDescription());
 	node.setNodeType(nodeDTO.getNodeType());
+	node.setStarred(nodeDTO.getStarred());
 
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
@@ -164,7 +165,7 @@ public class NodeController {
 	    Long nodeId = baseNode.getId();
 	    Long parentId = baseNode.getParentId();
 
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType());
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
 	    treeNodeMap.put(nodeId, treeNode);
 
 	    if (NodeTypes.PROJECT.name().equals(baseNode.getNodeType())) {
@@ -175,7 +176,8 @@ public class NodeController {
 		BaseNode baseParentNode = nodeIdMap.get(parentId);
 		parentTreeNode = treeNodeMap.get(parentId);
 		if (parentTreeNode == null) {
-		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType());
+		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType(),
+			    baseParentNode.getStarred());
 		}
 
 		// Set parent tree node
