@@ -113,7 +113,10 @@ public class NodeController {
     BaseNode findById(@PathVariable("id") Long id) {
 	logger.debug("Finding node by id: " + id);
 
-	return nodeRepository.findOne(id);
+	BaseNode baseNode = nodeRepository.findOne(id);
+	baseNode.getConversation();
+	
+	return baseNode;
     }
 
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.GET)

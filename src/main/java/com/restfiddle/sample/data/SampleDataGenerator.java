@@ -197,16 +197,6 @@ public class SampleDataGenerator {
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeTypes.FOLDER.name());
 	firstFolderNode.setProjectId(1L);
-
-	ConversationDTO conversationDTO = new ConversationDTO();
-	RfRequestDTO rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
-	rfRequestDTO.setMethodType("GET");
-	conversationDTO.setRfRequestDTO(rfRequestDTO);
-
-	Conversation createdConversation = conversationController.create(conversationDTO);
-	conversationDTO.setId(createdConversation.getId());
-	firstFolderNode.setConversationDTO(conversationDTO);
 	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
@@ -229,10 +219,21 @@ public class SampleDataGenerator {
 	testNode.setProjectId(1L);
 	nodeController.create(1L, testNode);
 
+	ConversationDTO conversationDTO = new ConversationDTO();
+	RfRequestDTO rfRequestDTO = new RfRequestDTO();
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO.setMethodType("GET");
+	conversationDTO.setRfRequestDTO(rfRequestDTO);
+
+	Conversation createdConversation = conversationController.create(conversationDTO);
+	conversationDTO.setId(createdConversation.getId());
+	
 	NodeDTO starredNode = new NodeDTO();
 	starredNode.setName("Starred Node");
 	starredNode.setStarred(Boolean.TRUE);
 	starredNode.setProjectId(1L);
+	starredNode.setConversationDTO(conversationDTO);
+
 	nodeController.create(1L, starredNode);
     }
 }
