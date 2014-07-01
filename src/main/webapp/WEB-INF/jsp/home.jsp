@@ -79,7 +79,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
 					</div>
-					<ul class="nav nav-sidebar" id="test_project">
+					<ul class="nav nav-pills nav-stacked" id="test_project">
 					</ul>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
@@ -131,7 +131,7 @@
 				<div id="tree"></div>
 			</div>
 			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
-				<div class="form-group">
+				<div class="form-group" id="conversationSection">
 					<br>
 					<div class="btn-group">
 						<button class="btn btn-primary" id="run">Run</button>
@@ -327,11 +327,14 @@
 	<script src="js/utils/tree.js"></script>
 	<script src="js/models/workspace.js"></script>
 	<script src="js/models/app.js"></script>
+	<script src="js/models/conversation.js"></script>
+	<script src="js/models/node.js"></script>
 	<script src="js/collections/workspaces.js"></script>
 	<script src="js/events/workspace-event.js"></script>
 	<script src="js/events/project-event.js"></script>
 	<script src="js/views/workspace-view.js"></script>
 	<script src="js/views/project-view.js"></script>
+	<script src="js/views/conversation-view.js"></script>
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 

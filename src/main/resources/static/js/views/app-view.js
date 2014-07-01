@@ -22,6 +22,7 @@ var app = app || {};
 	
 	handleWorkspaceChange : function(id){
 		console.log('workspace changed :' + id);
+		app.tree.resetTree();
 		this.workspaceId = id;
 	},
 	handleProjectChange : function(id){
