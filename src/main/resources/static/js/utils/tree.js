@@ -35,12 +35,18 @@ $(function() {
 			return;
 		}
 
-		uiNode.children = [];
-		for ( var i = serverNode.children.length - 1; i >= 0; i--) {
+		uiNode.children = new Array();
+		for ( var i = 0; i < serverNode.children.length; i++) {
 			if (serverNode.children[i].nodeType != 'FOLDER') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>'
 				});
+			}
+			else{
+			    var node = new Object();
+			    uiNode.children.push({
+				node : node
+			});
 			}
 
 			nodeConverter(serverNode.children[i], uiNode.children[i]);
