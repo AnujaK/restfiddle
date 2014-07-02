@@ -27,9 +27,44 @@ var onGetProjectsFailure = function() {
     console.log("failed");
     alert("failed");
 };
-
-// TODO : remove hard-coded workspace id
-//new app.commonService().getProjects("1", null, onGetProjectsSuccess, onGetProjectsFailure);
+//TODO: handling should be under control of some view.
+$("#createNewRequestBtn").bind("click",function(){
+	var nodeName = $("#requestName").val();
+	var conversation = new app.ConversationModel({});
+	conversation.save(null, {
+		success : function(response){
+			createNode( nodeName, null, new app.ConversationModel({id : response.get("id")}), function(){
+				$("#requestModal").modal("hide");
+			});
+		}
+	});
+	
+	
+});
+var createNode = function(nodeName, nodeType, conversation, successCallBack){
+	var activeFolder = app.tree.getActiveFolder();
+	var parentNodeId = activeFolder.data.id;
+	var node = new app.NodeModel({
+		parentId : parentNodeId,
+		name : nodeName,
+		projectId : app.appView.getCurrentProjectId(),
+		conversationDTO : conversation,
+		nodeType : nodeType});
+	node.save(null, {
+		success : function(response){
+			app.tree.appendChild(activeFolder, app.tree.convertModelToNode(response));
+			successCallBack();
+		},
+		error : function(){
+			alert('error while saving folder');
+		}
+	});
+};
+$("#createNewFolderBtn").bind("click",function(){
+	createNode( $("#folderId").val(), 'FOLDER',null, function(){
+		$("#folderModal").modal("hide");
+	});
+});
 
 $("#saveProjectBtn").bind("click", function() {
     new app.commonService().saveProject(app.appView.getCurrentWorkspaceId(), {

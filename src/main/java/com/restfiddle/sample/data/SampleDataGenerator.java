@@ -203,16 +203,38 @@ public class SampleDataGenerator {
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeTypes.FOLDER.name());
 	firstFolderNode.setProjectId(1L);
+
+	ConversationDTO conversationDTO = new ConversationDTO();
+	RfRequestDTO rfRequestDTO = new RfRequestDTO();
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO.setMethodType("GET");
+	conversationDTO.setRfRequestDTO(rfRequestDTO);
+	
+	ConversationDTO postConversationDTO = new ConversationDTO();
+	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
+	rfRequestDTO2.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO2.setMethodType("POST");
+	rfRequestDTO2.setApiBody("{\"name\" : \"Test Worksapce\", \"description\" : \"This is test workspace from sample data generator\"}");
+	postConversationDTO.setRfRequestDTO(rfRequestDTO2);
+
+	Conversation createdConversation = conversationController.create(conversationDTO);
+	Conversation createdPostConversation = conversationController.create(postConversationDTO);
+	conversationDTO.setId(createdConversation.getId());
+	postConversationDTO.setId(createdPostConversation.getId());
+	//firstFolderNode.setConversationDTO(conversationDTO);
+
 	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
-	childNode.setName("Child Node");
+	childNode.setName("GET Workspace");
 	childNode.setProjectId(1L);
+	childNode.setConversationDTO(conversationDTO);
 	nodeController.create(createdFolderNode.getId(), childNode);
 
 	NodeDTO secondNode = new NodeDTO();
-	secondNode.setName("Second Node");
+	secondNode.setName("POST Worksapce");
 	secondNode.setProjectId(1L);
+	secondNode.setConversationDTO(postConversationDTO);
 	nodeController.create(1L, secondNode);
 
 	NodeDTO dummyNode = new NodeDTO();
@@ -224,15 +246,6 @@ public class SampleDataGenerator {
 	testNode.setName("Test Node");
 	testNode.setProjectId(1L);
 	nodeController.create(1L, testNode);
-
-	ConversationDTO conversationDTO = new ConversationDTO();
-	RfRequestDTO rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
-	rfRequestDTO.setMethodType("GET");
-	conversationDTO.setRfRequestDTO(rfRequestDTO);
-
-	Conversation createdConversation = conversationController.create(conversationDTO);
-	conversationDTO.setId(createdConversation.getId());
 
 	NodeDTO starredNode = new NodeDTO();
 	starredNode.setName("Starred Node");

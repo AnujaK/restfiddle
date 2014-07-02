@@ -63,11 +63,12 @@ public class ConversationController {
 
 	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
 	RfRequest rfRequest = new RfRequest();
-	rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
-	rfRequest.setApiBody(rfRequestDTO.getApiBody());
-	rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	if(null != rfRequestDTO){
+		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+		rfRequest.setApiBody(rfRequestDTO.getApiBody());
+		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	}
 	conversation.setRfRequest(rfRequest);
-
 	RfResponse rfResponse = new RfResponse();
 	rfResponse.setName("res1");
 	conversation.setRfResponse(rfResponse);
@@ -119,7 +120,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation update(@PathVariable("conversationId") Long conversationId, @RequestBody ProjectDTO updated) {
+    Conversation update(@PathVariable("conversationId") Long conversationId, @RequestBody ConversationDTO updated) {
 	logger.debug("Updating item with information: " + updated);
 
 	Conversation item = itemRepository.findOne(updated.getId());
@@ -127,6 +128,14 @@ public class ConversationController {
 	item.setName(updated.getName());
 	item.setDescription(updated.getDescription());
 
+	RfRequestDTO rfRequestDTO = updated.getRfRequestDTO();
+	RfRequest rfRequest = item.getRfRequest();
+	if(null != rfRequestDTO){
+		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+		rfRequest.setApiBody(rfRequestDTO.getApiBody());
+		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	}
+	item.setRfRequest(rfRequest);
 	return item;
     }
 

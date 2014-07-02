@@ -7,4 +7,5 @@ $(function() {
  
    app.appModel = new app.ApplicationModel(); 
    app.appView =  new app.AppView();
+   app.conversation = new app.ConversationView();
 });

@@ -79,7 +79,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
 					</div>
-					<ul class="nav nav-sidebar" id="test_project">
+					<ul class="nav nav-pills nav-stacked" id="test_project">
 					</ul>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
@@ -126,12 +126,12 @@
 				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default" data-toggle="modal" data-target="#comingSoon">New Request</button>
+				<button class="btn btn-default" data-toggle="modal" data-target="#requestModal">New Request</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
 			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
-				<div class="form-group">
+				<div class="form-group" id="conversationSection">
 					<br>
 					<div class="btn-group">
 						<button class="btn btn-primary" id="run">Run</button>
@@ -145,7 +145,7 @@
 
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Save</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" id="saveConversationBtn">Save</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
@@ -235,7 +235,32 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="requestModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">New Request</h4>
+				</div>
+				<div class="modal-body">
+					 <div class="form-group">
+					    <label for="requestName">Request Name</label>
+					    <input class="form-control" id="requestName" placeholder="Enter Request Name">
+					 </div>
+					 <!-- 
+					 <div class="form-group">
+				    	<label for="requestUrl">API End Point</label>
+				    	<input class="form-control" id="requestUrl" placeholder="http://example.com/api/v1/users">
+				 	</div> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewRequestBtn">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -337,11 +362,15 @@
 	<script src="js/utils/tree.js"></script>
 	<script src="js/models/workspace.js"></script>
 	<script src="js/models/app.js"></script>
+	<script src="js/models/conversation.js"></script>
+	<script src="js/models/node.js"></script>
 	<script src="js/collections/workspaces.js"></script>
 	<script src="js/events/workspace-event.js"></script>
 	<script src="js/events/project-event.js"></script>
+	<script src="js/events/conversation-event.js"></script>
 	<script src="js/views/workspace-view.js"></script>
 	<script src="js/views/project-view.js"></script>
+	<script src="js/views/conversation-view.js"></script>
 	<script src="js/views/app-view.js"></script>
 	<script src="js/routers/workspace-router.js"></script>
 

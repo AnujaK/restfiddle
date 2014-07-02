@@ -34,6 +34,10 @@ var app = app || {};
 			//this.render();
 		},
 		showProjectTree : function(){
+			this.$el.parent('ul').find('li').each(function(){
+				$(this).removeClass('active');
+			})
+			this.$el.addClass("active");
 			app.projectEvents.triggerChange(this.$el.find('a').data('project-id'));
 			console.log('current project id is ' + app.appView.getCurrentProjectId());
 			app.tree.showTree(this.$el.find('a').data('project-ref-id'));
