@@ -26,10 +26,16 @@ $(function() {
 				node.fetch({success:function(response){
 					console.log(response.get("conversation"));
 					var conversation = new app.ConversationModel(response.get("conversation"));
-					var conversationView = new app.ConversationView({model : conversation});
-					conversationView.render();
+					//var conversationView = new app.ConversationView({model : conversation});
+					app.conversation.render(conversation);
+					app.conversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
 				}});
 				
+			}else if(data.node.isFolder()){
+				var conversation = new app.ConversationModel({});
+				//var conversationView = new app.ConversationView({model : conversation});
+				app.conversation.render(conversation);
+				app.conversationEvents.triggerChange(null);
 			}
 		},
 		source : []
@@ -41,6 +47,7 @@ $(function() {
 	function nodeConverter(serverNode, uiNode) {
 		if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER') {
 			uiNode.folder = true;
+			uiNode.id = serverNode.id
 			uiNode.title = '<p>' + serverNode.name + '</p>';
 		}
 		if (serverNode.children == undefined || serverNode.children.length == 0) {
@@ -48,20 +55,61 @@ $(function() {
 		}
 
 		uiNode.children = [];
-		for ( var i = serverNode.children.length - 1; i >= 0; i--) {
+		for ( var i = 0 ; i < serverNode.children.length ; i ++) {
 			if (serverNode.children[i].nodeType != 'FOLDER') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>',
 					id : serverNode.children[i].id
 				});
+			} else if(serverNode.children[i].nodeType == 'FOLDER'){
+				uiNode.children.push({});
+				nodeConverter(serverNode.children[i], uiNode.children[i]);
 			}
-
-			nodeConverter(serverNode.children[i], uiNode.children[i]);
+			
+		}
+	}
+	app.tree.appendChild = function(parent, child){
+		var childNode = parent.addChildren(child);
+		childNode.setActive(true);
+		$(childNode.li).trigger('click');
+		/*console.log(childNode)
+		app.conversationEvents.triggerChange(childNode.data.id);*/
+	};
+	app.tree.convertModelToNode = function(nodeModel){
+		return {
+			title : nodeModel.get('name'),
+			id : nodeModel.get('id'),
+			folder : nodeModel.get('nodeType') == 'FOLDER' ? true : false
 		}
 	}
 	app.tree.resetTree = function(){
 		tree.reload([]);
 	};
+	app.tree.getActiveFolder = function(){
+		 var node = $("#tree").fancytree("getActiveNode");
+		 var folder = getParentFolder(node);
+		 if(folder){
+			 return folder;
+		 }else{
+			 //return root folder 
+			 return $("#tree").fancytree("getRootNode").getFirstChild();
+		 }
+		 
+	};
+	
+	var getParentFolder = function(node){
+		if(node){
+			if(node.isFolder()){
+				return node;
+			}else if(node.getParent().isFolder()){
+				return node.getParent();
+			}else{
+				return getParentFolder(node.getParent());
+			}
+		}else{
+			return null;
+		}
+	}
 	app.tree.showTree = function(projectRefNodeId) {
 		$.ajax({
 			url : '/api/nodes/' + projectRefNodeId + '/tree',
