@@ -40,14 +40,14 @@ var app = app || {};
 				});
 				conversation.save(null, {
 					success: function(){
-						alert('yess')
+						alert('Changes saved successfully!');
 					},
 					error : function(){
-						alert('some error occured while saving the request')
+						alert('some error occured while saving the request');
 					}
 				});
 			}else{
-				alert('Pending : When conversation is null')
+				alert('Pending : Create new conversation');
 			}
 		}
 	});

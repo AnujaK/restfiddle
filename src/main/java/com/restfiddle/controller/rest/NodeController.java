@@ -71,6 +71,7 @@ public class NodeController {
 	node.setName(nodeDTO.getName());
 	node.setDescription(nodeDTO.getDescription());
 	node.setNodeType(nodeDTO.getNodeType());
+	node.setStarred(nodeDTO.getStarred());
 
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
@@ -112,7 +113,10 @@ public class NodeController {
     BaseNode findById(@PathVariable("id") Long id) {
 	logger.debug("Finding node by id: " + id);
 
-	return nodeRepository.findOne(id);
+	BaseNode baseNode = nodeRepository.findOne(id);
+	baseNode.getConversation();
+
+	return baseNode;
     }
 
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.GET)
@@ -164,7 +168,7 @@ public class NodeController {
 	    Long nodeId = baseNode.getId();
 	    Long parentId = baseNode.getParentId();
 
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType());
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
 	    treeNodeMap.put(nodeId, treeNode);
 
 	    if (NodeTypes.PROJECT.name().equals(baseNode.getNodeType())) {
@@ -175,7 +179,8 @@ public class NodeController {
 		BaseNode baseParentNode = nodeIdMap.get(parentId);
 		parentTreeNode = treeNodeMap.get(parentId);
 		if (parentTreeNode == null) {
-		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType());
+		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType(),
+			    baseParentNode.getStarred());
 		}
 
 		// Set parent tree node
@@ -186,5 +191,14 @@ public class NodeController {
 	    }
 	}
 	return rootNode;
+    }
+
+    @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> findStarredNodes() {
+	logger.debug("Finding starred nodes.");
+
+	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(Boolean.TRUE);
+	return starredNodes;
     }
 }

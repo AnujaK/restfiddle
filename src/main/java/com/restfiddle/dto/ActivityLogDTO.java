@@ -13,18 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao.util;
+package com.restfiddle.dto;
 
-import com.restfiddle.entity.TreeNode;
+public class ActivityLogDTO extends BaseDTO {
 
-public class TreeNodeBuilder {
-
-    public static TreeNode createTreeNode(Long nodeId, String nodeName, String nodeType, Boolean starred) {
-	TreeNode treeNode = new TreeNode();
-	treeNode.setId(nodeId);
-	treeNode.setName(nodeName);
-	treeNode.setNodeType(nodeType);
-	treeNode.setStarred(starred);
-	return treeNode;
-    }
 }

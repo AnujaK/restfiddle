@@ -34,4 +34,7 @@ public interface NodeRepository extends JpaRepository<BaseNode, Long> {
 
     @Query("SELECT bn FROM BaseNode bn WHERE bn.project.id = :projectId")
     public List<BaseNode> findNodesFromAProject(@Param("projectId") Long projectId);
+
+    @Query("SELECT bn FROM BaseNode bn WHERE bn.starred = :starred")
+    public List<BaseNode> findStarredNodes(@Param("starred") Boolean starred);
 }

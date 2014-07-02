@@ -26,6 +26,7 @@ import com.restfiddle.controller.rest.NodeController;
 import com.restfiddle.controller.rest.PermissionController;
 import com.restfiddle.controller.rest.ProjectController;
 import com.restfiddle.controller.rest.RoleController;
+import com.restfiddle.controller.rest.TagController;
 import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
 import com.restfiddle.dao.util.NodeTypes;
@@ -38,6 +39,7 @@ import com.restfiddle.dto.PermissionDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RoleDTO;
+import com.restfiddle.dto.TagDTO;
 import com.restfiddle.dto.UserDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
@@ -71,6 +73,9 @@ public class SampleDataGenerator {
     @Autowired
     private ConversationController conversationController;
 
+    @Autowired
+    private TagController tagController;
+
     @PostConstruct
     public void initialize() {
 	if (isSampleDataPresent()) {
@@ -82,6 +87,7 @@ public class SampleDataGenerator {
 	loadWorkspaceData();
 	loadProjectData();
 	loadNodeData();
+	loadTagData();
     }
 
     private void loadRoleData() {
@@ -216,6 +222,7 @@ public class SampleDataGenerator {
 	conversationDTO.setId(createdConversation.getId());
 	postConversationDTO.setId(createdPostConversation.getId());
 	//firstFolderNode.setConversationDTO(conversationDTO);
+
 	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
@@ -239,5 +246,23 @@ public class SampleDataGenerator {
 	testNode.setName("Test Node");
 	testNode.setProjectId(1L);
 	nodeController.create(1L, testNode);
+
+	NodeDTO starredNode = new NodeDTO();
+	starredNode.setName("Starred Node");
+	starredNode.setStarred(Boolean.TRUE);
+	starredNode.setProjectId(1L);
+	starredNode.setConversationDTO(conversationDTO);
+
+	nodeController.create(1L, starredNode);
+    }
+
+    private void loadTagData() {
+	TagDTO tagDTO = new TagDTO();
+	tagDTO.setName("Important");
+	tagController.create(tagDTO);
+
+	TagDTO secondTag = new TagDTO();
+	secondTag.setName("Wishlist");
+	tagController.create(secondTag);
     }
 }

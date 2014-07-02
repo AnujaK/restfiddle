@@ -54,8 +54,8 @@ $(function() {
 			return;
 		}
 
-		uiNode.children = [];
-		for ( var i = 0 ; i < serverNode.children.length ; i ++) {
+		uiNode.children = new Array();
+		for ( var i = 0; i < serverNode.children.length; i++) {
 			if (serverNode.children[i].nodeType != 'FOLDER') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>',
@@ -65,6 +65,7 @@ $(function() {
 				uiNode.children.push({});
 				nodeConverter(serverNode.children[i], uiNode.children[i]);
 			}
+
 			
 		}
 	}
@@ -80,8 +81,8 @@ $(function() {
 			title : nodeModel.get('name'),
 			id : nodeModel.get('id'),
 			folder : nodeModel.get('nodeType') == 'FOLDER' ? true : false
-		}
-	}
+		};
+	};
 	app.tree.resetTree = function(){
 		tree.reload([]);
 	};
@@ -109,7 +110,7 @@ $(function() {
 		}else{
 			return null;
 		}
-	}
+	};
 	app.tree.showTree = function(projectRefNodeId) {
 		$.ajax({
 			url : '/api/nodes/' + projectRefNodeId + '/tree',
