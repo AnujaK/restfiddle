@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dto;
+package com.restfiddle.dao;
 
-public class TagDTO extends BaseDTO {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.restfiddle.entity.ActivityLog;
+
+public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> {
 
 }
