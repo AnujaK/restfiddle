@@ -1,6 +1,10 @@
 body {
 	padding-top: 50px;
-	font-size:13px;
+	font-size: 13px;
+}
+
+ul.fancytree-container {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .nav-sidebar>li>a {
