@@ -17,7 +17,7 @@ package com.restfiddle.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-public class ItemDTO extends BaseDTO {
+public class ConversationDTO extends BaseDTO {
 
     @JsonManagedReference
     private RfRequestDTO rfRequestDTO;

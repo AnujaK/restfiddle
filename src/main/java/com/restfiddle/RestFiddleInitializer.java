@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao;
+package com.restfiddle;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-import com.restfiddle.entity.Item;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
-
+public class RestFiddleInitializer extends SpringBootServletInitializer{
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	return application.sources(RestFiddleApplication.class);
+    }
 }

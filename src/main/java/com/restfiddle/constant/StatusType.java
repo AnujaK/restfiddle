@@ -6,24 +6,24 @@ package com.restfiddle.constant;
  */
 public enum StatusType {
 
-	ACTIVE("Active"), DELETE("Delete"), NEW("New");
+    ACTIVE("Active"), DELETE("Delete"), NEW("New");
 
-	private StatusType(String status) {
-		this.status = status;
-	}
+    private StatusType(String status) {
+	this.status = status;
+    }
 
-	private String status;
+    private String status;
 
-	public String getStatus() {
+    public String getStatus() {
+	return status;
+    }
+
+    public static StatusType getByStatus(String string) {
+	for (StatusType status : StatusType.values()) {
+	    if (status.getStatus().equals(string)) {
 		return status;
+	    }
 	}
-
-	public static StatusType getByStatus(String string) {
-		for (StatusType status : StatusType.values()) {
-			if (status.getStatus().equals(string)) {
-				return status;
-			}
-		}
-		return null;
-	}
+	return null;
+    }
 }

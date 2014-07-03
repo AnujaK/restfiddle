@@ -18,7 +18,7 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 
 @Entity
-public class Permission extends BaseEntity {
+public class Permission extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String type;

@@ -33,11 +33,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
+import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
+import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.TreeNode;
 
@@ -45,14 +48,17 @@ import com.restfiddle.entity.TreeNode;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
-public class NodeContoller {
-    Logger logger = LoggerFactory.getLogger(NodeContoller.class);
+public class NodeController {
+    Logger logger = LoggerFactory.getLogger(NodeController.class);
 
     @Resource
     private ProjectRepository projectRepository;
 
     @Resource
     private NodeRepository nodeRepository;
+
+    @Resource
+    private ConversationRepository conversationRepository;
 
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -64,10 +70,17 @@ public class NodeContoller {
 
 	node.setName(nodeDTO.getName());
 	node.setDescription(nodeDTO.getDescription());
+	node.setNodeType(nodeDTO.getNodeType());
+	node.setStarred(nodeDTO.getStarred());
 
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
 	node.setPosition(0L);
+
+	if (nodeDTO.getConversationDTO() != null && nodeDTO.getConversationDTO().getId() != null) {
+	    Conversation conversation = conversationRepository.findOne(nodeDTO.getConversationDTO().getId());
+	    node.setConversation(conversation);
+	}
 
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
 	node.setProject(project);
@@ -100,7 +113,10 @@ public class NodeContoller {
     BaseNode findById(@PathVariable("id") Long id) {
 	logger.debug("Finding node by id: " + id);
 
-	return nodeRepository.findOne(id);
+	BaseNode baseNode = nodeRepository.findOne(id);
+	baseNode.getConversation();
+
+	return baseNode;
     }
 
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.GET)
@@ -152,10 +168,10 @@ public class NodeContoller {
 	    Long nodeId = baseNode.getId();
 	    Long parentId = baseNode.getParentId();
 
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType());
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
 	    treeNodeMap.put(nodeId, treeNode);
 
-	    if ("PROJECT".equals(baseNode.getNodeType())) {
+	    if (NodeTypes.PROJECT.name().equals(baseNode.getNodeType())) {
 		// Identify root node for a project
 		rootNode = treeNode;
 	    } else {
@@ -163,7 +179,8 @@ public class NodeContoller {
 		BaseNode baseParentNode = nodeIdMap.get(parentId);
 		parentTreeNode = treeNodeMap.get(parentId);
 		if (parentTreeNode == null) {
-		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType());
+		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType(),
+			    baseParentNode.getStarred());
 		}
 
 		// Set parent tree node
@@ -174,5 +191,14 @@ public class NodeContoller {
 	    }
 	}
 	return rootNode;
+    }
+
+    @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> findStarredNodes() {
+	logger.debug("Finding starred nodes.");
+
+	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(Boolean.TRUE);
+	return starredNodes;
     }
 }

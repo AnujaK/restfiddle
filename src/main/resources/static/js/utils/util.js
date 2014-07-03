@@ -27,21 +27,60 @@ var onGetProjectsFailure = function() {
     console.log("failed");
     alert("failed");
 };
-
-// TODO : remove hard-coded workspace id
-new app.commonService().getProjects("1", null, onGetProjectsSuccess, onGetProjectsFailure);
+//TODO: handling should be under control of some view.
+$("#createNewRequestBtn").bind("click",function(){
+	var nodeName = $("#requestName").val();
+	var conversation = new app.ConversationModel({});
+	conversation.save(null, {
+		success : function(response){
+			createNode( nodeName, null, new app.ConversationModel({id : response.get("id")}), function(){
+				$("#requestModal").modal("hide");
+			});
+		}
+	});
+	
+	
+});
+var createNode = function(nodeName, nodeType, conversation, successCallBack){
+	var activeFolder = app.tree.getActiveFolder();
+	var parentNodeId = activeFolder.data.id;
+	var node = new app.NodeModel({
+		parentId : parentNodeId,
+		name : nodeName,
+		projectId : app.appView.getCurrentProjectId(),
+		conversationDTO : conversation,
+		nodeType : nodeType});
+	node.save(null, {
+		success : function(response){
+			app.tree.appendChild(activeFolder, app.tree.convertModelToNode(response));
+			successCallBack();
+		},
+		error : function(){
+			alert('error while saving folder');
+		}
+	});
+};
+$("#createNewFolderBtn").bind("click",function(){
+	createNode( $("#folderId").val(), 'FOLDER',null, function(){
+		$("#folderModal").modal("hide");
+	});
+});
 
 $("#saveProjectBtn").bind("click", function() {
-    new app.commonService().saveProject("1", {
+    new app.commonService().saveProject(app.appView.getCurrentWorkspaceId(), {
 	"name" : $("#projectTextField").val()
     }, onSaveProjectSuccess, onSaveProjectFailure);
 });
 var onSaveProjectSuccess = function(responseData) {
-    $(".project-list").append(
+	var project = new app.Project(responseData);
+	var projectView = new app.ProjectView();
+	projectView.addOne(project);
+	$('#projectModal').modal("hide");
+/*    $(".project-list").append(
 	    '<li><a href="#" data-toggle="modal" data-target="#comingSoon"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;'
 		    + responseData.name + '</a></li>');
     console.log("project created successfully!");
-    $('#projectModal').modal("hide");
+    $('#projectModal').modal("hide");*/
 };
 var onSaveProjectFailure = function() {
     console.log("failed");
@@ -54,28 +93,33 @@ var bindClickEvent = function(selector,callback){
 		}
 	});
 };
+var onGetSingleWSSuccess = function(workspace){
+	$(".dummyWorkspaceName").val(workspace.name);
+};
 var handleSwitchWS = function(event){
 	var wId = $(event.target).attr("id");
 	console.log(wId);
 	$("#switchWorkspaceModal").modal("hide");
+	new app.commonService().getWorkspaces(onGetSingleWSSuccess, onGetWSFail,wId);
     new app.commonService().getProjects(wId, null, onGetProjectsSuccess, onGetProjectsFailure);
 };
-$(".dummySwitchWorkspace").unbind("click").bind("click", function() {
-/*	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
+var onGetWSFail = function(responsdata){
+	console.log(responsdata);
+	alert("fail");
+};
+/*$(".dummySwitchWorkspace").unbind("click").bind("click", function() {
+	$("#switchWorkspaceModal .modal-body").html('<li><a href="#" data-toggle="modal" data-target="#comingSoon">ww2</a></li><li><a href="#" data-toggle="modal" data-target="#comingSoon">w2r</a></li>');
 	$("#switchWorkspaceModal").modal("show");
 	alert("test it");*/
-	new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
+	/*new app.commonService().getWorkspaces(onGetWSSuccess, onGetWSFail);
 	function onGetWSSuccess(responsdata){
-		var workSpceList = "";
+		var workSpceList = '<div class="list-group">';
 		 $.each(responsdata, function(ids,workSpace) {
-			 workSpceList =workSpceList +  '<li><a href="#" id = '+workSpace.id+' class="dummyWSli">'+workSpace.name+'</a></li>';
+			 workSpceList =workSpceList +  '<a href="#" id = '+workSpace.id+' class="dummyWSli list-group-item">'+workSpace.name+'</a>';
 		 });
+		 workSpceList =workSpceList + '</div>';
 		 $("#switchWorkspaceModal .modal-body").html(workSpceList);
 		 $("#switchWorkspaceModal").modal("show");
 		 bindClickEvent(".dummyWSli",handleSwitchWS);
 	};
-	function onGetWSFail(responsdata){
-		console.log(responsdata);
-		alert("fail");
-	};
-});
+});*/

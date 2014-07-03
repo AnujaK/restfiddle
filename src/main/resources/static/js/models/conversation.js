@@ -1,0 +1,23 @@
+/* global Backbone */
+var app = app || {};
+
+(function() {
+	'use strict';
+
+	app.ConversationModel = Backbone.Model.extend({
+		urlRoot : "/api/conversations/",
+		defaults : {
+			id : null,
+			rfRequest : '',
+			rfResponse : '', 
+		},
+		sync : function(method, model, options){
+			if(method == 'create' || method == 'update'){
+				model.unset("rfRequest");
+				model.unset("rfResponse");
+				return Backbone.sync(method, model, options);				
+			}
+			return Backbone.sync(method, model, options);		
+		}
+	});
+})();

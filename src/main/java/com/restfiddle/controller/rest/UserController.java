@@ -55,6 +55,9 @@ public class UserController {
 	user.setName(userDTO.getName());
 	user.setDescription(userDTO.getDescription());
 
+	user.setFirstName(userDTO.getFirstName());
+	user.setLastName(userDTO.getLastName());
+
 	return userRepository.save(user);
     }
 

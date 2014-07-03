@@ -21,7 +21,7 @@ public class RfResponseDTO extends BaseDTO {
     private String body;
 
     @JsonBackReference
-    private ItemDTO itemDTO;
+    private ConversationDTO itemDTO;
 
     public String getBody() {
 	return body;
@@ -31,11 +31,11 @@ public class RfResponseDTO extends BaseDTO {
 	this.body = body;
     }
 
-    public ItemDTO getItemDTO() {
+    public ConversationDTO getItemDTO() {
 	return itemDTO;
     }
 
-    public void setItemDTO(ItemDTO itemDTO) {
+    public void setItemDTO(ConversationDTO itemDTO) {
 	this.itemDTO = itemDTO;
     }
 

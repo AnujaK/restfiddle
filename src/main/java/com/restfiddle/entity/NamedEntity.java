@@ -15,37 +15,28 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.MappedSuperclass;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-@Entity
-public class Item extends BaseEntity {
+@MappedSuperclass
+public abstract class NamedEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private RfRequest rfRequest;
+    private String name;
+    private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private RfResponse rfResponse;
-
-    public RfRequest getRfRequest() {
-	return rfRequest;
+    public String getName() {
+	return name;
     }
 
-    public void setRfRequest(RfRequest rfRequest) {
-	this.rfRequest = rfRequest;
+    public void setName(String name) {
+	this.name = name;
     }
 
-    public RfResponse getRfResponse() {
-	return rfResponse;
+    public String getDescription() {
+	return description;
     }
 
-    public void setRfResponse(RfResponse rfResponse) {
-	this.rfResponse = rfResponse;
+    public void setDescription(String description) {
+	this.description = description;
     }
 }

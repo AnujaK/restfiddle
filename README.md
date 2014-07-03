@@ -19,7 +19,7 @@ Time is valuable, so productivity is important. We have crafted RESTFiddle to av
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot2.jpg "Initial Design")
 
 
 Building From Source
@@ -65,7 +65,7 @@ MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run
 
 ##### MySQL configuration:
 
-Go to *src/main/resources/application.properties* and update database url, username and password. Here is how the sample configuration looks like:
+Go to *src/main/resources/env-development.properties* and update database url, username and password. Here is how the sample configuration looks like:
 
 ```
 database.driver=com.mysql.jdbc.Driver
@@ -143,7 +143,7 @@ Version 1.0 is coming soon. Here is the current status of the project:
 
 Login/Logout working (default username/password : rf/rf).
 
-Creating and showing Workspaces working.
+Creating and switching between Workspaces working.
 
 Creating and showing Projects working.
 
@@ -151,7 +151,7 @@ GET/POST/PUT/DELETE operation with JSON data is supported for now.
 
 Sample API to test:
 
-http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
+http://localhost:8080/api/workspaces
 
 For more details go through the Wiki pages.
 

@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dao.WorkspaceRepository;
+import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
@@ -43,8 +44,8 @@ import com.restfiddle.entity.Workspace;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
-public class ProjectContoller {
-    Logger logger = LoggerFactory.getLogger(ProjectContoller.class);
+public class ProjectController {
+    Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
     @Resource
     private WorkspaceRepository workspaceRepository;
@@ -72,7 +73,7 @@ public class ProjectContoller {
 	// Create project reference node
 	BaseNode projectRef = new BaseNode();
 	projectRef.setName(projectDTO.getName());
-	projectRef.setNodeType("PROJECT");
+	projectRef.setNodeType(NodeTypes.PROJECT.name());
 	projectRef.setParentId(Long.valueOf(-1));
 	projectRef.setPosition(Long.valueOf(0));
 

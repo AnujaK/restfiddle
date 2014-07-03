@@ -34,10 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.dao.ItemRepository;
-import com.restfiddle.dto.ItemDTO;
+import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.ProjectDTO;
-import com.restfiddle.entity.Item;
+import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
 
@@ -45,39 +46,42 @@ import com.restfiddle.entity.RfResponse;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
-public class ItemController {
-    Logger logger = LoggerFactory.getLogger(ItemController.class);
+public class ConversationController {
+    Logger logger = LoggerFactory.getLogger(ConversationController.class);
 
     @Resource
-    private ItemRepository itemRepository;
+    private ConversationRepository itemRepository;
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Item create(@RequestBody ItemDTO itemDTO) {
-	logger.debug("Creating a new item with information: " + itemDTO);
+    Conversation create(@RequestBody ConversationDTO conversationDTO) {
+	logger.debug("Creating a new item with information: " + conversationDTO);
 
-	Item item = new Item();
+	Conversation conversation = new Conversation();
+	conversation.setName(conversationDTO.getName());
+	conversation.setDescription(conversationDTO.getDescription());
 
-	item.setName(itemDTO.getName());
-	item.setDescription(itemDTO.getDescription());
-
+	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
 	RfRequest rfRequest = new RfRequest();
-	rfRequest.setName("req1");
-	item.setRfRequest(rfRequest);
-
+	if(null != rfRequestDTO){
+		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+		rfRequest.setApiBody(rfRequestDTO.getApiBody());
+		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	}
+	conversation.setRfRequest(rfRequest);
 	RfResponse rfResponse = new RfResponse();
 	rfResponse.setName("res1");
-	item.setRfResponse(rfResponse);
+	conversation.setRfResponse(rfResponse);
 
-	return itemRepository.save(item);
+	return itemRepository.save(conversation);
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Item delete(@PathVariable("conversationId") Long conversationId) {
+    Conversation delete(@PathVariable("conversationId") Long conversationId) {
 	logger.debug("Deleting item with id: " + conversationId);
 
-	Item deleted = itemRepository.findOne(conversationId);
+	Conversation deleted = itemRepository.findOne(conversationId);
 
 	itemRepository.delete(deleted);
 
@@ -86,27 +90,29 @@ public class ItemController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
-    List<Item> findAll() {
+    List<Conversation> findAll() {
 	logger.debug("Finding all items");
 
 	// Return 10 records for now.
 	Pageable topRecords = new PageRequest(0, 10);
-	Page<Item> result = itemRepository.findAll(topRecords);
+	Page<Conversation> result = itemRepository.findAll(topRecords);
 
-	List<Item> content = result.getContent();
+	List<Conversation> content = result.getContent();
 
 	// TODO : work in progress
-	for (Item item : content) {
+	for (Conversation item : content) {
 	    byte[] body = item.getRfResponse().getBody();
-	    String strBody = new String(body);
-	    System.out.println(strBody);
+	    if (body != null) {
+		String strBody = new String(body);
+		System.out.println(strBody);
+	    }
 	}
 	return content;
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.GET)
     public @ResponseBody
-    Item findById(@PathVariable("conversationId") Long conversationId) {
+    Conversation findById(@PathVariable("conversationId") Long conversationId) {
 	logger.debug("Finding item by id: " + conversationId);
 
 	return itemRepository.findOne(conversationId);
@@ -114,14 +120,22 @@ public class ItemController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Item update(@PathVariable("conversationId") Long conversationId, @RequestBody ProjectDTO updated) {
+    Conversation update(@PathVariable("conversationId") Long conversationId, @RequestBody ConversationDTO updated) {
 	logger.debug("Updating item with information: " + updated);
 
-	Item item = itemRepository.findOne(updated.getId());
+	Conversation item = itemRepository.findOne(updated.getId());
 
 	item.setName(updated.getName());
 	item.setDescription(updated.getDescription());
 
+	RfRequestDTO rfRequestDTO = updated.getRfRequestDTO();
+	RfRequest rfRequest = item.getRfRequest();
+	if(null != rfRequestDTO){
+		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+		rfRequest.setApiBody(rfRequestDTO.getApiBody());
+		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	}
+	item.setRfRequest(rfRequest);
 	return item;
     }
 
