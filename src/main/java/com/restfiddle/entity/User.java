@@ -15,55 +15,70 @@
  */
 package com.restfiddle.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Length;
 
+@SuppressWarnings("serial")
 @Entity
+@Table(name = "user")
 public class User extends BaseEntity {
-    private static final long serialVersionUID = 1L;
 
-    @Column(nullable = false)
-    private String firstName;
+	@Column(nullable = false)
+	@Length(max = 255)
+	private String email;
 
-    @Column(nullable = false)
-    private String lastName;
+	@Column(nullable = false)
+	@Length(max = 255)
+	private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+	@Column(nullable = false)
+	@Length(max = 255)
+	private String firstName;
 
-    public String getFirstName() {
-	return firstName;
-    }
+	@Column(nullable = false)
+	@Length(max = 255)
+	private String lastName;
 
-    public void setFirstName(String firstName) {
-	this.firstName = firstName;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getLastName() {
-	return lastName;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setLastName(String lastName) {
-	this.lastName = lastName;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public List<Role> getRoles() {
-	return roles;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setRoles(List<Role> roles) {
-	this.roles = roles;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", firstName=" + firstName
+				+ ", lastName=" + lastName + "]" ;
+	}
 
 }

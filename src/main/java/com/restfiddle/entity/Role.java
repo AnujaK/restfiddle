@@ -23,30 +23,32 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "role")
 public class Role extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String type;
+	private String type;
 
-    @ManyToMany(targetEntity = com.restfiddle.entity.Permission.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private List<Permission> permissions;
+	@ManyToMany(targetEntity = com.restfiddle.entity.Permission.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+	private List<Permission> permissions;
 
-    public String getType() {
-	return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-	this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public List<Permission> getPermissions() {
-	return permissions;
-    }
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
 
-    public void setPermissions(List<Permission> permissions) {
-	this.permissions = permissions;
-    }
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
 }

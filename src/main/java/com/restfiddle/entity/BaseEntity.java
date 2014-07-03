@@ -18,6 +18,8 @@ package com.restfiddle.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -31,125 +33,133 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.restfiddle.constant.StatusType;
+
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable, Cloneable, Comparable<Object> {
-    private static final long serialVersionUID = 1L;
+public abstract class BaseEntity implements Serializable, Cloneable,
+		Comparable<Object> {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @Version
-    private long version = 0;
+	@Version
+	private long version = 0;
 
-    private String name;
-    private String description;
+	private String name;
 
-    private Date createdDate;
-    private User createdBy;
+	private String description;
 
-    private Date lastModifiedDate;
-    private User lastModifiedBy;
+	private Date createdDate;
 
-    private String status;
+	private User createdBy;
 
-    public String toString() {
-	return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
+	private Date lastModifiedDate;
 
-    public boolean equals(Object o) {
-	return EqualsBuilder.reflectionEquals(this, o);
-    }
+	private User lastModifiedBy;
 
-    public int compareTo(Object o) {
-	return CompareToBuilder.reflectionCompare(this, o);
-    }
+	@Enumerated(EnumType.STRING)
+	private StatusType statusType;;
 
-    public int hashCode(Object o) {
-	return HashCodeBuilder.reflectionHashCode(o);
-    }
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.MULTI_LINE_STYLE);
+	}
 
-    public Long getId() {
-	return id;
-    }
+	public boolean equals(Object o) {
+		return EqualsBuilder.reflectionEquals(this, o);
+	}
 
-    public void setId(Long id) {
-	this.id = id;
-    }
+	public int compareTo(Object o) {
+		return CompareToBuilder.reflectionCompare(this, o);
+	}
 
-    public String getName() {
-	return name;
-    }
+	public int hashCode(Object o) {
+		return HashCodeBuilder.reflectionHashCode(o);
+	}
 
-    public void setName(String name) {
-	this.name = name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getDescription() {
-	return description;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setDescription(String description) {
-	this.description = description;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Date getCreatedDate() {
-	return createdDate;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-	this.createdDate = createdDate;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getLastModifiedDate() {
-	return lastModifiedDate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
-	this.lastModifiedDate = lastModifiedDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public User getCreatedBy() {
-	return createdBy;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public void setCreatedBy(User createdBy) {
-	this.createdBy = createdBy;
-    }
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
+	}
 
-    public User getLastModifiedBy() {
-	return lastModifiedBy;
-    }
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
-    public void setLastModifiedBy(User lastModifiedBy) {
-	this.lastModifiedBy = lastModifiedBy;
-    }
+	public User getCreatedBy() {
+		return createdBy;
+	}
 
-    public String getStatus() {
-	return status;
-    }
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
 
-    public void setStatus(String status) {
-	this.status = status;
-    }
+	public User getLastModifiedBy() {
+		return lastModifiedBy;
+	}
 
-    public long getVersion() {
-	return version;
-    }
+	public void setLastModifiedBy(User lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 
-    public void setVersion(long version) {
-	this.version = version;
-    }
+	public StatusType getStatus() {
+		return statusType;
+	}
 
-    @PreUpdate
-    public void preUpdate() {
-	lastModifiedDate = new Date();
-    }
+	public void setStatus(StatusType status) {
+		this.statusType = status;
+	}
 
-    @PrePersist
-    public void prePersist() {
-	Date currentDate = new Date();
-	createdDate = currentDate;
-	lastModifiedDate = currentDate;
-    }
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		lastModifiedDate = new Date();
+	}
+
+	@PrePersist
+	public void prePersist() {
+		Date currentDate = new Date();
+		createdDate = currentDate;
+		lastModifiedDate = currentDate;
+	}
 }
