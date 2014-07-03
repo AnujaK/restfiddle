@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RESTFiddle</title>
 <link rel="shortcut icon" href="/favicon.ico" />
-<!-- Bootstrap -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/ui.fancytree.css" rel="stylesheet">
 <link href="css/prettify/prettify.css" rel="stylesheet">
@@ -204,7 +204,7 @@
 						<div class="tab-pane" id="tab-auth">...</div>
 					</div>
 
-					<br> <br> <br>
+					<br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
 					</div>
