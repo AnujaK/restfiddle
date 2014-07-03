@@ -6,7 +6,7 @@ var app = app || {};
 
     var Workspaces = Backbone.Collection.extend({
 	model : app.Workspace,
-	url : "/api/workspaces"
+	url : app.config.baseUrl + "/workspaces"
     });
 
     app.workspaces = new Workspaces();

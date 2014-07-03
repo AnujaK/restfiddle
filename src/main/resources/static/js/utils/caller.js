@@ -12,7 +12,7 @@ $(function() {
 	};
 
 	$.ajax({
-	    url : '/api/processor',
+	    url : app.config.baseUrl +'/processor',
 	    type : 'post',
 	    dataType : 'json',
 	    contentType : "application/json",

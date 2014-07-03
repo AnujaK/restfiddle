@@ -59,20 +59,20 @@ var app = app || {};
     commonService.prototype = {
 	// Workspace related service calls
 	saveWorkspace : function(workSpaceModel, successcb, failcb) {
-	    var url = "/api/workspaces";
+	    var url = app.config.baseUrl +"/workspaces";
 	    app.apiRestRequestPost(url, workSpaceModel, successcb, "", failcb);
 	},
 	// Project related service calls
 	getProjects : function(workspaceId, projectModel, successcb, failcb) {
-	    var url = "api/workspaces/" + workspaceId + "/projects";
+	    var url = app.config.baseUrl +"/workspaces/" + workspaceId + "/projects";
 	    app.apiRestRequestGet(url, projectModel, successcb, "", failcb);
 	},
 	saveProject : function(workspaceId, projectModel, successcb, failcb) {
-	    var url = "api/workspaces/" + workspaceId + "/projects";
+	    var url = app.config.baseUrl +"/workspaces/" + workspaceId + "/projects";
 	    app.apiRestRequestPost(url, projectModel, successcb, "", failcb);
 	},
 	getWorkspaces : function(successcb, failcb,id) {
-	    var url = id? "/api/workspaces"+"/"+id : "/api/workspaces";
+	    var url = id? app.config.baseUrl +"/workspaces"+"/"+id : app.config.baseUrl +"/workspaces";
 	    app.apiRestRequestGet(url, "", successcb, "", failcb);
 	}
     };

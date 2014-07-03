@@ -5,7 +5,7 @@ var app = app || {};
 	'use strict';
 
 	app.NodeModel = Backbone.Model.extend({
-		urlRoot : "/api/nodes/",
+		urlRoot : app.config.baseUrl +"/nodes/",
 		defaults : {
 			id : null,
 			name : '',

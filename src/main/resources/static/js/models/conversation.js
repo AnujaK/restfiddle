@@ -5,7 +5,7 @@ var app = app || {};
 	'use strict';
 
 	app.ConversationModel = Backbone.Model.extend({
-		urlRoot : "/api/conversations/",
+		urlRoot : app.config.baseUrl +"/conversations/",
 		defaults : {
 			id : null,
 			rfRequest : '',

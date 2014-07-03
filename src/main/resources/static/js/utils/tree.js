@@ -190,7 +190,7 @@ $(function() {
 	};
 	app.tree.showTree = function(projectRefNodeId) {
 		$.ajax({
-			url : '/api/nodes/' + projectRefNodeId + '/tree',
+			url : app.config.baseUrl +'/nodes/' + projectRefNodeId + '/tree',
 			type : 'get',
 			dataType : 'json',
 			contentType : "application/json",

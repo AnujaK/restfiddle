@@ -329,7 +329,7 @@
 			</div>
 		</div>
 	</div>
-
+	<script>var ctx = "${pageContext.request.contextPath}"</script>
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
 		<div class="dropdown" id="dd-workspace">
@@ -350,6 +350,7 @@
 
 	<script src="js/libs/underscore-min.js"></script>
 	<script src="js/commons/base.js"></script>
+	<script src="js/commons/config.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/jquery.fancytree-all.js"></script>
