@@ -28,41 +28,59 @@ var onGetProjectsFailure = function() {
     alert("failed");
 };
 //TODO: handling should be under control of some view.
+
+$("#requestBtn").bind("click", function(){
+	$("#requestModal").find("#source").val("request");
+	$("#requestModal").modal("show");
+});
+
+$("#saveAsConversationBtn").bind("click", function(){
+	$("#requestModal").find("#source").val("conversation");
+	$("#requestModal").modal("show");
+})
+
 $("#createNewRequestBtn").bind("click",function(){
-	var nodeName = $("#requestName").val();
-	var conversation = new app.ConversationModel({});
-	conversation.save(null, {
-		success : function(response){
-			createNode( nodeName, null, new app.ConversationModel({id : response.get("id")}), function(){
-				$("#requestModal").modal("hide");
-			});
+	var conversation = null
+	if($("#requestModal").find("#source").val() == 'request' ){
+		conversation = new app.ConversationModel({});
+		
+	}else if($("#requestModal").find("#source").val() == 'conversation'){
+		var rfRequest = {
+				apiUrl : $("#apiUrl").val(),
+				apiBody : $("#apiBody").val(),
+				methodType : $(".apiRequestType").val()
+		};
+		var rfResponse = {
+				
+		};
+		conversation = new app.ConversationModel({
+			id : null,
+			rfRequestDTO : rfRequest,
+			rfResponseDTO : rfResponse
+			
+		});
+	}else{
+		console.log('source is not set properly for modal');
+		alert('some error occurs');
+	}
+	
+	app.tree.createNewNode({
+		nodeName : $("#requestName").val(),
+		conversation : conversation,
+		successCallBack : function(){
+			$("#requestModal").modal("hide");
 		}
 	});
-	
 	
 });
-var createNode = function(nodeName, nodeType, conversation, successCallBack){
-	var activeFolder = app.tree.getActiveFolder();
-	var parentNodeId = activeFolder.data.id;
-	var node = new app.NodeModel({
-		parentId : parentNodeId,
-		name : nodeName,
-		projectId : app.appView.getCurrentProjectId(),
-		conversationDTO : conversation,
-		nodeType : nodeType});
-	node.save(null, {
-		success : function(response){
-			app.tree.appendChild(activeFolder, app.tree.convertModelToNode(response));
-			successCallBack();
-		},
-		error : function(){
-			alert('error while saving folder');
-		}
-	});
-};
+
 $("#createNewFolderBtn").bind("click",function(){
-	createNode( $("#folderId").val(), 'FOLDER',null, function(){
-		$("#folderModal").modal("hide");
+	app.tree.createNewNode({
+		nodeName : $("#requestName").val(),
+		conversation : null,
+		successCallBack : function(){
+			$("#requestModal").modal("hide");
+		}
 	});
 });
 
