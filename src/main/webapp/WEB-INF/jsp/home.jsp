@@ -122,11 +122,11 @@
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default col-1-toggle-btn">Toggle</button>
+				<button class="btn btn-default btn-sm col-1-toggle-btn">Toggle</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
+				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default" data-toggle="modal" id = "requestBtn">New Request</button>
+				<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -134,8 +134,8 @@
 				<div class="form-group" id="conversationSection">
 					<br>
 					<div class="btn-group">
-						<button class="btn btn-primary" id="run">Run</button>
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						<button class="btn btn-primary btn-sm" id="run">Run</button>
+						<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
@@ -145,8 +145,8 @@
 
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" data-toggle="modal" id="saveConversationBtn">Save</button>
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="saveConversationBtn">Save</button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
@@ -155,8 +155,8 @@
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#comingSoon">Clear</button>
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Clear</button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
@@ -166,6 +166,8 @@
 							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default btn-sm" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
 					<br> <br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Request</h6>
@@ -185,7 +187,6 @@
 							</div>
 						</div>
 					</div>
-					<br>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
@@ -209,13 +210,12 @@
 						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
 					</div>
 
-					<button class="btn btn-default" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
-					<br> <br>
 					<div class="container-fluid">
 						<div class="row">
 							<div id="response-wrapper"></div>
 						</div>
 					</div>
+					<br><br>
 				</div>
 			</div>
 
@@ -249,11 +249,10 @@
 				</div>
 				<input type="hidden" class="form-control" id="source">
 				<div class="modal-body">
-					 <div class="form-group">
-					    <label for="requestName">Request Name</label>
-					    <input class="form-control" id="requestName" placeholder="Enter Request Name">
-					 </div>
-					 <!-- 
+					<div class="form-group">
+						<label for="requestName">Request Name</label> <input class="form-control" id="requestName" placeholder="Enter Request Name">
+					</div>
+					<!-- 
 					 <div class="form-group">
 				    	<label for="requestUrl">API End Point</label>
 				    	<input class="form-control" id="requestUrl" placeholder="http://example.com/api/v1/users">
@@ -329,7 +328,9 @@
 			</div>
 		</div>
 	</div>
-	<script>var ctx = "${pageContext.request.contextPath}"</script>
+	<script>
+	var ctx = "${pageContext.request.contextPath}"
+    </script>
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
 		<div class="dropdown" id="dd-workspace">
