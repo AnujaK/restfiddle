@@ -47,7 +47,8 @@ var app = app || {};
 					}
 				});
 			}else{
-				alert('Pending : Create new conversation');
+				$("#requestModal").find("#source").val("conversation");
+				$("#requestModal").modal("show");
 			}
 		}
 	});

@@ -126,7 +126,7 @@
 				&nbsp;&nbsp;
 				<button class="btn btn-default" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default" data-toggle="modal" data-target="#requestModal">New Request</button>
+				<button class="btn btn-default" data-toggle="modal" id = "requestBtn">New Request</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -150,7 +150,7 @@
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save As</a></li>
+							<li><a href="#" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
 						</ul>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -247,6 +247,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">New Request</h4>
 				</div>
+				<input type="hidden" class="form-control" id="source">
 				<div class="modal-body">
 					 <div class="form-group">
 					    <label for="requestName">Request Name</label>
@@ -351,7 +352,7 @@
 	<script src="js/commons/base.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/backbone-min.js"></script>
-	<script src="js/libs/jquery.fancytree-custom.min.js"></script>
+	<script src="js/libs/jquery.fancytree-all.js"></script>
 	<script src="js/libs/prettify/prettify.js"></script>
 	<script>
 	prettyPrint();
