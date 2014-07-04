@@ -58,6 +58,7 @@ define(function(require) {
 	require("models/project")
 	require("collections/projects")
 	require("utils/util")
+	require("commons/config")
 	
 	
 	

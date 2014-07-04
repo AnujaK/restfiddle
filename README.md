@@ -89,6 +89,11 @@ database.username=sa
 database.password=
 ```
 
+Deployment
+==========
+
+You can deploy the war file to Tomcat 7.0.52, Jetty, or any other container, as long as it supports servlet 3.0.
+
 
 Technology Stack
 ==========

@@ -8,7 +8,7 @@ define(function(require) {
 	
 
     app.Project = Backbone.Model.extend({
-	urlRoot : "/api/projects",
+	urlRoot : app.config.baseUrl +"/projects",
 	defaults : {
 		id : '',
 		projectRef : '',

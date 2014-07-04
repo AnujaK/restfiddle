@@ -8,7 +8,7 @@ define(function(require) {
 	
 
 	app.NodeModel = Backbone.Model.extend({
-		urlRoot : "/api/nodes/",
+		urlRoot : app.config.baseUrl +"/nodes/",
 		defaults : {
 			id : null,
 			name : '',
