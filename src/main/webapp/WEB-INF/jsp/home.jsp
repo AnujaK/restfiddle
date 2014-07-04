@@ -356,44 +356,10 @@
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<!-- JavaScript -->
-	<script src="js/libs/jquery-1.7.2.js"></script>
-	<script src="js/libs/jquery-ui.min.js"></script>
 
-	<script src="js/libs/underscore-min.js"></script>
-	<script src="js/commons/base.js"></script>
-	<script src="js/commons/config.js"></script>
-	<script src="js/libs/bootstrap.min.js"></script>
-	<script src="js/libs/backbone-min.js"></script>
-	<script src="js/libs/jquery.fancytree-all.js"></script>
-	<script src="js/libs/prettify/prettify.js"></script>
-	<script>
-	prettyPrint();
-    </script>
-
-	<script src="js/utils/caller.js"></script>
-	<script src="js/services/common-service.js"></script>
-	<script src="js/utils/tree.js"></script>
-	<script src="js/models/workspace.js"></script>
-	<script src="js/models/app.js"></script>
-	<script src="js/models/conversation.js"></script>
-	<script src="js/models/node.js"></script>
-	<script src="js/collections/workspaces.js"></script>
-	<script src="js/events/workspace-event.js"></script>
-	<script src="js/events/project-event.js"></script>
-	<script src="js/events/conversation-event.js"></script>
-	<script src="js/views/workspace-view.js"></script>
-	<script src="js/views/project-view.js"></script>
-	<script src="js/views/conversation-view.js"></script>
-	<script src="js/views/app-view.js"></script>
-	<script src="js/routers/workspace-router.js"></script>
-
-	<script src="js/models/project.js"></script>
-	<script src="js/collections/projects.js"></script>
-
-	<script src="js/app.js"></script>
-
-
-	<script src="js/utils/util.js"></script>
+	<script data-main="js/app" src="js/libs/require/require.js"></script>
+	
+	
 </body>
 
 </html>

@@ -1,9 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-	'use strict';
 
+define(function(require) {
+	
+	require('backbone');
+	
 	app.ConversationModel = Backbone.Model.extend({
 		urlRoot : app.config.baseUrl +"/conversations/",
 		defaults : {
@@ -20,4 +22,4 @@ var app = app || {};
 			return Backbone.sync(method, model, options);		
 		}
 	});
-})();
+});

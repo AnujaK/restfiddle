@@ -1,8 +1,12 @@
 /* global Backbone, jQuery, _, ENTER_KEY */
 var app = app || {};
 
-(function($) {
-	'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	require('underscore');
+	
 	app.WorkspaceListView = Backbone.View.extend({
 		events : {
 			"click .dummyWSli" : "showProjects"
@@ -133,4 +137,4 @@ var app = app || {};
 
 		}
 	});
-})(jQuery);
+});
