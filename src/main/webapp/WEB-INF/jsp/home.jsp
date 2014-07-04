@@ -210,9 +210,9 @@
 							<br>
 							<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
 						</div>
-						<div class="tab-pane" id="tab-header">...</div>
-						<div class="tab-pane" id="tab-cookie">...</div>
-						<div class="tab-pane" id="tab-auth">...</div>
+						<div class="tab-pane" id="tab-header">TODO</div>
+						<div class="tab-pane" id="tab-cookie">TODO</div>
+						<div class="tab-pane" id="tab-auth">TODO</div>
 					</div>
 
 					<br>

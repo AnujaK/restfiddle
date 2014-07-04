@@ -15,7 +15,7 @@ import com.restfiddle.entity.User;
  * 
  */
 @Service
-public class RFUserDetailService implements UserDetailsService {
+public class RfUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
