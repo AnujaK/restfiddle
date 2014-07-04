@@ -1,10 +1,11 @@
 /* global Backbone, jQuery, _, ENTER_KEY */
 var app = app || {};
 
-(function($) {
-	'use strict';
-
-	app.ConversationView = Backbone.View.extend({
+define(function(require) {
+	require('backbone');
+	require('underscore');
+	
+	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',
 		initialize : function(){
 			this.$el.find("#saveConversationBtn").click(function(view){
@@ -47,8 +48,10 @@ var app = app || {};
 					}
 				});
 			}else{
-				alert('Pending : Create new conversation');
+				$("#requestModal").find("#source").val("conversation");
+				$("#requestModal").modal("show");
 			}
 		}
 	});
-})(jQuery);
+	return ConversationView;
+});

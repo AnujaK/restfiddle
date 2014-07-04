@@ -1,11 +1,13 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-	'use strict';
 
+define(function(require) {
+	
+	require('backbone');
+	
 	app.ConversationModel = Backbone.Model.extend({
-		urlRoot : "/api/conversations/",
+		urlRoot : app.config.baseUrl +"/conversations/",
 		defaults : {
 			id : null,
 			rfRequest : '',
@@ -20,4 +22,4 @@ var app = app || {};
 			return Backbone.sync(method, model, options);		
 		}
 	});
-})();
+});

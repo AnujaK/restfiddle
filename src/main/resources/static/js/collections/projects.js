@@ -1,13 +1,15 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
 
+define(function(require) {
+	
+	require('backbone');
+	
     var Projects = Backbone.Collection.extend({
 	model : app.Project,
-	url : "/api/projects"
+	url : app.config.baseUrl + "/projects"
     });
 
     app.projects = new Projects();
-})();
+});
