@@ -28,7 +28,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-public class User extends BaseEntity {
+public class User extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)
@@ -59,11 +59,11 @@ public class User extends BaseEntity {
     }
 
     public List<Role> getRoles() {
-        return roles;
+	return roles;
     }
 
     public void setRoles(List<Role> roles) {
-        this.roles = roles;
+	this.roles = roles;
     }
 
 }

@@ -1,13 +1,16 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
-
+define(function(require) {
+	
+	require('backbone');
+	
     app.Workspace = Backbone.Model.extend({
+	urlRoot : app.config.baseUrl +"/workspaces",
 	defaults : {
 	    name : '',
 	    description : ''
 	}
     });
-})();
+    
+});

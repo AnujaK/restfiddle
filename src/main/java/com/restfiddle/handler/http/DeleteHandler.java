@@ -15,9 +15,29 @@
  */
 package com.restfiddle.handler.http;
 
+import java.io.IOException;
+
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.RfRequestDTO;
+
 @Component
-public class DeleteHandler {
+public class DeleteHandler extends GenericHandler {
+
+    public String process(RfRequestDTO rfRequestDTO) throws IOException {
+	String response = "";
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpDelete httpDelete = new HttpDelete(rfRequestDTO.getApiUrl());
+	httpDelete.addHeader("Content-Type", "application/json");
+	try {
+	    response = processHttpRequest(httpDelete, httpclient);
+	} finally {
+	    httpclient.close();
+	}
+	return response;
+    }
 
 }

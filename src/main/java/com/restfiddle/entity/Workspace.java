@@ -15,6 +15,7 @@
  */
 package com.restfiddle.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,12 +25,12 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Workspace extends BaseEntity {
+public class Workspace extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workspace")
     @JsonManagedReference
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<Project>();
 
     public List<Project> getProjects() {
 	return projects;

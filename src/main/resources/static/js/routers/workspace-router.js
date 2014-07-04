@@ -1,8 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	
 
     var WorkspaceRouter = Backbone.Router.extend({
 	routes : {
@@ -12,4 +15,4 @@ var app = app || {};
 
     app.WorkspaceRouter = new WorkspaceRouter();
     Backbone.history.start();
-})();
+});

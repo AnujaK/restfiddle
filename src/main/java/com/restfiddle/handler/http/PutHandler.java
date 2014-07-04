@@ -15,9 +15,31 @@
  */
 package com.restfiddle.handler.http;
 
+import java.io.IOException;
+
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.RfRequestDTO;
+
 @Component
-public class PutHandler {
+public class PutHandler extends GenericHandler {
+
+    public String process(RfRequestDTO rfRequestDTO) throws IOException {
+	String response = "";
+	CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpPut httpPut = new HttpPut(rfRequestDTO.getApiUrl());
+	httpPut.addHeader("Content-Type", "application/json");
+	httpPut.setEntity(new StringEntity(rfRequestDTO.getApiBody()));
+	try {
+	    response = processHttpRequest(httpPut, httpclient);
+	} finally {
+	    httpclient.close();
+	}
+	return response;
+    }
 
 }

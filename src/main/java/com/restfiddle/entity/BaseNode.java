@@ -15,20 +15,38 @@
  */
 package com.restfiddle.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class BaseNode extends BaseEntity {
+public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/MODULE/FEATURE/SCENARIO/ITEM/REQUEST/FOLDER etc
+    private String nodeType;// PROJECT/FOLDER etc
 
     private Long parentId;
 
     private Long position;// location in the parent node
 
+    private Boolean starred;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Tag> tags;
+
+    @OneToOne
+    @JsonManagedReference
+    private Conversation conversation;
+
     @ManyToOne
+    @JsonBackReference
     private Project project;
 
     public String getNodeType() {
@@ -61,6 +79,30 @@ public class BaseNode extends BaseEntity {
 
     public void setProject(Project project) {
 	this.project = project;
+    }
+
+    public Conversation getConversation() {
+	return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+	this.conversation = conversation;
+    }
+
+    public Boolean getStarred() {
+	return starred;
+    }
+
+    public void setStarred(Boolean starred) {
+	this.starred = starred;
+    }
+
+    public List<Tag> getTags() {
+	return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+	this.tags = tags;
     }
 
 }

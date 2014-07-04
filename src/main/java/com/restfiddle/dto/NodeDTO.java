@@ -17,9 +17,17 @@ package com.restfiddle.dto;
 
 public class NodeDTO extends BaseDTO {
 
+    private String nodeType;
+
     private Long parentId;
 
+    private Long position;
+
     private Long projectId;
+
+    private Boolean starred;
+    
+    private ConversationDTO conversationDTO;
 
     public Long getProjectId() {
 	return projectId;
@@ -35,6 +43,38 @@ public class NodeDTO extends BaseDTO {
 
     public void setParentId(Long parentId) {
 	this.parentId = parentId;
+    }
+
+    public ConversationDTO getConversationDTO() {
+	return conversationDTO;
+    }
+
+    public void setConversationDTO(ConversationDTO conversationDTO) {
+	this.conversationDTO = conversationDTO;
+    }
+
+    public String getNodeType() {
+	return nodeType;
+    }
+
+    public void setNodeType(String nodeType) {
+	this.nodeType = nodeType;
+    }
+
+    public Long getPosition() {
+	return position;
+    }
+
+    public void setPosition(Long position) {
+	this.position = position;
+    }
+
+    public Boolean getStarred() {
+        return starred;
+    }
+
+    public void setStarred(Boolean starred) {
+        this.starred = starred;
     }
 
 }

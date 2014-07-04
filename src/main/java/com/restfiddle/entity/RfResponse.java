@@ -16,20 +16,36 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-public class RfResponse extends BaseEntity {
+public class RfResponse extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(mappedBy = "rfResponse")
-    private Item item;
+    @Lob
+    private byte[] body;
 
-    public Item getItem() {
+    @OneToOne(mappedBy = "rfResponse")
+    @JsonBackReference
+    private Conversation item;
+
+    public byte[] getBody() {
+	return body;
+    }
+
+    public void setBody(byte[] body) {
+	this.body = body;
+    }
+
+    public Conversation getItem() {
 	return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(Conversation item) {
 	this.item = item;
     }
+
 }

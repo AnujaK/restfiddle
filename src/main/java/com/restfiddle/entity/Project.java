@@ -20,9 +20,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Project extends BaseEntity {
+public class Project extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
@@ -30,6 +31,7 @@ public class Project extends BaseEntity {
     private Workspace workspace;
 
     @OneToOne
+    @JsonManagedReference
     private BaseNode projectRef;
 
     public Workspace getWorkspace() {

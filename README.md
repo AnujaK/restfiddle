@@ -19,7 +19,7 @@ Time is valuable, so productivity is important. We have crafted RESTFiddle to av
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/master/src/main/resources/static/img/rf_screenshot2.jpg "Initial Design")
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot2.jpg "Initial Design")
 
 
 Building From Source
@@ -65,7 +65,7 @@ MAVEN_OPTS="-XX:PermSize=256m -XX:MaxPermSize=512m" mvn spring-boot:run
 
 ##### MySQL configuration:
 
-Go to *src/main/resources/application.properties* and update database url, username and password. Here is how the sample configuration looks like:
+Go to *src/main/resources/env-development.properties* and update database url, username and password. Here is how the sample configuration looks like:
 
 ```
 database.driver=com.mysql.jdbc.Driver
@@ -88,6 +88,11 @@ database.username=sa
 
 database.password=
 ```
+
+Deployment
+==========
+
+You can deploy the war file to Tomcat 7.0.52, Jetty, or any other container, as long as it supports servlet 3.0.
 
 
 Technology Stack
@@ -112,15 +117,48 @@ Technology Stack
 * Tomcat (http://tomcat.apache.org/)
 
 
-Coding Guidelines
+Contribute
 ==========
 
-The contributing guidelines are in [CONTRIBUTING.md](https://github.com/ranjan-rk/restfiddle/blob/master/CONTRIBUTING.md)
+You're interested in contributing to RESTFiddle? AWESOME. Here are the basic steps:
 
+- Make sure you have a [GitHub Account](https://github.com/signup/free)
+- Fork RESTFiddle from here : https://github.com/ranjan-rk/restfiddle/
+- Clone your fork  
+- Make your changes
+- Make sure everything is working fine
+- Format your code (see below)
+- Submit a pull request
+
+##### Code formatting :
+
+- If you're an Eclipse user, use the following code formatter : https://github.com/ranjan-rk/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
+- You should also activate automatic formatting and organizing imports on save.
+
+##### GitHub help : 
+
+- Forking a repo - https://help.github.com/articles/fork-a-repo
+- Creating a pull request - https://help.github.com/articles/creating-a-pull-request
+- Syncing a fork - https://help.github.com/articles/syncing-a-fork
+ 
 Release Date
 ==========
 
-Version 1.0 is expected to be released on 15th June 2014.
+Version 1.0 is coming soon. Here is the current status of the project:
+
+Login/Logout working (default username/password : rf/rf).
+
+Creating and switching between Workspaces working.
+
+Creating and showing Projects working.
+
+GET/POST/PUT/DELETE operation with JSON data is supported for now.
+
+Sample API to test:
+
+http://localhost:8080/api/workspaces
+
+For more details go through the Wiki pages.
 
 Copyright and License
 ==========
