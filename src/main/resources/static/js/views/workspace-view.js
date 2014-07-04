@@ -19,6 +19,7 @@ define(function(require) {
 			return this;
 		},
 		showProjects : function() {
+		
 			var projectList = []
 			_.each(this.model.get('projects'), function(p){
 				projectList.push(new app.Project(p))
@@ -64,6 +65,7 @@ define(function(require) {
 			});
 		},
 		showDefault : function(){
+		alert('hello')
 			var view = this;
 			app.workspaces.fetch({success : function(response){
 				if(response.get(1)){

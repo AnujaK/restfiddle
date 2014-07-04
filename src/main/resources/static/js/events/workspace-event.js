@@ -3,7 +3,7 @@ var app = app || {};
 
 
 define(function(require) {
-	
+	require('backbone');
 	require('underscore');
 	
 
