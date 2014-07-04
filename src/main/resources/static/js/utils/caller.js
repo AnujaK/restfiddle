@@ -1,9 +1,7 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-
-$(function() {
-    'use strict';
-
+define(function(require) {
+	
+	require('jquery');
+	
     function send() {
 	var item = {
 	    apiUrl : $("#apiUrl").val(),

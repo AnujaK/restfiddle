@@ -1,8 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	
 
     var Workspaces = Backbone.Collection.extend({
 	model : app.Workspace,
@@ -10,4 +13,4 @@ var app = app || {};
     });
 
     app.workspaces = new Workspaces();
-})();
+});

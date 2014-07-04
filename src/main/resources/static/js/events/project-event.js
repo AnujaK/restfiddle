@@ -1,8 +1,9 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
+define(function(require) {
+	
+	require('underscore');
 
     var projectEvents = _.extend({}, Backbone.Events);
     
@@ -11,4 +12,4 @@ var app = app || {};
     };
    
     app.projectEvents = projectEvents;
-})();
+});

@@ -1,5 +1,8 @@
 var app = app || {};
-$(function() {
+define(function(require) {
+	require('jquery');
+	require('fancytree');
+	require('bootstarp');
 	app.tree = {}
 
 	$("#tree").fancytree({
@@ -137,7 +140,10 @@ $(function() {
 			nodeType : nodeType});
 		node.save(null, {
 			success : function(response){
+				
 				app.tree.appendChild(activeFolder, app.tree.convertModelToNode(response));
+				
+
 				successCallBack();
 			},
 			error : function(){

@@ -1,8 +1,12 @@
 /* global Backbone, jQuery, _, ENTER_KEY */
 var app = app || {};
 
-(function($) {
-	'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	require('underscore');
+	
 	app.ProjectView = Backbone.View.extend({
 		el : '#test_project',
 		addOne : function(model){
@@ -48,4 +52,4 @@ var app = app || {};
 			return this;
 		}
 	});
-})(jQuery);
+});

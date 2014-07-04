@@ -1,8 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	
 
     app.Project = Backbone.Model.extend({
 	urlRoot : "/api/projects",
@@ -13,4 +16,4 @@ var app = app || {};
 	    description : ''
 	}
     });
-})();
+});

@@ -1,8 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-    'use strict';
+
+define(function(require) {
+	
+	require('underscore');
+	
 
     var workspaceEvents = _.extend({}, Backbone.Events);
     
@@ -22,4 +25,4 @@ var app = app || {};
    
    
     app.workspaceEvents = workspaceEvents;
-})();
+});

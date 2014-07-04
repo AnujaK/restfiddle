@@ -1,7 +1,10 @@
 /* global Backbone, jQuery, _, ENTER_KEY */
 var app = app || {};
 
-(function($) {
+define(function(require) {
+	
+	require('jquery');
+	
     function commonService() {
 
     }
@@ -78,4 +81,4 @@ var app = app || {};
     };
     app.commonService = commonService;
 
-})(jQuery);
+});

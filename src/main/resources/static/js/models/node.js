@@ -1,8 +1,11 @@
 /* global Backbone */
 var app = app || {};
 
-(function() {
-	'use strict';
+
+define(function(require) {
+	
+	require('backbone');
+	
 
 	app.NodeModel = Backbone.Model.extend({
 		urlRoot : "/api/nodes/",
@@ -29,4 +32,4 @@ var app = app || {};
 	});
 	
 	
-})();
+});
