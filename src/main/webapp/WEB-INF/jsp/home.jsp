@@ -127,6 +127,8 @@
 				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
+				&nbsp;&nbsp;
+				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Delete</button>
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -139,7 +141,7 @@
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
 						</ul>
 					</div>
 
@@ -150,7 +152,7 @@
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
 						</ul>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -160,14 +162,22 @@
 							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Body</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Header</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Cookie</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Body</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Header</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Cookie</a></li>
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<button class="btn btn-default btn-sm" style="float: right" data-toggle="modal" data-target="#comingSoon">Show Saved Response</button>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</button>
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Saved Response</a></li>
+						</ul>
+					</div>
 					<br> <br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Request</h6>
@@ -215,7 +225,7 @@
 							<div id="response-wrapper"></div>
 						</div>
 					</div>
-					<br><br>
+					<br> <br>
 				</div>
 			</div>
 
