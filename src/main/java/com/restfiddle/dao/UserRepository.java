@@ -23,9 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.restfiddle.entity.User;
 
 @Repository
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findByEmail(@Param("email") String email);
+    public User findByUserName(@Param("userName") String userName);
+
+    public User findByEmail(@Param("email") String email);
 
 }

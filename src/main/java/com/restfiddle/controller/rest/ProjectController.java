@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dao.WorkspaceRepository;
-import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
@@ -73,7 +73,7 @@ public class ProjectController {
 	// Create project reference node
 	BaseNode projectRef = new BaseNode();
 	projectRef.setName(projectDTO.getName());
-	projectRef.setNodeType(NodeTypes.PROJECT.name());
+	projectRef.setNodeType(NodeType.PROJECT.name());
 	projectRef.setParentId(Long.valueOf(-1));
 	projectRef.setPosition(Long.valueOf(0));
 

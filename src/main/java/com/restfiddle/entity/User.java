@@ -15,19 +15,28 @@
  */
 package com.restfiddle.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@SuppressWarnings("serial")
+import com.restfiddle.constant.StatusType;
+
+/**
+ * @author abidk
+ * 
+ */
 @Entity
-public class User extends NamedEntity {
+public class User extends NamedEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)
     @Length(max = 255)
-    private String email;
+    private String userName;
 
     @Column(nullable = false)
     @Length(max = 255)
@@ -35,18 +44,18 @@ public class User extends NamedEntity {
 
     @Column(nullable = false)
     @Length(max = 255)
-    private String firstName;
-
-    @Column(nullable = false)
-    @Length(max = 255)
-    private String lastName;
+    private String email;
 
     public String getEmail() {
 	return email;
     }
 
-    public void setEmail(String email) {
-	this.email = email;
+    public String getUserName() {
+	return userName;
+    }
+
+    public void setUserName(String userName) {
+	this.userName = userName;
     }
 
     public String getPassword() {
@@ -57,25 +66,44 @@ public class User extends NamedEntity {
 	this.password = password;
     }
 
-    public String getFirstName() {
-	return firstName;
+    public void setEmail(String email) {
+	this.email = email;
     }
 
-    public void setFirstName(String firstName) {
-	this.firstName = firstName;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	// TODO Auto-generated method stub
+	return null;
     }
 
-    public String getLastName() {
-	return lastName;
+    @Override
+    public String getUsername() {
+	return super.getName();
     }
 
-    public void setLastName(String lastName) {
-	this.lastName = lastName;
+    @Override
+    public boolean isAccountNonExpired() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isEnabled() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
     }
 
     @Override
     public String toString() {
-	return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+	return "User [userName=" + userName + ", email=" + email + "]";
     }
 
 }

@@ -20,6 +20,9 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.constant.NodeType;
+import com.restfiddle.constant.PermissionType;
+import com.restfiddle.constant.RoleType;
 import com.restfiddle.controller.rest.ConfigController;
 import com.restfiddle.controller.rest.ConversationController;
 import com.restfiddle.controller.rest.NodeController;
@@ -29,9 +32,7 @@ import com.restfiddle.controller.rest.RoleController;
 import com.restfiddle.controller.rest.TagController;
 import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
-import com.restfiddle.dao.util.NodeTypes;
-import com.restfiddle.dao.util.PermissionTypes;
-import com.restfiddle.dao.util.RoleTypes;
+import com.restfiddle.dao.UserRepository;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
@@ -45,6 +46,8 @@ import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.User;
+import com.restfiddle.util.CommonUtil;
 
 @Component
 public class SampleDataGenerator {
@@ -76,14 +79,21 @@ public class SampleDataGenerator {
     @Autowired
     private TagController tagController;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostConstruct
     public void initialize() {
 	if (isSampleDataPresent()) {
 	    return;
 	}
-	loadRoleData();
-	loadPermissionData();
-	loadUserData();
+	
+	createSuperUser();
+	
+	
+	// loadRoleData();
+	// loadPermissionData();
+	// loadUserData();
 	loadWorkspaceData();
 	loadProjectData();
 	loadNodeData();
@@ -92,58 +102,65 @@ public class SampleDataGenerator {
 
     private void loadRoleData() {
 	RoleDTO adminRoleDTO = new RoleDTO();
-	adminRoleDTO.setType(RoleTypes.ROLE_ADMIN.name());
+	adminRoleDTO.setType(RoleType.ROLE_ADMIN.name());
 	roleController.create(adminRoleDTO);
 
 	RoleDTO userRoleDTO = new RoleDTO();
-	userRoleDTO.setType(RoleTypes.ROLE_USER.name());
+	userRoleDTO.setType(RoleType.ROLE_USER.name());
 	roleController.create(userRoleDTO);
     }
 
     private void loadPermissionData() {
 	PermissionDTO viewWorkspacePermission = new PermissionDTO();
-	viewWorkspacePermission.setType(PermissionTypes.VIEW_WORKSPACE.name());
+	viewWorkspacePermission.setType(PermissionType.VIEW_WORKSPACE.name());
 	permissionController.create(viewWorkspacePermission);
 
 	PermissionDTO modifyWorkspacePermission = new PermissionDTO();
-	modifyWorkspacePermission.setType(PermissionTypes.MODIFY_WORKSPACE.name());
+	modifyWorkspacePermission.setType(PermissionType.MODIFY_WORKSPACE.name());
 	permissionController.create(modifyWorkspacePermission);
 
 	PermissionDTO createWorkspacePermission = new PermissionDTO();
-	createWorkspacePermission.setType(PermissionTypes.CREATE_WORKSPACE.name());
+	createWorkspacePermission.setType(PermissionType.CREATE_WORKSPACE.name());
 	permissionController.create(createWorkspacePermission);
 
 	PermissionDTO deleteWorkspacePermission = new PermissionDTO();
-	deleteWorkspacePermission.setType(PermissionTypes.DELETE_WORKSPACE.name());
+	deleteWorkspacePermission.setType(PermissionType.DELETE_WORKSPACE.name());
 	permissionController.create(deleteWorkspacePermission);
 
 	PermissionDTO viewProject = new PermissionDTO();
-	viewProject.setType(PermissionTypes.VIEW_PROJECT.name());
+	viewProject.setType(PermissionType.VIEW_PROJECT.name());
 	permissionController.create(viewProject);
 
 	PermissionDTO modifyProjectPermission = new PermissionDTO();
-	modifyProjectPermission.setType(PermissionTypes.MODIFY_PROJECT.name());
+	modifyProjectPermission.setType(PermissionType.MODIFY_PROJECT.name());
 	permissionController.create(modifyProjectPermission);
 
 	PermissionDTO createProjectPermission = new PermissionDTO();
-	createProjectPermission.setType(PermissionTypes.CREATE_PROJECT.name());
+	createProjectPermission.setType(PermissionType.CREATE_PROJECT.name());
 	permissionController.create(createProjectPermission);
 
 	PermissionDTO deleteProjectPermission = new PermissionDTO();
-	deleteProjectPermission.setType(PermissionTypes.DELETE_PROJECT.name());
+	deleteProjectPermission.setType(PermissionType.DELETE_PROJECT.name());
 	permissionController.create(deleteProjectPermission);
     }
 
-    private void loadUserData() {
-	UserDTO adminUserDTO = new UserDTO();
-	adminUserDTO.setFirstName("Rest");
-	adminUserDTO.setLastName("Fiddle");
-	userController.create(adminUserDTO);
+    private void createSuperUser() {
+	User user = userRepository.findByUserName("rf");
+	if (CommonUtil.isNotNull(user)) {
+	    return;
+	}
 
 	UserDTO userDTO = new UserDTO();
-	userDTO.setFirstName("Ranjan");
-	userDTO.setLastName("Kumar");
+	userDTO.setUserName("rf");
+	userDTO.setPassword("rf");
+	userDTO.setEmail("rk@gmail.com");
+	userDTO.setName("Ranjan Kumar");
 	userController.create(userDTO);
+
+    }
+
+    private void loadUserData() {
+
     }
 
     private boolean isSampleDataPresent() {
@@ -201,7 +218,7 @@ public class SampleDataGenerator {
     private void loadNodeData() {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
-	firstFolderNode.setNodeType(NodeTypes.FOLDER.name());
+	firstFolderNode.setNodeType(NodeType.FOLDER.name());
 	firstFolderNode.setProjectId(1L);
 
 	ConversationDTO conversationDTO = new ConversationDTO();
@@ -209,7 +226,7 @@ public class SampleDataGenerator {
 	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
-	
+
 	ConversationDTO postConversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
 	rfRequestDTO2.setApiUrl("http://localhost:8080/api/workspaces");
@@ -221,7 +238,7 @@ public class SampleDataGenerator {
 	Conversation createdPostConversation = conversationController.create(postConversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 	postConversationDTO.setId(createdPostConversation.getId());
-	//firstFolderNode.setConversationDTO(conversationDTO);
+	// firstFolderNode.setConversationDTO(conversationDTO);
 
 	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
 
