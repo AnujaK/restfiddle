@@ -16,9 +16,18 @@
 package com.restfiddle.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restfiddle.entity.User;
 
+@Repository
+@Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    public User findByUserName(@Param("userName") String userName);
+
+    public User findByEmail(@Param("email") String email);
 
 }

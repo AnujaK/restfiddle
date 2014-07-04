@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao.util;
+package com.restfiddle.constant;
 
-public enum NodeTypes {
+public enum NodeType {
     PROJECT, FOLDER;
 }

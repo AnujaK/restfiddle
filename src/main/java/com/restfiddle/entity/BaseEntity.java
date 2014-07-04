@@ -17,21 +17,28 @@ package com.restfiddle.entity;
 
 import java.util.Date;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+
+import com.restfiddle.constant.StatusType;
 
 @MappedSuperclass
 public abstract class BaseEntity extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     private Date createdDate;
+
     private User createdBy;
 
     private Date lastModifiedDate;
+
     private User lastModifiedBy;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
 
     public Date getCreatedDate() {
 	return createdDate;
@@ -65,12 +72,16 @@ public abstract class BaseEntity extends AbstractEntity {
 	this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getStatus() {
+    public StatusType getStatus() {
 	return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusType status) {
 	this.status = status;
+    }
+
+    public static long getSerialversionuid() {
+	return serialVersionUID;
     }
 
     @PreUpdate

@@ -15,55 +15,95 @@
  */
 package com.restfiddle.entity;
 
-import java.util.List;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import com.restfiddle.constant.StatusType;
+
+/**
+ * @author abidk
+ * 
+ */
 @Entity
-public class User extends NamedEntity {
+public class User extends NamedEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)
-    private String firstName;
+    @Length(max = 255)
+    private String userName;
 
     @Column(nullable = false)
-    private String lastName;
+    @Length(max = 255)
+    private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    @Column(nullable = false)
+    @Length(max = 255)
+    private String email;
 
-    public String getFirstName() {
-	return firstName;
+    public String getEmail() {
+	return email;
     }
 
-    public void setFirstName(String firstName) {
-	this.firstName = firstName;
+    public String getUserName() {
+	return userName;
     }
 
-    public String getLastName() {
-	return lastName;
+    public void setUserName(String userName) {
+	this.userName = userName;
     }
 
-    public void setLastName(String lastName) {
-	this.lastName = lastName;
+    public String getPassword() {
+	return password;
     }
 
-    public List<Role> getRoles() {
-	return roles;
+    public void setPassword(String password) {
+	this.password = password;
     }
 
-    public void setRoles(List<Role> roles) {
-	this.roles = roles;
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public String getUsername() {
+	return super.getName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public boolean isEnabled() {
+	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+    }
+
+    @Override
+    public String toString() {
+	return "User [userName=" + userName + ", email=" + email + "]";
     }
 
 }

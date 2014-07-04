@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao.util;
+package com.restfiddle.constant;
 
-public enum PermissionTypes {
+public enum PermissionType {
     VIEW_WORKSPACE, MODIFY_WORKSPACE, CREATE_WORKSPACE, DELETE_WORKSPACE, VIEW_PROJECT, MODIFY_PROJECT, CREATE_PROJECT, DELETE_PROJECT;
 }
