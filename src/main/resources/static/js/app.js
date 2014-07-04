@@ -31,8 +31,7 @@ var app = app || {};
 
 define(function(require) {
 	
-	"use strict";
-	
+	"use strict";	
 	require('jquery');
 	//require('jqueryUi');
 	require('bootstarp');

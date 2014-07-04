@@ -2,7 +2,7 @@
 var app = app || {};
 
 define(function(require) {
-	
+	require('backbone');
 	require('underscore');
 
     var conversationEvents = _.extend({}, Backbone.Events);
