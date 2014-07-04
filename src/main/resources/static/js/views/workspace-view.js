@@ -65,7 +65,6 @@ define(function(require) {
 			});
 		},
 		showDefault : function(){
-		alert('hello')
 			var view = this;
 			app.workspaces.fetch({success : function(response){
 				if(response.get(1)){
