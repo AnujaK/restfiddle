@@ -89,7 +89,8 @@ define(function(require) {
 	
 	$("#saveProjectBtn").bind("click", function() {
 	    new app.commonService().saveProject(app.appView.getCurrentWorkspaceId(), {
-		"name" : $("#projectTextField").val()
+		"name" : $("#projectTextField").val(),
+		"description" : $("#projectTextArea").val()
 	    }, onSaveProjectSuccess, onSaveProjectFailure);
 	});
 	var onSaveProjectSuccess = function(responseData) {

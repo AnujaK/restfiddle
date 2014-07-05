@@ -26,6 +26,7 @@ define(function(require) {
     function saveWorkspace() {
 		var newWorkspace = new app.Workspace({
 		    name : $("#workspaceTextField").val(),
+		    description : $("#workspaceTextArea").val()
 		});
 		newWorkspace.save(null, {success : function(){
 			$("#workspaceModal").modal("hide");

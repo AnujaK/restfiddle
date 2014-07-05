@@ -283,7 +283,8 @@
 					<h4 class="modal-title" id="workspaceModalLabel">New Workspace</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name">
+					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
+					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -300,7 +301,8 @@
 					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name">
+					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name"> <br>
+					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -358,8 +360,8 @@
 	<!-- JavaScript -->
 
 	<script data-main="js/app" src="js/libs/require/require.js"></script>
-	
-	
+
+
 </body>
 
 </html>

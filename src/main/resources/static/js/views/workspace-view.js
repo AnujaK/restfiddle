@@ -104,7 +104,8 @@ define(function(require) {
 			var wkView = this;
 			var newModel = new app.Workspace();
 			newModel.set({
-				"name" : $("#workspaceTextField").val()
+				"name" : $("#workspaceTextField").val(),
+				"description" : $("#workspaceTextArea").val()
 			});
 			wkView.services.saveWorkspace(newModel.toJSON(),
 					wkView.onSaveWorkspceSuc, wkView.onSaveWorkspceSuc);
