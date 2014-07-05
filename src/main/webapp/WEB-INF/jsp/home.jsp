@@ -290,6 +290,12 @@
 				<div class="modal-body">
 					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
 					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+					<div>
+						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public" checked="checked">&nbsp;Public
+						</label>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -308,6 +314,12 @@
 				<div class="modal-body">
 					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name"> <br>
 					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+					<div>
+						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="publicProject" value="public" checked="checked">&nbsp;Public
+						</label>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
