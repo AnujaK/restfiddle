@@ -36,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	// auth.inMemoryAuthentication().withUser("rf").password("rf").roles("USER");
 	auth.userDetailsService(userDetailService).passwordEncoder(this.passwordEncoder());
     }
 
@@ -47,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
 	http.csrf().disable();
-	http.authorizeRequests().antMatchers("/api/**", "/about").permitAll().anyRequest().authenticated().and().formLogin().and().httpBasic();
+	http.authorizeRequests().antMatchers("/api/**", "/about").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
+		.failureUrl("/login?error").permitAll();
 	http.logout().logoutSuccessUrl("/");
     }
 }
