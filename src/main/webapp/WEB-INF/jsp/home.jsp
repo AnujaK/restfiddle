@@ -179,9 +179,13 @@
 						</ul>
 					</div>
 					<br> <br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Request</h6>
+					<div>
+						<p>
+							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Get Workspaces</b>
+						</p>
+						<p>API to get the list of workspaces.</p>
 					</div>
+					<br>
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-xs-2">
@@ -214,10 +218,11 @@
 						<div class="tab-pane" id="tab-cookie">TODO</div>
 						<div class="tab-pane" id="tab-auth">TODO</div>
 					</div>
-
-					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
+					<hr>
+					<div>
+						<p>
+							<span class='glyphicon glyphicon glyphicon-chevron-right'></span>&nbsp;&nbsp;<b>Response</b>
+						</p>
 					</div>
 
 					<div class="container-fluid">
@@ -341,7 +346,7 @@
 		</div>
 	</div>
 	<script>
-	var ctx = "${pageContext.request.contextPath}"
+	var ctx = "${pageContext.request.contextPath}";
     </script>
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
@@ -358,10 +363,6 @@
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<!-- JavaScript -->
-
 	<script data-main="js/app" src="js/libs/require/require.js"></script>
-
-
 </body>
-
 </html>
