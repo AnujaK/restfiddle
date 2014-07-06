@@ -20,6 +20,7 @@ ul.fancytree-container {
 
 .ui-fancytree {
 	border: 0 none !important;
+	color: gray;
 }
 
 .apiRequestType {

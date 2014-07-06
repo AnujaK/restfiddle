@@ -1,9 +1,8 @@
 package com.restfiddle.entity;
 
-/**
- * @author abidk
- * 
- */
+import javax.persistence.Entity;
+
+@Entity
 public class Tenant extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

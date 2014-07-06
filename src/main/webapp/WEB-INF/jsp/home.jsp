@@ -89,9 +89,9 @@
 						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Labels</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Important
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
 						</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Wishlist
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
 						</a></li>
 					</ul>
 					<br>
@@ -111,12 +111,12 @@
 						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span></li>
+						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span></li>
 					</ul>
 				</div>
 			</div>
@@ -124,11 +124,27 @@
 				<br>
 				<button class="btn btn-default btn-sm col-1-toggle-btn">Toggle</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
+				<div class="btn-group">
+					<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
+					<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
+				</div>
 				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
-				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Delete</button>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+						More&nbsp;&nbsp;<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Expand All</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Collapse All</a></li>
+						<li class="divider"></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Sort</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Filter</a></li>
+						<li class="divider"></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Delete</a></li>
+
+					</ul>
+				</div>
+
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -144,8 +160,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
 						</ul>
 					</div>
-
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="saveConversationBtn">Save</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -155,7 +170,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
 						</ul>
 					</div>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Clear</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -168,7 +183,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -178,6 +193,10 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Saved Response</a></li>
 						</ul>
 					</div>
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-star"></span>&nbsp;Star
+					</button>
 					<br> <br>
 					<div>
 						<p>

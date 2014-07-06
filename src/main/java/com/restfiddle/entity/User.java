@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,6 +46,12 @@ public class User extends NamedEntity implements UserDetails {
     @Column(nullable = false)
     @Length(max = 255)
     private String email;
+
+    @ManyToOne
+    private Team team;
+
+    @ManyToOne
+    private Tenant tenant;
 
     public String getEmail() {
 	return email;
@@ -104,6 +111,22 @@ public class User extends NamedEntity implements UserDetails {
     @Override
     public String toString() {
 	return "User [userName=" + userName + ", email=" + email + "]";
+    }
+
+    public Team getTeam() {
+	return team;
+    }
+
+    public void setTeam(Team team) {
+	this.team = team;
+    }
+
+    public Tenant getTenant() {
+	return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+	this.tenant = tenant;
     }
 
 }
