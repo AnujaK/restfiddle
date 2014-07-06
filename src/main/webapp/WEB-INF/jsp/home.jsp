@@ -243,10 +243,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+					<h4 class="modal-title" id="myModalLabel">New Folder</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name">
+					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name"> <br>
+					<textarea id="folderTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -265,7 +266,8 @@
 				<input type="hidden" class="form-control" id="source">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="requestName">Request Name</label> <input class="form-control" id="requestName" placeholder="Enter Request Name">
+						<input class="form-control" id="requestName" placeholder="Enter Request Name"> <br>
+						<textarea id="requestTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					</div>
 					<!-- 
 					 <div class="form-group">
