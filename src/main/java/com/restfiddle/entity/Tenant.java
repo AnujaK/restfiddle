@@ -4,7 +4,7 @@ package com.restfiddle.entity;
  * @author abidk
  * 
  */
-@SuppressWarnings("serial")
 public class Tenant extends BaseEntity {
+    private static final long serialVersionUID = 1L;
 
 }
