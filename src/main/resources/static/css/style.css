@@ -21,6 +21,10 @@ ul.fancytree-container {
 	padding: 6px 5px;
 }
 
+.badge {
+	font-weight: normal;
+}
+
 .nav-sidebar>li>a {
 	position: relative;
 	display: block;

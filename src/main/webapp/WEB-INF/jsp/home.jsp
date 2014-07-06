@@ -90,17 +90,17 @@
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
-						</a></li>
+								<span class="badge pull-right">33/12</span></a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
-						</a></li>
+								<span class="badge pull-right">17/5</span></a></li>
 					</ul>
 					<br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
-						</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred <span
+								class="badge pull-right">45/11</span></a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
@@ -203,6 +203,9 @@
 							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Get Workspaces</b>
 						</p>
 						<p>API to get the list of workspaces.</p>
+						<p>
+							&nbsp;&nbsp;<span class="label" style="background-color: green;">Important</span>&nbsp;<span class="label" style="background-color: orange;">Wishlist</span>
+						</p>
 					</div>
 					<br>
 					<div class="container-fluid">
