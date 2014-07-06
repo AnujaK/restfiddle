@@ -79,7 +79,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
 					</div>
-					<ul class="nav nav-pills nav-stacked" id="test_project">
+					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
@@ -88,7 +88,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Labels</h6>
 					</div>
-					<ul class="nav nav-sidebar">
+					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
@@ -98,7 +98,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
 					</div>
-					<ul class="nav nav-sidebar">
+					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log

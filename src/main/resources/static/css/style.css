@@ -7,6 +7,20 @@ ul.fancytree-container {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.rf-col-1 {
+	padding: 0px;
+}
+
+.rf-left-nav>li>a {
+	border-radius: 0px;
+	padding: 10px 5px;
+}
+
+.rf-left-nav2>li>a {
+	border-radius: 0px;
+	padding: 6px 5px;
+}
+
 .nav-sidebar>li>a {
 	position: relative;
 	display: block;
