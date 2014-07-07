@@ -79,6 +79,6 @@ define(function(require) {
 	    app.apiRestRequestGet(url, "", successcb, "", failcb);
 	}
     };
-    app.commonService = commonService;
+    return commonService;
 
 });

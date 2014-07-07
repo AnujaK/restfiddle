@@ -5,11 +5,12 @@ define(function(require) {
 	
 	require('underscore');
 
-    var conversationEvents = _.extend({}, Backbone.Events);
+    var ConversationEvents = {};
+    ConversationEvents.CHANGE = 'change';
     
-    conversationEvents.triggerChange = function(newConversationEventsId){
-    	conversationEvents.trigger('change', newConversationEventsId);
+    ConversationEvents.triggerChange = function(newConversationEventsId){
+    	app.Events.trigger('change', newConversationEventsId);
     };
    
-    app.conversationEvents = conversationEvents;
+   return ConversationEvents;
 });

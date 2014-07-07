@@ -22,6 +22,9 @@ require.config({
 		'fancytree':{
 			deps : ['jquery', 'jqueryUi']
 		},
+		'common/base':{
+			deps : ['underscore']
+		}
 		
 	}
 });
@@ -34,7 +37,6 @@ define(function(require) {
 	"use strict";
 	
 	require('jquery');
-	//require('jqueryUi');
 	require('bootstarp');
 	require('underscore');
 	require('backbone');
@@ -42,35 +44,17 @@ define(function(require) {
 	require('commons/base');
 	require('fancytree');
 	require('libs/prettify/prettify');
-	require("utils/caller")
-	require("services/common-service")
-	require("utils/tree")
-	require("models/workspace")
-	require("models/conversation")
-	require("models/node")
-	require("collections/workspaces")
-	require("events/workspace-event")
-	require("events/project-event")
-	require("events/conversation-event")
-	require("views/workspace-view")
-	require("views/project-view")
-	require("routers/workspace-router")
-	require("models/project")
-	require("collections/projects")
-	require("utils/util")
-	require("commons/config")
+	require("utils/util");
+	require("commons/config");
+	require("utils/caller"); //TODO: REMOVE THIS
 	
-	
-	
+	app.Events = _.extend({}, Backbone.Events);
 	var AppView = require('views/app-view');
 	var ConversationView = require('views/conversation-view');
 	var ApplicationModel = require('models/app');
+
 	
 	app.appModel = new ApplicationModel();
 	app.appView = new AppView();
 	app.conversation = new ConversationView();
-	
-	/*$("#requestModal").modal("show");
-	alert('yo ho');*/
-	
 });

@@ -4,13 +4,13 @@ var app = app || {};
 
 define(function(require) {
 	
-	require('backbone');
-	
+	var Backbone = require('backbone');
+	var WorkspaceModel = require('models/workspace');
 
     var Workspaces = Backbone.Collection.extend({
-	model : app.Workspace,
-	url : app.config.baseUrl + "/workspaces"
+		model : WorkspaceModel,
+		url : app.config.baseUrl + "/workspaces"
     });
 
-    app.workspaces = new Workspaces();
+    return Workspaces;
 });

@@ -4,25 +4,26 @@ var app = app || {};
 
 define(function(require) {
 	
-	require('underscore');
 	
 
-    var workspaceEvents = _.extend({}, Backbone.Events);
+    var WorkspaceEvents = {};
+    WorkspaceEvents.CHANGE = 'workspace:change';
+    WorkspaceEvents.FETCH = 'workspace:fetch';
     
    $("#switchWorkSpace").bind('click', function(){
     	console.log('called switch work space');
-    	workspaceEvents.triggerFetch();
+    	WorkspaceEvents.triggerFetch();
     });
    
-    workspaceEvents.triggerFetch = function(){
-    	workspaceEvents.trigger('fetch');
+   WorkspaceEvents.triggerFetch = function(){
+	   app.Events.trigger(WorkspaceEvents.FETCH);
     };
     
-    workspaceEvents.triggerChange = function(newWorkspaceId){
-    	workspaceEvents.trigger('change', newWorkspaceId);
+    WorkspaceEvents.triggerChange = function(newWorkspaceId){
+    	app.Events.trigger( WorkspaceEvents.CHANGE, newWorkspaceId);
     };
     
    
    
-    app.workspaceEvents = workspaceEvents;
+    return WorkspaceEvents;
 });

@@ -1,7 +1,12 @@
 // TODO : This file must be written properly
 define(function(require) {
-	require('jquery');
-	require('backbone');
+	var $ = require('jquery');
+	var Backbone = require('backbone');
+	var tree = require('utils/tree');
+	var CommonService = require('services/common-service');
+	var ProjectView = require('views/project-view');
+	var ConversationModel = require('models/conversation');
+	var Project = require('models/project');
 	
 	$('.col-1-toggle-btn').toggle(function() {
 	    $('.rf-col-1').hide();
@@ -45,7 +50,7 @@ define(function(require) {
 	$("#createNewRequestBtn").bind("click",function(){
 		var conversation = null
 		if($("#requestModal").find("#source").val() == 'request' ){
-			conversation = new app.ConversationModel({});
+			conversation = new ConversationModel({});
 			
 		}else if($("#requestModal").find("#source").val() == 'conversation'){
 			var rfRequest = {
@@ -56,7 +61,7 @@ define(function(require) {
 			var rfResponse = {
 					
 			};
-			conversation = new app.ConversationModel({
+			conversation = new ConversationModel({
 				id : null,
 				rfRequestDTO : rfRequest,
 				rfResponseDTO : rfResponse
@@ -67,7 +72,7 @@ define(function(require) {
 			alert('some error occurs');
 		}
 		
-		app.tree.createNewNode({
+		tree.createNewNode({
 			nodeName : $("#requestName").val(),
 			conversation : conversation,
 			successCallBack : function(){
@@ -78,7 +83,7 @@ define(function(require) {
 	});
 	
 	$("#createNewFolderBtn").bind("click",function(){
-		app.tree.createNewNode({
+		tree.createNewNode({
 			nodeName : $("#folderId").val(),
 			conversation : null,
 			successCallBack : function(){
@@ -88,13 +93,13 @@ define(function(require) {
 	});
 	
 	$("#saveProjectBtn").bind("click", function() {
-	    new app.commonService().saveProject(app.appView.getCurrentWorkspaceId(), {
+	    new CommonService().saveProject(app.appView.getCurrentWorkspaceId(), {
 		"name" : $("#projectTextField").val()
 	    }, onSaveProjectSuccess, onSaveProjectFailure);
 	});
 	var onSaveProjectSuccess = function(responseData) {
-		var project = new app.Project(responseData);
-		var projectView = new app.ProjectView();
+		var project = new Project(responseData);
+		var projectView = new ProjectView();
 		projectView.addOne(project);
 		$('#projectModal').modal("hide");
 	/*    $(".project-list").append(
@@ -121,8 +126,8 @@ define(function(require) {
 		var wId = $(event.target).attr("id");
 		console.log(wId);
 		$("#switchWorkspaceModal").modal("hide");
-		new app.commonService().getWorkspaces(onGetSingleWSSuccess, onGetWSFail,wId);
-	    new app.commonService().getProjects(wId, null, onGetProjectsSuccess, onGetProjectsFailure);
+		new CommonService().getWorkspaces(onGetSingleWSSuccess, onGetWSFail,wId);
+	    new CommonService().getProjects(wId, null, onGetProjectsSuccess, onGetProjectsFailure);
 	};
 	var onGetWSFail = function(responsdata){
 		console.log(responsdata);

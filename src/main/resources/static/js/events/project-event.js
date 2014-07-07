@@ -3,13 +3,13 @@ var app = app || {};
 
 define(function(require) {
 	
-	require('underscore');
-
-    var projectEvents = _.extend({}, Backbone.Events);
-    
-    projectEvents.triggerChange = function(newProjectId){
-    	projectEvents.trigger('change', newProjectId);
+	var ProjectEvents = {};
+	
+	ProjectEvents.CHANGE = 'project:change';
+	
+    ProjectEvents.triggerChange = function(newProjectId){
+    	app.Events.trigger(ProjectEvents.CHANGE, newProjectId);
     };
    
-    app.projectEvents = projectEvents;
+    return ProjectEvents;
 });

@@ -1,9 +1,13 @@
 var app = app || {};
 define(function(require) {
+	
 	require('jquery');
 	require('fancytree');
 	require('bootstarp');
-	app.tree = {}
+	var ConversationEvents = require('events/conversation-event');
+	var ConversationModel = require('models/conversation');
+	var NodeModel = require('models/node');
+	var tree = {}
 
 	$("#tree").fancytree({
 		extensions : ["glyph"],
@@ -61,26 +65,26 @@ define(function(require) {
 	      },
 		click : function(event, data){
 			if(!data.node.isFolder() && data.node.data.id){
-				var node = new app.NodeModel({id : data.node.data.id});
+				var node = new NodeModel({id : data.node.data.id});
 				node.fetch({success:function(response){
 					console.log(response.get("conversation"));
-					var conversation = new app.ConversationModel(response.get("conversation"));
+					var conversation = new ConversationModel(response.get("conversation"));
 					//var conversationView = new app.ConversationView({model : conversation});
 					app.conversation.render(conversation);
-					app.conversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
+					ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
 				}});
 				
 			}else if(data.node.isFolder()){
-				var conversation = new app.ConversationModel({});
+				var conversation = new ConversationModel({});
 				//var conversationView = new app.ConversationView({model : conversation});
 				app.conversation.render(conversation);
-				app.conversationEvents.triggerChange(null);
+				ConversationEvents.triggerChange(null);
 			}
 		},
 		source : []
 	});
 	
-	var tree = $("#tree").fancytree("getTree");
+	var treeObj = $("#tree").fancytree("getTree");
 	
 
 	function nodeConverter(serverNode, uiNode) {
@@ -117,22 +121,22 @@ define(function(require) {
 	 * 
 	 * This function fist create the conversation and create conversation associated node.
 	 */
-	app.tree.createNewNode = function(params){
+	tree.createNewNode = function(params){
 		if(params.conversation == null){
 			createNode( params.nodeName, 'FOLDER', null, params.successCallBack);
 		}else{
 			params.conversation.save(null, {
 				success : function(response){
-					createNode( params.nodeName, null, new app.ConversationModel({id : response.get("id")}), params.successCallBack);
+					createNode( params.nodeName, null, new ConversationModel({id : response.get("id")}), params.successCallBack);
 				}
 			});
 		}
 	};
 
 	var createNode = function(nodeName, nodeType, conversation, successCallBack){
-		var activeFolder = app.tree.getActiveFolder();
+		var activeFolder = tree.getActiveFolder();
 		var parentNodeId = activeFolder.data.id;
-		var node = new app.NodeModel({
+		var node = new NodeModel({
 			parentId : parentNodeId,
 			name : nodeName,
 			projectId : app.appView.getCurrentProjectId(),
@@ -141,7 +145,7 @@ define(function(require) {
 		node.save(null, {
 			success : function(response){
 				
-				app.tree.appendChild(activeFolder, app.tree.convertModelToNode(response));
+				tree.appendChild(activeFolder, tree.convertModelToNode(response));
 				
 
 				successCallBack();
@@ -152,24 +156,24 @@ define(function(require) {
 		});
 	};
 	
-	app.tree.appendChild = function(parent, child){
+	tree.appendChild = function(parent, child){
 		var childNode = parent.addChildren(child);
 		childNode.setActive(true);
 		$(childNode.li).trigger('click');
 		/*console.log(childNode)
 		app.conversationEvents.triggerChange(childNode.data.id);*/
 	};
-	app.tree.convertModelToNode = function(nodeModel){
+	tree.convertModelToNode = function(nodeModel){
 		return {
 			title : nodeModel.get('name'),
 			id : nodeModel.get('id'),
 			folder : nodeModel.get('nodeType') == 'FOLDER' ? true : false
 		};
 	};
-	app.tree.resetTree = function(){
-		tree.reload([]);
+	tree.resetTree = function(){
+		treeObj.reload([]);
 	};
-	app.tree.getActiveFolder = function(){
+	tree.getActiveFolder = function(){
 		 var node = $("#tree").fancytree("getActiveNode");
 		 var folder = getParentFolder(node);
 		 if(folder){
@@ -194,7 +198,7 @@ define(function(require) {
 			return null;
 		}
 	};
-	app.tree.showTree = function(projectRefNodeId) {
+	tree.showTree = function(projectRefNodeId) {
 		$.ajax({
 			url : app.config.baseUrl +'/nodes/' + projectRefNodeId + '/tree',
 			type : 'get',
@@ -209,9 +213,10 @@ define(function(require) {
 				console.log("client side tree data : ");
 				console.log(uiSideTreeData);
 				uiTree.push(uiSideTreeData);
-				tree.reload(uiTree);
+				treeObj.reload(uiTree);
 			}
 		});
 	};
 
+	return tree;
 });

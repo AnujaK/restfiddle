@@ -4,9 +4,9 @@ var app = app || {};
 
 define(function(require) {
 	
-	require('backbone');
+	var Backbone = require('backbone');
 	
-	app.ConversationModel = Backbone.Model.extend({
+	var ConversationModel = Backbone.Model.extend({
 		urlRoot : app.config.baseUrl +"/conversations/",
 		defaults : {
 			id : null,
@@ -22,4 +22,5 @@ define(function(require) {
 			return Backbone.sync(method, model, options);		
 		}
 	});
+	return ConversationModel;
 });

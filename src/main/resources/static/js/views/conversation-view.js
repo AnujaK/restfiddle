@@ -2,8 +2,9 @@
 var app = app || {};
 
 define(function(require) {
-	require('backbone');
-	require('underscore');
+	var Backbone = require('backbone');
+	var _ = require('underscore');
+	var ConversationModel = require("models/conversation");
 	
 	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',
@@ -33,7 +34,7 @@ define(function(require) {
 				var rfResponse = {
 						
 				}
-				var conversation = new app.ConversationModel({
+				var conversation = new ConversationModel({
 					id : app.appView.getCurrentConversationId(),
 					rfRequestDTO : rfRequest,
 					rfResponseDTO : rfResponse

@@ -1,6 +1,7 @@
 define(function(require) {
 	
 	require('jquery');
+	var Workspace = require('models/workspace');
 	
     function send() {
 	var item = {
@@ -24,7 +25,7 @@ define(function(require) {
     }
 
     function saveWorkspace() {
-		var newWorkspace = new app.Workspace({
+		var newWorkspace = new Workspace({
 		    name : $("#workspaceTextField").val(),
 		});
 		newWorkspace.save(null, {success : function(){

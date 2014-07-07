@@ -7,7 +7,7 @@ define(function(require) {
 	require('backbone');
 	
 
-    app.Project = Backbone.Model.extend({
+    var ProjectModel = Backbone.Model.extend({
 	urlRoot : app.config.baseUrl +"/projects",
 	defaults : {
 		id : '',
@@ -16,4 +16,6 @@ define(function(require) {
 	    description : ''
 	}
     });
+    
+    return ProjectModel;
 });

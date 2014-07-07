@@ -4,10 +4,11 @@ var app = app || {};
 
 define(function(require) {
 	
-	require('backbone');
+	var Backbone = require('backbone');
+	var ConversationModel = require('models/conversation');
 	
 
-	app.NodeModel = Backbone.Model.extend({
+	var NodeModel = Backbone.Model.extend({
 		urlRoot : app.config.baseUrl +"/nodes/",
 		defaults : {
 			id : null,
@@ -15,7 +16,7 @@ define(function(require) {
 			parentId : '',
 			projectId: '',
 			nodeType : '',
-			conversationDTO : app.ConversationModel,
+			conversationDTO : ConversationModel,
 		},
 		sync : function(method, model, options){
 			if(method == 'create'){
@@ -31,5 +32,6 @@ define(function(require) {
 		}
 	});
 	
+	return NodeModel;
 	
 });
