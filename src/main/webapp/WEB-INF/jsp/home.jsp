@@ -197,6 +197,9 @@
 					<button class="btn btn-default btn-sm">
 						<span class="glyphicon glyphicon-star"></span>&nbsp;Star
 					</button>
+					<button class="btn btn-default btn-sm pull-right" data-toggle="tooltip" data-placement="left" title="Hide the header">
+						<i class="fa fa-angle-double-up"></i>
+					</button>
 					<br> <br>
 					<div>
 						<p>
