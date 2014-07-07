@@ -90,7 +90,12 @@
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
-								<span class="badge pull-right">33/12</span></a></li>
+								<span class="badge pull-right">33/12</span></a>
+						<div class="hover_controls">
+								<button class="btn btn-default btn-sm" style="width: 50px;">
+									<i class="fa fa-caret-down"></i>
+								</button>
+							</div></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
 								<span class="badge pull-right">17/5</span></a></li>
 					</ul>
@@ -99,8 +104,13 @@
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred <span
-								class="badge pull-right">45/11</span></a></li>
+						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
+								<span class="badge pull-right">45/11</span></a>
+							<div class="hover_controls">
+								<button class="btn btn-default btn-sm" style="width: 50px;">
+									<i class="fa fa-caret-down"></i>
+								</button>
+							</div></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings

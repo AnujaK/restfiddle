@@ -54,6 +54,18 @@ ul.fancytree-container {
 	word-wrap: normal;
 }
 
+.hover_controls {
+	display: none;
+	float: right;
+	padding-right: 5px;
+	margin-top: -30px;
+	position: relative;
+}
+
+.li_starred:hover .hover_controls {
+	display: block;
+}
+
 /* CSS for login page */
 .form-signin {
 	max-width: 330px;
