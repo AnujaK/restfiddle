@@ -215,15 +215,15 @@
 					<br>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-xs-2">
-								<select class="apiRequestType">
+							<div class="col-xs-2" style="padding-left: 0px;">
+								<select class="apiRequestType form-control">
 									<option>GET</option>
 									<option>POST</option>
 									<option>PUT</option>
 									<option>DELETE</option>
 								</select>
 							</div>
-							<div class="col-xs-10">
+							<div class="col-xs-10" style="padding: 0px;">
 								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
 							</div>
 						</div>
