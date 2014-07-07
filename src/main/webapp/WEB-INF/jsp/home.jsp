@@ -122,7 +122,9 @@
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default btn-sm col-1-toggle-btn">Toggle</button>
+				<button class="btn btn-default btn-sm col-1-toggle-btn">
+					<i class="fa fa-angle-double-left"></i>
+				</button>
 				&nbsp;&nbsp;
 				<div class="btn-group">
 					<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
