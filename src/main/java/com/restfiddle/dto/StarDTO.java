@@ -15,34 +15,18 @@
  */
 package com.restfiddle.dto;
 
-public class UserDTO extends BaseDTO {
+/**
+ * User reference is not required as Star items are mapped against logged-in user.
+ */
+public class StarDTO extends BaseDTO {
 
-    private String userName;
-    private String email;
-    private String password;
+    private Long workspaceId;
 
-    public String getUserName() {
-	return userName;
+    public Long getWorkspaceId() {
+	return workspaceId;
     }
 
-    public void setUserName(String userName) {
-	this.userName = userName;
+    public void setWorkspaceId(Long workspaceId) {
+	this.workspaceId = workspaceId;
     }
-
-    public String getEmail() {
-	return email;
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
-    }
-
 }

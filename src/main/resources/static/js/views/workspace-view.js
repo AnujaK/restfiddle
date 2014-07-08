@@ -20,6 +20,7 @@ define(function(require) {
 			return this;
 		},
 		showProjects : function() {
+		
 			var projectList = []
 			_.each(this.model.get('projects'), function(p){
 				projectList.push(new ProjectModel(p));

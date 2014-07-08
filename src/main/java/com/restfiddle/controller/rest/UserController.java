@@ -21,8 +21,11 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.constant.StatusType;
 import com.restfiddle.dao.UserRepository;
 import com.restfiddle.dto.UserDTO;
 import com.restfiddle.entity.User;
+import com.restfiddle.util.CommonUtil;
 
 @RestController
 @EnableAutoConfiguration
@@ -45,18 +50,24 @@ public class UserController {
     @Resource
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "/api/users", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     User create(@RequestBody UserDTO userDTO) {
 	logger.debug("Creating a new user with information: " + userDTO);
 
-	User user = new User();
+	// TODO validation
 
+	User user = new User();
 	user.setName(userDTO.getName());
 	user.setDescription(userDTO.getDescription());
-
-	user.setFirstName(userDTO.getFirstName());
-	user.setLastName(userDTO.getLastName());
+	user.setUserName(userDTO.getUserName());
+	user.setPassword(CommonUtil.isNotEmpty(userDTO.getPassword()) ? passwordEncoder.encode(userDTO.getPassword()) : passwordEncoder
+		.encode("default"));
+	user.setEmail(userDTO.getEmail());
+	user.setStatus(StatusType.ACTIVE);
 
 	return userRepository.save(user);
     }
@@ -101,4 +112,11 @@ public class UserController {
 
 	return user;
     }
+
+    @RequestMapping(value = "/api/users/set-password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    String setPassword(@PathVariable("token") String token) {
+
+	return null;
+    }
+
 }

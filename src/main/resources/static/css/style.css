@@ -7,6 +7,24 @@ ul.fancytree-container {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.rf-col-1 {
+	padding: 0px;
+}
+
+.rf-left-nav>li>a {
+	border-radius: 0px;
+	padding: 10px 5px;
+}
+
+.rf-left-nav2>li>a {
+	border-radius: 0px;
+	padding: 6px 5px;
+}
+
+.badge {
+	font-weight: normal;
+}
+
 .nav-sidebar>li>a {
 	position: relative;
 	display: block;
@@ -20,6 +38,7 @@ ul.fancytree-container {
 
 .ui-fancytree {
 	border: 0 none !important;
+	color: gray;
 }
 
 .apiRequestType {
@@ -33,4 +52,57 @@ ul.fancytree-container {
 #response-wrapper pre {
 	word-break: normal;
 	word-wrap: normal;
+}
+
+.hover_controls {
+	display: none;
+	float: right;
+	padding-right: 5px;
+	margin-top: -30px;
+	position: relative;
+}
+
+.li_starred:hover .hover_controls {
+	display: block;
+}
+
+/* CSS for login page */
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }

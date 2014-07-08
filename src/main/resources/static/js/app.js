@@ -1,4 +1,3 @@
-
 define([ 'jquery',
          'bootstarp',
          'underscore',
@@ -10,7 +9,6 @@ define([ 'jquery',
 	var init = function(){
 		APP.appView = new AppView();
 	};
-	
 	return {
 		initialize : init
 	};

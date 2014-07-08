@@ -13,36 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dto;
+package com.restfiddle.constant;
 
-public class UserDTO extends BaseDTO {
-
-    private String userName;
-    private String email;
-    private String password;
-
-    public String getUserName() {
-	return userName;
-    }
-
-    public void setUserName(String userName) {
-	this.userName = userName;
-    }
-
-    public String getEmail() {
-	return email;
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
-    }
-
+public enum PermissionType {
+    VIEW_WORKSPACE, MODIFY_WORKSPACE, CREATE_WORKSPACE, DELETE_WORKSPACE, VIEW_PROJECT, MODIFY_PROJECT, CREATE_PROJECT, DELETE_PROJECT;
 }

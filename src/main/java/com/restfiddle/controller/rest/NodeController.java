@@ -33,10 +33,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
-import com.restfiddle.dao.util.NodeTypes;
 import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.entity.BaseNode;
@@ -171,7 +171,7 @@ public class NodeController {
 	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
 	    treeNodeMap.put(nodeId, treeNode);
 
-	    if (NodeTypes.PROJECT.name().equals(baseNode.getNodeType())) {
+	    if (NodeType.PROJECT.name().equals(baseNode.getNodeType())) {
 		// Identify root node for a project
 		rootNode = treeNode;
 	    } else {

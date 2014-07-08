@@ -79,7 +79,7 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
 					</div>
-					<ul class="nav nav-pills nav-stacked" id="test_project">
+					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
 					<ul class="nav nav-sidebar project-list">
 						<li></li>
@@ -88,19 +88,29 @@
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Labels</h6>
 					</div>
-					<ul class="nav nav-sidebar">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Important
-						</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Wishlist
-						</a></li>
+					<ul class="nav nav-pills nav-stacked rf-left-nav2">
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
+								<span class="badge pull-right">33/12</span></a>
+						<div class="hover_controls">
+								<button class="btn btn-default btn-sm" style="width: 50px;">
+									<i class="fa fa-caret-down"></i>
+								</button>
+							</div></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
+								<span class="badge pull-right">17/5</span></a></li>
 					</ul>
 					<br>
 					<div style="border-top: 1px solid lightgray;">
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
 					</div>
-					<ul class="nav nav-sidebar">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
-						</a></li>
+					<ul class="nav nav-pills nav-stacked rf-left-nav2">
+						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
+								<span class="badge pull-right">45/11</span></a>
+							<div class="hover_controls">
+								<button class="btn btn-default btn-sm" style="width: 50px;">
+									<i class="fa fa-caret-down"></i>
+								</button>
+							</div></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
@@ -111,24 +121,42 @@
 						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px;" class="glyphicon glyphicon-user"></span></li>
+						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
+							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span></li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
-				<button class="btn btn-default btn-sm col-1-toggle-btn">Toggle</button>
+				<button class="btn btn-default btn-sm col-1-toggle-btn">
+					<i class="fa fa-angle-double-left"></i>
+				</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
+				<div class="btn-group">
+					<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
+					<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
+				</div>
 				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
-				&nbsp;&nbsp;
-				<button class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Delete</button>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+						More&nbsp;&nbsp;<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right">
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Expand All</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Collapse All</a></li>
+						<li class="divider"></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Sort</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Filter</a></li>
+						<li class="divider"></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Delete</a></li>
+
+					</ul>
+				</div>
+
 				<br> <br>
 				<div id="tree"></div>
 			</div>
@@ -144,8 +172,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
 						</ul>
 					</div>
-
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="saveConversationBtn">Save</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -155,7 +182,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
 						</ul>
 					</div>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Clear</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -168,7 +195,7 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
 						</ul>
 					</div>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group">
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</button>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -178,21 +205,35 @@
 							<li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Saved Response</a></li>
 						</ul>
 					</div>
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-star"></span>&nbsp;Star
+					</button>
+					<button class="btn btn-default btn-sm pull-right" data-toggle="tooltip" data-placement="left" title="Hide the header">
+						<i class="fa fa-angle-double-up"></i>
+					</button>
 					<br> <br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Request</h6>
+					<div>
+						<p>
+							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Get Workspaces</b>
+						</p>
+						<p>API to get the list of workspaces.</p>
+						<p>
+							&nbsp;&nbsp;<span class="label" style="background-color: green;">Important</span>&nbsp;<span class="label" style="background-color: orange;">Wishlist</span>
+						</p>
 					</div>
+					<br>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-xs-2">
-								<select class="apiRequestType">
+							<div class="col-xs-2" style="padding-left: 0px;">
+								<select class="apiRequestType form-control">
 									<option>GET</option>
 									<option>POST</option>
 									<option>PUT</option>
 									<option>DELETE</option>
 								</select>
 							</div>
-							<div class="col-xs-10">
+							<div class="col-xs-10" style="padding: 0px;">
 								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
 							</div>
 						</div>
@@ -210,14 +251,15 @@
 							<br>
 							<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
 						</div>
-						<div class="tab-pane" id="tab-header">...</div>
-						<div class="tab-pane" id="tab-cookie">...</div>
-						<div class="tab-pane" id="tab-auth">...</div>
+						<div class="tab-pane" id="tab-header">TODO</div>
+						<div class="tab-pane" id="tab-cookie">TODO</div>
+						<div class="tab-pane" id="tab-auth">TODO</div>
 					</div>
-
-					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 65px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Response</h6>
+					<hr>
+					<div>
+						<p>
+							<span class='glyphicon glyphicon glyphicon-chevron-right'></span>&nbsp;&nbsp;<b>Response</b>
+						</p>
 					</div>
 
 					<div class="container-fluid">
@@ -238,10 +280,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+					<h4 class="modal-title" id="myModalLabel">New Folder</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name">
+					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name"> <br>
+					<textarea id="folderTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -260,7 +303,8 @@
 				<input type="hidden" class="form-control" id="source">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="requestName">Request Name</label> <input class="form-control" id="requestName" placeholder="Enter Request Name">
+						<input class="form-control" id="requestName" placeholder="Enter Request Name"> <br>
+						<textarea id="requestTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					</div>
 					<!-- 
 					 <div class="form-group">
@@ -283,7 +327,14 @@
 					<h4 class="modal-title" id="workspaceModalLabel">New Workspace</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name">
+					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
+					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+					<div>
+						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public" checked="checked">&nbsp;Public
+						</label>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -300,7 +351,14 @@
 					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name">
+					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name"> <br>
+					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+					<div>
+						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="publicProject" value="public" checked="checked">&nbsp;Public
+						</label>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -339,7 +397,7 @@
 		</div>
 	</div>
 	<script>
-	var ctx = "${pageContext.request.contextPath}"
+	var ctx = "${pageContext.request.contextPath}";
     </script>
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
@@ -356,10 +414,7 @@
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<!-- JavaScript -->
-
 	<script data-main="js/main" src="js/libs/require/require.js"></script>
-	
-	
-</body>
 
+</body>
 </html>

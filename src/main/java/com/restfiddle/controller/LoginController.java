@@ -13,36 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dto;
+package com.restfiddle.controller;
 
-public class UserDTO extends BaseDTO {
+import java.util.Map;
 
-    private String userName;
-    private String email;
-    private String password;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-    public String getUserName() {
-	return userName;
+@Controller
+@EnableAutoConfiguration
+@ComponentScan
+public class LoginController {
+
+    @RequestMapping("/login")
+    public String login(Map<String, Object> model) {
+	return "login";
     }
-
-    public void setUserName(String userName) {
-	this.userName = userName;
-    }
-
-    public String getEmail() {
-	return email;
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
-    }
-
 }

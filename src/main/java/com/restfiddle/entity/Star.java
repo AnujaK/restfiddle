@@ -13,8 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dao.util;
+package com.restfiddle.entity;
 
-public enum NodeTypes {
-    PROJECT, FOLDER;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Star extends NamedEntity {
+    private static final long serialVersionUID = 1L;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Workspace workspace;
+
+    public User getUser() {
+	return user;
+    }
+
+    public void setUser(User user) {
+	this.user = user;
+    }
+
+    public Workspace getWorkspace() {
+	return workspace;
+    }
+
+    public void setWorkspace(Workspace workspace) {
+	this.workspace = workspace;
+    }
+
 }

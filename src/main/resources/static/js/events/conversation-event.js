@@ -1,8 +1,6 @@
 define(function(require) {
-	
+
 	"use strict";
-	
-	require('underscore');
 
     var ConversationEvents = {};
     ConversationEvents.CHANGE = 'change';
