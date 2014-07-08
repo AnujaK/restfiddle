@@ -12,7 +12,7 @@
 <link href="css/ui.fancytree.css" rel="stylesheet">
 <link href="css/prettify/prettify.css" rel="stylesheet">
 <link href="css/octicons/octicons.css" rel="stylesheet">
-<link href="css/selectize.bootstrap3.css" rel="stylesheet">
+<link href="css/selectize.default.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -332,12 +332,13 @@
 					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
 					<div>
-						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
-						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="restrictedWorkspace" value="restricted">&nbsp;Restricted
-						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public" checked="checked">&nbsp;Public
+						<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="restrictedWorkspace" value="restricted"
+							checked="checked">&nbsp;Restricted
+						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public">&nbsp;Public
 						</label>
 					</div>
-					<!-- input type="text" id="input-tags" class="demo-default" value="Team1, Team2, User45"-->
+					<br> <input type="text" id="workspace-share-tags" class="demo-default" value="Team1, Team2, User45">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -358,10 +359,12 @@
 					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
 					<div>
-						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
-						</label> <label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="publicProject" value="public" checked="checked">&nbsp;Public
+						<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="restrictedProject" value="restricted" checked="checked">&nbsp;Restricted
+						</label><label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="publicProject" value="public">&nbsp;Public
 						</label>
 					</div>
+					<br> <input type="text" id="project-share-tags" class="demo-default" value="Team1, Team2, User45">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

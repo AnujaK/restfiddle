@@ -4,9 +4,23 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+	
+	require('selectize');
+	
 	var ProjectModel = require('models/project');
 	var WorkspaceEvents = require('events/workspace-event');
 	var ProjectView = require('views/project-view');
+	
+	$('#workspace-share-tags').selectize({
+		persist: false,
+		createOnBlur: true,
+		create: true
+	});
+	$('#project-share-tags').selectize({
+		persist: false,
+		createOnBlur: true,
+		create: true
+	});
 	
 	var WorkspaceListView = Backbone.View.extend({
 		events : {

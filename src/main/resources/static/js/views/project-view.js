@@ -4,8 +4,10 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+	
 	var tree = require('views/tree-view');
 	var ProjectEvents = require('events/project-event');
+	
 	var ProjectView = Backbone.View.extend({
 		el : '#test_project',
 		addOne : function(model){
