@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<form class="form-signin" action='/login' method='POST'>
+		<form class="form-signin" action='${pageContext.request.contextPath}/login' method='POST'>
 			<h2 class="form-signin-heading">RESTFiddle</h2>
 			<input type="text" name="username" class="form-control" placeholder="Username" required autofocus> <input type="password" name="password"
 				class="form-control" placeholder="Password" required>

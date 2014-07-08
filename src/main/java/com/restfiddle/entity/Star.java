@@ -28,6 +28,12 @@ public class Star extends NamedEntity {
     @ManyToOne
     private Workspace workspace;
 
+    @ManyToOne
+    private Project project;
+
+    @ManyToOne
+    private BaseNode baseNode;
+
     public User getUser() {
 	return user;
     }
@@ -42,6 +48,22 @@ public class Star extends NamedEntity {
 
     public void setWorkspace(Workspace workspace) {
 	this.workspace = workspace;
+    }
+
+    public Project getProject() {
+	return project;
+    }
+
+    public void setProject(Project project) {
+	this.project = project;
+    }
+
+    public BaseNode getBaseNode() {
+	return baseNode;
+    }
+
+    public void setBaseNode(BaseNode baseNode) {
+	this.baseNode = baseNode;
     }
 
 }
