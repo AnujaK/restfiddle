@@ -1,16 +1,46 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-
 define(function(require) {
-	require('backbone');
-	require('underscore');
+	
+	"use strict";
+	
+	var Backbone = require('backbone');
+	var _ = require('underscore');
+	var ConversationModel = require("models/conversation");
+	require('libs/prettify/prettify');
 	
 	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',
 		initialize : function(){
+			$("#run").unbind('click').bind("click", function(view){
+				return function(){view.run.call(view)};
+			}(this));
 			this.$el.find("#saveConversationBtn").click(function(view){
 				return function(){view.saveOrUpdateConversation.call(view)};
 			}(this));
+		},
+		run : function(){
+			$.ajax({
+				url : APP.config.baseUrl + '/processor',
+				type : 'post',
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(response) {
+					console.log("####" + response);
+					$("#response-wrapper").html(
+							'<pre class="prettyprint">'
+									+ JSON.stringify(response, null, 4)
+									+ '</pre>');
+					prettyPrint();
+				},
+				data : JSON.stringify(this.getProcessRequest())
+			});
+		},
+		getProcessRequest : function(){
+			var item = {
+					apiUrl : this.$el.find("#apiUrl").val(),
+					methodType : this.$el.find(".apiRequestType").val(),
+					apiBody : this.$el.find("#apiBody").val()
+				};
+			return item;
 		},
 		render : function(conversation) {
 			console.log('conversation rendnig with model');
@@ -24,7 +54,7 @@ define(function(require) {
 			//this.$el.find("#response-wrapper").val(response.body);
 		},
 		saveOrUpdateConversation : function(){
-			if(app.appView.getCurrentConversationId() != null){
+			if(APP.appView.getCurrentConversationId() != null){
 				var rfRequest = {
 						apiUrl : this.$el.find("#apiUrl").val(),
 						apiBody : this.$el.find("#apiBody").val(),
@@ -33,8 +63,8 @@ define(function(require) {
 				var rfResponse = {
 						
 				}
-				var conversation = new app.ConversationModel({
-					id : app.appView.getCurrentConversationId(),
+				var conversation = new ConversationModel({
+					id : APP.appView.getCurrentConversationId(),
 					rfRequestDTO : rfRequest,
 					rfResponseDTO : rfResponse
 					

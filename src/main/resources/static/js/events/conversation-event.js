@@ -1,15 +1,13 @@
-/* global Backbone */
-var app = app || {};
-
 define(function(require) {
-	require('backbone');
-	require('underscore');
 
-    var conversationEvents = _.extend({}, Backbone.Events);
+	"use strict";
+
+    var ConversationEvents = {};
+    ConversationEvents.CHANGE = 'change';
     
-    conversationEvents.triggerChange = function(newConversationEventsId){
-    	conversationEvents.trigger('change', newConversationEventsId);
+    ConversationEvents.triggerChange = function(newConversationEventsId){
+    	APP.Events.trigger('change', newConversationEventsId);
     };
    
-    app.conversationEvents = conversationEvents;
+   return ConversationEvents;
 });

@@ -1,23 +1,23 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-
-
 define(function(require) {
 	
-	require('backbone');
-	require('underscore');
+	"use strict";
 	
-	app.ProjectView = Backbone.View.extend({
+	var Backbone = require('backbone');
+	var _ = require('underscore');
+	var tree = require('views/tree-view');
+	var ProjectEvents = require('events/project-event');
+	var ProjectView = Backbone.View.extend({
 		el : '#test_project',
 		addOne : function(model){
-			var projectListView = new app.ProjectListView({model: model});
+			var projectListView = new ProjectListView({model: model});
 			this.$el.append(projectListView.render().el);
+			projectListView.$el.find('a').trigger('click');
 			return this;
 		},
 		render : function(isDefautlView){
 			this.$el.html('');
 			_.each(this.model,function(p, index){
-				var projectListView = new app.ProjectListView({model: p});
+				var projectListView = new ProjectListView({model: p});
 				this.$el.append(projectListView.render().el);
 				if(index == 0){
 					projectListView.$el.find('a').trigger('click');
@@ -25,8 +25,8 @@ define(function(require) {
 			},this);
 		}
 		
-	})
-	app.ProjectListView = Backbone.View.extend({
+	});
+	var ProjectListView = Backbone.View.extend({
 		tagName : 'li',
 		events : {
 			"click a" : "showProjectTree"
@@ -42,9 +42,10 @@ define(function(require) {
 				$(this).removeClass('active');
 			})
 			this.$el.addClass("active");
-			app.projectEvents.triggerChange(this.$el.find('a').data('project-id'));
-			console.log('current project id is ' + app.appView.getCurrentProjectId());
-			app.tree.showTree(this.$el.find('a').data('project-ref-id'));
+			console.log('Project Id : ' + this.$el.find('a').data('project-id'))
+			ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
+			console.log('current project id is ' + APP.appView.getCurrentProjectId());
+			tree.showTree(this.$el.find('a').data('project-ref-id'));
 		},
 
 		render : function() {
@@ -52,4 +53,6 @@ define(function(require) {
 			return this;
 		}
 	});
+	
+	return ProjectView;
 });

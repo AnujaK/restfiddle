@@ -414,6 +414,7 @@
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<!-- JavaScript -->
-	<script data-main="js/app" src="js/libs/require/require.js"></script>
+	<script data-main="js/main" src="js/libs/require/require.js"></script>
+
 </body>
 </html>

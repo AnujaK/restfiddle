@@ -1,19 +1,27 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
+
+	"use strict";
 	
 	require('backbone');
+	var APP = require('commons/ns');
 	
+	var ProjectModel = Backbone.Model.extend({
+		urlRoot : APP.config.baseUrl + "/projects",
+		defaults : {
+			id : null,
+			projectRef : '',
+			name : '',
+			description : ''
+		},
+		sync : function(method, model, options){
+			if(method == 'create'){
+				model.urlRoot = APP.config.baseUrl + "/workspaces/" + APP.appView.getCurrentWorkspaceId() + "/projects";
+				model.unset('projectRef');
+				return Backbone.sync(method, model, options);				
+			}
+			return Backbone.sync(method, model, options);		
+		}
+	});
 
-    app.Project = Backbone.Model.extend({
-	urlRoot : app.config.baseUrl +"/projects",
-	defaults : {
-		id : '',
-		projectRef : '',
-	    name : '',
-	    description : ''
-	}
-    });
+	return ProjectModel;
 });

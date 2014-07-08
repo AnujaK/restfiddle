@@ -1,7 +1,19 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-define(['backbone'], function(Backbone){
+define(function(require) {
 	
+	"use strict";
+	
+	var Backbone = require('backbone');
+	var _ = require('underscore');
+	var ConversationView = require('views/conversation-view');
+	var WorkspaceView = require('views/workspace-view');
+	var WorkspaceEvents = require('events/workspace-event');
+	var ProjectEvents = require('events/project-event');
+	var ConversationEvents = require('events/conversation-event');
+	var tree = require('views/tree-view');
+	var APP = require('commons/ns');
+	require("views/main-menu-view");
+	
+	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
 
     var AppView = Backbone.View.extend({
 		events : {
@@ -10,19 +22,26 @@ define(['backbone'], function(Backbone){
 		workspaceId : '',
 		projectId : '',
 		initialize : function() {
-		    var view = new app.WorkspaceView({
-		    	model : app.workspaces
+			
+			APP.Events = _.extend({}, Backbone.Events);
+			APP.conversation = new ConversationView();
+			
+			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
+			
+		    var view = new WorkspaceView({
+		    	model : APP.workspaces
 		    });
+		   
 		    view.showDefault();
-		    this.listenTo(app.workspaceEvents, 'change',this.handleWorkspaceChange);
-		    this.listenTo(app.projectEvents, 'change',this.handleProjectChange);
-		    this.listenTo(app.conversationEvents,'change',this.handleConversationChange);
+		    this.listenTo(APP.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
+		    this.listenTo(APP.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
+		    this.listenTo(APP.Events,ConversationEvents.CHANGE,this.handleConversationChange);
 		    this.render();
 		},
 		
 		handleWorkspaceChange : function(id){
 			console.log('workspace changed :' + id);
-			app.tree.resetTree();
+			tree.resetTree();
 			this.workspaceId = id;
 		},
 		handleProjectChange : function(id){

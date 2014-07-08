@@ -1,7 +1,3 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
 	
 	require('backbone');
@@ -13,6 +9,6 @@ define(function(require) {
 	}
     });
 
-    app.WorkspaceRouter = new WorkspaceRouter();
+    APP.WorkspaceRouter = new WorkspaceRouter();
     Backbone.history.start();
 });

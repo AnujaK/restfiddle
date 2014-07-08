@@ -1,15 +1,13 @@
-/* global Backbone */
-var app = app || {};
-
-define(function(require) {
-	require('backbone');
-	require('underscore');
-
-    var projectEvents = _.extend({}, Backbone.Events);
-    
-    projectEvents.triggerChange = function(newProjectId){
-    	projectEvents.trigger('change', newProjectId);
+define(function(require) {	
+	
+	"use strict";
+	
+	var ProjectEvents = {};
+	ProjectEvents.CHANGE = 'project:change';
+	
+    ProjectEvents.triggerChange = function(newProjectId){
+    	APP.Events.trigger(ProjectEvents.CHANGE, newProjectId);
     };
    
-    app.projectEvents = projectEvents;
+    return ProjectEvents;
 });

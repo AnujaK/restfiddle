@@ -1,15 +1,11 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
-	
-	require('backbone');
-	
-    var Projects = Backbone.Collection.extend({
-	model : app.Project,
-	url : app.config.baseUrl + "/projects"
-    });
 
-    app.projects = new Projects();
+	require('backbone');
+	var APP = require('commons/ns');
+	var Projects = Backbone.Collection.extend({
+		model : APP.Project,
+		url : APP.config.baseUrl + "/projects"
+	});
+
+	APP.projects = new Projects();
 });

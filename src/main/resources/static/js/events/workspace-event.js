@@ -1,28 +1,27 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
-	require('backbone');
-	require('underscore');
 	
-
-    var workspaceEvents = _.extend({}, Backbone.Events);
+	"use strict";
+	
+	require("jquery");
+	var APP = require('commons/ns');
+    var WorkspaceEvents = {};
+    WorkspaceEvents.CHANGE = 'workspace:change';
+    WorkspaceEvents.FETCH = 'workspace:fetch';
     
    $("#switchWorkSpace").bind('click', function(){
     	console.log('called switch work space');
-    	workspaceEvents.triggerFetch();
+    	WorkspaceEvents.triggerFetch();
     });
    
-    workspaceEvents.triggerFetch = function(){
-    	workspaceEvents.trigger('fetch');
+   WorkspaceEvents.triggerFetch = function(){
+	   APP.Events.trigger(WorkspaceEvents.FETCH);
     };
     
-    workspaceEvents.triggerChange = function(newWorkspaceId){
-    	workspaceEvents.trigger('change', newWorkspaceId);
+    WorkspaceEvents.triggerChange = function(newWorkspaceId){
+    	APP.Events.trigger( WorkspaceEvents.CHANGE, newWorkspaceId);
     };
     
    
    
-    app.workspaceEvents = workspaceEvents;
+    return WorkspaceEvents;
 });

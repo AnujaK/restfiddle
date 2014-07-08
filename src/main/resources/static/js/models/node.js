@@ -1,21 +1,21 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
 	
-	require('backbone');
+	"use strict";
 	
+	
+	var Backbone = require('backbone');
+	var ConversationModel = require('models/conversation');
+	var APP = require('commons/ns');
 
-	app.NodeModel = Backbone.Model.extend({
-		urlRoot : app.config.baseUrl +"/nodes/",
+	var NodeModel = Backbone.Model.extend({
+		urlRoot : APP.config.baseUrl +"/nodes/",
 		defaults : {
 			id : null,
 			name : '',
 			parentId : '',
 			projectId: '',
 			nodeType : '',
-			conversationDTO : app.ConversationModel,
+			conversationDTO : ConversationModel,
 		},
 		sync : function(method, model, options){
 			if(method == 'create'){
@@ -31,5 +31,6 @@ define(function(require) {
 		}
 	});
 	
+	return NodeModel;
 	
 });
