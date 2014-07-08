@@ -12,6 +12,7 @@
 <link href="css/ui.fancytree.css" rel="stylesheet">
 <link href="css/prettify/prettify.css" rel="stylesheet">
 <link href="css/octicons/octicons.css" rel="stylesheet">
+<link href="css/selectize.bootstrap3.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -91,7 +92,7 @@
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
 								<span class="badge pull-right">33/12</span></a>
-						<div class="hover_controls">
+							<div class="hover_controls">
 								<button class="btn btn-default btn-sm" style="width: 50px;">
 									<i class="fa fa-caret-down"></i>
 								</button>
@@ -332,9 +333,11 @@
 					<br>
 					<div>
 						&nbsp;&nbsp;<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
+						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="restrictedWorkspace" value="restricted">&nbsp;Restricted
 						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public" checked="checked">&nbsp;Public
 						</label>
 					</div>
+					<!-- input type="text" id="input-tags" class="demo-default" value="Team1, Team2, User45"-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

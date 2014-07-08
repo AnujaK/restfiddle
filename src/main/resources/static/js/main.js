@@ -7,6 +7,7 @@ require.config({
 		backbone : 'libs/backbone-min',
 		bootstarp : 'libs/bootstrap.min',
 		fancytree : 'libs/jquery.fancytree-all',
+		selectize : 'libs/selectize.min',
 		text : 'libs/require/text'
 	},
 	shim : {
