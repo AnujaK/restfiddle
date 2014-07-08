@@ -1,7 +1,6 @@
-/* global Backbone */
-var app = app || {};
-
 define(function(require) {
+	
+	"use strict";
 	
 	require('underscore');
 
@@ -9,7 +8,7 @@ define(function(require) {
     ConversationEvents.CHANGE = 'change';
     
     ConversationEvents.triggerChange = function(newConversationEventsId){
-    	app.Events.trigger('change', newConversationEventsId);
+    	APP.Events.trigger('change', newConversationEventsId);
     };
    
    return ConversationEvents;

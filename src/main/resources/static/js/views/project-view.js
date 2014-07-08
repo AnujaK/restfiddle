@@ -1,18 +1,17 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-
-
 define(function(require) {
+	
+	"use strict";
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	var tree = require('utils/tree');
+	var tree = require('views/tree-view');
 	var ProjectEvents = require('events/project-event');
 	var ProjectView = Backbone.View.extend({
 		el : '#test_project',
 		addOne : function(model){
 			var projectListView = new ProjectListView({model: model});
 			this.$el.append(projectListView.render().el);
+			projectListView.$el.find('a').trigger('click');
 			return this;
 		},
 		render : function(isDefautlView){
@@ -45,7 +44,7 @@ define(function(require) {
 			this.$el.addClass("active");
 			console.log('Project Id : ' + this.$el.find('a').data('project-id'))
 			ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
-			console.log('current project id is ' + app.appView.getCurrentProjectId());
+			console.log('current project id is ' + APP.appView.getCurrentProjectId());
 			tree.showTree(this.$el.find('a').data('project-ref-id'));
 		},
 

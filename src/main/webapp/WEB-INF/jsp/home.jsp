@@ -357,7 +357,7 @@
 	</script>
 	<!-- JavaScript -->
 
-	<script data-main="js/app" src="js/libs/require/require.js"></script>
+	<script data-main="js/main" src="js/libs/require/require.js"></script>
 	
 	
 </body>

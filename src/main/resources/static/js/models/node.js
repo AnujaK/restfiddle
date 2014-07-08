@@ -1,15 +1,14 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
+	
+	"use strict";
+	
 	
 	var Backbone = require('backbone');
 	var ConversationModel = require('models/conversation');
-	
+	var APP = require('commons/ns');
 
 	var NodeModel = Backbone.Model.extend({
-		urlRoot : app.config.baseUrl +"/nodes/",
+		urlRoot : APP.config.baseUrl +"/nodes/",
 		defaults : {
 			id : null,
 			name : '',

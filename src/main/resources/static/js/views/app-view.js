@@ -1,14 +1,17 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
 define(function(require) {
+	
+	"use strict";
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+	var ConversationView = require('views/conversation-view');
 	var WorkspaceView = require('views/workspace-view');
 	var WorkspaceEvents = require('events/workspace-event');
 	var ProjectEvents = require('events/project-event');
 	var ConversationEvents = require('events/conversation-event');
-	var tree = require('utils/tree');
+	var tree = require('views/tree-view');
+	var APP = require('commons/ns');
+	require("views/main-menu-view");
 	
 	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
 
@@ -19,14 +22,20 @@ define(function(require) {
 		workspaceId : '',
 		projectId : '',
 		initialize : function() {
-			app.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
+			
+			APP.Events = _.extend({}, Backbone.Events);
+			APP.conversation = new ConversationView();
+			
+			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
+			
 		    var view = new WorkspaceView({
-		    	model : app.workspaces
+		    	model : APP.workspaces
 		    });
+		   
 		    view.showDefault();
-		    this.listenTo(app.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
-		    this.listenTo(app.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
-		    this.listenTo(app.Events,ConversationEvents.CHANGE,this.handleConversationChange);
+		    this.listenTo(APP.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
+		    this.listenTo(APP.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
+		    this.listenTo(APP.Events,ConversationEvents.CHANGE,this.handleConversationChange);
 		    this.render();
 		},
 		

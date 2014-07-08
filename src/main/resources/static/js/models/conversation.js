@@ -1,13 +1,11 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
 	
-	var Backbone = require('backbone');
+	"use strict";
 	
+	var Backbone = require('backbone');
+	var APP = require('commons/ns');
 	var ConversationModel = Backbone.Model.extend({
-		urlRoot : app.config.baseUrl +"/conversations/",
+		urlRoot : APP.config.baseUrl +"/conversations/",
 		defaults : {
 			id : null,
 			rfRequest : '',

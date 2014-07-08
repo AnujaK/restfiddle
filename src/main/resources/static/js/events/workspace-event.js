@@ -1,11 +1,9 @@
-/* global Backbone */
-var app = app || {};
-
-
 define(function(require) {
 	
+	"use strict";
 	
-
+	require("jquery");
+	var APP = require('commons/ns');
     var WorkspaceEvents = {};
     WorkspaceEvents.CHANGE = 'workspace:change';
     WorkspaceEvents.FETCH = 'workspace:fetch';
@@ -16,11 +14,11 @@ define(function(require) {
     });
    
    WorkspaceEvents.triggerFetch = function(){
-	   app.Events.trigger(WorkspaceEvents.FETCH);
+	   APP.Events.trigger(WorkspaceEvents.FETCH);
     };
     
     WorkspaceEvents.triggerChange = function(newWorkspaceId){
-    	app.Events.trigger( WorkspaceEvents.CHANGE, newWorkspaceId);
+    	APP.Events.trigger( WorkspaceEvents.CHANGE, newWorkspaceId);
     };
     
    

@@ -1,13 +1,10 @@
-/* global Backbone, jQuery, _, ENTER_KEY */
-var app = app || {};
-
-
 define(function(require) {
+	
+	"use strict";
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
 	var ProjectModel = require('models/project');
-	var CommonService = require('services/common-service');
 	var WorkspaceEvents = require('events/workspace-event');
 	var ProjectView = require('views/project-view');
 	
@@ -55,21 +52,12 @@ define(function(require) {
 		el : '#dd-workspace-wrapper',
 
 		template : _.template($('#tpl-workspace-list-item').html()),
-		services : new CommonService(),
 		events : {
 			"change #dd-workspace" : "handleWorkspaceChange"
 		},
-		bindEvent : function(selector, callback) {
-			var self = this;
-			$(selector).unbind("click").click(function() {
-				if (callback) {
-					callback();
-				}
-			});
-		},
 		showDefault : function(){
 			var view = this;
-			app.workspaces.fetch({success : function(response){
+			APP.workspaces.fetch({success : function(response){
 				console.log('fetched wokrspace')
 				if(response.get(1)){
 					var projects = response.get(1).get('projects');
@@ -87,47 +75,20 @@ define(function(require) {
 			}});
 		},
 		initialize : function() {
-			_(this).bindAll('saveWorkspace');
-			//this.listenTo(app.workspaces, 'sync', this.render);
-			this.listenTo(app.Events, WorkspaceEvents.FETCH,
+			this.listenTo(APP.Events, WorkspaceEvents.FETCH,
 					this.handleWorkspaceChange);
 			
 		},
 
 		render : function(eventName) {
-			var self = this;
-			// console.log(eventName + ">>>" +
-			// JSON.stringify(this.model.toJSON()));
+			
 			$(this.el).html(this.template({
 				workspace : this.model.toJSON()[0]
 			}));
-			self.bindEvent("#saveWorkspaceBtn", self.saveWorkspace);
 			return this;
 		},
-		saveWorkspace : function() {
-			var wkView = this;
-			var newModel = new app.Workspace();
-			newModel.set({
-				"name" : $("#workspaceTextField").val()
-			});
-			wkView.services.saveWorkspace(newModel.toJSON(),
-					wkView.onSaveWorkspceSuc, wkView.onSaveWorkspceSuc);
-			wkView.model.add(newModel);
-			wkView.render();
-		},
-		onSaveWorkspceSuc : function(responseData) {
-			$('#workspaceModal').modal("hide");
-			console.log("success");
-		},
-		onSaveWorkspceFail : function() {
-			console.log("failed");
-			alert("failed");
-		},
-		clear : function() {
-			this.model.destroy();
-		},
 		handleWorkspaceChange : function(event) {
-			app.workspaces.fetch({
+			APP.workspaces.fetch({
 				success : function(response) {
 					$("#switchWorkspaceModal").find('.modal-body').html('')
 					response.each(function(workspace) {

@@ -1,12 +1,11 @@
-/* global Backbone */
-var app = app || {};
-
 define(function(require) {
 
+	"use strict";
+	
 	require('backbone');
-
+	var APP = require('commons/ns');
 	var WorkspaceModel = Backbone.Model.extend({
-		urlRoot : app.config.baseUrl + "/workspaces",
+		urlRoot : APP.config.baseUrl + "/workspaces",
 		defaults : {
 			name : '',
 			description : ''

@@ -1,15 +1,16 @@
-var app = app || {};
-
 define(function(require) {
-	require('jquery');
-	'use strict';
-	function Config() {
-		this.root = (function(pathname) {
-			var match = new RegExp("/[^/]*/").exec(pathname);
-			return match === null ? "/" : match[0];
-		})(window.location.pathname);
-		this.baseUrl = this.root + "api";
-		console.log("base url is : " + this.baseUr);
-	}
-	app.config = new Config();
+	
+	require('underscore');
+	var xyz = function(_) {
+	    'use strict';
+	    _.templateSettings = {
+		evaluate : /<@([\s\S]+?)@>/g,
+		interpolate : /<@=([\s\S]+?)@>/g,
+		escape : /<@-([\s\S]+?)@>/g
+	    };
+	    return _;
+	};
+	xyz(_);
+	
+
 });
