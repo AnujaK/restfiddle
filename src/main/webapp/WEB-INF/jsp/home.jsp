@@ -338,7 +338,7 @@
 						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="publicWorkspace" value="public">&nbsp;Public
 						</label>
 					</div>
-					<br> <input type="text" id="workspace-share-tags" class="demo-default" value="Team1, Team2, User45">
+					<br> <input type="text" id="workspace-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -364,7 +364,7 @@
 						</label><label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="publicProject" value="public">&nbsp;Public
 						</label>
 					</div>
-					<br> <input type="text" id="project-share-tags" class="demo-default" value="Team1, Team2, User45">
+					<br> <input type="text" id="project-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
