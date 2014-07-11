@@ -160,6 +160,7 @@
 
 				<br> <br>
 				<div id="tree"></div>
+                <div id="starredItems"></div>
 			</div>
 			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<div class="form-group" id="conversationSection">
