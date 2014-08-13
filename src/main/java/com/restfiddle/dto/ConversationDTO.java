@@ -25,6 +25,8 @@ public class ConversationDTO extends BaseDTO {
     @JsonManagedReference
     private RfResponseDTO rfResponseDTO;
 
+    private Long duration;
+
     public RfRequestDTO getRfRequestDTO() {
 	return rfRequestDTO;
     }
@@ -39,5 +41,13 @@ public class ConversationDTO extends BaseDTO {
 
     public void setRfResponseDTO(RfResponseDTO rfResponseDTO) {
 	this.rfResponseDTO = rfResponseDTO;
+    }
+
+    public Long getDuration() {
+	return duration;
+    }
+
+    public void setDuration(Long duration) {
+	this.duration = duration;
     }
 }

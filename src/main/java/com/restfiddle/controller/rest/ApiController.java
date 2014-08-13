@@ -57,9 +57,18 @@ public class ApiController {
     String processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+	    
+	    long startTime = System.currentTimeMillis();
+	    
 	    String result = handler.process(rfRequestDTO);
+	    
+	    long endTime = System.currentTimeMillis();
+	    
+	    long duration = endTime - startTime;
 
 	    Conversation item = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	    
+	    item.setDuration(duration);
 
 	    // TODO : Support all the databases.
 	    // TODO : Use Item controller here.

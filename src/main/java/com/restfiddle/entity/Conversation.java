@@ -33,6 +33,8 @@ public class Conversation extends NamedEntity {
     @JsonManagedReference
     private RfResponse rfResponse;
 
+    private Long duration;
+
     public RfRequest getRfRequest() {
 	return rfRequest;
     }
@@ -47,5 +49,13 @@ public class Conversation extends NamedEntity {
 
     public void setRfResponse(RfResponse rfResponse) {
 	this.rfResponse = rfResponse;
+    }
+
+    public Long getDuration() {
+	return duration;
+    }
+
+    public void setDuration(Long duration) {
+	this.duration = duration;
     }
 }
