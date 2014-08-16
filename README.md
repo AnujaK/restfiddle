@@ -18,7 +18,7 @@ We are in the process of implementing access-control module which will give you 
 
 Suppose if you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
 
-As the output of the buil is a war file so it can also be deployed over any server and can be used as a cloud based hosted web application.
+As the output of the build is a war file so it can also be deployed over any server and can be used as a cloud based hosted web application.
 
 
 Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
