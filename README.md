@@ -1,4 +1,4 @@
-RESTFiddle
+[RESTFiddle](http://www.restfiddle.com/)
 ==========
 
 [![Build Status](https://travis-ci.org/ranjan-rk/restfiddle.svg?branch=master)](https://travis-ci.org/ranjan-rk/restfiddle)
@@ -12,7 +12,14 @@ Why RESTFiddle?
 
 We all usually work as a team- be it software development or testing. What consumes most of your time while working in a group? Collaboration. You need to share stuff with your colleague. It is a painful exercise with a lot of limitations and doesn't work seamlessly.
 
-How does RESTFiddle help you? If you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
+How does RESTFiddle help you? 
+
+We are in the process of implementing access-control module which will give you the option to share workspace/project with others in which the whole team can work on a shared workspace.
+
+Suppose if you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
+
+As the output of the buil is a war file so it can also be deployed over any server and can be used as a cloud based hosted web application.
+
 
 Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
 
