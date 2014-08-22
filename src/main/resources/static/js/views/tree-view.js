@@ -50,9 +50,13 @@ define(function(require) {
 			conversation : conversation,
 			successCallBack : function() {
 				$("#requestModal").modal("hide");
+
+                if ($("#requestModal").find("#source").val() == 'request') {
+                    $("#requestModal").find("#requestName").val("");
+                    $("#requestModal").find("#requestTextArea").val("");
+                }
 			}
 		});
-
 	});
 
 	$("#createNewFolderBtn").bind("click", function() {
