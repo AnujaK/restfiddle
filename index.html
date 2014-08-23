@@ -113,7 +113,7 @@
 <h5>
 <a name="debug" class="anchor" href="#debug"><span class="octicon octicon-link"></span></a>Debug</h5>
 
-<pre><code>mvnDebug spring-boot:run
+<pre><code>mvn spring-boot:run -Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"
 </code></pre>
 
 <p>Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:</p>
