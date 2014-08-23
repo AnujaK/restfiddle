@@ -12,16 +12,19 @@ Why RESTFiddle?
 
 We all usually work as a team- be it software development or testing. What consumes most of your time while working in a group? Collaboration. You need to share stuff with your colleague. It is a painful exercise with a lot of limitations and doesn't work seamlessly.
 
-How does RESTFiddle help you? 
+##### How does RESTFiddle help you? 
+
+If you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
+
+Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
+
+##### How to Collaborate? 
 
 We are in the process of implementing access-control module which will give you the option to share workspace/project with others in which the whole team can work on a shared workspace.
 
-Suppose if you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
+##### Cloud support?
 
 As the output of the build is a war file so it can also be deployed over any server and can be used as a cloud based hosted web application.
-
-
-Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
 
 Initial Design
 ==========
@@ -147,6 +150,10 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 - Forking a repo - https://help.github.com/articles/fork-a-repo
 - Creating a pull request - https://help.github.com/articles/creating-a-pull-request
 - Syncing a fork - https://help.github.com/articles/syncing-a-fork
+
+##### Google Group : 
+
+https://groups.google.com/forum/#!forum/restfiddle
  
 Release Date
 ==========
