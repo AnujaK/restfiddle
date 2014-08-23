@@ -64,7 +64,7 @@ Default username/password : rf/rf
 ##### Debug
 
 ```
-mvnDebug spring-boot:run
+mvn spring-boot:run -Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"
 ```
 
 Note : To avoid java.lang.OutOfMemoryError: PermGen space, use the following command:
