@@ -24,7 +24,7 @@ We are in the process of implementing access-control module which will give you 
 
 ##### Cloud support?
 
-As the output of the build is a war file so it can also be deployed over any server and can be used as a cloud based hosted web application.
+As the output of the build is a war file so it can be deployed over any server and can also be used as a cloud based hosted web application.
 
 Initial Design
 ==========
