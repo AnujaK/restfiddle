@@ -134,7 +134,7 @@
 			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
 				<br>
 				<button class="btn btn-default btn-sm col-1-toggle-btn">
-					<i class="fa fa-angle-double-left"></i>
+					<i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
 				</button>
 				&nbsp;&nbsp;
 				<div class="btn-group">

@@ -72,12 +72,14 @@ define(function(require) {
 		$('.rf-col-2').css('left', '0%');
 		$('.rf-col-3').css('left', '33%');
 		$('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-8");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
 
 	}, function() {
 		$('.rf-col-1').show();
 		$('.rf-col-2').css('left', '17%');
 		$('.rf-col-3').css('left', '50%');
 		$('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
 	});
 
 	$("#tree").fancytree(
