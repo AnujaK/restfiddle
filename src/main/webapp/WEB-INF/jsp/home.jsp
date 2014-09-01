@@ -34,7 +34,7 @@
 					<button class="btn btn-default" type="button" data-toggle="dropdown">
 						<span class='glyphicon glyphicon-align-justify'></span>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu" style="width:250px;">
 						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
 						<li><a href="#" id="switchWorkSpace" class="dummySwitchWorkspace">Switch Workspace</a></li>
 						<li class="divider"></li>
@@ -44,7 +44,10 @@
 						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Global Settings</a></li>
 						<li class="divider"></li>
-						<li><a href="#" class="col-1-toggle-btn">Toggle Left Panel</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#updateProfileModal">Update Profile</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></li>
+						<li class="divider"></li>
+						<li><a href="#" data-toggle="modal" data-target="#collaboratorModal">New Collaborator</a></li>
 					</ul>
 				</div>
 				<a class="navbar-brand" href="#">RESTFiddle</a>
@@ -320,6 +323,62 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="updateProfileModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Update Profile</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="profileName" class="form-control" placeholder="Enter Name"> <br>
+					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Email"> <br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="modal fade" id="changePasswordModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Change Password</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="profileName" class="form-control" placeholder="Enter Old Password"> <br>
+					<input type="text" id="profileEmail" class="form-control" placeholder="Enter New Password"> <br>
+					<input type="text" id="profileEmail" class="form-control" placeholder="Retype New Password"> <br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="collaboratorModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">New Collaborator</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="profileName" class="form-control" placeholder="Enter Name"> <br>
+					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Email"> <br>
+					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Password"> <br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>				
 	<div class="modal fade" id="workspaceModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -331,6 +390,7 @@
 					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
 					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
+					<!-- 
 					<div>
 						<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
 						</label> <label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="restrictedWorkspace" value="restricted"
@@ -339,6 +399,7 @@
 						</label>
 					</div>
 					<br> <input type="text" id="workspace-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
+					-->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -358,6 +419,7 @@
 					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name"> <br>
 					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
+					<!-- 
 					<div>
 						<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
 						</label> <label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="restrictedProject" value="restricted" checked="checked">&nbsp;Restricted
@@ -365,6 +427,7 @@
 						</label>
 					</div>
 					<br> <input type="text" id="project-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
+					 -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
