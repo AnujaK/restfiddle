@@ -81,7 +81,16 @@ define(function(require) {
 		$('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
 		$('#col1-toggle-icon').removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
 	});
+	$('.header-toggle-btn').toggle(function() {
+		$('.navbar-fixed-top').hide();
+		$('body').css('padding-top', '0px');
+		$('#header-toggle-icon').removeClass('fa-angle-double-up').addClass("fa-angle-double-down");
 
+	}, function() {
+		$('.navbar-fixed-top').show();
+		$('body').css('padding-top', '50px');
+		$('#header-toggle-icon').removeClass('fa-angle-double-down').addClass("fa-angle-double-up");
+	});
 	$("#tree").fancytree(
 			{
 				extensions : [ "glyph" ],
