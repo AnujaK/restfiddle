@@ -41,6 +41,10 @@ ul.fancytree-container {
 	color: gray;
 }
 
+#tree{
+	height:100%;
+}
+
 .apiRequestType {
 	
 }
