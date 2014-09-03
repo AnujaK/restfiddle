@@ -150,8 +150,8 @@
 						More&nbsp;&nbsp;<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu pull-right">
-						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Expand All</a></li>
-						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Collapse All</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" id="expandAllNodes">Expand All</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" id="collapseAllNodes">Collapse All</a></li>
 						<li class="divider"></li>
 						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Sort</a></li>
 						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#comingSoon">Filter</a></li>

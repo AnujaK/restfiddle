@@ -8,7 +8,7 @@ define(function(require) {
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var NodeModel = require('models/node');
-	var tree = {}
+	var tree = {};
 
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
@@ -18,10 +18,22 @@ define(function(require) {
 	$("#saveAsConversationBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("conversation");
 		$("#requestModal").modal("show");
-	})
+	});
+	
+	$("#expandAllNodes").bind("click", function() {
+	    $("#tree").fancytree("getRootNode").visit(function(node){
+	        node.setExpanded(true);
+	   });
+	});
+	
+	$("#collapseAllNodes").bind("click", function() {
+	    $("#tree").fancytree("getRootNode").visit(function(node){
+	        node.setExpanded(false);
+	      });
+	});	
 
 	$("#createNewRequestBtn").bind("click", function() {
-		var conversation = null
+		var conversation = null;
 		if ($("#requestModal").find("#source").val() == 'request') {
 			conversation = new ConversationModel({});
 
