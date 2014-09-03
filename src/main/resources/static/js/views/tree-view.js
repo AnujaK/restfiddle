@@ -1,7 +1,7 @@
 define(function(require) {
 
 	"use strict";
-	
+
 	require('jquery');
 	require('fancytree');
 	require('bootstarp');
@@ -50,8 +50,8 @@ define(function(require) {
 			conversation : conversation,
 			successCallBack : function() {
 				$("#requestModal").modal("hide");
-                $("#requestModal").find("#requestName").val("");
-                $("#requestModal").find("#requestTextArea").val("");
+				$("#requestModal").find("#requestName").val("");
+				$("#requestModal").find("#requestTextArea").val("");
 			}
 		});
 
@@ -63,6 +63,26 @@ define(function(require) {
 			conversation : null,
 			successCallBack : function() {
 				$("#folderModal").modal("hide");
+			}
+		});
+	});
+
+	$("#deleteRequestBtn").bind("click", function() {
+		var node = $("#tree").fancytree("getActiveNode");
+		$("#deleteRequestModal").modal("hide");
+
+		if (node == null || node.isFolder() == true) {
+			alert("Please select request to be deleted");
+			return;
+		}
+
+		$.ajax({
+			url : APP.config.baseUrl + '/nodes/' + node.data.id,
+			type : 'delete',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function() {
+				node.remove();
 			}
 		});
 	});
@@ -103,9 +123,9 @@ define(function(require) {
 					autoExpandMS : 400,
 					focusOnClick : true,
 					preventVoidMoves : true, // Prevent dropping nodes
-												// 'before self', etc.
+					// 'before self', etc.
 					preventRecursiveMoves : true, // Prevent dropping nodes on
-													// own descendants
+					// own descendants
 					dragStart : function(node, data) {
 						/**
 						 * This function MUST be defined to enable dragging for
@@ -184,7 +204,7 @@ define(function(require) {
 		}
 
 		uiNode.children = new Array();
-		for ( var i = 0; i < serverNode.children.length; i++) {
+		for (var i = 0; i < serverNode.children.length; i++) {
 			if (serverNode.children[i].nodeType != 'FOLDER') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>',
@@ -233,9 +253,7 @@ define(function(require) {
 		});
 		node.save(null, {
 			success : function(response) {
-
-				tree.appendChild(activeFolder, tree
-						.convertModelToNode(response));
+				tree.appendChild(activeFolder, tree.convertModelToNode(response));
 
 				successCallBack();
 			},
@@ -273,7 +291,6 @@ define(function(require) {
 			// return root folder
 			return $("#tree").fancytree("getRootNode").getFirstChild();
 		}
-
 	};
 
 	var getParentFolder = function(node) {
