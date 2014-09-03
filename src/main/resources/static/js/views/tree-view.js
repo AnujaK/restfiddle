@@ -86,6 +86,26 @@ define(function(require) {
 			}
 		});
 	});
+	
+	$("#deleteProjectBtn").bind("click", function() {
+		
+//		$("#deleteProjectModal").modal("hide");
+		location.reload();
+		alert(node);
+		
+//		alert(node);
+//		alert(node.data.id);
+//		
+//		$.ajax({
+//			url : APP.config.baseUrl + '/nodes/' + APP.appView.getCurrentProjectId(),
+//			type : 'delete',
+//			dataType : 'json',
+//			contentType : "application/json",
+//			success : function(data) {
+////				node.remove();
+//			}
+//		});
+	});
 
 	$('.col-1-toggle-btn').toggle(function() {
 		$('.rf-col-1').hide();
