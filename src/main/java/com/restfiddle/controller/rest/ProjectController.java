@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -91,14 +92,19 @@ public class ProjectController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Project delete(@PathVariable("workspaceId") Long workspaceId, @PathVariable("id") Long id) {
+    void delete(@PathVariable("workspaceId") Long workspaceId, @PathVariable("id") Long id) {
 	logger.debug("Deleting project with id: " + id);
 
 	Project deleted = projectRepository.findOne(id);
 
+	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
+	
+	for (BaseNode baseNode : listOfNodes) {
+	    baseNode.setProject(null);
+	}
+	nodeRepository.delete(listOfNodes);
+	
 	projectRepository.delete(deleted);
-
-	return deleted;
     }
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.GET)

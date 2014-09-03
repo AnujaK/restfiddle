@@ -8,7 +8,7 @@ define(function(require) {
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var NodeModel = require('models/node');
-	var tree = {}
+	var tree = {};
 
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
@@ -18,10 +18,22 @@ define(function(require) {
 	$("#saveAsConversationBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("conversation");
 		$("#requestModal").modal("show");
-	})
+	});
+	
+	$("#expandAllNodes").bind("click", function() {
+	    $("#tree").fancytree("getRootNode").visit(function(node){
+	        node.setExpanded(true);
+	   });
+	});
+	
+	$("#collapseAllNodes").bind("click", function() {
+	    $("#tree").fancytree("getRootNode").visit(function(node){
+	        node.setExpanded(false);
+	      });
+	});	
 
 	$("#createNewRequestBtn").bind("click", function() {
-		var conversation = null
+		var conversation = null;
 		if ($("#requestModal").find("#source").val() == 'request') {
 			conversation = new ConversationModel({});
 
@@ -112,14 +124,25 @@ define(function(require) {
 		$('.rf-col-2').css('left', '0%');
 		$('.rf-col-3').css('left', '33%');
 		$('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-8");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
 
 	}, function() {
 		$('.rf-col-1').show();
 		$('.rf-col-2').css('left', '17%');
 		$('.rf-col-3').css('left', '50%');
 		$('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
 	});
+	$('.header-toggle-btn').toggle(function() {
+		$('.navbar-fixed-top').hide();
+		$('body').css('padding-top', '0px');
+		$('#header-toggle-icon').removeClass('fa-angle-double-up').addClass("fa-angle-double-down");
 
+	}, function() {
+		$('.navbar-fixed-top').show();
+		$('body').css('padding-top', '50px');
+		$('#header-toggle-icon').removeClass('fa-angle-double-down').addClass("fa-angle-double-up");
+	});
 	$("#tree").fancytree(
 			{
 				extensions : [ "glyph" ],
