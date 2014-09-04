@@ -27,6 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -115,39 +116,42 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    User update(@PathVariable("id") Long id, @RequestBody UserDTO updated) {
+    UserDTO update(@PathVariable("id") Long id, @RequestBody UserDTO updated) {
 	logger.debug("Updating user with information: " + updated);
-	// TODO : update profile for logged-in user.
 
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	Object principal = authentication.getPrincipal();
-	System.out.println("principal : " + principal);
 
-	User user = userRepository.findOne(updated.getId());
+	if (principal != null && principal instanceof User) {
+	    User loggedInUser = (User) principal;
+	    Long updatedId = updated.getId();
+	    User user = userRepository.findOne(updatedId);
 
-	user.setName(updated.getName());
-	user.setDescription(updated.getDescription());
-	user.setEmail(updated.getEmail());
+	    if (updatedId == loggedInUser.getId()) {
+		user.setName(updated.getName());
+		user.setDescription(updated.getDescription());
+		user.setEmail(updated.getEmail());
+		userRepository.save(user);
+	    }
+	}
 
-	return user;
+	return updated;
     }
 
     @RequestMapping(value = "/api/users/change-password", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     void changePassword(@RequestBody PasswordResetDTO passwordResetDTO) {
 
-	// TODO : update password for logged-in user.
-
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
 	Object principal = authentication.getPrincipal();
-	System.out.println("principal : " + principal);
 
-	Object details = authentication.getDetails();
-	System.out.println("details : " + details);
-
-	Object credentials = authentication.getCredentials();
-	System.out.println("credentials : " + credentials);
+	if (principal != null && principal instanceof User) {
+	    User loggedInUser = (User) principal;
+	    User user = userRepository.findOne(loggedInUser.getId());
+	    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    user.setPassword(passwordEncoder.encode(passwordResetDTO.getRetypedPassword()));
+	    userRepository.save(user);
+	}
 
     }
 
