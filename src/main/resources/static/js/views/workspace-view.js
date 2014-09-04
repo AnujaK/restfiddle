@@ -73,18 +73,18 @@ define(function(require) {
 		showDefault : function(){
 			var view = this;
 			APP.workspaces.fetch({success : function(response){
-				console.log('fetched wokrspace')
-				if(response.get(1)){
-					var projects = response.get(1).get('projects');
+				console.log('fetched wokrspace');
+				if(response.at(0)){
+					var projects = response.at(0).get('projects');
 					var projectList = [];
 					_.each(projects, function(p){
 						projectList.push(new ProjectModel(p));
 					});
-					WorkspaceEvents.triggerChange(response.get(1).get('id'));
+					WorkspaceEvents.triggerChange(response.at(0).get('id'));
 					var projectView = new ProjectView({model : projectList});
 					projectView.render();
 					
-					var workspaceNameView = new WorkspaceNameView({model : response.get(1)});
+					var workspaceNameView = new WorkspaceNameView({model : response.at(0)});
 					workspaceNameView.render();
 				}
 			}});
