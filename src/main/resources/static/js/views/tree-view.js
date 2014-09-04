@@ -100,23 +100,15 @@ define(function(require) {
 	});
 	
 	$("#deleteProjectBtn").bind("click", function() {
-		
-//		$("#deleteProjectModal").modal("hide");
-		location.reload();
-		alert(node);
-		
-//		alert(node);
-//		alert(node.data.id);
-//		
-//		$.ajax({
-//			url : APP.config.baseUrl + '/nodes/' + APP.appView.getCurrentProjectId(),
-//			type : 'delete',
-//			dataType : 'json',
-//			contentType : "application/json",
-//			success : function(data) {
-////				node.remove();
-//			}
-//		});
+		$.ajax({
+			url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + APP.appView.getCurrentProjectId(),
+			type : 'delete',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(data) {
+				location.reload();
+			}
+		});
 	});
 
 	$('.col-1-toggle-btn').toggle(function() {
@@ -349,6 +341,7 @@ define(function(require) {
 			return null;
 		}
 	};
+	
 	tree.showTree = function(projectRefNodeId) {
 		$.ajax({
 			url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree',
@@ -368,6 +361,6 @@ define(function(require) {
 			}
 		});
 	};
-
+	
 	return tree;
 });
