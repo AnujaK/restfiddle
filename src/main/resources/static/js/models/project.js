@@ -14,7 +14,7 @@ define(function(require) {
 			description : ''
 		},
 		sync : function(method, model, options){
-			if(method == 'create'){
+			if(method == 'create' || method == 'update'){
 				model.urlRoot = APP.config.baseUrl + "/workspaces/" + APP.appView.getCurrentWorkspaceId() + "/projects";
 				model.unset('projectRef');
 				return Backbone.sync(method, model, options);				
