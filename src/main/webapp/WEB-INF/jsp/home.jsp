@@ -166,6 +166,8 @@
 						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#deleteProjectModal">Delete Project</a></li>
 						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#deleteRequestModal">Delete Request</a></li>
 						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#editProjectModal">Edit Project</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#deleteWorkspaceModal">Delete Workspace</a></li>
+						<li><a style="font-size: 12px;" data-toggle="modal" data-target="#editWorkspaceModal">Edit Workspace</a></li>
 					</ul>
 				</div>
 
@@ -498,6 +500,42 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button id="editProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="editWorkspaceModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editWorkspaceModalLabel">Edit Workspace</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="editWorkspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
+					<textarea id="editWorkspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="deleteWorkspaceModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Workspace</h4>
+				</div>
+				<div class="modal-body">
+					Are You Sure You Want To Delete Current Workspace?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteWorkspaceBtn">Yes</button>
 				</div>
 			</div>
 		</div>
