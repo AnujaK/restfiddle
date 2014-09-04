@@ -46,6 +46,18 @@ define(function(require) {
 		},
 		handleProjectChange : function(id){
 			console.log('project changed :'+ id);
+			
+			$.ajax({
+				url : APP.config.baseUrl + '/workspaces/' + this.workspaceId + '/projects/' + id,
+				type : 'get',
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(project) {
+					$("#editProjectTextField").val(project.name);
+					$("#editProjectTextArea").val(project.description);
+				}
+			});
+			
 			this.projectId = id;
 		},
 		handleConversationChange : function(id){

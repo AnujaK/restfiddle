@@ -26,8 +26,8 @@ define(function(require) {
 				}
 			},this);
 		}
-		
 	});
+	
 	var ProjectListView = Backbone.View.extend({
 		tagName : 'li',
 		events : {
@@ -49,7 +49,6 @@ define(function(require) {
 			console.log('current project id is ' + APP.appView.getCurrentProjectId());
 			tree.showTree(this.$el.find('a').data('project-ref-id'));
 		},
-
 		render : function() {
 			this.$el.html(this.template({project : this.model.toJSON()}));
 			return this;
