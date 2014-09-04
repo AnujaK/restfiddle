@@ -64,7 +64,27 @@ define(function(require) {
         	    }
         	});
         });
-	
+    	
+    	$("#changePasswordBtn").bind("click", function() {
+        	$("#changePasswordModal").modal("hide");
+        	
+        	$.ajax({
+        	    url : APP.config.baseUrl + '/users/change-password',
+        	    type : 'post',
+        	    dataType : 'json',
+        	    contentType : "application/json",
+        	    data : JSON.stringify({
+        		oldPassword : $("#oldPassword").val(),
+        		newPassword : $("#newPassword").val(),
+        		retypedPassword : $("#retypedPassword").val()
+        	    }),
+        	    
+        	    success : function() {
+        		alert('Password changed successfully!');
+        	    }
+        	});
+    	});
+    	
 	$("#saveWorkspaceBtn").bind("click", saveWorkspace);
 	
 	function saveWorkspace() {

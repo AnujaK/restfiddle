@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.constant.StatusType;
 import com.restfiddle.dao.UserRepository;
 import com.restfiddle.dto.PasswordDTO;
+import com.restfiddle.dto.PasswordResetDTO;
 import com.restfiddle.dto.UserDTO;
 import com.restfiddle.entity.User;
 import com.restfiddle.util.CommonUtil;
@@ -86,14 +89,12 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    User delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") Long id) {
 	logger.debug("Deleting user with id: " + id);
 
 	User deleted = userRepository.findOne(id);
 
 	userRepository.delete(deleted);
-
-	return deleted;
     }
 
     @RequestMapping(value = "/api/users", method = RequestMethod.GET)
@@ -123,6 +124,24 @@ public class UserController {
 	user.setDescription(updated.getDescription());
 
 	return user;
+    }
+
+    @RequestMapping(value = "/api/users/change-password", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    void changePassword(@RequestBody PasswordResetDTO passwordResetDTO) {
+	// update password for logged-in user.
+
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+	Object principal = authentication.getPrincipal();
+	System.out.println("principal : " + principal);
+
+	Object details = authentication.getDetails();
+	System.out.println("details : " + details);
+
+	Object credentials = authentication.getCredentials();
+	System.out.println("credentials : " + credentials);
+
     }
 
     @RequestMapping(value = "/api/users/set-password", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

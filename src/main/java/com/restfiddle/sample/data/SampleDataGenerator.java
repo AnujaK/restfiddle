@@ -150,9 +150,9 @@ public class SampleDataGenerator {
 	}
 
 	PasswordDTO userDTO = new PasswordDTO();
-	userDTO.setPassword("rf");
-	userDTO.setEmail("rf@example.com");
 	userDTO.setName("RF Admin");
+	userDTO.setEmail("rf@example.com");
+	userDTO.setPassword("rf");
 	userController.create(userDTO);
 
     }

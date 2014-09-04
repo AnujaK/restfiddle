@@ -24,10 +24,10 @@ public class BaseDTO {
     private String description;
 
     private Date createdDate;
-    private PasswordDTO createdBy;
+    private UserDTO createdBy;
 
     private Date lastModifiedDate;
-    private PasswordDTO lastModifiedBy;
+    private UserDTO lastModifiedBy;
 
     private String status;
 
@@ -71,28 +71,28 @@ public class BaseDTO {
 	this.lastModifiedDate = lastModifiedDate;
     }
 
-    public PasswordDTO getCreatedBy() {
-	return createdBy;
-    }
-
-    public void setCreatedBy(PasswordDTO createdBy) {
-	this.createdBy = createdBy;
-    }
-
-    public PasswordDTO getLastModifiedBy() {
-	return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(PasswordDTO lastModifiedBy) {
-	this.lastModifiedBy = lastModifiedBy;
-    }
-
     public String getStatus() {
 	return status;
     }
 
     public void setStatus(String status) {
 	this.status = status;
+    }
+
+    public UserDTO getCreatedBy() {
+	return createdBy;
+    }
+
+    public void setCreatedBy(UserDTO createdBy) {
+	this.createdBy = createdBy;
+    }
+
+    public UserDTO getLastModifiedBy() {
+	return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(UserDTO lastModifiedBy) {
+	this.lastModifiedBy = lastModifiedBy;
     }
 
 }
