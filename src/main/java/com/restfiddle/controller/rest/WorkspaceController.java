@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.WorkspaceRepository;
 import com.restfiddle.dto.WorkspaceDTO;
+import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Workspace;
 
 @RestController
@@ -64,6 +65,13 @@ public class WorkspaceController {
 	logger.debug("Deleting workspace with id: " + id);
 
 	Workspace deleted = workspaceRepository.findOne(id);
+
+	List<Project> projects = deleted.getProjects();
+
+	for (Project project : projects) {
+	    project.setWorkspace(null);
+	}
+	// TODO : Delete projects from this workspace
 
 	workspaceRepository.delete(deleted);
     }
