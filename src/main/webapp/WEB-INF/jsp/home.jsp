@@ -77,18 +77,11 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-2 sidebar rf-col-1" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
-				<div id="rf-col-1-header" style="display: none;">
-					<br>
-					<div class="rf-col-btn" id="rf-col-1-btn">
-						<span class='glyphicon glyphicon-resize-small'></span>
-					</div>
-				</div>
-				<br>
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Projects</h6>
+					<div>
+						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;">Projects</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
@@ -96,27 +89,28 @@
 						<li></li>
 					</ul>
 					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Labels</h6>
+					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<br>
+					<div>
+						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Labels&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;"><span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important
-								<span class="badge pull-right">33/12</span></a>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-sm" style="width: 50px;">
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist
-								<span class="badge pull-right">17/5</span></a></li>
+						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist</a></li>
 					</ul>
 					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Misc</h6>
+					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<br>
+					<div>
+						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; background: white;">Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred
-								<span class="badge pull-right">45/11</span></a>
+						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-sm" style="width: 50px;">
 									<i class="fa fa-caret-down"></i>
@@ -128,8 +122,10 @@
 						</a></li>
 					</ul>
 					<br>
-					<div style="border-top: 1px solid lightgray;">
-						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; padding-left: 5px; background: white;">Members</h6>
+					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<br>
+					<div>
+						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; background: white;">Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
 						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
@@ -610,8 +606,8 @@
     </script>
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
-		<div class="dropdown" id="dd-workspace">
-          <input style="display: inline;" type="text" class="form-control dummyWorkspaceName"  value="<@=workspace.name@>" readonly>
+		<div id="dd-workspace">
+          <h5 class="dummyWorkspaceName"><@=workspace.name@></h5>
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
