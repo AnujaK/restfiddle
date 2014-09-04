@@ -27,14 +27,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.restfiddle.constant.StatusType;
 
-/**
- * @author abidk
- * 
- */
 @Entity
 public class User extends NamedEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
+    @Deprecated
     @Column(nullable = false)
     @Length(max = 255)
     private String userName;

@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 import com.restfiddle.dao.UserRepository;
 import com.restfiddle.entity.User;
 
-/**
- * @author abidk
- * 
- */
 @Service
 public class RfUserDetailService implements UserDetailsService {
 

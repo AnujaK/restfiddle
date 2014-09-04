@@ -44,6 +44,27 @@ define(function(require) {
 		});
 	});
 	
+
+    	$("#createNewCollaboratorBtn").bind("click", function() {
+        	$("#collaboratorModal").modal("hide");
+        	
+        	$.ajax({
+        	    url : APP.config.baseUrl + '/users',
+        	    type : 'post',
+        	    dataType : 'json',
+        	    contentType : "application/json",
+        	    data : JSON.stringify({
+    			name : $("#profileName").val(),
+			email : $("#profileEmail").val(),
+			password : $("#profilePassword").val()
+        	    }),
+        	    
+        	    success : function() {
+        		alert('New collaborator added successfully!');
+        	    }
+        	});
+        });
+	
 	$("#saveWorkspaceBtn").bind("click", saveWorkspace);
 	
 	function saveWorkspace() {

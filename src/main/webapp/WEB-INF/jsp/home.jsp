@@ -332,8 +332,8 @@
 					<h4 class="modal-title" id="myModalLabel">Update Profile</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="profileName" class="form-control" placeholder="Enter Name"> <br>
-					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Email"> <br>
+					<input type="text" id="updateProfileName" class="form-control" placeholder="Enter Name"> <br>
+					<input type="text" id="updateProfileEmail" class="form-control" placeholder="Enter Email"> <br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -350,9 +350,9 @@
 					<h4 class="modal-title" id="myModalLabel">Change Password</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="profileName" class="form-control" placeholder="Enter Old Password"> <br>
-					<input type="text" id="profileEmail" class="form-control" placeholder="Enter New Password"> <br>
-					<input type="text" id="profileEmail" class="form-control" placeholder="Retype New Password"> <br>
+					<input type="text" id="oldPassword" class="form-control" placeholder="Enter Old Password"> <br>
+					<input type="password" id="newPassword" class="form-control" placeholder="Enter New Password"> <br>
+					<input type="password" id="retypedPassword" class="form-control" placeholder="Retype New Password"> <br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -371,11 +371,11 @@
 				<div class="modal-body">
 					<input type="text" id="profileName" class="form-control" placeholder="Enter Name"> <br>
 					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Email"> <br>
-					<input type="text" id="profileEmail" class="form-control" placeholder="Enter Password"> <br>
+					<input type="password" id="profilePassword" class="form-control" placeholder="Enter Password"> <br>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+					<button type="button" class="btn btn-primary" id="createNewCollaboratorBtn">Save changes</button>
 				</div>
 			</div>
 		</div>

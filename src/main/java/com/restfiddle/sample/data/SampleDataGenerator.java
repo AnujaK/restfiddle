@@ -41,7 +41,7 @@ import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RoleDTO;
 import com.restfiddle.dto.TagDTO;
-import com.restfiddle.dto.UserDTO;
+import com.restfiddle.dto.PasswordDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
@@ -150,11 +150,10 @@ public class SampleDataGenerator {
 	    return;
 	}
 
-	UserDTO userDTO = new UserDTO();
-	userDTO.setUserName("rf");
+	PasswordDTO userDTO = new PasswordDTO();
 	userDTO.setPassword("rf");
-	userDTO.setEmail("rk@gmail.com");
-	userDTO.setName("Ranjan Kumar");
+	userDTO.setEmail("rf@example.com");
+	userDTO.setName("RF Admin");
 	userController.create(userDTO);
 
     }

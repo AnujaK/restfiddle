@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.constant.StatusType;
 import com.restfiddle.dao.UserRepository;
+import com.restfiddle.dto.PasswordDTO;
 import com.restfiddle.dto.UserDTO;
 import com.restfiddle.entity.User;
 import com.restfiddle.util.CommonUtil;
@@ -55,21 +56,33 @@ public class UserController {
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    User create(@RequestBody UserDTO userDTO) {
-	logger.debug("Creating a new user with information: " + userDTO);
+    UserDTO create(@RequestBody PasswordDTO passwordDTO) {
+	logger.debug("Creating a new user with information: " + passwordDTO);
 
-	// TODO validation
+	// TODO add validation
 
 	User user = new User();
-	user.setName(userDTO.getName());
-	user.setDescription(userDTO.getDescription());
-	user.setUserName(userDTO.getUserName());
-	user.setPassword(CommonUtil.isNotEmpty(userDTO.getPassword()) ? passwordEncoder.encode(userDTO.getPassword()) : passwordEncoder
+	user.setName(passwordDTO.getName());
+	user.setDescription(passwordDTO.getDescription());
+
+	String userEmail = passwordDTO.getEmail();
+
+	user.setUserName(userEmail);
+	user.setEmail(userEmail);
+
+	user.setPassword(CommonUtil.isNotEmpty(passwordDTO.getPassword()) ? passwordEncoder.encode(passwordDTO.getPassword()) : passwordEncoder
 		.encode("default"));
-	user.setEmail(userDTO.getEmail());
+
 	user.setStatus(StatusType.ACTIVE);
 
-	return userRepository.save(user);
+	User savedUser = userRepository.save(user);
+
+	UserDTO userDTO = new UserDTO();
+	userDTO.setId(savedUser.getId());
+	userDTO.setName(savedUser.getName());
+	userDTO.setEmail(savedUser.getEmail());
+
+	return userDTO;
     }
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
@@ -102,7 +115,7 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    User update(@PathVariable("id") Long id, @RequestBody UserDTO updated) {
+    User update(@PathVariable("id") Long id, @RequestBody PasswordDTO updated) {
 	logger.debug("Updating user with information: " + updated);
 
 	User user = userRepository.findOne(updated.getId());
