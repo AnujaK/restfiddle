@@ -5,8 +5,6 @@
 
 An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
-This project is under active development. Version 1.0 Coming Soon!
-
 Why RESTFiddle?
 ==========
 
@@ -155,24 +153,10 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 
 https://groups.google.com/forum/#!forum/restfiddle
  
-Release Date
+Releases
 ==========
 
-Version 1.0 is coming soon. Here is the current status of the project:
-
-Login/Logout working (default username/password : rf/rf).
-
-Creating and switching between Workspaces working.
-
-Creating and showing Projects working.
-
-GET/POST/PUT/DELETE operation with JSON data is supported for now.
-
-Sample API to test:
-
-http://localhost:8080/api/workspaces
-
-For more details go through the Wiki pages.
+https://github.com/ranjan-rk/restfiddle/releases
 
 Copyright and License
 ==========
