@@ -41,6 +41,18 @@ define(function(require) {
 		
 		handleWorkspaceChange : function(id){
 			console.log('workspace changed :' + id);
+			
+			$.ajax({
+				url : APP.config.baseUrl + '/workspaces/' + id,
+				type : 'get',
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(workspace) {
+					$("#editWorkspaceTextField").val(workspace.name);
+					$("#editWorkspaceTextArea").val(workspace.description);
+				}
+			});
+			
 			tree.resetTree();
 			this.workspaceId = id;
 		},

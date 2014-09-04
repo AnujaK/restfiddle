@@ -110,6 +110,18 @@ define(function(require) {
 			}
 		});
 	});
+	
+	$("#deleteWorkspaceBtn").bind("click", function() {
+		$.ajax({
+			url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId(),
+			type : 'delete',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(data) {
+				location.reload();
+			}
+		});
+	});
 
 	$('.col-1-toggle-btn').toggle(function() {
 		$('.rf-col-1').hide();

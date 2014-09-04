@@ -60,14 +60,12 @@ public class WorkspaceController {
 
     @RequestMapping(value = "/api/workspaces/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Workspace delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") Long id) {
 	logger.debug("Deleting workspace with id: " + id);
 
 	Workspace deleted = workspaceRepository.findOne(id);
 
 	workspaceRepository.delete(deleted);
-
-	return deleted;
     }
 
     @RequestMapping(value = "/api/workspaces", method = RequestMethod.GET)
