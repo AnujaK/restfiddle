@@ -265,7 +265,7 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab-body">
 							<br>
-							<textarea id="apiBody" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
+							<textarea id="apiBody" class="form-control" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
 						</div>
 						<div class="tab-pane" id="tab-header">TODO</div>
 						<div class="tab-pane" id="tab-cookie">TODO</div>

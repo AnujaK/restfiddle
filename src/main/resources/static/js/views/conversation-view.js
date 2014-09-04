@@ -11,10 +11,10 @@ define(function(require) {
 		el : '#conversationSection',
 		initialize : function(){
 			$("#run").unbind('click').bind("click", function(view){
-				return function(){view.run.call(view)};
+				return function(){view.run.call(view);};
 			}(this));
 			this.$el.find("#saveConversationBtn").click(function(view){
-				return function(){view.saveOrUpdateConversation.call(view)};
+				return function(){view.saveOrUpdateConversation.call(view);};
 			}(this));
 		},
 		run : function(){
@@ -51,7 +51,7 @@ define(function(require) {
 			this.$el.find("#apiUrl").val(request.apiUrl);
 			this.$el.find(".apiRequestType").val(request.methodType);
 			this.$el.find("#apiBody").val(request.apiBody);
-			//this.$el.find("#response-wrapper").val(response.body);
+			this.$el.find("#response-wrapper").html('');
 		},
 		saveOrUpdateConversation : function(){
 			if(APP.appView.getCurrentConversationId() != null){
