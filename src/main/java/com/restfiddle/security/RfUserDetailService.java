@@ -17,12 +17,12 @@ public class RfUserDetailService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public User loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	if (isEmpty(userName)) {
+	if (isEmpty(email)) {
 	    return null;
 	}
-	return userRepository.findByUserName(userName);
+	return userRepository.findByEmail(email);
     }
 
 }

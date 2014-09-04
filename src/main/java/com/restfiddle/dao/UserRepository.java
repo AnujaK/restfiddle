@@ -26,8 +26,6 @@ import com.restfiddle.entity.User;
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findByUserName(@Param("userName") String userName);
-
     public User findByEmail(@Param("email") String email);
 
 }

@@ -67,7 +67,6 @@ public class UserController {
 
 	String userEmail = passwordDTO.getEmail();
 
-	user.setUserName(userEmail);
 	user.setEmail(userEmail);
 
 	user.setPassword(CommonUtil.isNotEmpty(passwordDTO.getPassword()) ? passwordEncoder.encode(passwordDTO.getPassword()) : passwordEncoder

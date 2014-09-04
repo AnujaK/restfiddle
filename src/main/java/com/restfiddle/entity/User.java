@@ -31,11 +31,6 @@ import com.restfiddle.constant.StatusType;
 public class User extends NamedEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    @Deprecated
-    @Column(nullable = false)
-    @Length(max = 255)
-    private String userName;
-
     @Column(nullable = false)
     @Length(max = 255)
     private String password;
@@ -52,14 +47,6 @@ public class User extends NamedEntity implements UserDetails {
 
     public String getEmail() {
 	return email;
-    }
-
-    public String getUserName() {
-	return userName;
-    }
-
-    public void setUserName(String userName) {
-	this.userName = userName;
     }
 
     public String getPassword() {
@@ -107,7 +94,7 @@ public class User extends NamedEntity implements UserDetails {
 
     @Override
     public String toString() {
-	return "User [userName=" + userName + ", email=" + email + "]";
+	return "User [email=" + email + "]";
     }
 
     public Team getTeam() {

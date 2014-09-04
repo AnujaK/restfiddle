@@ -56,7 +56,7 @@ mvn spring-boot:run
 ##### Access
 
 ```
-Default username/password : rf/rf
+Default email / password : rf@example.com / rf
 ```
 
 ##### Debug

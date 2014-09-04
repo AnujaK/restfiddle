@@ -36,12 +36,12 @@ import com.restfiddle.dao.UserRepository;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.PasswordDTO;
 import com.restfiddle.dto.PermissionDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RoleDTO;
 import com.restfiddle.dto.TagDTO;
-import com.restfiddle.dto.PasswordDTO;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
@@ -87,10 +87,9 @@ public class SampleDataGenerator {
 	if (isSampleDataPresent()) {
 	    return;
 	}
-	
+
 	createSuperUser();
-	
-	
+
 	// loadRoleData();
 	// loadPermissionData();
 	// loadUserData();
@@ -145,7 +144,7 @@ public class SampleDataGenerator {
     }
 
     private void createSuperUser() {
-	User user = userRepository.findByUserName("rf");
+	User user = userRepository.findByEmail("rf@example.com");
 	if (CommonUtil.isNotNull(user)) {
 	    return;
 	}
