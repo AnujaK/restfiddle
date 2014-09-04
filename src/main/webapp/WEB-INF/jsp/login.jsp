@@ -36,8 +36,16 @@
 	<div class="container-fluid">
 		<form class="form-signin" action='${pageContext.request.contextPath}/login' method='POST'>
 			<h2 class="form-signin-heading">RESTFiddle</h2>
-			<input type="text" name="username" class="form-control" placeholder="Enter Email" required autofocus> <input type="password" name="password"
-				class="form-control" placeholder="Enter Password" required>
+
+			<div class="input-group" style="margin-bottom: 5px;">
+			  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+			  <input type="text" name="username" class="form-control" placeholder="Enter Email" required autofocus>
+			</div>
+			<div class="input-group" style="margin-bottom: 5px;">
+			  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+			  <input type="password" name="password" class="form-control" style="margin-bottom: 0px;" placeholder="Enter Password" required>
+			</div>			
+			
 			<button class="btn btn-primary btn-block" type="submit">Sign in to RESTFiddle</button>
 		</form>
 	</div>
