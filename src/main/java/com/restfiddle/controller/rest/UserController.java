@@ -115,13 +115,19 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    User update(@PathVariable("id") Long id, @RequestBody PasswordDTO updated) {
+    User update(@PathVariable("id") Long id, @RequestBody UserDTO updated) {
 	logger.debug("Updating user with information: " + updated);
+	// TODO : update profile for logged-in user.
+
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	Object principal = authentication.getPrincipal();
+	System.out.println("principal : " + principal);
 
 	User user = userRepository.findOne(updated.getId());
 
 	user.setName(updated.getName());
 	user.setDescription(updated.getDescription());
+	user.setEmail(updated.getEmail());
 
 	return user;
     }
@@ -129,7 +135,8 @@ public class UserController {
     @RequestMapping(value = "/api/users/change-password", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     void changePassword(@RequestBody PasswordResetDTO passwordResetDTO) {
-	// update password for logged-in user.
+
+	// TODO : update password for logged-in user.
 
 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
