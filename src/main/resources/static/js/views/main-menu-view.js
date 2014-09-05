@@ -101,7 +101,39 @@ define(function(require) {
 			}
 		});
 	});
+	
+	$('#updateProfileModal').on('show.bs.modal', function (e) {
+		$.ajax({
+			url : APP.config.baseUrl + '/users/current-user',
+			type : 'get',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(data) {
+			    $("#updateProfileName").val(data.name);
+			    $("#updateProfileEmail").val(data.email);
+			}
+		});
+	});
+	
+	$("#updateProfileBtn").bind("click", function() {
+		$("#updateProfileModal").modal("hide");
 
+		$.ajax({
+			url : APP.config.baseUrl + '/users/1',//TODO : user-id is optional
+			type : 'put',
+			dataType : 'json',
+			contentType : "application/json",
+			data : JSON.stringify({
+			    	name : $("#updateProfileName").val(),
+			    	email : $("#updateProfileEmail").val()
+			}),
+
+			success : function() {
+				alert('Profile updated successfully!');
+			}
+		});
+	});	
+	  
 	$("#saveWorkspaceBtn").bind("click", saveWorkspace);
 
 	function saveWorkspace() {

@@ -124,18 +124,33 @@ public class UserController {
 
 	if (principal != null && principal instanceof User) {
 	    User loggedInUser = (User) principal;
-	    Long updatedId = updated.getId();
-	    User user = userRepository.findOne(updatedId);
+	    User user = userRepository.findOne(loggedInUser.getId());
 
-	    if (updatedId == loggedInUser.getId()) {
-		user.setName(updated.getName());
-		user.setDescription(updated.getDescription());
-		user.setEmail(updated.getEmail());
-		userRepository.save(user);
-	    }
+	    user.setName(updated.getName());
+	    user.setDescription(updated.getDescription());
+	    user.setEmail(updated.getEmail());
+	    userRepository.save(user);
 	}
 
 	return updated;
+    }
+
+    @RequestMapping(value = "/api/users/current-user", method = RequestMethod.GET)
+    public @ResponseBody
+    UserDTO getCurrentUser() {
+	UserDTO userDTO = new UserDTO();
+
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	Object principal = authentication.getPrincipal();
+
+	if (principal != null && principal instanceof User) {
+	    User loggedInUser = (User) principal;
+	    User user = userRepository.findOne(loggedInUser.getId());
+	    userDTO.setName(user.getName());
+	    userDTO.setDescription(user.getDescription());
+	    userDTO.setEmail(user.getEmail());
+	}
+	return userDTO;
     }
 
     @RequestMapping(value = "/api/users/change-password", method = RequestMethod.POST, headers = "Accept=application/json")

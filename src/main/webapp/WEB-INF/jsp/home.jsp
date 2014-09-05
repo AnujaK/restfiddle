@@ -112,7 +112,7 @@
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
 						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
 							<div class="hover_controls">
-								<button class="btn btn-default btn-sm" style="width: 50px;">
+								<button class="btn btn-default btn-xs">
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
@@ -344,7 +344,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="createNewFolderBtn">Save changes</button>
+					<button type="button" class="btn btn-primary" id="updateProfileBtn">Save changes</button>
 				</div>
 			</div>
 		</div>
