@@ -48,9 +48,13 @@ define(function(require) {
 			var request = conversation.get('rfRequest');
 			var response = conversation.get('rfResponse');
 			
+			this.$el.find("#apiRequestName").html(conversation.get('name'));
+			this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
+			
 			this.$el.find("#apiUrl").val(request.apiUrl);
 			this.$el.find(".apiRequestType").val(request.methodType);
 			this.$el.find("#apiBody").val(request.apiBody);
+			
 			this.$el.find("#response-wrapper").html('');
 		},
 		saveOrUpdateConversation : function(){

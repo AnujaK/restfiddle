@@ -8,6 +8,8 @@ define(function(require) {
 		urlRoot : APP.config.baseUrl +"/conversations/",
 		defaults : {
 			id : null,
+			name : '',
+			description : '',
 			rfRequest : '',
 			rfResponse : '', 
 		},

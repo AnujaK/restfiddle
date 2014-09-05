@@ -218,6 +218,8 @@ define(function(require) {
 								console.log(response.get("conversation"));
 								var conversation = new ConversationModel(
 										response.get("conversation"));
+								conversation.set("name", response.get("name"));
+								conversation.set("description",response.get("description"));
 								// var conversationView = new
 								// app.ConversationView({model : conversation});
 								APP.conversation.render(conversation);

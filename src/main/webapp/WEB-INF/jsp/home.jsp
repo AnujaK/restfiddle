@@ -227,9 +227,9 @@
 					<br> <br>
 					<div>
 						<p>
-							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Get Workspaces</b>
+							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName" style="font-weight:bold;"></span>
 						</p>
-						<p>API to get the list of workspaces.</p>
+						<p id="apiRequestDescription"></p>
 						<p>
 							&nbsp;&nbsp;<span class="label" style="background-color: green;">Important</span>&nbsp;<span class="label" style="background-color: orange;">Wishlist</span>
 						</p>
