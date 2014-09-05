@@ -250,7 +250,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- Nav tabs -->
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
 						<li><a href="#tab-header" data-toggle="tab">Header</a></li>
@@ -263,9 +262,9 @@
 							<br>
 							<textarea id="apiBody" class="form-control" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
 						</div>
-						<div class="tab-pane" id="tab-header">TODO</div>
-						<div class="tab-pane" id="tab-cookie">TODO</div>
-						<div class="tab-pane" id="tab-auth">TODO</div>
+						<div class="tab-pane" id="tab-header"><br><p>TODO</p></div>
+						<div class="tab-pane" id="tab-cookie"><br><p>TODO</p></div>
+						<div class="tab-pane" id="tab-auth"><br><p>TODO</p></div>
 					</div>
 					<hr>
 					<div>
@@ -273,13 +272,25 @@
 							<span class='glyphicon glyphicon glyphicon-chevron-right'></span>&nbsp;&nbsp;<b>Response</b>
 						</p>
 					</div>
-
-					<div class="container-fluid">
-						<div class="row">
-							<div id="response-wrapper"></div>
+					
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
+						<li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div class="tab-pane active" id="res-tab-body">
+							<br>
+							<div class="container-fluid">
+								<div class="row">
+									<div id="response-wrapper"></div>
+								</div>
+							</div>
+							<br><br>					
 						</div>
+						<div class="tab-pane" id="res-tab-header"><br><p>TODO : Show Response Headers</p></div>
 					</div>
-					<br> <br>
+					
 				</div>
 			</div>
 
