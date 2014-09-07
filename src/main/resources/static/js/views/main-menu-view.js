@@ -8,6 +8,10 @@ define(function(require) {
 	var ProjectView = require("views/project-view");
 	
 	$(".list-view-menu-item").unbind("click").bind("click", function() {
+	    $('#rf-col-1-body').find('li').each(function(){
+		$(this).removeClass('active');
+	    });
+	    $(this).addClass('active');
 	    $('#tree').hide();
 	    $('#starred-items').show();
 	});

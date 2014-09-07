@@ -80,18 +80,18 @@
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<br>
-					<div>
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;">Projects</h6>
+					<div style="margin-bottom: 5px;">
+						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
 					<br>
 					<div class="left-menu-divider"></div>
 					<br>
-					<div>
-						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Labels&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;"><span class="glyphicon glyphicon-plus"></span></button>
+					<div style="margin-bottom: 5px;">
+						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Labels&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
 					</div>
-					<ul class="nav nav-pills nav-stacked rf-left-nav2">
+					<ul class="nav nav-pills nav-stacked rf-left-nav">
 						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-sm" style="width: 50px;">
@@ -106,7 +106,7 @@
 					<div>
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; background: white;">Misc</h6>
 					</div>
-					<ul class="nav nav-pills nav-stacked rf-left-nav2">
+					<ul class="nav nav-pills nav-stacked rf-left-nav">
 						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-xs">
