@@ -18,6 +18,7 @@ package com.restfiddle.dto;
 /**
  * User reference is not required as Star items are mapped against logged-in user.
  */
+@Deprecated
 public class StarDTO extends BaseDTO {
 
     private Long workspaceId;

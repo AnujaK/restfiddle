@@ -39,6 +39,7 @@ import com.restfiddle.entity.Star;
 @EnableAutoConfiguration
 @ComponentScan
 @Transactional
+@Deprecated
 public class StarController {
     Logger logger = LoggerFactory.getLogger(StarController.class);
 

@@ -262,6 +262,14 @@ public class SampleDataGenerator {
 	testNode.setProjectId(1L);
 	nodeController.create(1L, testNode);
 
+	conversationDTO = new ConversationDTO();
+	rfRequestDTO = new RfRequestDTO();
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/nodes/starred");
+	rfRequestDTO.setMethodType("GET");
+	conversationDTO.setRfRequestDTO(rfRequestDTO);
+	createdConversation = conversationController.create(conversationDTO);
+	conversationDTO.setId(createdConversation.getId());
+	
 	NodeDTO starredNode = new NodeDTO();
 	starredNode.setName("Starred Node");
 	starredNode.setStarred(Boolean.TRUE);

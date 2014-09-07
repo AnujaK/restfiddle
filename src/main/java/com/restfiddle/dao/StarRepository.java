@@ -19,6 +19,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.restfiddle.entity.Star;
 
+@Deprecated
 public interface StarRepository extends JpaRepository<Star, Long> {
 
 }
