@@ -89,14 +89,15 @@ public class NodeController {
     }
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
-    public @ResponseBody void delete(@PathVariable("id") Long id) {
+    public @ResponseBody
+    void delete(@PathVariable("id") Long id) {
 	logger.debug("Deleting node with id: " + id);
 
 	BaseNode deleted = nodeRepository.findOne(id);
 
 	nodeRepository.delete(deleted);
 
-//	return deleted;
+	// return deleted;
     }
 
     @RequestMapping(value = "/api/nodes", method = RequestMethod.GET)
@@ -133,8 +134,17 @@ public class NodeController {
 
 	BaseNode node = nodeRepository.findOne(updated.getId());
 
-	node.setName(updated.getName());
-	node.setDescription(updated.getDescription());
+	if (updated.getName() != null) {
+	    node.setName(updated.getName());
+	}
+
+	if (updated.getDescription() != null) {
+	    node.setDescription(updated.getDescription());
+	}
+
+	if (updated.getStarred() != null) {
+	    node.setStarred(updated.getStarred());
+	}
 
 	return node;
     }

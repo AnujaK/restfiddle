@@ -97,12 +97,12 @@ public class ProjectController {
 	Project deleted = projectRepository.findOne(id);
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
-	
+
 	for (BaseNode baseNode : listOfNodes) {
 	    baseNode.setProject(null);
 	}
 	nodeRepository.delete(listOfNodes);
-	
+
 	projectRepository.delete(deleted);
     }
 
@@ -134,9 +134,19 @@ public class ProjectController {
 	logger.debug("Updating project with information: " + updated);
 
 	Project project = projectRepository.findOne(updated.getId());
+	BaseNode projectRef = project.getProjectRef();
 
-	project.setName(updated.getName());
-	project.setDescription(updated.getDescription());
+	String updatedName = updated.getName();
+	if (updatedName != null) {
+	    project.setName(updatedName);
+	    projectRef.setName(updatedName);
+	}
+
+	String updatedDescription = updated.getDescription();
+	if (updatedDescription != null) {
+	    project.setDescription(updatedDescription);
+	    projectRef.setDescription(updatedDescription);
+	}
 
 	return project;
     }
