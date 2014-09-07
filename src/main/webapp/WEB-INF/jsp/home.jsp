@@ -76,7 +76,7 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-2 sidebar rf-col-1" style="border-right: 1px solid lightgray; height: 100%; position: fixed;">
+			<div class="col-xs-2 sidebar rf-col-1" style="border-right: 1px solid lightgray; height: 100%; position: fixed;width:17%;">
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<br>
@@ -85,44 +85,41 @@
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
-					<ul class="nav nav-sidebar project-list">
-						<li></li>
-					</ul>
 					<br>
-					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<div class="left-menu-divider"></div>
 					<br>
 					<div>
 						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Labels&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;"><span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-sm" style="width: 50px;">
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist</a></li>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist</a></li>
 					</ul>
 					<br>
-					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<div class="left-menu-divider"></div>
 					<br>
 					<div>
 						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; background: white;">Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav2">
-						<li class="li_starred"><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
 							<div class="hover_controls">
 								<button class="btn btn-default btn-xs">
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
-						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
 						</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
 						</a></li>
 					</ul>
 					<br>
-					<div style="border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></div>
+					<div class="left-menu-divider"></div>
 					<br>
 					<div>
 						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; background: white;">Members</h6>
@@ -137,7 +134,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;width:33%;">
 				<br>
 				<button class="btn btn-default btn-sm col-1-toggle-btn">
 					<i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
@@ -170,7 +167,19 @@
 				</div>
 
 				<br> <br>
+				<div id="starred-items" style="display:none;">
+					<div class="list-group">
+					  <a href="#" class="list-group-item">Get Latest Tweets</a>
+					  <a href="#" class="list-group-item">Post on Facebook</a>
+					  <a href="#" class="list-group-item active">Get First Degree Connections</a>
+					  <a href="#" class="list-group-item">Remove last project from current workspace</a>
+					  <a href="#" class="list-group-item">Post a job on your favorite job portal</a>
+					  <a href="#" class="list-group-item">Update contact details</a>
+					  <a href="#" class="list-group-item">Invite new collaborator</a>
+					</div>
+				</div>
 				<div id="tree"></div>
+				
 			</div>
 			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
 				<div class="form-group" id="conversationSection">

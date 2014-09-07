@@ -28,6 +28,9 @@ ul.fancytree-container {
 	border-radius: 0px;
 	padding: 6px 5px;
 }
+.left-menu-divider{
+	border-bottom: 1px solid rgba(175,175,175,0.6);box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
 
 .badge {
 	font-weight: normal;
@@ -76,6 +79,19 @@ ul.fancytree-container {
 
 .li_starred:hover .hover_controls {
 	display: block;
+}
+
+#starred-items .list-group-item:first-child {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+#starred-items .list-group-item:last-child {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.list-group-item{
+	margin-bottom:3px;	
 }
 
 /* CSS for login page */

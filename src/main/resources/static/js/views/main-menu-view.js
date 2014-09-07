@@ -6,7 +6,12 @@ define(function(require) {
 	var Workspace = require('models/workspace');
 	var ProjectModel = require("models/project");
 	var ProjectView = require("views/project-view");
-
+	
+	$(".list-view-menu-item").unbind("click").bind("click", function() {
+	    $('#tree').hide();
+	    $('#starred-items').show();
+	});
+	
 	$("#saveProjectBtn").unbind("click").bind("click", function() {
 		var project = new ProjectModel({
 			name : $("#projectTextField").val(),
