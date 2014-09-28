@@ -77,7 +77,7 @@ ul.fancytree-container {
 	position: relative;
 }
 
-.li_starred:hover .hover_controls {
+.list-view-menu-item:hover .hover_controls {
 	display: block;
 }
 

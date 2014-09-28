@@ -34,6 +34,25 @@ define(function(require) {
 			}
 		});
 	});
+	
+	$("#saveTagBtn").unbind("click").bind("click", function() {
+		var project = new ProjectModel({
+			name : $("#projectTextField").val(),
+			description : $("#projectTextArea").val()
+		});
+		project.save(null, {
+			success : function(response) {
+				var projectView = new ProjectView();
+				projectView.addOne(project);
+				$('#projectModal').modal("hide");
+				$("#projectTextField").val("");
+				$("#projectTextArea").val("");
+			},
+			error : function(e) {
+				alert('Some unexpected error occured Please try later.');
+			}
+		});
+	});	
 
 	$("#editProjectBtn").unbind("click").bind("click", function() {
 		var project = new ProjectModel({

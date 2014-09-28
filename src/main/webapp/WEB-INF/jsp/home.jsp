@@ -81,7 +81,7 @@
 					<div id="dd-workspace-wrapper"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
+						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
@@ -89,7 +89,7 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Labels&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
+						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav">
 						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
@@ -503,6 +503,27 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="tagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="tagModalLabel">New Tag</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="tagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
+					<textarea id="tagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveTagBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
 	<div class="modal fade" id="editProjectModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
