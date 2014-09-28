@@ -42,11 +42,11 @@ define(function(require) {
 		});
 		project.save(null, {
 			success : function(response) {
-				var projectView = new ProjectView();
-				projectView.addOne(project);
-				$('#projectModal').modal("hide");
-				$("#projectTextField").val("");
-				$("#projectTextArea").val("");
+//				var projectView = new ProjectView();
+//				projectView.addOne(project);
+//				$('#projectModal').modal("hide");
+//				$("#projectTextField").val("");
+//				$("#projectTextArea").val("");
 			},
 			error : function(e) {
 				alert('Some unexpected error occured Please try later.');
