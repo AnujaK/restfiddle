@@ -36,11 +36,11 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<div class="dropdown" style="float: left; padding: 8px; margin-right: 12px;">
+				<div class="dropdown">
 					<button class="btn btn-default" type="button" data-toggle="dropdown">
 						<span class='glyphicon glyphicon-align-justify'></span>
 					</button>
-					<ul class="dropdown-menu" style="width:250px;">
+					<ul class="dropdown-menu">
 						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
 						<li><a href="#" id="switchWorkSpace" class="dummySwitchWorkspace">Switch Workspace</a></li>
 						<li class="divider"></li>
@@ -67,7 +67,7 @@
 					<li><a href="https://github.com/ranjan-rk" target="_blank">Contact</a></li>
 					<li>
 						<form action="/logout">
-							<button class="btn btn-link" style="margin-top: 7px; margin-right: 20px;" type="submit">Logout</button>
+							<button class="btn btn-link" type="submit">Logout</button>
 						</form>
 					</li>
 				</ul>
@@ -76,12 +76,12 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-2 sidebar rf-col-1" style="border-right: 1px solid lightgray; height: 100%; position: fixed;width:17%;">
+			<div class="col-xs-2 sidebar rf-col-1">
 				<div id="rf-col-1-body">
 					<div id="dd-workspace-wrapper"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6 style="width: 60px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
+						<h6 >Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" ><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus" ></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
@@ -89,12 +89,12 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6 style="width: 50px; margin-top: -8px; margin-left: 10px; background: white;display:inline;">Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" style="margin-right:5px;margin-top:-5px;"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus" style="font-size:9px;"></span></button>
+						<h6>Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav">
-						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: green;"></span>&nbsp;&nbsp;Important</a>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Important</a>
 							<div class="hover_controls">
-								<button class="btn btn-default btn-sm" style="width: 50px;">
+								<button class="btn btn-default btn-sm" >
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
@@ -104,7 +104,7 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div>
-						<h6 style="width: 38px; margin-top: -8px; margin-left: 10px; background: white;">Misc</h6>
+						<h6>Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav">
 						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
@@ -122,19 +122,20 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div>
-						<h6 style="width: 63px; margin-top: -8px; margin-left: 10px; background: white;">Members</h6>
+						<h6>Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li><span style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span><span
-							style="border: 1px solid lightgray; padding: 10px; margin: 3px; color: gray;" class="glyphicon glyphicon-user"></span></li>
+						<li><span  class="glyphicon glyphicon-user"></span>
+						    <span class="glyphicon glyphicon-user"></span>
+						    <span class="glyphicon glyphicon-user"></span>
+						    <span class="glyphicon glyphicon-user"></span>
+						    <span class="glyphicon glyphicon-user"></span>
+						    <span class="glyphicon glyphicon-user"></span>
+						</li>
 					</ul>
 				</div>
 			</div>
-			<div class="col-xs-4 rf-col-2" style="left: 17%; height: 100%; position: fixed; overflow-y: scroll;width:33%;">
+			<div class="col-xs-4 rf-col-2">
 				<br>
 				<button class="btn btn-default btn-sm col-1-toggle-btn">
 					<i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
@@ -167,7 +168,7 @@
 				</div>
 
 				<br> <br>
-				<div id="starred-items" style="display:none;">
+				<div id="starred-items">
 					<div class="list-group">
 					  <a href="#" class="list-group-item">Get Latest Tweets</a>
 					  <a href="#" class="list-group-item">Post on Facebook</a>
@@ -181,7 +182,7 @@
 				<div id="tree"></div>
 				
 			</div>
-			<div class="col-xs-6 rf-col-3" style="border-left: 1px solid lightgray; left: 50%; height: 100%; position: fixed; overflow-y: scroll;">
+			<div class="col-xs-6 rf-col-3">
 				<div class="form-group" id="conversationSection">
 					<br>
 					<div class="btn-group">
@@ -236,7 +237,7 @@
 					<br> <br>
 					<div>
 						<p>
-							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName" style="font-weight:bold;"></span>
+							<span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName"></span>
 						</p>
 						<p id="apiRequestDescription"></p>
 						<p>
@@ -246,7 +247,7 @@
 					<br>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-xs-2" style="padding-left: 0px;">
+							<div class="col-xs-2" >
 								<select class="apiRequestType form-control">
 									<option>GET</option>
 									<option>POST</option>
@@ -254,8 +255,8 @@
 									<option>DELETE</option>
 								</select>
 							</div>
-							<div class="col-xs-10" style="padding: 0px;">
-								<input style="display: inline;" type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
+							<div class="col-xs-10">
+								<input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
 							</div>
 						</div>
 					</div>
@@ -269,7 +270,7 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab-body">
 							<br>
-							<textarea id="apiBody" class="form-control" style="width: 100%; height: 70px; border: 1px solid lightgray;"></textarea>
+							<textarea id="apiBody" class="form-control"></textarea>
 						</div>
 						<div class="tab-pane" id="tab-header"><br><p>TODO</p></div>
 						<div class="tab-pane" id="tab-cookie"><br><p>TODO</p></div>
