@@ -137,16 +137,16 @@ ul.fancytree-container {
 
 /* CSS for home page */
 
-.dropdown {
+.rf-dropdown {
 	float: left; 
 	padding: 8px;
 	margin-right: 12px;
 }
-.dropdown .dropdown-menu {
+.rf-dropdown .rf-menu-width {
 	width:250px;
 }
 
-.btn-link {
+.rf-btn-margin {
 	margin-top: 7px; 
 	margin-right: 20px;
 
@@ -157,34 +157,41 @@ ul.fancytree-container {
 	position: fixed;
 	width:17%;"
 }
-h6 {
+.rf-h6 {
 	width: 60px;
 	margin-top: -8px; 
 	margin-left: 10px; 
 	background: white;
 	display:inline;
 }
-.pull-right {
+.rf-btn-margin-2 {
 	margin-right:5px;
 	margin-top:-5px;
 }
 
-.glyphicon-plus {
+.misc-width{
+	width:38px;
+}
+
+.members-width{
+	width:63px;
+}
+
+.rf-plus-font {
 	font-size:9px;
 }
 
-.glyphicon-tag {
+.rf-tag-green {
 	color: green;
 }
 
-.glyphicon-tagt {
+.rf-tag-orange {
 	color: orange;
 }
-/*.btn-sm1 {
+.rf-sm-width {
 	width: 50px;
-}*/
-
-.glyphicon-user {
+}
+.rf-user {
 	border: 1px solid lightgray; 
 	padding: 10px;
 	margin: 2px; 
@@ -215,16 +222,12 @@ h6 {
 	font-weight:bold;
 }
 
-.col-xs-2 {
+.rf-col-xs-2-padding {
 	padding-left: 0px;
 }
 
-.col-xs-10 {
+.rf-col-xs-10-padding {
 	padding: 0px;
-}
-
-.col-xs-10 input[type="password"] {
-	display: inline;
 }
 
 #apiBody {

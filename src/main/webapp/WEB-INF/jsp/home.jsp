@@ -36,11 +36,11 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<div class="dropdown">
+				<div class="dropdown rf-dropdown">
 					<button class="btn btn-default" type="button" data-toggle="dropdown">
 						<span class='glyphicon glyphicon-align-justify'></span>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu rf-menu-width">
 						<li><a href="#" data-toggle="modal" data-target="#workspaceModal">New Workspace</a></li>
 						<li><a href="#" id="switchWorkSpace" class="dummySwitchWorkspace">Switch Workspace</a></li>
 						<li class="divider"></li>
@@ -67,7 +67,7 @@
 					<li><a href="https://github.com/ranjan-rk" target="_blank">Contact</a></li>
 					<li>
 						<form action="/logout">
-							<button class="btn btn-link" type="submit">Logout</button>
+							<button class="btn btn-link rf-btn-margin" type="submit">Logout</button>
 						</form>
 					</li>
 				</ul>
@@ -81,7 +81,7 @@
 					<div id="dd-workspace-wrapper"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6 >Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right" ><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus" ></span></button>
+						<h6 class="rf-h6">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right rf-btn-margin-2" ><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus rf-plus-font" ></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
 					</ul>
@@ -89,22 +89,22 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div style="margin-bottom: 5px;">
-						<h6>Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus"></span></button>
+						<h6 class="rf-h6">Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right rf-btn-margin-2"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus rf-plus-font"></span></button>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav">
-						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;Important</a>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag rf-tag-green"></span>&nbsp;&nbsp;Important</a>
 							<div class="hover_controls">
-								<button class="btn btn-default btn-sm" >
+								<button class="btn btn-default btn-sm rf-sm-width" >
 									<i class="fa fa-caret-down"></i>
 								</button>
 							</div></li>
-						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag" style="color: orange;"></span>&nbsp;&nbsp;Wishlist</a></li>
+						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag rf-tag-orange"></span>&nbsp;&nbsp;Wishlist</a></li>
 					</ul>
 					<br>
 					<div class="left-menu-divider"></div>
 					<br>
 					<div>
-						<h6>Misc</h6>
+						<h6 class="rf-h6 members-width">Misc</h6>
 					</div>
 					<ul class="nav nav-pills nav-stacked rf-left-nav">
 						<li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
@@ -122,15 +122,15 @@
 					<div class="left-menu-divider"></div>
 					<br>
 					<div>
-						<h6>Members</h6>
+						<h6 class="rf-h6 members-width">Members</h6>
 					</div>
 					<ul class="nav nav-sidebar">
-						<li><span  class="glyphicon glyphicon-user"></span>
-						    <span class="glyphicon glyphicon-user"></span>
-						    <span class="glyphicon glyphicon-user"></span>
-						    <span class="glyphicon glyphicon-user"></span>
-						    <span class="glyphicon glyphicon-user"></span>
-						    <span class="glyphicon glyphicon-user"></span>
+						<li><span  class="glyphicon glyphicon-user rf-user"></span>
+						    <span class="glyphicon glyphicon-user rf-user"></span>
+						    <span class="glyphicon glyphicon-user rf-user"></span>
+						    <span class="glyphicon glyphicon-user rf-user"></span>
+						    <span class="glyphicon glyphicon-user rf-user"></span>
+						    <span class="glyphicon glyphicon-user rf-user"></span>
 						</li>
 					</ul>
 				</div>
@@ -247,7 +247,7 @@
 					<br>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-xs-2" >
+							<div class="col-xs-2 rf-col-xs-2-padding" >
 								<select class="apiRequestType form-control">
 									<option>GET</option>
 									<option>POST</option>
@@ -255,7 +255,7 @@
 									<option>DELETE</option>
 								</select>
 							</div>
-							<div class="col-xs-10">
+							<div class="col-xs-10 rf-col-xs-10-padding">
 								<input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
 							</div>
 						</div>
