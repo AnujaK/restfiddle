@@ -157,6 +157,9 @@ ul.fancytree-container {
 	position: fixed;
 	width:17%;"
 }
+.rf-margin-5{
+	margin-bottom: 5px;
+}
 .rf-h6 {
 	width: 60px;
 	margin-top: -8px; 
@@ -180,13 +183,21 @@ ul.fancytree-container {
 .rf-plus-font {
 	font-size:9px;
 }
-
+.rf-font-12{
+	font-size: 12px;
+}
 .rf-tag-green {
 	color: green;
 }
 
 .rf-tag-orange {
 	color: orange;
+}
+.bg-green{
+	background-color: orange;
+}
+.bg-orange{
+	background-color: orange;
 }
 .rf-sm-width {
 	width: 50px;
