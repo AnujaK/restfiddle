@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +38,14 @@ import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
+import com.restfiddle.dao.TagRepository;
 import com.restfiddle.dao.util.TreeNodeBuilder;
 import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.TagDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.Project;
+import com.restfiddle.entity.Tag;
 import com.restfiddle.entity.TreeNode;
 
 @RestController
@@ -56,6 +60,9 @@ public class NodeController {
 
     @Resource
     private NodeRepository nodeRepository;
+    
+    @Resource
+    private TagRepository tagRepository;
 
     @Resource
     private ConversationRepository conversationRepository;
@@ -210,4 +217,24 @@ public class NodeController {
 	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(Boolean.TRUE);
 	return starredNodes;
     }
+
+    @RequestMapping(value = "/api/nodes/{id}/tags", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    Boolean addTags(@PathVariable("id") Long id, @RequestBody List<TagDTO> tagDTOs) {
+	logger.debug("Adding the following tags: " + tagDTOs);
+
+	BaseNode node = nodeRepository.findOne(id);
+
+	List<Tag> tags = new ArrayList<Tag>();
+	if (tagDTOs != null && !tagDTOs.isEmpty()) {
+	    List<Long> tagIds = new ArrayList<Long>();
+	    for (TagDTO tagDTO : tagDTOs) {
+		tagIds.add(tagDTO.getId());
+	    }
+	    tags = tagRepository.findAll(tagIds);
+	}
+	node.setTags(tags);
+	
+	return Boolean.TRUE;
+    }    
 }
