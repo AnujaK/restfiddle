@@ -31,8 +31,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.TagRepository;
 import com.restfiddle.dto.TagDTO;
+import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Tag;
 
 @RestController
@@ -45,6 +47,9 @@ public class TagController {
     @Resource
     private TagRepository tagRepository;
 
+    @Resource
+    private NodeRepository nodeRepository;
+    
     @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Tag create(@RequestBody TagDTO tagDTO) {
@@ -96,4 +101,15 @@ public class TagController {
 
 	return tag;
     }
+    
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{tagId}/nodes", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") Long workspaceId, @PathVariable("tagId") Long tagId) {
+	logger.debug("Finding nodes by tag id: " + tagId);
+	
+	List<BaseNode> taggedNodes = nodeRepository.findTaggedNodes(tagId);
+	
+	return taggedNodes;
+    }
+    
 }
