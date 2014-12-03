@@ -15,8 +15,11 @@
  */
 package com.restfiddle.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,6 +30,9 @@ public class RfResponse extends NamedEntity {
 
     @Lob
     private byte[] body;
+
+    @OneToMany
+    private List<RfHeader> rfHeaders;
 
     @OneToOne(mappedBy = "rfResponse")
     @JsonBackReference
@@ -46,6 +52,14 @@ public class RfResponse extends NamedEntity {
 
     public void setItem(Conversation item) {
 	this.item = item;
+    }
+
+    public List<RfHeader> getRfHeaders() {
+	return rfHeaders;
+    }
+
+    public void setRfHeaders(List<RfHeader> rfHeaders) {
+	this.rfHeaders = rfHeaders;
     }
 
 }

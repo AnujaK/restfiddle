@@ -6,6 +6,8 @@
 
 .settings/org.eclipse.core.resources.prefs
 
+.settings/org.maven.ide.eclipse.prefs
+
 .project
 
 .classpath

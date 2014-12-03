@@ -24,12 +24,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 
 @Component
 public class PutHandler extends GenericHandler {
 
-    public String process(RfRequestDTO rfRequestDTO) throws IOException {
-	String response = "";
+    public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
+	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
 	HttpPut httpPut = new HttpPut(rfRequestDTO.getApiUrl());
 	httpPut.addHeader("Content-Type", "application/json");

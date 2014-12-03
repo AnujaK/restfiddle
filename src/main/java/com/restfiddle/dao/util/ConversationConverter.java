@@ -2,6 +2,7 @@ package com.restfiddle.dao.util;
 
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
@@ -9,7 +10,7 @@ import com.restfiddle.entity.RfResponse;
 //TODO : Need to use Spring Object Mapping : http://docs.spring.io/spring/previews/mapping.html
 public class ConversationConverter {
 
-    public static Conversation convertToEntity(RfRequestDTO requestDto, String responseBody) {
+    public static Conversation convertToEntity(RfRequestDTO requestDto, RfResponseDTO responseDto) {
 	Conversation item = new Conversation();
 
 	RfRequest request = new RfRequest();
@@ -20,8 +21,8 @@ public class ConversationConverter {
 	// Note : We can plan to make it configurable.
 	RfResponse response = new RfResponse();
 	item.setRfResponse(response);
-	if (!responseBody.isEmpty()) {
-	    response.setBody(responseBody.getBytes());
+	if (!responseDto.getBody().isEmpty()) {
+	    response.setBody(responseDto.getBody().getBytes());
 	}
 
 	return item;

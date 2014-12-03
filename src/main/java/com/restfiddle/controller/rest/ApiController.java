@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.RequestHandler;
@@ -54,13 +55,13 @@ public class ApiController {
     private ConversationRepository itemRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    String processor(@RequestBody RfRequestDTO rfRequestDTO) {
+    RfResponseDTO processor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
 	    
 	    long startTime = System.currentTimeMillis();
 	    
-	    String result = handler.process(rfRequestDTO);
+	    RfResponseDTO result = handler.process(rfRequestDTO);
 	    
 	    long endTime = System.currentTimeMillis();
 	    

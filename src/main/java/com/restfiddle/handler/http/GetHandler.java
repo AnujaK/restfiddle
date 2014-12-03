@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
 
 @Component
@@ -32,8 +33,8 @@ public class GetHandler extends GenericHandler {
 
     Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
-    public String process(RfRequestDTO rfRequestDTO) throws IOException {
-	String response = "";
+    public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
+	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
 	HttpGet httpGet = new HttpGet(rfRequestDTO.getApiUrl());
 	try {
@@ -45,8 +46,8 @@ public class GetHandler extends GenericHandler {
 	return response;
     }
 
-    public String process(String apiUrl, String userName, String password, boolean useBasic64Auth) throws IOException {
-	String response = "";
+    public RfResponseDTO process(String apiUrl, String userName, String password, boolean useBasic64Auth) throws IOException {
+	RfResponseDTO response = null;
 
 	CloseableHttpClient httpclient = null;
 	BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();

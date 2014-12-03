@@ -16,6 +16,8 @@
 package com.restfiddle.handler.http;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -26,14 +28,14 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 
 public abstract class GenericHandler {
-
     Logger logger = LoggerFactory.getLogger(GenericHandler.class);
 
-    public String processHttpRequest(HttpRequestBase baseRequest, CloseableHttpClient httpclient) throws IOException {
-
+    public RfResponseDTO processHttpRequest(HttpRequestBase baseRequest, CloseableHttpClient httpclient) throws IOException {
 	Header[] requestHeaders = baseRequest.getAllHeaders();
 	logger.info("request headers length : " + requestHeaders.length);
 
@@ -42,28 +44,36 @@ public abstract class GenericHandler {
 	}
 
 	CloseableHttpResponse httpResponse = httpclient.execute(baseRequest);
-
-	String response = "";
+	
+	RfResponseDTO responseDTO = new RfResponseDTO();
+	String responseBody = "";
+	List<RfHeaderDTO> headers = new ArrayList<RfHeaderDTO>();
 	try {
 	    logger.info("response status : " + httpResponse.getStatusLine());
 	    HttpEntity responseEntity = httpResponse.getEntity();
 	    Header[] responseHeaders = httpResponse.getAllHeaders();
+	    
+	    RfHeaderDTO headerDTO = null;
 	    for (Header responseHeader : responseHeaders) {
-		logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+		//logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+		headerDTO = new RfHeaderDTO();
+		headerDTO.setHeaderName(responseHeader.getName());
+		headerDTO.setHeaderValue(responseHeader.getValue());
+		headers.add(headerDTO);
 	    }
-
 	    Header contentType = responseEntity.getContentType();
 	    logger.info("response contentType : " + contentType);
 
 	    // logger.info("content : " + EntityUtils.toString(responseEntity));
-	    response = EntityUtils.toString(responseEntity);
+	    responseBody = EntityUtils.toString(responseEntity);
 	    EntityUtils.consume(responseEntity);
 	} finally {
 	    httpResponse.close();
 	}
-
-	return response;
+	responseDTO.setBody(responseBody);
+	responseDTO.setHeaders(headers);
+	return responseDTO;
     }
 
-    public abstract String process(RfRequestDTO rfRequestDTO) throws IOException;
+    public abstract RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException;
 }

@@ -27,7 +27,7 @@ define(function(require) {
 					console.log("####" + response);
 					$("#response-wrapper").html(
 							'<pre class="prettyprint">'
-									+ JSON.stringify(response, null, 4)
+									+ response.body
 									+ '</pre>');
 					prettyPrint();
 				},
