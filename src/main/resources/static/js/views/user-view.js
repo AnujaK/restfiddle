@@ -1,0 +1,64 @@
+define(function(require) {	
+	"use strict";
+	
+	var Backbone = require('backbone');
+	var _ = require('underscore');
+	
+	var UserModel = require('models/user');
+	var UserEvents = require('events/user-event');
+
+	var UserListItemView = Backbone.View.extend({
+	
+		template : _.template($('#tpl-user-list-item').html()),
+		
+		events : {
+			"click .deleteUser" : "deleteUser"
+		},
+
+		render : function(eventName) {
+			$(this.el).html(this.template({
+				user : this.model.toJSON()
+			}));
+			return this;
+		},
+		
+		deleteUser : function(eventName){
+			$.ajax({
+				url : APP.config.baseUrl + '/users/' + this.model.get('id'),
+				type : 'delete',
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(data) {
+					$("#manageCollaboratorsModal").modal("hide");
+					alert('User deleted successfully!');
+				}
+			});
+		}
+	});
+	
+	var UserView = Backbone.View.extend({
+		initialize : function() {
+			this.listenTo(APP.Events, UserEvents.FETCH, this.handleUsers);
+		},
+		
+		handleUsers : function(event){
+			APP.users.fetch({success : function(response){
+				$("#manageCollaboratorsModal").find('.modal-body').html('');
+				response.each(function(user) {
+					var userListView = new UserListItemView({
+						model : user
+					});
+					$("#manageCollaboratorsModal").find('.modal-body').append(userListView.render().el);
+				});
+			}});
+		},
+		
+		render : function(eventName) {
+			console.log("UserView#render");
+			return this;
+		}
+	});
+	
+	return UserView;
+	
+});

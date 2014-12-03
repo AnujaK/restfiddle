@@ -52,7 +52,7 @@
 						<li><a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></li>
 						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#collaboratorModal">New Collaborator</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#manageCollaboratorsModal">Manage Collaborators</a></li>
+						<li><a href="#" data-toggle="modal" id="managerUsersMenu" data-target="#manageCollaboratorsModal">Manage Collaborators</a></li>
 						<li class="divider"></li>
 						<li><a href="#" data-toggle="modal" data-target="#comingSoon">Global Settings</a></li>
 					</ul>
@@ -660,6 +660,22 @@
 	<script type="text/template" id="tpl-workspace-all-list-item">
 		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
+	<script type="text/template" id="tpl-user-list-item">
+		<div class="row">
+			<div class="col-xs-6">
+				<h5 class="dummyUserName"><@=user.name@></h5>
+			</div>
+			<div class="col-xs-6">
+				<a href="#" data-user-id=<@=user.id@> class="deleteUser">Delete</a>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="tpl-tag-list-item">
+		<a href="#" data-tag-id=<@=tag.id@> >
+		<span class="glyphicon glyphicon-tag">
+		</span>&nbsp;&nbsp;<@=tag.name@></a>
+	</script>
+
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>
 

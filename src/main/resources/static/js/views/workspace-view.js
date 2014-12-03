@@ -7,9 +7,13 @@ define(function(require) {
 	
 	require('selectize');
 	
-	var ProjectModel = require('models/project');
 	var WorkspaceEvents = require('events/workspace-event');
+	
+	var ProjectModel = require('models/project');
+	//var TagModel = require('models/tag');
+	
 	var ProjectView = require('views/project-view');
+	//var TagView = require('views/tag-view');
 	
 	$('#workspace-share-tags').selectize({
 		persist: false,

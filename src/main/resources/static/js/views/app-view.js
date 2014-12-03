@@ -4,15 +4,22 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	var ConversationView = require('views/conversation-view');
+	var APP = require('commons/ns');
+	
+	var MenuView = require("views/main-menu-view");
+	var UserView = require('views/user-view');
+	var TagView = require('views/tag-view');
 	var WorkspaceView = require('views/workspace-view');
+	var ConversationView = require('views/conversation-view');
+	var tree = require('views/tree-view');
+	
 	var WorkspaceEvents = require('events/workspace-event');
 	var ProjectEvents = require('events/project-event');
 	var ConversationEvents = require('events/conversation-event');
-	var tree = require('views/tree-view');
-	var APP = require('commons/ns');
-	require("views/main-menu-view");
+	var UserEvents = require('events/user-event');	
+	var TagEvents = require('events/tag-event');
 	
+	var UserCollection = require('collections/users');
 	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
 
     var AppView = Backbone.View.extend({
@@ -24,10 +31,16 @@ define(function(require) {
 		initialize : function() {
 			
 			APP.Events = _.extend({}, Backbone.Events);
+			
+			APP.users = new UserCollection();
+			var userView = new UserView({
+				model : APP.users
+			});
+			
+			
 			APP.conversation = new ConversationView();
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
-			
 		    var view = new WorkspaceView({
 		    	model : APP.workspaces
 		    });

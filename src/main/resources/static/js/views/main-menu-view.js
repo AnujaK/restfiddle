@@ -5,6 +5,7 @@ define(function(require) {
 	require('jquery');
 	var Workspace = require('models/workspace');
 	var ProjectModel = require("models/project");
+	var TagModel = require("models/tag");
 	var ProjectView = require("views/project-view");
 	
 	$(".list-view-menu-item").unbind("click").bind("click", function() {
@@ -36,17 +37,17 @@ define(function(require) {
 	});
 	
 	$("#saveTagBtn").unbind("click").bind("click", function() {
-		var project = new ProjectModel({
-			name : $("#projectTextField").val(),
-			description : $("#projectTextArea").val()
+		var tag = new TagModel({
+			name : $("#tagTextField").val(),
+			description : $("#tagTextArea").val()
 		});
-		project.save(null, {
+		tag.save(null, {
 			success : function(response) {
 //				var projectView = new ProjectView();
 //				projectView.addOne(project);
-//				$('#projectModal').modal("hide");
-//				$("#projectTextField").val("");
-//				$("#projectTextArea").val("");
+				$('#tagModal').modal("hide");
+				$("#tagTextField").val("");
+				$("#tagTextArea").val("");
 			},
 			error : function(e) {
 				alert('Some unexpected error occured Please try later.');
