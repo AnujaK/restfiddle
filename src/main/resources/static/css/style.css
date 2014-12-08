@@ -155,7 +155,7 @@ ul.fancytree-container {
 	border-right: 1px solid lightgray;
 	height: 100%;
 	position: fixed;
-	width:17%;"
+	width:17%;
 }
 .rf-margin-5{
 	margin-bottom: 5px;
@@ -213,7 +213,7 @@ ul.fancytree-container {
 	left: 17%;
 	height: 100%; 
 	position: fixed; 
-	overflow-y: scroll;
+	overflow-y: hidden;
 	width:33%;
 }
 
@@ -226,7 +226,11 @@ ul.fancytree-container {
 	left: 50%; 
 	height: 100%; 
 	position: fixed; 
-	overflow-y: scroll;
+	overflow-y: hidden;
+}
+
+.rf-col-2:hover, .rf-col-3:hover{
+	overflow-y: auto;
 }
 
 #apiRequestName {

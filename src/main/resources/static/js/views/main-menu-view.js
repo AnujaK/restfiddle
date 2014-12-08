@@ -3,6 +3,7 @@ define(function(require) {
 	"use strict";
 
 	require('jquery');
+    require('mCustomScrollbar');
 	var Workspace = require('models/workspace');
 	var ProjectModel = require("models/project");
 	var TagModel = require("models/tag");
