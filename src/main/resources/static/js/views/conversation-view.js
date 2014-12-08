@@ -25,11 +25,16 @@ define(function(require) {
 				contentType : "application/json",
 				success : function(response) {
 					console.log("####" + response);
-					$("#response-wrapper").html(
-							'<pre class="prettyprint">'
-									+ response.body
-									+ '</pre>');
+					$("#response-wrapper").html('<pre class="prettyprint">'+ response.body+ '</pre>');
+					if(response.headers && response.headers.length > 0){
+						$("#res-header-wrapper").html('');
+						for(var i = 0 ; i < response.headers.length; i++){
+							$("#res-header-wrapper").append('<pre class="prettyprint">'+JSON.stringify(response.headers[i])+ '</pre>');
+						}
+					}
 					prettyPrint();
+					
+					
 				},
 				data : JSON.stringify(this.getProcessRequest())
 			});
