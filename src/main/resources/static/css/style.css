@@ -53,7 +53,7 @@ ul.fancytree-container {
 }
 
 #tree{
-	height:100%;
+	margin-bottom:50px;
 }
 
 .apiRequestType {
