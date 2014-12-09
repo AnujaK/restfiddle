@@ -31,17 +31,19 @@
     </div>
 
     <br> <br>
-    <div id="starred-items">
-        <div class="list-group">
-          <a href="#" class="list-group-item">Get Latest Tweets</a>
-          <a href="#" class="list-group-item">Post on Facebook</a>
-          <a href="#" class="list-group-item active">Get First Degree Connections</a>
-          <a href="#" class="list-group-item">Remove last project from current workspace</a>
-          <a href="#" class="list-group-item">Post a job on your favorite job portal</a>
-          <a href="#" class="list-group-item">Update contact details</a>
-          <a href="#" class="list-group-item">Invite new collaborator</a>
-        </div>
-    </div>
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="starred-items">
+    </ul>
+    <%--<div id="starred-items">--%>
+    <%--<div class="list-group">--%>
+    <%--<a href="#" class="list-group-item">Get Latest Tweets</a>--%>
+    <%--<a href="#" class="list-group-item">Post on Facebook</a>--%>
+    <%--<a href="#" class="list-group-item active">Get First Degree Connections</a>--%>
+    <%--<a href="#" class="list-group-item">Remove last project from current workspace</a>--%>
+    <%--<a href="#" class="list-group-item">Post a job on your favorite job portal</a>--%>
+    <%--<a href="#" class="list-group-item">Update contact details</a>--%>
+    <%--<a href="#" class="list-group-item">Invite new collaborator</a>--%>
+    <%--</div>--%>
+    <%--</div>--%>
     <div id="tree"></div>
 
 </div>

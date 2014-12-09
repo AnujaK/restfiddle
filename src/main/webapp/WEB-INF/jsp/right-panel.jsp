@@ -44,7 +44,7 @@
             </ul>
         </div>
         &nbsp;&nbsp;&nbsp;
-        <button class="btn btn-default btn-sm">
+        <button id="starNodeBtn" class="btn btn-default btn-sm">
             <span class="glyphicon glyphicon-star"></span>&nbsp;Star
         </button>
         <button class="btn btn-default btn-sm pull-right header-toggle-btn" data-toggle="tooltip" data-placement="left">
