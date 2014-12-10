@@ -7,14 +7,31 @@ define(function(require) {
 	var Workspace = require('models/workspace');
 	var ProjectModel = require("models/project");
 	var TagModel = require("models/tag");
+	var NodeModel = require("models/node");
 	var ProjectView = require("views/project-view");
-	
+	var StarView = require("views/star-view");
+	var _ = require('underscore');
+
+
 	$(".list-view-menu-item").unbind("click").bind("click", function() {
 	    $('#rf-col-1-body').find('li').each(function(){
 		$(this).removeClass('active');
 	    });
 	    $(this).addClass('active');
 	    $('#tree').hide();
+		$.ajax({
+			url : APP.config.baseUrl + '/nodes/starred',
+			type : 'get',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+				$.each(response, function(index,s) {
+					console.log(s);
+				});
+				var starView = new StarView({model:response});
+				starView.render();
+			}
+		});
 	    $('#starred-items').show();
 	});
 	

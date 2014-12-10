@@ -10,6 +10,7 @@ define(function(require) {
 	var UserView = require('views/user-view');
 	var TagView = require('views/tag-view');
 	var WorkspaceView = require('views/workspace-view');
+	var StarView = require('views/star-view');
 	var ConversationView = require('views/conversation-view');
 	var tree = require('views/tree-view');
 	
@@ -18,6 +19,7 @@ define(function(require) {
 	var ConversationEvents = require('events/conversation-event');
 	var UserEvents = require('events/user-event');	
 	var TagEvents = require('events/tag-event');
+	var StarEvent = require('events/star-event');
 	
 	var UserCollection = require('collections/users');
 	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
@@ -28,6 +30,7 @@ define(function(require) {
 		},
 		workspaceId : '',
 		projectId : '',
+		requestId : '',
 		initialize : function() {
 			
 			APP.Events = _.extend({}, Backbone.Events);
@@ -44,11 +47,15 @@ define(function(require) {
 		    var view = new WorkspaceView({
 		    	model : APP.workspaces
 		    });
+			var starView = new StarView({
+				model : APP.node
+			});
 		   
 		    view.showDefault();
 		    this.listenTo(APP.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
 		    this.listenTo(APP.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
 		    this.listenTo(APP.Events,ConversationEvents.CHANGE,this.handleConversationChange);
+			this.listenTo(APP.Events, StarEvent.CLICK,this.setRequestNodeId);
 		    this.render();
 		},
 		
@@ -97,6 +104,13 @@ define(function(require) {
 		},
 		getCurrentConversationId : function(){
 			return this.conversationId;
+		},
+		setRequestNodeId : function(id){
+			console.log('Request Id :'+ id);
+			this.requestId = id;
+		},
+		getCurrentRequestNodeId : function(){
+			return this.requestId;
 		},
 		render : function() {
 		    console.log("app-view#render");

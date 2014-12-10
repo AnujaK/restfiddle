@@ -7,6 +7,7 @@ define(function(require) {
 	require('bootstarp');
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
+	var StarEvent = require('events/star-event');
 	var NodeModel = require('models/node');
 	var tree = {};
 
@@ -210,6 +211,7 @@ define(function(require) {
 				},
 				click : function(event, data) {
 					if (!data.node.isFolder() && data.node.data.id) {
+						APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
 						var node = new NodeModel({
 							id : data.node.data.id
 						});
