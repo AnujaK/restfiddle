@@ -95,8 +95,10 @@ public class SampleDataGenerator {
 	// loadUserData();
 	loadWorkspaceData();
 	loadProjectData();
-	loadNodeData();
+	
 	loadTagData();
+	
+	loadNodeData();
     }
 
     private void loadRoleData() {

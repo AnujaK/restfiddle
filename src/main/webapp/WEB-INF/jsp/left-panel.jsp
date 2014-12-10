@@ -46,13 +46,8 @@
         <div>
             <h6 class="rf-h6 members-width">Members</h6>
         </div>
-        <ul class="nav nav-sidebar">
-            <li><span  class="glyphicon glyphicon-user rf-user"></span>
-                <span class="glyphicon glyphicon-user rf-user"></span>
-                <span class="glyphicon glyphicon-user rf-user"></span>
-                <span class="glyphicon glyphicon-user rf-user"></span>
-                <span class="glyphicon glyphicon-user rf-user"></span>
-                <span class="glyphicon glyphicon-user rf-user"></span>
+        <ul class="nav nav-sidebar" id="rfUsers">
+            <li>
             </li>
         </ul>
     </div>

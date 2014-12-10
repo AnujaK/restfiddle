@@ -13,6 +13,7 @@ define(function(require) {
 	//var TagModel = require('models/tag');
 	
 	var ProjectView = require('views/project-view');
+	var UserView = require('views/user-view');
 	//var TagView = require('views/tag-view');
 	
 	$('#workspace-share-tags').selectize({
@@ -76,6 +77,9 @@ define(function(require) {
 		},
 		showDefault : function(){
 			var view = this;
+			var userView = new UserView();
+			userView.showUsers();
+			
 			APP.workspaces.fetch({success : function(response){
 				console.log('fetched wokrspace');
 				if(response.at(0)){

@@ -15,6 +15,8 @@
  */
 package com.restfiddle.dto;
 
+import java.util.List;
+
 public class NodeDTO extends BaseDTO {
 
     private String nodeType;
@@ -28,6 +30,8 @@ public class NodeDTO extends BaseDTO {
     private Boolean starred;
     
     private ConversationDTO conversationDTO;
+    
+    private List<TagDTO> tags;
 
     public Long getProjectId() {
 	return projectId;
@@ -76,5 +80,13 @@ public class NodeDTO extends BaseDTO {
     public void setStarred(Boolean starred) {
         this.starred = starred;
     }
+
+	public List<TagDTO> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagDTO> tags) {
+		this.tags = tags;
+	}
 
 }

@@ -40,6 +40,17 @@ define(function(require) {
 		initialize : function() {
 			this.listenTo(APP.Events, UserEvents.FETCH, this.handleUsers);
 		},
+		showUsers : function(){
+			APP.users.fetch({success : function(response){
+				console.log('fetched users');
+				$("#rfUsers").html('');
+				response.each(function(user) {
+					$("#rfUsers").append("<li>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+					console.log("user" + user.attributes.name);
+					
+				});				
+			}});			
+		},
 		
 		handleUsers : function(event){
 			APP.users.fetch({success : function(response){
