@@ -374,6 +374,10 @@ define(function(require) {
 				console.log(uiSideTreeData);
 				uiTree.push(uiSideTreeData);
 				treeObj.reload(uiTree);
+				//Make the tree expanded once it is loaded
+				$("#tree").fancytree("getRootNode").visit(function(node){
+					node.setExpanded(true);
+				});
 			}
 		});
 	};

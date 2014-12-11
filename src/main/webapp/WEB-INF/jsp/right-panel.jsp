@@ -114,7 +114,7 @@
                 </div>
                 <br><br>					
             </div>
-            <div class="tab-pane" id="res-tab-header"><div id="res-header-wrapper"><br><p>TODO : Show Response Headers</p></div><br><br></div>
+            <div class="tab-pane" id="res-tab-header"><div id="res-header-wrapper"><br><p></p></div><br><br></div>
         </div>
 
     </div>
