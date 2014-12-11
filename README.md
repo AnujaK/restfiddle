@@ -122,16 +122,29 @@ Technology Stack
 
 * Logback (http://logback.qos.ch/)
 
+* MySQL (http://www.mysql.com/)
+
+* Tomcat (http://tomcat.apache.org/)
+
 * jQuery (http://jquery.com/)
 
 * Bootstrap (http://getbootstrap.com/)
 
 * Backbone (http://backbonejs.org/)
 
-* MySQL (http://www.mysql.com/)
+* Underscore (http://underscorejs.org/)
 
-* Tomcat (http://tomcat.apache.org/)
+* RequireJS (http://requirejs.org/)
 
+* https://github.com/mar10/fancytree/
+
+* https://code.google.com/p/google-code-prettify/
+
+* https://github.com/isagalaev/highlight.js/
+
+* http://fortawesome.github.io/Font-Awesome/
+
+* http://glyphicons.com/
 
 Contribute
 ==========
