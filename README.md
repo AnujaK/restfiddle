@@ -29,6 +29,14 @@ Initial Design
 
 ![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot2.jpg "Initial Design")
 
+Who Uses RESTFiddle
+==========
+
+##### The following is a list of companies and projects using RESTFiddle:
+
+* BootSimply Solutions (http://bootsimply.com/)
+
+Want to be added to this section? Email me at ranjan dot rk at gmail dot com.
 
 Building From Source
 ==========
