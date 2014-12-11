@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/ranjan-rk/restfiddle.svg?branch=master)](https://travis-ci.org/ranjan-rk/restfiddle)
 
-An Enterprise-grade API Management Tool for Teams. RESTFiddle helps you design, develop, test and release APIs.
+An Enterprise-grade API Management Platform for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
 Why RESTFiddle?
 ==========
@@ -18,7 +18,7 @@ Time is valuable, so productivity is important. We have crafted RESTFiddle to av
 
 ##### How to Collaborate? 
 
-We are in the process of implementing access-control module which will give you the option to share workspace/project with others in which the whole team can work on a shared workspace.
+Adding collaborators to work on a shared workspace is just a click away.
 
 ##### Cloud support?
 

@@ -40,10 +40,15 @@ define(function(require) {
 			//this.render();
 		},
 		showProjectTree : function(){
-			this.$el.parent('ul').find('li').each(function(){
+			//this.$el.parent('ul').find('li').each(function(){
+				//$(this).removeClass('active');
+			//});
+			$('#rf-col-1-body').find('li').each(function(){
 				$(this).removeClass('active');
-			})
+			});
 			this.$el.addClass("active");
+			$('#starred-items').hide();
+			$('#tree').show();
 			console.log('Project Id : ' + this.$el.find('a').data('project-id'))
 			ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
 			console.log('current project id is ' + APP.appView.getCurrentProjectId());
