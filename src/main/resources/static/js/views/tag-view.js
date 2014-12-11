@@ -10,12 +10,24 @@ define(function(require) {
 	var TagListItemView = Backbone.View.extend({	
 		tagName : 'li',
 		template : _.template($('#tpl-tag-list-item').html()),
+		events : {
+			"click a" : "showTaggedNodes"
+		},
 		
 		render : function(eventName) {
 			$(this.el).html(this.template({
 				tag : this.model.toJSON()
 			}));
 			return this;
+		},
+		showTaggedNodes : function(){
+			console.log("Inside showTaggedNodes");
+			$('#rf-col-1-body').find('li').each(function(){
+				$(this).removeClass('active');
+			});
+			this.$el.addClass("active");
+			$('#starred-items').show();
+			$('#tree').hide();
 		}
 	});
 	
