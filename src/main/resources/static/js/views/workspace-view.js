@@ -14,7 +14,7 @@ define(function(require) {
 	
 	var ProjectView = require('views/project-view');
 	var UserView = require('views/user-view');
-	//var TagView = require('views/tag-view');
+	var TagView = require('views/tag-view');
 	
 	$('#workspace-share-tags').selectize({
 		persist: false,
@@ -79,6 +79,9 @@ define(function(require) {
 			var view = this;
 			var userView = new UserView();
 			userView.showUsers();
+			
+			var tagView = new TagView();
+			tagView.showTags();
 			
 			APP.workspaces.fetch({success : function(response){
 				console.log('fetched wokrspace');

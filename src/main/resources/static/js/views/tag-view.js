@@ -5,8 +5,10 @@ define(function(require) {
 	var _ = require('underscore');
 	
 	var TagModel = require('models/tag');
-
+	var TagEvents = require('events/tag-event');
+	
 	var TagListItemView = Backbone.View.extend({	
+		tagName : 'li',
 		template : _.template($('#tpl-tag-list-item').html()),
 		
 		render : function(eventName) {
@@ -20,6 +22,19 @@ define(function(require) {
 	var TagView = Backbone.View.extend({
 		initialize : function() {
 			this.listenTo(APP.Events, TagEvents.FETCH, this.handleTags);
+		},
+		
+		showTags : function(event){
+			APP.tags.fetch({success : function(response){
+				$("#rfTags").html('');
+				response.each(function(tag) {
+					var tagListView = new TagListItemView({
+						model : tag
+					});
+					$("#rfTags").append(tagListView.render().el);
+				});
+				
+			}});			
 		},
 		
 		handleTags : function(event){

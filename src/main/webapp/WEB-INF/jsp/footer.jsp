@@ -26,9 +26,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="tpl-tag-list-item">
-		<a href="#" data-tag-id=<@=tag.id@> >
-		<span class="glyphicon glyphicon-tag">
-		</span>&nbsp;&nbsp;<@=tag.name@></a>
+        <a href="#" data-tag-id=<@=tag.id@>><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;<@=tag.name@></a>
 	</script>
 	<script type="text/template" id="tpl-star-list-item">
 		<a href="#" class="list-group-item" data-star-id = <@=node.id@>   data-star-ref-id = <@=node.id@> >

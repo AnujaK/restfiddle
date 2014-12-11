@@ -22,6 +22,7 @@ define(function(require) {
 	var StarEvent = require('events/star-event');
 	
 	var UserCollection = require('collections/users');
+	var TagCollection = require('collections/tags');
 	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
 
     var AppView = Backbone.View.extend({
@@ -40,18 +41,23 @@ define(function(require) {
 				model : APP.users
 			});
 			
+			APP.tags = new TagCollection();
+			var tagView = new TagView({
+				model : APP.tags
+			});
 			
 			APP.conversation = new ConversationView();
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
-		    var view = new WorkspaceView({
+		    var workspaceView = new WorkspaceView({
 		    	model : APP.workspaces
 		    });
+		    
 			var starView = new StarView({
 				model : APP.node
 			});
 		   
-		    view.showDefault();
+			workspaceView.showDefault();
 		    this.listenTo(APP.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
 		    this.listenTo(APP.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
 		    this.listenTo(APP.Events,ConversationEvents.CHANGE,this.handleConversationChange);
