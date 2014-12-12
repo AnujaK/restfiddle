@@ -151,11 +151,17 @@ public class SampleDataGenerator {
 	    return;
 	}
 
-	PasswordDTO userDTO = new PasswordDTO();
-	userDTO.setName("RF Admin");
-	userDTO.setEmail("rf@example.com");
-	userDTO.setPassword("rf");
-	userController.create(userDTO);
+	PasswordDTO user1 = new PasswordDTO();
+	user1.setName("RF Admin");
+	user1.setEmail("rf@example.com");
+	user1.setPassword("rf");
+	userController.create(user1);
+
+	PasswordDTO user2 = new PasswordDTO();
+	user2.setName("Ranjan Kumar");
+	user2.setEmail("ranjan@example.com");
+	user2.setPassword("rf");
+	userController.create(user2);
 
     }
 
@@ -244,12 +250,14 @@ public class SampleDataGenerator {
 
 	NodeDTO childNode = new NodeDTO();
 	childNode.setName("GET Workspace");
+	childNode.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
 	childNode.setProjectId(1L);
 	childNode.setConversationDTO(conversationDTO);
 	nodeController.create(createdFolderNode.getId(), childNode);
 
 	NodeDTO secondNode = new NodeDTO();
 	secondNode.setName("POST Worksapce");
+	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
 	secondNode.setProjectId(1L);
 	secondNode.setConversationDTO(postConversationDTO);
 	nodeController.create(1L, secondNode);
@@ -274,6 +282,7 @@ public class SampleDataGenerator {
 	
 	NodeDTO starredNode = new NodeDTO();
 	starredNode.setName("Starred Node");
+	starredNode.setDescription("This API returns a list of requests which are marked as star.");
 	starredNode.setStarred(Boolean.TRUE);
 	starredNode.setProjectId(1L);
 	starredNode.setConversationDTO(conversationDTO);

@@ -45,13 +45,13 @@ define(function(require) {
 				console.log('fetched users');
 				$("#rfUsers").html('');
 				response.each(function(user) {
-					$("#rfUsers").append("<li>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+					$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
 					console.log("user" + user.attributes.name);
 					
 				});				
 			}});			
 		},
-		
+
 		handleUsers : function(event){
 			APP.users.fetch({success : function(response){
 				$("#manageCollaboratorsModal").find('.modal-body').html('');

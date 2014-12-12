@@ -208,6 +208,9 @@ ul.fancytree-container {
 	margin: 2px; 
 	color: gray;
 }
+#rfUsers>li{
+	margin: 7px 4px;
+}
 
 .rf-col-2 {
 	left: 17%;

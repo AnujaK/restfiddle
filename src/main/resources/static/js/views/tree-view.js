@@ -60,6 +60,7 @@ define(function(require) {
 
 		tree.createNewNode({
 			nodeName : $("#requestName").val(),
+			nodeDesc : $("#requestTextArea").val(),
 			conversation : conversation,
 			successCallBack : function() {
 				$("#requestModal").modal("hide");
@@ -73,6 +74,7 @@ define(function(require) {
 	$("#createNewFolderBtn").bind("click", function() {
 		tree.createNewNode({
 			nodeName : $("#folderId").val(),
+			nodeDesc : $("#folderTextArea").val(),
 			conversation : null,
 			successCallBack : function() {
 				$("#folderModal").modal("hide");
@@ -280,11 +282,11 @@ define(function(require) {
 	 */
 	tree.createNewNode = function(params) {
 		if (params.conversation == null) {
-			createNode(params.nodeName, 'FOLDER', null, params.successCallBack);
+			createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, params.successCallBack);
 		} else {
 			params.conversation.save(null, {
 				success : function(response) {
-					createNode(params.nodeName, null, new ConversationModel({
+					createNode(params.nodeName, params.nodeDesc, null, new ConversationModel({
 						id : response.get("id")
 					}), params.successCallBack);
 				}
@@ -292,12 +294,13 @@ define(function(require) {
 		}
 	};
 
-	var createNode = function(nodeName, nodeType, conversation, successCallBack) {
+	var createNode = function(nodeName, nodeDesc, nodeType, conversation, successCallBack) {
 		var activeFolder = tree.getActiveFolder();
 		var parentNodeId = activeFolder.data.id;
 		var node = new NodeModel({
 			parentId : parentNodeId,
 			name : nodeName,
+			description : nodeDesc,
 			projectId : APP.appView.getCurrentProjectId(),
 			conversationDTO : conversation,
 			nodeType : nodeType

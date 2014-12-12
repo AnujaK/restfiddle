@@ -12,6 +12,7 @@ define(function(require) {
 		defaults : {
 			id : null,
 			name : '',
+			description : '',
 			parentId : '',
 			projectId: '',
 			nodeType : '',

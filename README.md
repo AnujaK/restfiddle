@@ -142,6 +142,8 @@ Technology Stack
 
 * https://github.com/isagalaev/highlight.js/
 
+* https://github.com/brianreavis/selectize.js/
+
 * http://fortawesome.github.io/Font-Awesome/
 
 * http://glyphicons.com/
@@ -173,7 +175,11 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 ##### Google Group : 
 
 https://groups.google.com/forum/#!forum/restfiddle
- 
+
+##### Meetup Group : 
+
+http://www.meetup.com/RESTFiddle
+
 Releases
 ==========
 
