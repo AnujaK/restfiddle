@@ -26,8 +26,9 @@ define(function(require) {
 				$(this).removeClass('active');
 			});
 			this.$el.addClass("active");
-			$('#starred-items').show();
+			$('#starred-items').hide();
 			$('#tree').hide();
+			$('#tagged-items').show();
 		}
 	});
 	

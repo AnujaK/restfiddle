@@ -47,8 +47,11 @@ define(function(require) {
 				$(this).removeClass('active');
 			});
 			this.$el.addClass("active");
+			
+			$('#tagged-items').hide();
 			$('#starred-items').hide();
 			$('#tree').show();
+			
 			console.log('Project Id : ' + this.$el.find('a').data('project-id'))
 			ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
 			console.log('current project id is ' + APP.appView.getCurrentProjectId());

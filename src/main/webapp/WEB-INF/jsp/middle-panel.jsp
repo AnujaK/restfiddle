@@ -35,6 +35,9 @@
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="starred-items">
     </ul>
     
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="tagged-items">
+    </ul> 
+    
     <div id="tree"></div>
 
 </div>

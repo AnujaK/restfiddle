@@ -18,7 +18,7 @@ define(function(require) {
 		$(this).removeClass('active');
 	    });
 	    $(this).addClass('active');
-	    $('#tree').hide();
+	    
 		$.ajax({
 			url : APP.config.baseUrl + '/nodes/starred',
 			type : 'get',
@@ -32,6 +32,9 @@ define(function(require) {
 				starView.render();
 			}
 		});
+		
+		$('#tree').hide();
+		$('#tagged-items').hide();
 	    $('#starred-items').show();
 	});
 	
