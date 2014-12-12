@@ -15,6 +15,8 @@
  */
 package com.restfiddle.sample.data;
 
+import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -222,6 +224,14 @@ public class SampleDataGenerator {
     }
 
     private void loadNodeData() {
+    TagDTO tag1 = new TagDTO();
+    tag1.setId(1L);
+    TagDTO tag2 = new TagDTO();
+    tag2.setId(2L);
+	ArrayList<TagDTO> tags = new ArrayList<TagDTO>();
+	tags.add(tag1);
+	tags.add(tag2);
+	
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeType.FOLDER.name());
@@ -253,6 +263,7 @@ public class SampleDataGenerator {
 	childNode.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
 	childNode.setProjectId(1L);
 	childNode.setConversationDTO(conversationDTO);
+	childNode.setTags(tags);
 	nodeController.create(createdFolderNode.getId(), childNode);
 
 	NodeDTO secondNode = new NodeDTO();
@@ -260,6 +271,7 @@ public class SampleDataGenerator {
 	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
 	secondNode.setProjectId(1L);
 	secondNode.setConversationDTO(postConversationDTO);
+	secondNode.setTags(tags);
 	nodeController.create(1L, secondNode);
 
 	NodeDTO dummyNode = new NodeDTO();

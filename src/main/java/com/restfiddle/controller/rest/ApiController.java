@@ -16,6 +16,7 @@
 package com.restfiddle.controller.rest;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -25,17 +26,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
+import com.restfiddle.dto.StatusResponse;
+import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.RfRequest;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.RequestHandler;
 import com.restfiddle.handler.http.GenericHandler;
@@ -52,10 +61,16 @@ public class ApiController {
     RequestHandler requestHandler;
 
     @Resource
-    private ConversationRepository itemRepository;
+    private ProjectController projectController;
+    
+    @Resource
+    private NodeRepository nodeRepository;
+    
+    @Resource
+    private ConversationRepository conversationRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    RfResponseDTO processor(@RequestBody RfRequestDTO rfRequestDTO) {
+    RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
 	try {
 	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
 	    
@@ -74,7 +89,7 @@ public class ApiController {
 	    // TODO : Support all the databases.
 	    // TODO : Use Item controller here.
 	    try {
-		itemRepository.save(item);
+		conversationRepository.save(item);
 	    } catch (InvalidDataAccessResourceUsageException e) {
 		throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	    }
@@ -85,5 +100,38 @@ public class ApiController {
 	    throw new ApiException(e);
 	}
     }
+    
+    @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    StatusResponse projectRunner(@PathVariable("id") Long id) {
+	logger.debug("Running all requests inside project : " + id);
 
+	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
+	for (BaseNode baseNode : listOfNodes) {
+	    String nodeType = baseNode.getNodeType();
+	    if (nodeType != null && (NodeType.PROJECT.name().equals(nodeType) || NodeType.FOLDER.name().equals(nodeType))) {
+		continue;
+	    } else {
+		Conversation conversation = baseNode.getConversation();
+		if (conversation != null && conversation.getRfRequest() != null) {
+		    RfRequest rfRequest = conversation.getRfRequest();
+		    String methodType = rfRequest.getMethodType();
+		    String apiUrl = rfRequest.getApiUrl();
+		    String apiBody = rfRequest.getApiBody();
+		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
+			RfRequestDTO rfRequestDTO = new RfRequestDTO();
+			rfRequestDTO.setMethodType(methodType);
+			rfRequestDTO.setApiUrl(apiUrl);
+			rfRequestDTO.setApiBody(apiBody);
+			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO);
+			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
+		    }
+		}
+	    }
+
+	}
+	StatusResponse res = new StatusResponse();
+	res.setStatus(HttpStatus.OK.name());
+	return res;
+    }
 }

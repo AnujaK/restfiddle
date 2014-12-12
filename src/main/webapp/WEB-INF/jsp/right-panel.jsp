@@ -57,7 +57,7 @@
             </p>
             <p id="apiRequestDescription"></p>
             <p>
-                &nbsp;&nbsp;<span class="label bg-green">Important</span>&nbsp;<span class="label bg-orange">Wishlist</span>
+                &nbsp;&nbsp;<span class="label label-default">Important</span>&nbsp;<span class="label label-default">Wishlist</span>
             </p>
         </div>
         <br>
