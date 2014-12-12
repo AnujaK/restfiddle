@@ -14,13 +14,6 @@
             <h6 class="rf-h6">Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right rf-btn-margin-2"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus rf-plus-font"></span></button>
         </div>
         <ul class="nav nav-pills nav-stacked rf-left-nav" id="rfTags">
-            <li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag rf-tag-green"></span>&nbsp;&nbsp;Important</a>
-                <div class="hover_controls">
-                    <button class="btn btn-default btn-sm rf-sm-width" >
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                </div></li>
-            <li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-tag rf-tag-orange"></span>&nbsp;&nbsp;Wishlist</a></li>
         </ul>
         <br>
         <div class="left-menu-divider"></div>

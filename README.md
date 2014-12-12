@@ -144,6 +144,8 @@ Technology Stack
 
 * https://github.com/brianreavis/selectize.js/
 
+* https://github.com/vitalets/x-editable/
+
 * http://fortawesome.github.io/Font-Awesome/
 
 * http://glyphicons.com/
