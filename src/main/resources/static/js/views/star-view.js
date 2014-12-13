@@ -25,24 +25,19 @@ define(function (require) {
                 $(this).removeClass('active');
             })
             this.$el.addClass("active");
-            console.log('Starred Node Id : ' + this.$el.find('a').data('data-star-id'))
+            console.log('Starred Node Id : ' + this.$el.find('a').data('data-star-id'));
 
             var node = new NodeModel({
-                id : this.$el.find('a').data('data-star-id')
+                id : this.model.id
             });
             node.fetch({
                 success : function(response) {
                     console.log(response.get("conversation"));
-                    var conversation = new ConversationModel(
-                        response.get("conversation"));
+                    var conversation = new ConversationModel(response.get("conversation"));
                     conversation.set("name", response.get("name"));
                     conversation.set("description",response.get("description"));
-                    // var conversationView = new
-                    // app.ConversationView({model : conversation});
                     APP.conversation.render(conversation);
-                    ConversationEvents.triggerChange(response
-                        .get("conversation") ? response
-                        .get("conversation").id : null);
+                    ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
                 }
             });
             //ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
