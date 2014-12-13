@@ -6,6 +6,8 @@ define(function(require) {
 	
 	var TagModel = require('models/tag');
 	var TagEvents = require('events/tag-event');
+    
+    var TaggedNodeView = require('views/tagged-node-view');
 	
 	var TagListItemView = Backbone.View.extend({	
 		tagName : 'li',
@@ -29,6 +31,8 @@ define(function(require) {
 			$('#starred-items').hide();
 			$('#tree').hide();
 			$('#tagged-items').show();
+            var taggedNodeView = new TaggedNodeView();
+            taggedNodeView.showTaggedNodes(this.model.get('id'));
 		}
 	});
 	
@@ -49,7 +53,7 @@ define(function(require) {
 				
 			}});			
 		},
-		
+		//TODO : Remove me!
 		handleTags : function(event){
 			APP.tags.fetch({success : function(response){
 				response.each(function(tag) {

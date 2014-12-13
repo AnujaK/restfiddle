@@ -224,10 +224,10 @@ public class SampleDataGenerator {
     }
 
     private void loadNodeData() {
-    TagDTO tag1 = new TagDTO();
-    tag1.setId(1L);
-    TagDTO tag2 = new TagDTO();
-    tag2.setId(2L);
+        TagDTO tag1 = new TagDTO();
+        tag1.setId(1L);
+        TagDTO tag2 = new TagDTO();
+        tag2.setId(2L);
 	ArrayList<TagDTO> tags = new ArrayList<TagDTO>();
 	tags.add(tag1);
 	tags.add(tag2);
@@ -263,16 +263,16 @@ public class SampleDataGenerator {
 	childNode.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
 	childNode.setProjectId(1L);
 	childNode.setConversationDTO(conversationDTO);
-	childNode.setTags(tags);
-	nodeController.create(createdFolderNode.getId(), childNode);
+	BaseNode createdChildNode = nodeController.create(createdFolderNode.getId(), childNode);
+	nodeController.addTags(createdChildNode.getId(), tags);
 
 	NodeDTO secondNode = new NodeDTO();
 	secondNode.setName("POST Worksapce");
 	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
 	secondNode.setProjectId(1L);
 	secondNode.setConversationDTO(postConversationDTO);
-	secondNode.setTags(tags);
-	nodeController.create(1L, secondNode);
+	BaseNode createdSecondNode = nodeController.create(1L, secondNode);
+	nodeController.addTags(createdSecondNode.getId(), tags);
 
 	NodeDTO dummyNode = new NodeDTO();
 	dummyNode.setName("Dummy Node");

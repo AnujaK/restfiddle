@@ -32,6 +32,9 @@
 		<a href="#" class="list-group-item" data-star-id = <@=node.id@>   data-star-ref-id = <@=node.id@> >
 			</span>&nbsp;&nbsp;<@=node.name@></a>
 	</script>
-
+    <script type="text/template" id="tpl-tagged-node-list-item">
+		<a href="#" class="list-group-item" data-node-id = <@=node.id@>   data-tag-node-id = <@=node.id@> >
+			</span>&nbsp;&nbsp;<@=node.name@></a>
+	</script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>
