@@ -257,3 +257,6 @@ ul.fancytree-container {
 #requestToggle, #responseToggle{
 	cursor: pointer;
 }
+.not-implemented{
+	color:red;
+}
