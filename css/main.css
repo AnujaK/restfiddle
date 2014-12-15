@@ -27,3 +27,6 @@ body{
 .footer2 p, .footer2 h1{
     color: white;
 }
+h5, .h5{
+    font-weight: bold !important;
+}
