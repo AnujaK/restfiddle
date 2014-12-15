@@ -30,3 +30,6 @@ body{
 h5, .h5{
     font-weight: bold !important;
 }
+p, li{
+    line-height: 30px;
+}
