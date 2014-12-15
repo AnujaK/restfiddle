@@ -1,0 +1,29 @@
+body{
+    margin-top: 60px;
+}
+
+.navbar{
+    height: 51px;
+}
+
+.doc{
+    padding: 10px !important;
+    margin-top: 4px;
+}
+
+.footer, .footer2{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.footer{
+    background: #2f2f2f;
+}
+.footer p{
+    color: white;
+}
+.footer2{
+    background: gray;
+}
+.footer2 p, .footer2 h1{
+    color: white;
+}
