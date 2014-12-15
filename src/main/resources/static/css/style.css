@@ -253,3 +253,7 @@ ul.fancytree-container {
 	height: 70px; 
 	border: 1px solid lightgray;
 }
+
+#requestToggle, #responseToggle{
+	cursor: pointer;
+}

@@ -51,71 +51,81 @@
             <i id="header-toggle-icon" class="fa fa-angle-double-up"></i>
         </button>
         <br> <br>
+        
         <div>
-            <p>
-                <span class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName"></span>
-            </p>
-            <p id="apiRequestDescription"></p>
-            <p>
-                &nbsp;&nbsp;<span class="label label-default">Important</span>&nbsp;<span class="label label-default">Wishlist</span>
-            </p>
-        </div>
-        <br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-2 rf-col-xs-2-padding" >
-                    <select class="apiRequestType form-control">
-                        <option>GET</option>
-                        <option>POST</option>
-                        <option>PUT</option>
-                        <option>DELETE</option>
-                    </select>
-                </div>
-                <div class="col-xs-10 rf-col-xs-10-padding">
-                    <input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
-                </div>
+            <div>
+                <p>
+                    <span id="requestToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName"></span>
+                </p>
             </div>
-        </div>
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
-            <li><a href="#tab-header" data-toggle="tab">Header</a></li>
-            <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li>
-            <li><a href="#tab-auth" data-toggle="tab">Auth</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab-body">
-                <br>
-                <textarea id="apiBody" class="form-control"></textarea>
-            </div>
-            <div class="tab-pane" id="tab-header"><br><p>TODO</p></div>
-            <div class="tab-pane" id="tab-cookie"><br><p>TODO</p></div>
-            <div class="tab-pane" id="tab-auth"><br><p>TODO</p></div>
-        </div>
-        <hr>
-        <div>
-            <p>
-                <span class='glyphicon glyphicon glyphicon-chevron-right'></span>&nbsp;&nbsp;<b>Response</b>
-            </p>
-        </div>
-
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
-            <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane active" id="res-tab-body">
+            <div id="requestContainer">
+                <p id="apiRequestDescription"></p>
+                <p>
+                    &nbsp;&nbsp;<span class="label label-default">Important</span>&nbsp;<span class="label label-default">Wishlist</span>
+                </p>
                 <br>
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="response-wrapper"></div>
+                        <div class="col-xs-2 rf-col-xs-2-padding" >
+                            <select class="apiRequestType form-control">
+                                <option>GET</option>
+                                <option>POST</option>
+                                <option>PUT</option>
+                                <option>DELETE</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-10 rf-col-xs-10-padding">
+                            <input type="text" class="form-control" id="apiUrl" placeholder="Enter url"> <br> <br>
+                        </div>
                     </div>
                 </div>
-                <br><br>					
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
+                    <li><a href="#tab-header" data-toggle="tab">Header</a></li>
+                    <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li>
+                    <li><a href="#tab-auth" data-toggle="tab">Auth</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-body">
+                        <br>
+                        <textarea id="apiBody" class="form-control"></textarea>
+                    </div>
+                    <div class="tab-pane" id="tab-header"><br><p>TODO</p></div>
+                    <div class="tab-pane" id="tab-cookie"><br><p>TODO</p></div>
+                    <div class="tab-pane" id="tab-auth"><br><p>TODO</p></div>
+                </div>
             </div>
-            <div class="tab-pane" id="res-tab-header"><div id="res-header-wrapper"><br><p></p></div><br><br></div>
         </div>
+        
+        <hr>
+        
+        <div>
+            <div>
+                <p>
+                    <span id="responseToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Response</b>
+                </p>
+            </div>
 
+            <div id="responseContainer">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
+                    <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="res-tab-body">
+                        <br>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div id="response-wrapper"></div>
+                            </div>
+                        </div>
+                        <br><br>					
+                    </div>
+                    <div class="tab-pane" id="res-tab-header"><div id="res-header-wrapper"><br><p></p></div><br><br></div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

@@ -7,6 +7,26 @@ define(function(require) {
 	var ConversationModel = require("models/conversation");
 	require('libs/prettify/prettify');
 	
+    $("#requestToggle").unbind("click").bind("click", function() {
+		$("#requestContainer").toggle();
+        if($("#requestToggle").hasClass('glyphicon-chevron-down')){
+            $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+        }
+        else{
+             $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+        }
+	});
+    
+    $("#responseToggle").unbind("click").bind("click", function() {
+		$("#responseContainer").toggle();
+        if($("#responseToggle").hasClass('glyphicon-chevron-down')){
+            $("#responseToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+        }
+        else{
+             $("#responseToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+        }
+	});
+    
 	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',
 		initialize : function(){
