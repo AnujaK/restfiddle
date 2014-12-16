@@ -12,6 +12,7 @@ define(function(require) {
 	var WorkspaceView = require('views/workspace-view');
 	var StarView = require('views/star-view');
 	var ConversationView = require('views/conversation-view');
+    var ProjectRunnerView = require('views/project-runner-view');
 	var tree = require('views/tree-view');
 	
 	var WorkspaceEvents = require('events/workspace-event');
@@ -47,6 +48,7 @@ define(function(require) {
 			});
 			
 			APP.conversation = new ConversationView();
+            APP.projectRunner = new ProjectRunnerView();
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
 		    var workspaceView = new WorkspaceView({

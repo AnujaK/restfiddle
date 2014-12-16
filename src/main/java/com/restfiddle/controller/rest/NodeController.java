@@ -20,10 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,16 +54,16 @@ import com.restfiddle.entity.TreeNode;
 public class NodeController {
     Logger logger = LoggerFactory.getLogger(NodeController.class);
 
-    @Resource
+    @Autowired
     private ProjectRepository projectRepository;
 
-    @Resource
+    @Autowired
     private NodeRepository nodeRepository;
     
-    @Resource
+    @Autowired
     private TagRepository tagRepository;
 
-    @Resource
+    @Autowired
     private ConversationRepository conversationRepository;
 
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.

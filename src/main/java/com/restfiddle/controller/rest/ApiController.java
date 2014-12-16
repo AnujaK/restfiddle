@@ -16,9 +16,8 @@
 package com.restfiddle.controller.rest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,9 +37,10 @@ import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.util.ConversationConverter;
+import com.restfiddle.dto.ConversationDTO;
+import com.restfiddle.dto.NodeStatusResponseDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
-import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
@@ -60,13 +59,10 @@ public class ApiController {
     @Autowired
     RequestHandler requestHandler;
 
-    @Resource
-    private ProjectController projectController;
-    
-    @Resource
+    @Autowired
     private NodeRepository nodeRepository;
     
-    @Resource
+    @Autowired
     private ConversationRepository conversationRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -82,17 +78,20 @@ public class ApiController {
 	    
 	    long duration = endTime - startTime;
 
-	    Conversation item = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	    Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
 	    
-	    item.setDuration(duration);
+	    conversation.setDuration(duration);
 
 	    // TODO : Support all the databases.
 	    // TODO : Use Item controller here.
 	    try {
-		conversationRepository.save(item);
+		conversationRepository.save(conversation);
 	    } catch (InvalidDataAccessResourceUsageException e) {
 		throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	    }
+	    ConversationDTO conversationDTO = new ConversationDTO();
+	    conversationDTO.setDuration(duration);
+	    result.setItemDTO(conversationDTO);
 	    return result;
 
 	} catch (IOException e) {
@@ -101,11 +100,16 @@ public class ApiController {
 	}
     }
     
+    /**
+     * TODO : This API may not work for in-memory database (in some cases).
+     */
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusResponse projectRunner(@PathVariable("id") Long id) {
+    List<NodeStatusResponseDTO> projectRunner(@PathVariable("id") Long id) {
 	logger.debug("Running all requests inside project : " + id);
-
+	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
+	NodeStatusResponseDTO nodeStatus = null;
+	
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
@@ -123,15 +127,24 @@ public class ApiController {
 			rfRequestDTO.setMethodType(methodType);
 			rfRequestDTO.setApiUrl(apiUrl);
 			rfRequestDTO.setApiBody(apiBody);
+			
 			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO);
 			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
+			ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
+			
+			nodeStatus = new NodeStatusResponseDTO();
+			nodeStatus.setId(baseNode.getId());
+			nodeStatus.setName(baseNode.getName());
+			nodeStatus.setDescription(baseNode.getDescription());
+			nodeStatus.setApiUrl(apiUrl);
+			nodeStatus.setMethodType(methodType);
+			nodeStatus.setStatusCode(rfResponseDTO.getStatus());
+			nodeStatus.setDuration(conversationDTO.getDuration());
+			nodeStatuses.add(nodeStatus);
 		    }
 		}
 	    }
-
 	}
-	StatusResponse res = new StatusResponse();
-	res.setStatus(HttpStatus.OK.name());
-	return res;
+	return nodeStatuses;
     }
 }

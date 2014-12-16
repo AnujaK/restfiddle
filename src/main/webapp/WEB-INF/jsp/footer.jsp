@@ -36,5 +36,12 @@
 		<a href="#" class="list-group-item" data-node-id = <@=node.id@>   data-tag-node-id = <@=node.id@> >
 			</span>&nbsp;&nbsp;<@=node.name@></a>
 	</script>
+	<script type="text/template" id="tpl-project-runner-list-item">
+        <div class="div-list-item">
+            <p><span class="label label-primary"><@=nodeStatusResponse.methodType@></span>&nbsp;&nbsp;<strong><@=nodeStatusResponse.name@></strong></p>
+            <p><@=nodeStatusResponse.description@></p>
+            <p><@=nodeStatusResponse.apiUrl@>&nbsp;&nbsp;<@=nodeStatusResponse.duration@>&nbsp;ms</p>
+        </div>
+	</script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>

@@ -19,8 +19,9 @@ ul.fancytree-container {
 	padding: 0px;
 }
 
-.rf-left-nav>li>a {
+.rf-left-nav>li>a, .div-list-item{
 	border-radius: 0px;
+	border-bottom: 1px solid lightgray;
 	padding: 7px 4px;
 }
 

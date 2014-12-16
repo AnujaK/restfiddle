@@ -68,8 +68,12 @@ define(function(require) {
 			return item;
 		},
 		render : function(conversation) {
-			console.log('conversation rendnig with model');
+			console.log('render conversation view with model');
 			console.log(conversation);
+            
+            APP.projectRunner.$el.hide();
+            this.$el.show();
+            
 			var request = conversation.get('rfRequest');
 			var response = conversation.get('rfResponse');
 			

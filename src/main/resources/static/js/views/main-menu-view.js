@@ -12,7 +12,22 @@ define(function(require) {
 	var StarView = require("views/star-view");
 	var _ = require('underscore');
 
-
+	$(".run-project").unbind("click").bind("click", function() {
+	    APP.conversation.$el.hide();
+        APP.projectRunner.$el.show();
+        var projectId = APP.appView.getCurrentProjectId();
+		$.ajax({
+			url : APP.config.baseUrl + '/processor/projects/'+projectId,
+			type : 'get',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+                console.log("project runner response : "+response);
+                APP.projectRunner.render(response);
+			}
+		});
+	});
+    
 	$(".list-view-menu-item").unbind("click").bind("click", function() {
 	    $('#rf-col-1-body').find('li').each(function(){
 		$(this).removeClass('active');
