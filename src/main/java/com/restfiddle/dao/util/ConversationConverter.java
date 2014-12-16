@@ -17,6 +17,7 @@ public class ConversationConverter {
 	item.setRfRequest(request);
 	request.setApiUrl(requestDto.getApiUrl());
 	request.setMethodType(requestDto.getMethodType());
+	request.setApiBody(requestDto.getApiBody());
 
 	// Note : We can plan to make it configurable.
 	RfResponse response = new RfResponse();

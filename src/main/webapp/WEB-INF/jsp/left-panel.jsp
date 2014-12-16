@@ -22,13 +22,13 @@
             <h6 class="rf-h6 members-width">Misc</h6>
         </div>
         <ul class="nav nav-pills nav-stacked rf-left-nav">
-            <li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
+            <li class="list-view-menu-item starred"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a>
                 <div class="hover_controls">
                     <button class="btn btn-default btn-xs">
                         <i class="fa fa-caret-down"></i>
                     </button>
                 </div></li>
-            <li class="list-view-menu-item"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
+            <li class="list-view-menu-item history"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
             </a></li>
             <li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
             </a></li>

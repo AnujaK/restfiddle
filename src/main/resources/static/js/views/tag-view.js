@@ -30,6 +30,7 @@ define(function(require) {
 			this.$el.addClass("active");
 			$('#starred-items').hide();
 			$('#tree').hide();
+			$('#history-items').hide();
 			$('#tagged-items').show();
             var taggedNodeView = new TaggedNodeView();
             taggedNodeView.showTaggedNodes(this.model.get('id'));

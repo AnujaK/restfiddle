@@ -21,10 +21,12 @@ ul.fancytree-container {
 
 .rf-left-nav>li>a, .div-list-item{
 	border-radius: 0px;
-	border-bottom: 1px solid lightgray;
 	padding: 7px 4px;
 }
-
+.div-list-item{
+	border-bottom: 1px solid lightgray;
+}
+	
 .rf-left-nav2>li>a {
 	border-radius: 0px;
 	padding: 6px 5px;

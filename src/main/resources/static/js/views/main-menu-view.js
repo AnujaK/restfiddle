@@ -27,10 +27,10 @@ define(function(require) {
 			}
 		});
 	});
-    
-	$(".list-view-menu-item").unbind("click").bind("click", function() {
+
+	$(".starred").unbind("click").bind("click", function() {
 	    $('#rf-col-1-body').find('li').each(function(){
-		$(this).removeClass('active');
+	    	$(this).removeClass('active');
 	    });
 	    $(this).addClass('active');
 	    
@@ -40,9 +40,6 @@ define(function(require) {
 			dataType : 'json',
 			contentType : "application/json",
 			success : function(response) {
-				$.each(response, function(index,s) {
-					console.log(s);
-				});
 				var starView = new StarView({model:response});
 				starView.render();
 			}
@@ -50,7 +47,30 @@ define(function(require) {
 		
 		$('#tree').hide();
 		$('#tagged-items').hide();
-	    $('#starred-items').show();
+	    $('#history-items').hide();
+        $('#starred-items').show();
+	});
+    
+	$(".history").unbind("click").bind("click", function() {
+	    $('#rf-col-1-body').find('li').each(function(){
+			$(this).removeClass('active');
+		});
+		$(this).addClass('active');
+		    
+		$.ajax({
+			url : APP.config.baseUrl + '/conversations',
+			type : 'get',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+				 APP.historyView.render(response);
+			}
+		});
+		
+		$('#tree').hide();
+		$('#tagged-items').hide();
+		$('#starred-items').hide();
+        $('#history-items').show();
 	});
 	
 	$("#saveProjectBtn").unbind("click").bind("click", function() {
@@ -79,8 +99,6 @@ define(function(require) {
 		});
 		tag.save(null, {
 			success : function(response) {
-//				var projectView = new ProjectView();
-//				projectView.addOne(project);
 				$('#tagModal').modal("hide");
 				$("#tagTextField").val("");
 				$("#tagTextArea").val("");

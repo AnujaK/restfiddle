@@ -27,8 +27,8 @@ define(function(require) {
             this.model = projectRunnerModel;
             this.$el.html('');
             _.each(this.model, function (index) {
-                var projectRunnerListView = new ProjectRunnerListItemView({model: index});
-                this.$el.append(projectRunnerListView.render().el);
+                var projectRunnerListItemView = new ProjectRunnerListItemView({model: index});
+                this.$el.append(projectRunnerListItemView.render().el);
             }, this);
             
             return this;

@@ -50,6 +50,7 @@ define(function(require) {
 			
 			$('#tagged-items').hide();
 			$('#starred-items').hide();
+			$('#history-items').hide();
 			$('#tree').show();
 			
 			console.log('Project Id : ' + this.$el.find('a').data('project-id'))

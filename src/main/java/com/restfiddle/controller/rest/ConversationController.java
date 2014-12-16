@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dto.ConversationDTO;
-import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
@@ -99,13 +98,14 @@ public class ConversationController {
 
 	List<Conversation> content = result.getContent();
 
-	// TODO : work in progress
 	for (Conversation item : content) {
-	    byte[] body = item.getRfResponse().getBody();
-	    if (body != null) {
-		String strBody = new String(body);
-		System.out.println(strBody);
-	    }
+	    RfRequest rfRequest = item.getRfRequest();
+	    logger.debug(rfRequest.getApiUrl());
+//	    byte[] body = item.getRfResponse().getBody();
+//	    if (body != null) {
+//		String strBody = new String(body);
+//		System.out.println(strBody);
+//	    }
 	}
 	return content;
     }

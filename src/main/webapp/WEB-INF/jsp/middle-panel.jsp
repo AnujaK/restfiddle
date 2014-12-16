@@ -41,6 +41,9 @@
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="tagged-items">
     </ul> 
     
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="history-items">
+    </ul>
+    
     <div id="tree"></div>
 
 </div>

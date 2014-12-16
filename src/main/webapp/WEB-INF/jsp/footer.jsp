@@ -43,5 +43,9 @@
             <p><@=nodeStatusResponse.apiUrl@>&nbsp;&nbsp;<@=nodeStatusResponse.duration@>&nbsp;ms</p>
         </div>
 	</script>
+	<script type="text/template" id="tpl-history-list-item">
+		<a href="#" class="list-group-item" data-history-id = <@=conversation.id@>   data-history-ref-id = <@=conversation.id@> >
+			</span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
+	</script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>
