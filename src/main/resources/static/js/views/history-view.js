@@ -19,6 +19,10 @@ define(function(require) {
             });
             conversation.fetch({
                 success : function(response) {
+                    //TODO : Setting request name temporarily.
+                    if(response.get('name') == null || response.get('name') == ''){
+                        response.set('name','Request');
+                    }
                     APP.conversation.render(response);
                     ConversationEvents.triggerChange(response ? response.id : null);
                 }
