@@ -29,6 +29,7 @@ import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 
 @Component
+@Deprecated
 public class PostHandler extends GenericHandler {
 
     Logger logger = LoggerFactory.getLogger(PostHandler.class);

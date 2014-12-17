@@ -21,19 +21,60 @@ import java.util.List;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
+import com.restfiddle.handler.http.builder.RfHttpClientBuilder;
+import com.restfiddle.handler.http.builder.RfRequestBuilder;
 
-public abstract class GenericHandler {
+@Component
+public class GenericHandler {
     Logger logger = LoggerFactory.getLogger(GenericHandler.class);
+
+    @Autowired
+    RfRequestBuilder rfRequestBuilder;
+
+    @Autowired
+    RfHttpClientBuilder rfHttpClientBuilder;
+
+    /**
+     * This method will be used for API processing and the method below this will be deprecated.
+     */
+    public RfResponseDTO processHttpRequest(RfRequestDTO rfRequestDTO) {
+	HttpUriRequest httpUriRequest = rfRequestBuilder.build(rfRequestDTO);
+
+	CloseableHttpClient httpClient = rfHttpClientBuilder.build(rfRequestDTO, httpUriRequest);
+
+	RfResponseDTO responseDTO = null;
+	try {
+	    CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequest);
+	    responseDTO = buildRfResponse(httpResponse);
+	} catch (ClientProtocolException e) {
+	    logger.error(e.getMessage(), e);
+	} catch (IOException e) {
+	    logger.error(e.getMessage(), e);
+	} finally {
+	    try {
+		if (httpClient != null) {
+		    httpClient.close();
+		}
+	    } catch (IOException e) {
+		logger.error(e.getMessage(), e);
+	    }
+	}
+	return responseDTO;
+    }
 
     public RfResponseDTO processHttpRequest(HttpRequestBase baseRequest, CloseableHttpClient httpclient) throws IOException {
 	Header[] requestHeaders = baseRequest.getAllHeaders();
@@ -44,7 +85,12 @@ public abstract class GenericHandler {
 	}
 
 	CloseableHttpResponse httpResponse = httpclient.execute(baseRequest);
-	
+
+	RfResponseDTO responseDTO = buildRfResponse(httpResponse);
+	return responseDTO;
+    }
+
+    private RfResponseDTO buildRfResponse(CloseableHttpResponse httpResponse) throws IOException {
 	RfResponseDTO responseDTO = new RfResponseDTO();
 	String responseBody = "";
 	List<RfHeaderDTO> headers = new ArrayList<RfHeaderDTO>();
@@ -52,10 +98,10 @@ public abstract class GenericHandler {
 	    logger.info("response status : " + httpResponse.getStatusLine());
 	    HttpEntity responseEntity = httpResponse.getEntity();
 	    Header[] responseHeaders = httpResponse.getAllHeaders();
-	    
+
 	    RfHeaderDTO headerDTO = null;
 	    for (Header responseHeader : responseHeaders) {
-		//logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
+		// logger.info("response header - name : " + responseHeader.getName() + " value : " + responseHeader.getValue());
 		headerDTO = new RfHeaderDTO();
 		headerDTO.setHeaderName(responseHeader.getName());
 		headerDTO.setHeaderValue(responseHeader.getValue());
@@ -75,5 +121,7 @@ public abstract class GenericHandler {
 	return responseDTO;
     }
 
-    public abstract RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException;
+    public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
+	return null;
+    }
 }

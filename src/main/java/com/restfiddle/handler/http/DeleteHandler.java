@@ -26,6 +26,7 @@ import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 
 @Component
+@Deprecated
 public class DeleteHandler extends GenericHandler {
 
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {

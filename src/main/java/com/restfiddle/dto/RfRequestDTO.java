@@ -15,13 +15,19 @@
  */
 package com.restfiddle.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class RfRequestDTO extends BaseDTO {
     private String apiUrl;
+
     private String methodType;
+
     private String apiBody;
-    
+
+    private List<RfHeaderDTO> headers;
+
     @JsonBackReference
     private ConversationDTO itemDTO;
 
@@ -50,10 +56,18 @@ public class RfRequestDTO extends BaseDTO {
     }
 
     public ConversationDTO getItemDTO() {
-        return itemDTO;
+	return itemDTO;
     }
 
     public void setItemDTO(ConversationDTO itemDTO) {
-        this.itemDTO = itemDTO;
+	this.itemDTO = itemDTO;
+    }
+
+    public List<RfHeaderDTO> getHeaders() {
+	return headers;
+    }
+
+    public void setHeaders(List<RfHeaderDTO> headers) {
+	this.headers = headers;
     }
 }

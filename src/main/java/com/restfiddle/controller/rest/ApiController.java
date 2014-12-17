@@ -15,7 +15,6 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,6 @@ import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.exceptions.ApiException;
-import com.restfiddle.handler.RequestHandler;
 import com.restfiddle.handler.http.GenericHandler;
 
 @RestController
@@ -57,7 +55,7 @@ public class ApiController {
     Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
-    RequestHandler requestHandler;
+    GenericHandler genericHandler;
 
     @Autowired
     private NodeRepository nodeRepository;
@@ -67,37 +65,31 @@ public class ApiController {
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
+	//GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+
+	long startTime = System.currentTimeMillis();
+
+	RfResponseDTO result = genericHandler.processHttpRequest(rfRequestDTO);
+
+	long endTime = System.currentTimeMillis();
+
+	long duration = endTime - startTime;
+
+	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
+
+	conversation.setDuration(duration);
+
+	// TODO : Support all the databases.
+	// TODO : Use Item controller here.
 	try {
-	    GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
-	    
-	    long startTime = System.currentTimeMillis();
-	    
-	    RfResponseDTO result = handler.process(rfRequestDTO);
-	    
-	    long endTime = System.currentTimeMillis();
-	    
-	    long duration = endTime - startTime;
-
-	    Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
-	    
-	    conversation.setDuration(duration);
-
-	    // TODO : Support all the databases.
-	    // TODO : Use Item controller here.
-	    try {
-		conversationRepository.save(conversation);
-	    } catch (InvalidDataAccessResourceUsageException e) {
-		throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
-	    }
-	    ConversationDTO conversationDTO = new ConversationDTO();
-	    conversationDTO.setDuration(duration);
-	    result.setItemDTO(conversationDTO);
-	    return result;
-
-	} catch (IOException e) {
-	    logger.error("IO Exception", e);
-	    throw new ApiException(e);
+	    conversationRepository.save(conversation);
+	} catch (InvalidDataAccessResourceUsageException e) {
+	    throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	}
+	ConversationDTO conversationDTO = new ConversationDTO();
+	conversationDTO.setDuration(duration);
+	result.setItemDTO(conversationDTO);
+	return result;
     }
     
     /**

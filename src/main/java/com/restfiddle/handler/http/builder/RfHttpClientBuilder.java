@@ -15,9 +15,20 @@
  */
 package com.restfiddle.handler.http.builder;
 
-/**
- * TODO : This class will use HttpClientBuilder to create CloseableHttpClient with the data supplied by the user.
- */
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.stereotype.Component;
+
+import com.restfiddle.dto.RfRequestDTO;
+
+@Component
 public class RfHttpClientBuilder {
 
+    public CloseableHttpClient build(RfRequestDTO requestDTO, HttpUriRequest request) {
+	HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+
+	CloseableHttpClient httpClient = clientBuilder.build();
+	return httpClient;
+    }
 }

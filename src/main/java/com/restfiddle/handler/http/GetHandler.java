@@ -29,6 +29,7 @@ import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
 
 @Component
+@Deprecated
 public class GetHandler extends GenericHandler {
 
     Logger logger = LoggerFactory.getLogger(GetHandler.class);

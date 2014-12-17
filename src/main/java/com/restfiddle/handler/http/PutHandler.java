@@ -27,6 +27,7 @@ import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 
 @Component
+@Deprecated
 public class PutHandler extends GenericHandler {
 
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
