@@ -26,6 +26,7 @@ import com.restfiddle.handler.http.PostHandler;
 import com.restfiddle.handler.http.PutHandler;
 
 @Component
+@Deprecated
 public class RequestHandler extends AbstractRequestHandler {
 
     @Autowired

@@ -92,17 +92,65 @@
                         <li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
                         <li><a href="#tab-header" data-toggle="tab">Header</a></li>
                         <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li>
-                        <li><a href="#tab-auth" data-toggle="tab">Auth</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Auth <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation"><a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a></li>
+                                <li role="presentation"><a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a></li>
+                                <li role="presentation"><a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a></li>
+                                <li role="presentation"><a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-body">
                             <br>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm">raw</button>
+                                <button class="btn btn-default btn-sm">form</button>
+                                <button class="btn btn-default btn-sm">files</button>
+                            </div>                            
+                            <br>
+                            <br>
                             <textarea id="apiBody" class="form-control"></textarea>
                         </div>
-                        <div class="tab-pane" id="tab-header"><br><p>TODO</p></div>
-                        <div class="tab-pane" id="tab-cookie"><br><p>TODO</p></div>
-                        <div class="tab-pane" id="tab-auth"><br><p>TODO</p></div>
+                        <div class="tab-pane" id="tab-header">
+                            <br>
+                            <p><span>Content-Type</span> : <span>application/json</span></p>
+                        </div>
+                        <!--
+                        <div class="tab-pane" id="tab-cookie">
+                            <br>
+                            <p></p>
+                        </div>
+                        -->
+                        <div class="tab-pane" id="tab-basic-auth">
+                            <br>
+                            <input type="text" class="form-control" placeholder="Enter Username">
+                            <br>
+                            <input type="text" class="form-control" placeholder="Enter Password">
+                        </div>
+                        <div class="tab-pane" id="tab-digest-auth">
+                            <br>
+                            <br>
+                            <br>
+                            <p></p>
+                        </div>
+                        <div class="tab-pane" id="tab-oauth1">
+                            <br>
+                            <br>
+                            <br>
+                            <p></p>
+                        </div>
+                        <div class="tab-pane" id="tab-oauth2">
+                            <br>
+                            <br>
+                            <br>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
             </div>
