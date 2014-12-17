@@ -45,16 +45,14 @@ define(function(require) {
 				contentType : "application/json",
 				success : function(response) {
 					console.log("####" + response);
-					$("#response-wrapper").html('<pre class="prettyprint">'+ response.body+ '</pre>');
+					$("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
 					if(response.headers && response.headers.length > 0){
-						$("#res-header-wrapper").html('');
+                        $("#res-header-wrapper").html('');
 						for(var i = 0 ; i < response.headers.length; i++){
-							$("#res-header-wrapper").append('<pre class="prettyprint">'+JSON.stringify(response.headers[i])+ '</pre>');
+							$("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
 						}
 					}
 					prettyPrint();
-					
-					
 				},
 				data : JSON.stringify(this.getProcessRequest())
 			});
