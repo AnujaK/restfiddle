@@ -97,7 +97,7 @@ public class ApiController {
      */
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeStatusResponseDTO> projectRunner(@PathVariable("id") Long id) {
+    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") Long id) {
 	logger.debug("Running all requests inside project : " + id);
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;

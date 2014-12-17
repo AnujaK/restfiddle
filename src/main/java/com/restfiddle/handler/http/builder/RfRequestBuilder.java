@@ -41,7 +41,7 @@ public class RfRequestBuilder {
 	requestBuilder.setUri(apiUrl);
 
 	requestBuilder.addHeader("Content-Type", "application/json");
-	
+
 	setRequestEntity(requestDTO, requestBuilder);
 
 	HttpUriRequest httpUriRequest = requestBuilder.build();
@@ -49,6 +49,9 @@ public class RfRequestBuilder {
     }
 
     private void setRequestEntity(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
+	if (requestDTO.getApiBody() == null) {
+	    return;
+	}
 	try {
 	    requestBuilder.setEntity(new StringEntity(requestDTO.getApiBody()));
 	} catch (UnsupportedEncodingException e) {

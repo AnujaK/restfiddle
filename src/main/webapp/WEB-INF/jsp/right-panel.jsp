@@ -129,9 +129,14 @@
                         -->
                         <div class="tab-pane" id="tab-basic-auth">
                             <br>
-                            <input type="text" class="form-control" placeholder="Enter Username">
-                            <br>
-                            <input type="text" class="form-control" placeholder="Enter Password">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" placeholder="Enter Username">
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" placeholder="Enter Password">
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="tab-digest-auth">
                             <br>
