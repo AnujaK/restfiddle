@@ -27,9 +27,37 @@ define(function(require) {
         }
 	});
  
+    $("#addFormDataBtn").unbind("click").bind("click", function() {
+        var formListItemView = new FormListItemView();
+        $("#formDataWrapper").append(formListItemView.render().el);
+	});
+
+    $("#addFileDataBtn").unbind("click").bind("click", function() {
+        var fileListItemView = new FileListItemView();
+        $("#fileDataWrapper").append(fileListItemView.render().el);
+	});
+    
     $("#addHeaderBtn").unbind("click").bind("click", function() {
         var headerListItemView = new HeaderListItemView();
         $("#headersWrapper").append(headerListItemView.render().el);
+	});
+
+	var FormListItemView = Backbone.View.extend({	
+        template: _.template($('#tpl-form-list-item').html()),
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		}
+	});
+
+	var FileListItemView = Backbone.View.extend({	
+        template: _.template($('#tpl-file-list-item').html()),
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		}
 	});
     
 	var HeaderListItemView = Backbone.View.extend({	

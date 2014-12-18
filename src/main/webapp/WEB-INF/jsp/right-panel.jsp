@@ -89,7 +89,9 @@
                         </div>
                     </div>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
+                        <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
+                        <li><a href="#tab-form" data-toggle="tab">Form</a></li>
+                        <li><a href="#tab-file" data-toggle="tab">Files</a></li>
                         <li><a href="#tab-header" data-toggle="tab">Header</a></li>
                         <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
                         <li class="dropdown">
@@ -108,15 +110,34 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-body">
                             <br>
-                            <div class="btn-group">
+                            <!-- <div class="btn-group">
                                 <button class="btn btn-default btn-sm">raw</button>
                                 <button class="btn btn-default btn-sm">form</button>
                                 <button class="btn btn-default btn-sm">files</button>
                             </div>                            
                             <br>
-                            <br>
+                            <br> -->
                             <textarea id="apiBody" class="form-control"></textarea>
                         </div>
+                        
+                        <div class="tab-pane" id="tab-form">
+                            <br>
+                            <p>
+                                <button type="button" class="btn btn-default btn-sm" id="addFormDataBtn">Add Form Data</button>
+                            </p>
+                            <div id="formDataWrapper">
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane" id="tab-file">
+                            <br>
+                            <p>
+                                <button type="button" class="btn btn-default btn-sm" id="addFileDataBtn">Add File Data</button>
+                            </p>
+                            <div id="fileDataWrapper">
+                            </div>
+                        </div>
+                        
                         <div class="tab-pane" id="tab-header">
                             <br>
                             <!-- <p><span>Content-Type</span> : <span>application/json</span></p> -->
@@ -145,7 +166,7 @@
                         </div>
                         <div class="tab-pane" id="tab-digest-auth">
                             <br>
-                            <br>
+                            <br> 
                             <br>
                             <p></p>
                         </div>

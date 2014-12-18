@@ -45,6 +45,30 @@
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
 			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
 	</script>
+    <script type="text/template" id="tpl-form-list-item">
+    <p>
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="text" class="form-control formDataName" placeholder="Enter Key">
+            </div>
+            <div class="col-xs-6">
+                <input type="text" class="form-control formDataValue" placeholder="Enter Value">
+            </div>
+        </div>
+    </p>    
+    </script> 
+    <script type="text/template" id="tpl-file-list-item">
+    <p>
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="text" class="form-control fileDataName" placeholder="Enter Key">
+            </div>
+            <div class="col-xs-6">
+                <input type="file" class="form-control fileDataValue" placeholder="Enter Value">
+            </div>
+        </div>
+    </p>    
+    </script> 
     <script type="text/template" id="tpl-header-list-item">
     <p>
         <div class="row">
