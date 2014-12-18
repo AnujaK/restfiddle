@@ -20,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -54,6 +55,9 @@ public class RfRequestBuilder {
 	}
 	try {
 	    requestBuilder.setEntity(new StringEntity(requestDTO.getApiBody()));
+	    
+	    //MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+	    
 	} catch (UnsupportedEncodingException e) {
 	    logger.error(e.getMessage(), e);
 	}

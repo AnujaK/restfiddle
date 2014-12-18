@@ -100,10 +100,35 @@ define(function(require) {
 			});
 		},
 		getProcessRequest : function(){
-			var item = {
+            var headerNames = [];
+            this.$el.find(".headerName").each(function() {
+                var headerKey = {};
+                headerKey.headerName = $(this).val();
+                headerNames.push(headerKey);
+            });  
+            
+            var headerValues = [];
+            this.$el.find(".headerValue").each(function() {
+                var headerVal = {};
+                headerVal.headerValue = $(this).val();
+                headerValues.push(headerVal);
+            }); 
+
+            var headerDataArr = [];
+            var counter = 0;
+            $.each(headerNames, function() {
+                var headerData = {};
+                headerData.headerName = headerNames[counter].headerName;
+                headerData.headerValue = headerValues[counter].headerValue;
+                headerDataArr.push(headerData);
+                counter++;
+            }); 
+			
+            var item = {
 					apiUrl : this.$el.find("#apiUrl").val(),
 					methodType : this.$el.find(".apiRequestType").val(),
-					apiBody : this.$el.find("#apiBody").val()
+					apiBody : this.$el.find("#apiBody").val(),
+                    headers : headerDataArr
 				};
 			return item;
 		},
