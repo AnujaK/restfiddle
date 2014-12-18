@@ -26,6 +26,20 @@ define(function(require) {
              $("#responseToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
         }
 	});
+ 
+    $("#addHeaderBtn").unbind("click").bind("click", function() {
+        var headerListItemView = new HeaderListItemView();
+        $("#headersWrapper").append(headerListItemView.render().el);
+	});
+    
+	var HeaderListItemView = Backbone.View.extend({	
+        template: _.template($('#tpl-header-list-item').html()),
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		}
+	});
     
 	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',

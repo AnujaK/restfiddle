@@ -29,12 +29,10 @@
         <a href="#" data-tag-id=<@=tag.id@>><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;<@=tag.name@></a>
 	</script>
 	<script type="text/template" id="tpl-star-list-item">
-		<a href="#" class="list-group-item" data-star-id = <@=node.id@>   data-star-ref-id = <@=node.id@> >
-			</span>&nbsp;&nbsp;<@=node.name@></a>
+		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> >&nbsp;&nbsp;<@=node.name@></a>
 	</script>
     <script type="text/template" id="tpl-tagged-node-list-item">
-		<a href="#" class="list-group-item" data-node-id = <@=node.id@>   data-tag-node-id = <@=node.id@> >
-			</span>&nbsp;&nbsp;<@=node.name@></a>
+		<a href="#" class="list-group-item" data-node-id=<@=node.id@> data-tag-node-id=<@=node.id@> >&nbsp;&nbsp;<@=node.name@></a>
 	</script>
 	<script type="text/template" id="tpl-project-runner-list-item">
         <div class="div-list-item">
@@ -44,8 +42,20 @@
         </div>
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
-		<a href="#" class="list-group-item" data-history-id = <@=conversation.id@>   data-history-ref-id = <@=conversation.id@> >
-			</span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
+		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
+			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
 	</script>
+    <script type="text/template" id="tpl-header-list-item">
+    <p>
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="text" class="form-control headerName" placeholder="Enter Header Name">
+            </div>
+            <div class="col-xs-6">
+                <input type="text" class="form-control headerValue" placeholder="Enter Header Value">
+            </div>
+        </div>
+    </p>    
+    </script> 
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>

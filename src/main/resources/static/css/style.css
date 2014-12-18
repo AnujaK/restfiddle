@@ -20,7 +20,7 @@ ul.fancytree-container {
 }
 
 .rf-left-nav>li>a, .div-list-item{
-	border-radius: 0px;
+	border-radius: 0px !important;
 	padding: 7px 4px;
 }
 .div-list-item{

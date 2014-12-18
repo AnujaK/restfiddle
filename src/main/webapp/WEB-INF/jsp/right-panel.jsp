@@ -91,7 +91,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab-body" data-toggle="tab">Body</a></li>
                         <li><a href="#tab-header" data-toggle="tab">Header</a></li>
-                        <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li>
+                        <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Auth <span class="caret"></span>
@@ -119,7 +119,12 @@
                         </div>
                         <div class="tab-pane" id="tab-header">
                             <br>
-                            <p><span>Content-Type</span> : <span>application/json</span></p>
+                            <!-- <p><span>Content-Type</span> : <span>application/json</span></p> -->
+                            <p>
+                                <button type="button" class="btn btn-default btn-sm" id="addHeaderBtn">Add Header</button>
+                            </p>
+                            <div id="headersWrapper">
+                            </div>
                         </div>
                         <!--
                         <div class="tab-pane" id="tab-cookie">
