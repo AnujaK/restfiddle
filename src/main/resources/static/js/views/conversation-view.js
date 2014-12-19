@@ -100,6 +100,18 @@ define(function(require) {
 			});
 		},
 		getProcessRequest : function(){
+            var item = {
+					apiUrl : this.$el.find("#apiUrl").val(),
+					methodType : this.$el.find(".apiRequestType").val(),
+					apiBody : this.$el.find("#apiBody").val(),
+                    headers : this.getHeaderParams(),
+                    urlParams : this.getUrlParams(),
+                    formParams : this.getFormParams()
+				};
+			return item;
+		},
+        
+        getHeaderParams : function(){
             var headerNames = [];
             this.$el.find(".headerName").each(function() {
                 var headerKey = {};
@@ -122,17 +134,65 @@ define(function(require) {
                 headerData.headerValue = headerValues[counter].headerValue;
                 headerDataArr.push(headerData);
                 counter++;
+            });  
+            return headerDataArr;
+        },
+
+        getFormParams : function(){
+            var formDataNames = [];
+            this.$el.find(".formDataName").each(function() {
+                var formDataKey = {};
+                formDataKey.key = $(this).val();
+                formDataNames.push(formDataKey);
+            });  
+            
+            var formDataValues = [];
+            this.$el.find(".formDataValue").each(function() {
+                var formDataVal = {};
+                formDataVal.value = $(this).val();
+                formDataValues.push(formDataVal);
             }); 
-			
-            var item = {
-					apiUrl : this.$el.find("#apiUrl").val(),
-					methodType : this.$el.find(".apiRequestType").val(),
-					apiBody : this.$el.find("#apiBody").val(),
-                    headers : headerDataArr
-				};
-			return item;
-		},
-		render : function(conversation) {
+
+            var formDataArr = [];
+            var counter = 0;
+            $.each(formDataNames, function() {
+                var formData = {};
+                formData.key = formDataNames[counter].key;
+                formData.value = formDataValues[counter].value;
+                formDataArr.push(formData);
+                counter++;
+            });  
+            return formDataArr;
+        },
+        
+        getUrlParams : function(){
+            var urlDataNames = [];
+            this.$el.find(".urlDataName").each(function() {
+                var urlDataKey = {};
+                urlDataKey.key = $(this).val();
+                urlDataNames.push(urlDataKey);
+            });  
+            
+            var urlDataValues = [];
+            this.$el.find(".urlDataValue").each(function() {
+                var urlDataVal = {};
+                urlDataVal.value = $(this).val();
+                urlDataValues.push(urlDataVal);
+            }); 
+
+            var urlDataArr = [];
+            var counter = 0;
+            $.each(urlDataNames, function() {
+                var urlData = {};
+                urlData.key = urlDataNames[counter].key;
+                urlData.value = urlDataValues[counter].value;
+                urlDataArr.push(urlData);
+                counter++;
+            });  
+            return urlDataArr;
+        },
+        
+        render : function(conversation) {
 			console.log('render conversation view with model');
 			console.log(conversation);
             

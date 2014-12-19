@@ -27,6 +27,10 @@ public class RfRequestDTO extends BaseDTO {
     private String apiBody;
 
     private List<RfHeaderDTO> headers;
+    
+    private List<UrlParamDTO> urlParams;
+    
+    private List<FormDataDTO> formParams; 
 
     @JsonBackReference
     private ConversationDTO itemDTO;
@@ -69,5 +73,21 @@ public class RfRequestDTO extends BaseDTO {
 
     public void setHeaders(List<RfHeaderDTO> headers) {
 	this.headers = headers;
+    }
+
+    public List<UrlParamDTO> getUrlParams() {
+        return urlParams;
+    }
+
+    public void setUrlParams(List<UrlParamDTO> urlParams) {
+        this.urlParams = urlParams;
+    }
+
+    public List<FormDataDTO> getFormParams() {
+        return formParams;
+    }
+
+    public void setFormParams(List<FormDataDTO> formParams) {
+        this.formParams = formParams;
     }
 }

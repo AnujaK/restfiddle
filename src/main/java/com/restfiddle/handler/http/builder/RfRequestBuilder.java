@@ -16,15 +16,20 @@
 package com.restfiddle.handler.http.builder;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.FormDataDTO;
+import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 
 @Component
@@ -41,7 +46,7 @@ public class RfRequestBuilder {
 
 	requestBuilder.setUri(apiUrl);
 
-	requestBuilder.addHeader("Content-Type", "application/json");
+	setHeaders(requestDTO, requestBuilder);
 
 	setRequestEntity(requestDTO, requestBuilder);
 
@@ -49,18 +54,41 @@ public class RfRequestBuilder {
 	return httpUriRequest;
     }
 
-    private void setRequestEntity(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
-	if (requestDTO.getApiBody() == null) {
-	    return;
-	}
-	try {
-	    requestBuilder.setEntity(new StringEntity(requestDTO.getApiBody()));
-	    
-	    //MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-	    
-	} catch (UnsupportedEncodingException e) {
-	    logger.error(e.getMessage(), e);
+    private void setHeaders(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
+	List<RfHeaderDTO> headers = requestDTO.getHeaders();
+	if (headers != null && !headers.isEmpty()) {
+	    boolean contentTypeFound = false;
+	    for (RfHeaderDTO rfHeaderDTO : headers) {
+		if (rfHeaderDTO.getHeaderName() != null && rfHeaderDTO.getHeaderValue() != null) {
+		    requestBuilder.addHeader(rfHeaderDTO.getHeaderName(), rfHeaderDTO.getHeaderValue());
+		}
+		if (HttpHeaders.CONTENT_TYPE.equalsIgnoreCase(rfHeaderDTO.getHeaderName())) {
+		    contentTypeFound = true;
+		}
+	    }
+	    if (!contentTypeFound) {
+		requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+	    }
+	} else {
+	    requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 	}
     }
 
+    private void setRequestEntity(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
+	List<FormDataDTO> formParams = requestDTO.getFormParams();
+	if (requestDTO.getApiBody() != null) {
+	    try {
+		requestBuilder.setEntity(new StringEntity(requestDTO.getApiBody()));
+
+	    } catch (UnsupportedEncodingException e) {
+		logger.error(e.getMessage(), e);
+	    }
+	} else if (formParams != null && !formParams.isEmpty()) {
+	    requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE);// TODO
+	    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+	    for (FormDataDTO formDataDTO : formParams) {
+		builder.addTextBody(formDataDTO.getKey(), formDataDTO.getValue());
+	    }
+	}
+    }
 }

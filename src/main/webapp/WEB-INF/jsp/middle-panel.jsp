@@ -28,8 +28,8 @@
             <li><a class="rf-font-12" data-toggle="modal" data-target="#editProjectModal">Edit Project</a></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteProjectModal">Delete Project</a></li>
             <li class="divider"></li>
-            <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteWorkspaceModal">Delete Workspace</a></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#editWorkspaceModal">Edit Workspace</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteWorkspaceModal">Delete Workspace</a></li>
         </ul>
     </div>
 
