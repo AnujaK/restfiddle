@@ -24,6 +24,24 @@ Adding collaborators to work on a shared workspace is just a click away.
 
 As the output of the build is a war file so it can be deployed over any server and can also be used as a cloud based hosted web application.
 
+Features
+==========
+
+RESTFiddle is not just a tool for API testing, it is an API Management "Platform". Some of the key features of this platform are:
+
+1. Collaboration - Add as many collaborators as you want from your team and work together on a project.
+2. Install it in your environment and own it completely.
+3. Store everything in your database - Your data is always with you. MySQL, PostgreSQL, Oracle, MS SQL Server etc. supported.
+4. Security - Runs over http/https.
+5. Work offline - You can work together with your team in your private network.
+6. Integration - RESTFiddle platform exposes APIs for everything it has. 
+7. Unlimited history/activity log.
+8. Scheduler - Run API projects on predefined time intervals.
+9. Open Source - Fork it and build the features of your choice.
+10. Access Control, Generate Reports, Notifications and much more.
+
+A lot of powerful features coming soon!
+
 Initial Design
 ==========
 
