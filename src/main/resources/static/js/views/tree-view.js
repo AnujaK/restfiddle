@@ -41,7 +41,7 @@ define(function(require) {
 		} else if ($("#requestModal").find("#source").val() == 'conversation') {
 			var rfRequest = {
 				apiUrl : $("#apiUrl").val(),
-				apiBody : $("#apiBody").val(),
+				apiBody : APP.conversation.apiBodyCodeMirror.getValue(),
 				methodType : $(".apiRequestType").val()
 			};
 			var rfResponse = {

@@ -9,7 +9,7 @@ require.config({
 		fancytree : 'libs/jquery.fancytree-all',
 		selectize : 'libs/selectize.min',
         mCustomScrollbar : 'libs/jquery.mCustomScrollbar.concat.min',
-		text : 'libs/require/text'
+        text : 'libs/require/text'
 	},
 	shim : {
 		'underscore' : {

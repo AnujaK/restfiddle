@@ -6,7 +6,9 @@ define(function(require) {
 	var _ = require('underscore');
 	var ConversationModel = require("models/conversation");
 	require('libs/prettify/prettify');
-	
+    var CodeMirror = require('codemirror/lib/codemirror');
+    var cmjs = require('codemirror/mode/javascript/javascript');
+    
     $("#requestToggle").unbind("click").bind("click", function() {
 		$("#requestContainer").toggle();
         if($("#requestToggle").hasClass('glyphicon-chevron-down')){
@@ -47,7 +49,7 @@ define(function(require) {
 	});
     
     $("#clearBody").unbind("click").bind("click", function() {
-        $("#apiBody").val('');
+        this.apiBodyCodeMirror.setValue('');
 	});
     
     $("#clearAuth").unbind("click").bind("click", function() {
@@ -57,10 +59,11 @@ define(function(require) {
     
     $("#clearRequest").unbind("click").bind("click", function() {
         $("#headersWrapper").html('');
-        $("#apiBody").val('');
+        this.apiBodyCodeMirror.setValue('');
+        
         $("#bAuthUsername").val('');
         $("#bAuthPassword").val('');
-    }); 
+    });
     
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),
@@ -92,6 +95,17 @@ define(function(require) {
 	var ConversationView = Backbone.View.extend({
 		el : '#conversationSection',
 		initialize : function(){
+            // Load the code mirror editor.
+            var apiBodyTextArea = document.getElementById("apiBody");
+            this.apiBodyCodeMirror = CodeMirror.fromTextArea(apiBodyTextArea, {
+                lineNumbers: true,
+                lineWrapping: true,
+                indent: true,
+                mode: "javascript"
+            });
+            
+            this.apiBodyCodeMirror.setSize('100%', '150px');
+            
 			$("#run").unbind('click').bind("click", function(view){
 				return function(){view.run.call(view);};
 			}(this));
@@ -123,7 +137,7 @@ define(function(require) {
             var item = {
 					apiUrl : this.$el.find("#apiUrl").val(),
 					methodType : this.$el.find(".apiRequestType").val(),
-					apiBody : this.$el.find("#apiBody").val(),
+					apiBody : this.apiBodyCodeMirror.getValue(),
                     headers : this.getHeaderParams(),
                     urlParams : this.getUrlParams(),
                     formParams : this.getFormParams()
@@ -227,7 +241,13 @@ define(function(require) {
 			
 			this.$el.find("#apiUrl").val(request.apiUrl);
 			this.$el.find(".apiRequestType").val(request.methodType);
-			this.$el.find("#apiBody").val(request.apiBody);
+            if(request.apiBody != null){
+                this.apiBodyCodeMirror.setValue(request.apiBody);
+            }
+            else{
+             this.apiBodyCodeMirror.setValue('');
+            }
+           
 			
 			this.$el.find("#response-wrapper").html('');
 		},
@@ -235,7 +255,7 @@ define(function(require) {
 			if(APP.appView.getCurrentConversationId() != null){
 				var rfRequest = {
 						apiUrl : this.$el.find("#apiUrl").val(),
-						apiBody : this.$el.find("#apiBody").val(),
+						apiBody : this.apiBodyCodeMirror.getValue(),
 						methodType : this.$el.find(".apiRequestType").val()
 				}
 				var rfResponse = {
@@ -260,6 +280,7 @@ define(function(require) {
 				$("#requestModal").modal("show");
 			}
 		}
+        
 	});
 	return ConversationView;
 });
