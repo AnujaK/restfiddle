@@ -15,21 +15,29 @@
  */
 package com.restfiddle.mail;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGrid.Email;
+import com.sendgrid.SendGridException;
+
 @Component
 public class MailSender {
+    Logger logger = LoggerFactory.getLogger(MailSender.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private SendGrid sendGrid;
+
     public void sendMail(String from, String to, String subject, String msg) {
-
 	SimpleMailMessage message = new SimpleMailMessage();
-
 	message.setFrom(from);
 	message.setTo(to);
 	message.setSubject(subject);
@@ -37,4 +45,19 @@ public class MailSender {
 
 	javaMailSender.send(message);
     }
+
+    public void sendUsingSendGrid(String from, String to, String subject, String msg) {
+	Email email = new Email();
+	email.setFrom(from);
+	email.addTo(to);
+	email.setSubject(subject);
+	email.setText(msg);
+
+	try {
+	    sendGrid.send(email);
+	} catch (SendGridException e) {
+	    logger.error(e.getMessage(), e);
+	}
+    }
+
 }

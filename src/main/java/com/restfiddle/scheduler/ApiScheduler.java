@@ -54,5 +54,4 @@ public class ApiScheduler {
     public void reportCurrentTime() {
 	logger.debug("The time is now " + dateFormat.format(new Date()));
     }
-
 }

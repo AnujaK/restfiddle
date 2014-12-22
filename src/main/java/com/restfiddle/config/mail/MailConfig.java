@@ -24,6 +24,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import com.sendgrid.SendGrid;
+
 @Configuration
 public class MailConfig {
 
@@ -48,12 +50,18 @@ public class MailConfig {
 
 	mailProperties.put("mail.smtp.socketFactory.port", "465");
 	mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	
+
 	mailProperties.put("mail.smtps.ssl.trust", env.getProperty("mail.smtps.ssl.trust"));
 	mailProperties.put("mail.smtps.ssl.checkserveridentity", env.getProperty("mail.smtps.ssl.checkserveridentity"));
 
 	mailSender.setJavaMailProperties(mailProperties);
 
 	return mailSender;
+    }
+
+    @Bean
+    public SendGrid sendGrid() {
+	SendGrid sendgrid = new SendGrid(env.getProperty("sendgrid.username"), env.getProperty("sendgrid.password"));
+	return sendgrid;
     }
 }
