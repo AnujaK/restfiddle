@@ -85,10 +85,11 @@ public class RfRequestBuilder {
 	    }
 	} else if (formParams != null && !formParams.isEmpty()) {
 	    requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE);// TODO
-	    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+	    MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
 	    for (FormDataDTO formDataDTO : formParams) {
-		builder.addTextBody(formDataDTO.getKey(), formDataDTO.getValue());
+		multiPartBuilder.addTextBody(formDataDTO.getKey(), formDataDTO.getValue());
 	    }
+	    requestBuilder.setEntity(multiPartBuilder.build());
 	}
     }
 }
