@@ -26,15 +26,15 @@
             </div>
             &nbsp;&nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Clear</button>
+                <button type="button" class="btn btn-default btn-sm" id="clearRequest">Clear</button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Body</a></li>
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Header</a></li>
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Cookie</a></li>
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Clear Auth</a></li>
+                    <li><a href="#" class="btn-sm" id="clearBody">Clear Body</a></li>
+                    <li><a href="#" class="btn-sm" id="clearHeader">Clear Header</a></li>
+                    <li><a href="#" class="btn-sm" id="clearCookie">Clear Cookie</a></li>
+                    <li><a href="#" class="btn-sm" id="clearAuth">Clear Auth</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;&nbsp;
@@ -157,10 +157,10 @@
                             <br>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <input type="text" class="form-control" placeholder="Enter Username">
+                                    <input type="text" class="form-control" id="bAuthUsername" placeholder="Enter Username">
                                 </div>
                                 <div class="col-xs-6">
-                                    <input type="text" class="form-control" placeholder="Enter Password">
+                                    <input type="text" class="form-control" id="bAuthPassword" placeholder="Enter Password">
                                 </div>
                             </div>
                         </div>

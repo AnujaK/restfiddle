@@ -41,7 +41,27 @@ define(function(require) {
         var headerListItemView = new HeaderListItemView();
         $("#headersWrapper").append(headerListItemView.render().el);
 	});
-
+    
+    $("#clearHeader").unbind("click").bind("click", function() {
+        $("#headersWrapper").html('');
+	});
+    
+    $("#clearBody").unbind("click").bind("click", function() {
+        $("#apiBody").val('');
+	});
+    
+    $("#clearAuth").unbind("click").bind("click", function() {
+        $("#bAuthUsername").val('');
+        $("#bAuthPassword").val('');
+	});  
+    
+    $("#clearRequest").unbind("click").bind("click", function() {
+        $("#headersWrapper").html('');
+        $("#apiBody").val('');
+        $("#bAuthUsername").val('');
+        $("#bAuthPassword").val('');
+    }); 
+    
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),
         
