@@ -26,6 +26,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.restfiddle.controller.rest.ApiController;
 import com.restfiddle.mail.MailSender;
@@ -34,6 +35,7 @@ import com.restfiddle.mail.MailSender;
 @EnableAutoConfiguration
 @ComponentScan
 @EnableScheduling
+@Transactional
 public class ApiScheduler {
     Logger logger = LoggerFactory.getLogger(ApiScheduler.class);
 

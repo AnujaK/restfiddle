@@ -49,7 +49,7 @@ define(function(require) {
 	});
     
     $("#clearBody").unbind("click").bind("click", function() {
-        this.apiBodyCodeMirror.setValue('');
+        APP.conversation.apiBodyCodeMirror.setValue('');
 	});
     
     $("#clearAuth").unbind("click").bind("click", function() {
@@ -59,7 +59,7 @@ define(function(require) {
     
     $("#clearRequest").unbind("click").bind("click", function() {
         $("#headersWrapper").html('');
-        this.apiBodyCodeMirror.setValue('');
+        APP.conversation.apiBodyCodeMirror.setValue('');
         
         $("#bAuthUsername").val('');
         $("#bAuthPassword").val('');

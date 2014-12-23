@@ -108,14 +108,21 @@
 			<version>3.0.0</version>
 		</dependency>
 		
-		<!-- 
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>eclipse</groupId>
+					<artifactId>jdtcore</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		-->
-		
 	</dependencies>
 	<build>
 		<finalName>restfiddle</finalName>
