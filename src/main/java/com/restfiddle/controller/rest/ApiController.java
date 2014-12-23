@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
+import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeStatusResponseDTO;
@@ -59,30 +60,45 @@ public class ApiController {
 
     @Autowired
     private NodeRepository nodeRepository;
-    
+
     @Autowired
     private ConversationRepository conversationRepository;
 
+    @Autowired
+    private RfRequestRepository rfRequestRepository;
+
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
-	//GenericHandler handler = requestHandler.getHandler(rfRequestDTO.getMethodType());
+	Conversation existingConversation = null;
+	Conversation conversationForLogging = null;
+
+	// TODO : Get RfRequest Id if present as part of this request and update the existing conversation entity.
+	// Note : New conversation entity which is getting created below is still required for logging purpose.
+
+	if (rfRequestDTO == null) {
+	    return null;
+	} else if (rfRequestDTO.getId() != null && rfRequestDTO.getId() > 0) {
+	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
+	    existingConversation = rfRequest.getItem();
+	}
 
 	long startTime = System.currentTimeMillis();
-
 	RfResponseDTO result = genericHandler.processHttpRequest(rfRequestDTO);
-
 	long endTime = System.currentTimeMillis();
-
 	long duration = endTime - startTime;
 
-	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	conversationForLogging = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	conversationForLogging.setDuration(duration);
 
-	conversation.setDuration(duration);
-
-	// TODO : Support all the databases.
-	// TODO : Use Item controller here.
 	try {
-	    conversationRepository.save(conversation);
+	    conversationForLogging = conversationRepository.save(conversationForLogging);
+	    // Note : existingConversation will be null if the request was not saved previously.
+	    if (existingConversation != null) {
+		existingConversation.setRfRequest(conversationForLogging.getRfRequest());
+		existingConversation.setRfResponse(conversationForLogging.getRfResponse());
+		existingConversation.setDuration(duration);
+	    }
+
 	} catch (InvalidDataAccessResourceUsageException e) {
 	    throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	}
@@ -91,7 +107,7 @@ public class ApiController {
 	result.setItemDTO(conversationDTO);
 	return result;
     }
-    
+
     /**
      * TODO : This API may not work for in-memory database (in some cases).
      */
@@ -101,7 +117,7 @@ public class ApiController {
 	logger.debug("Running all requests inside project : " + id);
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;
-	
+
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
@@ -119,11 +135,11 @@ public class ApiController {
 			rfRequestDTO.setMethodType(methodType);
 			rfRequestDTO.setApiUrl(apiUrl);
 			rfRequestDTO.setApiBody(apiBody);
-			
+
 			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO);
 			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
 			ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
-			
+
 			nodeStatus = new NodeStatusResponseDTO();
 			nodeStatus.setId(baseNode.getId());
 			nodeStatus.setName(baseNode.getName());
