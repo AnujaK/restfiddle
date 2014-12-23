@@ -282,7 +282,21 @@ define(function(require) {
                 $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
             }
             else{
-                 $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+                $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+            }
+        },
+        
+        expandRequestSection : function(){
+            if($("#requestToggle").hasClass('glyphicon-chevron-right')){
+                $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+                $("#requestContainer").toggle();
+            }
+        },
+        
+        collapseRequestSection : function(){
+            if($("#requestToggle").hasClass('glyphicon-chevron-down')){
+                $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+                $("#requestContainer").toggle();
             }
         }
         
