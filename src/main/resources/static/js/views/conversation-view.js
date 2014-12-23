@@ -10,13 +10,7 @@ define(function(require) {
     var cmjs = require('codemirror/mode/javascript/javascript');
     
     $("#requestToggle").unbind("click").bind("click", function() {
-		$("#requestContainer").toggle();
-        if($("#requestToggle").hasClass('glyphicon-chevron-down')){
-            $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
-        }
-        else{
-             $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
-        }
+        APP.conversation.toggleRequestSection();
 	});
     
     $("#responseToggle").unbind("click").bind("click", function() {
@@ -129,6 +123,7 @@ define(function(require) {
 						}
 					}
 					prettyPrint();
+                    APP.conversation.toggleRequestSection();
 				},
 				data : JSON.stringify(this.getProcessRequest())
 			});
@@ -279,7 +274,17 @@ define(function(require) {
 				$("#requestModal").find("#source").val("conversation");
 				$("#requestModal").modal("show");
 			}
-		}
+		},
+        
+        toggleRequestSection : function(){
+            $("#requestContainer").toggle();
+            if($("#requestToggle").hasClass('glyphicon-chevron-down')){
+                $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+            }
+            else{
+                 $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+            }
+        }
         
 	});
 	return ConversationView;

@@ -15,10 +15,25 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +60,20 @@ public class ReportController {
      */
     @RequestMapping(value = "/api/documentation/projects/{id}", method = RequestMethod.GET)
     public void generateProjectApiDocumentation(@PathVariable("id") Long id) {
+	String reportTemplateFilePath = "report-template" + File.separator + "ApiDocumentationTemplate.jrxml";
+	Resource resource = new ClassPathResource(reportTemplateFilePath);
+
+	try (InputStream inputStream = resource.getInputStream();) {
+	    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+	    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+	    Map<String, Object> params = new HashMap<String, Object>();
+	    JasperFillManager.fillReport(jasperReport, params);
+	} catch (IOException e) {
+	    logger.error(e.getMessage(), e);
+	} catch (JRException e) {
+	    logger.error(e.getMessage(), e);
+	}
 
     }
 
