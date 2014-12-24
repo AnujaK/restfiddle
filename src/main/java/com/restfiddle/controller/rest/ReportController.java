@@ -18,15 +18,16 @@ package com.restfiddle.controller.rest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.TagDTO;
 
 @RestController
 @EnableAutoConfiguration
@@ -60,21 +64,47 @@ public class ReportController {
      */
     @RequestMapping(value = "/api/documentation/projects/{id}", method = RequestMethod.GET)
     public void generateProjectApiDocumentation(@PathVariable("id") Long id) {
-	String reportTemplateFilePath = "report-template" + File.separator + "ApiDocumentationTemplate.jrxml";
+	String reportTemplateFilePath = "report-template" + File.separator + "rf_doc_template.jasper";
 	Resource resource = new ClassPathResource(reportTemplateFilePath);
 
-	try (InputStream inputStream = resource.getInputStream();) {
-	    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-	    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+	// TODO : NodeDTO and TagDTO are used for testing purpose. Need to define a custom DTO for reports.
+	List<NodeDTO> apiNodes = new ArrayList<NodeDTO>();
 
-	    Map<String, Object> params = new HashMap<String, Object>();
-	    JasperFillManager.fillReport(jasperReport, params);
-	} catch (IOException e) {
-	    logger.error(e.getMessage(), e);
+	NodeDTO node = new NodeDTO();
+	apiNodes.add(node);
+
+	List<TagDTO> tags = new ArrayList<TagDTO>();
+	TagDTO tag = new TagDTO();
+	tag.setId(24L);
+	tag.setName("GET Workspaces");
+	tag.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
+	tags.add(tag);
+
+	TagDTO tag2 = new TagDTO();
+	tag2.setId(30L);
+	tag2.setName("Post Workspace");
+	tag2.setDescription("This API is used to create a new workspace.");
+	tags.add(tag2);
+	node.setTags(tags);
+
+	JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(apiNodes);
+
+	Map<String, Object> params = new HashMap<String, Object>();
+	JRBeanCollectionDataSource ds2 = new JRBeanCollectionDataSource(tags);
+	params.put("tags", ds2);
+
+	try (InputStream inputStream = resource.getInputStream();) {
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, params, ds1);
+
+	    File file = new File("api_docs.pdf");
+	    System.out.println(file.getCanonicalPath());
+
+	    JasperExportManager.exportReportToPdfFile(jasperPrint, file.getCanonicalPath());
+	    System.out.println(jasperPrint);
 	} catch (JRException e) {
 	    logger.error(e.getMessage(), e);
+	} catch (IOException e) {
+	    logger.error(e.getMessage(), e);
 	}
-
     }
-
 }
