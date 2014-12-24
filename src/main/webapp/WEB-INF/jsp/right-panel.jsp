@@ -1,6 +1,14 @@
 <div class="col-xs-6 rf-col-3">
-    <div>
-        <ul class="nav nav-pills nav-stacked" id="projectRunnerSection"></ul>
+    <div id="projectRunnerSection">
+        <div id="projectRunnerHeader">
+            <br>
+            <button class="btn btn-primary btn-sm" id="exportRunProjectReport">Export Report</button>
+            <br>
+            <br>
+        </div>
+        <div>
+            <ul class="nav nav-pills nav-stacked" id="projectRunnerBody"></ul>
+        </div>
     </div>
     <div class="form-group" id="conversationSection">
         <div id="conversationHeader">

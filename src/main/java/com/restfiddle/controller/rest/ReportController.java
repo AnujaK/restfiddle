@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -63,11 +65,12 @@ public class ReportController {
      * This API can be used to generate REST API documentation for a project.
      */
     @RequestMapping(value = "/api/documentation/projects/{id}", method = RequestMethod.GET)
-    public void generateProjectApiDocumentation(@PathVariable("id") Long id) {
+    public void generateProjectApiDocumentation(@PathVariable("id") Long id, HttpServletResponse response) {
 	String reportTemplateFilePath = "report-template" + File.separator + "rf_doc_template.jasper";
 	Resource resource = new ClassPathResource(reportTemplateFilePath);
 
 	// TODO : NodeDTO and TagDTO are used for testing purpose. Need to define a custom DTO for reports.
+	// TODO : Use NodeStatusResponseDTO instead of TagDTO.
 	List<NodeDTO> apiNodes = new ArrayList<NodeDTO>();
 
 	NodeDTO node = new NodeDTO();
@@ -94,13 +97,11 @@ public class ReportController {
 	params.put("tags", ds2);
 
 	try (InputStream inputStream = resource.getInputStream();) {
+	    response.setContentType("application/pdf");
+	    response.setHeader("Content-Disposition", "attachment; filename=\"report.pdf\"");
+	    response.setHeader("Cache-Control", "no-cache");
 	    JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, params, ds1);
-
-	    File file = new File("api_docs.pdf");
-	    System.out.println(file.getCanonicalPath());
-
-	    JasperExportManager.exportReportToPdfFile(jasperPrint, file.getCanonicalPath());
-	    System.out.println(jasperPrint);
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 	} catch (JRException e) {
 	    logger.error(e.getMessage(), e);
 	} catch (IOException e) {
