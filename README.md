@@ -67,6 +67,8 @@ Building From Source
 
 * MySQL (optional)
 
+Note : By default the application is configured to use Hsqldb. It is an in-memory database and maven downloads it during build time. Also, it automatically starts with the application. 
+
 ##### Build
 
 ```
@@ -81,8 +83,10 @@ mvn spring-boot:run
 
 ##### Access
 
+The build file is configured to download and use an embedded Tomcat server. So the application should be up and running by using just two commands mentioned above. Once the server is started, the application can be accessed using http://localhost:8080. 
+
 ```
-Default email / password : rf@example.com / rf
+Default login email / password : rf@example.com / rf
 ```
 
 ##### Debug
