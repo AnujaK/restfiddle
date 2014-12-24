@@ -144,20 +144,27 @@ A lot of powerful features coming soon!</p>
 <li><p>JDK 7 or later</p></li>
 <li><p>Maven 3.0+</p></li>
 <li><p>MySQL (optional)</p></li>
-</ul><h5>
-<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h5>
+</ul>
+
+<p>
+Note : By default the application is configured to use Hsqldb. It is an in-memory database and maven downloads it during build time. Also, it automatically starts with the application.
+</p>
+
+<h5><a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h5>
 
 <pre><code>mvn clean install
 </code></pre>
 
-<h5>
-<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h5>
+<h5><a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h5>
 
 <pre><code>mvn spring-boot:run
 </code></pre>
 
-<h5>
-<a name="access" class="anchor" href="#access"><span class="octicon octicon-link"></span></a>Access</h5>
+<h5><a name="access" class="anchor" href="#access"><span class="octicon octicon-link"></span></a>Access</h5>
+
+<p>
+The build file is configured to download and use an embedded Tomcat server. So the application should be up and running by using just two commands mentioned above. Once the server is started, the application can be accessed using http://localhost:8080. 
+</p>
 
 <pre><code>Default email / password : rf@example.com / rf
 </code></pre>
