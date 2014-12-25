@@ -33,3 +33,11 @@ h5, .h5{
 p, li{
     line-height: 30px;
 }
+.rf-section{
+    background: #f2f2f2;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.link_w{
+    color: white;
+}
