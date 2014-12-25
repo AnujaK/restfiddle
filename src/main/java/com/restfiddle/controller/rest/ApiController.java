@@ -149,6 +149,8 @@ public class ApiController {
 			nodeStatus.setStatusCode(rfResponseDTO.getStatus());
 			nodeStatus.setDuration(conversationDTO.getDuration());
 			nodeStatuses.add(nodeStatus);
+
+			// TODO : Create ProjectRunnerLog and store nodeId as well as loggedConversationId.
 		    }
 		}
 	    }

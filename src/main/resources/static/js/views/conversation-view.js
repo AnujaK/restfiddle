@@ -22,7 +22,21 @@ define(function(require) {
              $("#responseToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
         }
 	});
- 
+
+    $(".apiRequestType").unbind("change").bind("change", function() {
+        var selectedVal = $(".apiRequestType").val();
+        console.log("selectedVal = "+selectedVal);
+        if("GET" == selectedVal){
+            //TODO : Hide Tabs - RAW, FORM and FILES
+            //$('#requestContainer li:eq(3) a').tab('show');
+        }
+        else{
+            //TODO : Show Tabs - RAW, FORM and FILES
+            //$('#requestContainer li:eq(0) a').tab('show');
+        }
+        
+	});
+    
     $("#addFormDataBtn").unbind("click").bind("click", function() {
         var formListItemView = new FormListItemView();
         $("#formDataWrapper").append(formListItemView.render().el);
