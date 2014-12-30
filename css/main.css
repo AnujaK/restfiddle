@@ -51,3 +51,6 @@ p, li{
 .carousel-control.right, .carousel-control.left{
     background-image: none !important;
 }
+.carousel-indicators li, .carousel-indicators .active{
+    background-color: lightgray;
+}
