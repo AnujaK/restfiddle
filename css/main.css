@@ -1,5 +1,5 @@
 body{
-    margin-top: 60px;
+    margin-top: 51px;
 }
 
 .navbar{
@@ -16,13 +16,13 @@ body{
     padding-bottom: 20px;
 }
 .footer{
-    background: #2f2f2f;
+    background: #222222;
 }
 .footer p{
     color: white;
 }
 .footer2{
-    background: gray;
+    background: #2f2f2f;
 }
 .footer2 p, .footer2 h1{
     color: white;
@@ -37,7 +37,17 @@ p, li{
     background: #f2f2f2;
     padding-top: 30px;
     padding-bottom: 30px;
+    text-align: center;
 }
 .link_w{
     color: white;
+}
+.align-center{
+    text-align: center;
+}
+.bg-blue{
+    background-color: #1b70e0;
+}
+.carousel-control.right, .carousel-control.left{
+    background-image: none !important;
 }
