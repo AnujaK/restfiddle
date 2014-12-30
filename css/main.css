@@ -82,3 +82,13 @@ p, li{
 .well p{
     color: #666e73;
 }
+.well:hover{
+    background-color: #1b70e0;
+    color: white;
+}
+.well:hover h4{
+    color: white;
+}
+.well:hover p{
+    color: white;
+}
