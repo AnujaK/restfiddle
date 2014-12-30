@@ -1,5 +1,7 @@
 body{
     margin-top: 51px;
+    color: #666e73;
+    font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .navbar{
@@ -19,13 +21,13 @@ body{
     background: #222222;
 }
 .footer p{
-    color: white;
+    color: #e1e1e1;
 }
 .footer2{
     background: #2f2f2f;
 }
 .footer2 p, .footer2 h1{
-    color: white;
+    color: #e1e1e1;
 }
 h5, .h5{
     font-weight: bold !important;
@@ -40,7 +42,7 @@ p, li{
     text-align: center;
 }
 .link_w{
-    color: white;
+    color: #e1e1e1;
 }
 .align-center{
     text-align: center;
@@ -48,9 +50,35 @@ p, li{
 .bg-blue{
     background-color: #1b70e0;
 }
+.txt-blue{
+    color: #1b70e0;
+}
+.bg-white{
+    background-color: white;
+}
+.bg-light{
+    background: #f2f2f2;
+}
+.bg-dark{
+    background: #2f2f2f;
+}
+.row1{
+    background: #2f2f2f;
+    color: #e1e1e1;
+}
 .carousel-control.right, .carousel-control.left{
     background-image: none !important;
 }
 .carousel-indicators li, .carousel-indicators .active{
     background-color: lightgray;
+}
+.well{
+    background-color: white;
+    height: 200px;
+}
+.well h4{
+    color: #428bca;
+}
+.well p{
+    color: #666e73;
 }
