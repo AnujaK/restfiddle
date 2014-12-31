@@ -5,9 +5,35 @@ define(function(require) {
 	var Backbone = require('backbone');
 	var _ = require('underscore');
 	var ConversationModel = require("models/conversation");
-	require('libs/prettify/prettify');
+	
+    require('libs/prettify/prettify');
+    require('typeahead');
+    
     var CodeMirror = require('codemirror/lib/codemirror');
     var cmjs = require('codemirror/mode/javascript/javascript');
+
+    var apiUrls = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        url: '/api/requests/api-urls',
+        // the json file contains an array of strings, but the Bloodhound
+        // suggestion engine expects JavaScript objects so this converts all of
+        // those strings
+        filter: function(list) {
+          return $.map(list, function(country) { return { name: country }; });
+        }
+      }
+    });
+    apiUrls.initialize();
+
+    $('#apiUrl').typeahead(null, {
+      name: 'apiUrls',
+      displayKey: 'name',
+      source: apiUrls.ttAdapter()
+    });
+    
     
     $("#requestToggle").unbind("click").bind("click", function() {
         APP.conversation.toggleRequestSection();

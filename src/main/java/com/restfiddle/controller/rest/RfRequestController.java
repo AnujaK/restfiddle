@@ -15,6 +15,30 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.restfiddle.dao.RfRequestRepository;
+
+@RestController
+@Transactional
 public class RfRequestController {
+
+    @Resource
+    private RfRequestRepository requestRepository;
+
+    @RequestMapping(value = "/api/requests/api-urls", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> findUniqueApiUrls() {
+
+	return requestRepository.findUniqueApiUrls();
+    }
 
 }

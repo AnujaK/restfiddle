@@ -92,7 +92,7 @@
                                 </select>
                             </div>
                             <div class="col-xs-10 rf-col-xs-10-padding">
-                                <input type="text" class="form-control" id="apiUrl" placeholder="Enter URL"> <br> <br>
+                                <input type="text" class="form-control typeahead" id="apiUrl" placeholder="Enter URL"> <br> <br>
                             </div>
                         </div>
                     </div>
