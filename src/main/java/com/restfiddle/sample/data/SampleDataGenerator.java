@@ -16,6 +16,7 @@
 package com.restfiddle.sample.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -34,6 +35,7 @@ import com.restfiddle.controller.rest.RoleController;
 import com.restfiddle.controller.rest.TagController;
 import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
+import com.restfiddle.dao.HttpRequestHeaderRepository;
 import com.restfiddle.dao.UserRepository;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
@@ -48,6 +50,7 @@ import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.HttpRequestHeader;
 import com.restfiddle.entity.User;
 import com.restfiddle.util.CommonUtil;
 
@@ -84,6 +87,9 @@ public class SampleDataGenerator {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private HttpRequestHeaderRepository requestHeaderRepository;
+
     @PostConstruct
     public void initialize() {
 	if (isSampleDataPresent()) {
@@ -95,12 +101,16 @@ public class SampleDataGenerator {
 	// loadRoleData();
 	// loadPermissionData();
 	// loadUserData();
+
 	loadWorkspaceData();
+
 	loadProjectData();
-	
+
 	loadTagData();
-	
+
 	loadNodeData();
+
+	loadHttpRequestHeaders();
     }
 
     private void loadRoleData() {
@@ -224,14 +234,14 @@ public class SampleDataGenerator {
     }
 
     private void loadNodeData() {
-        TagDTO tag1 = new TagDTO();
-        tag1.setId(1L);
-        TagDTO tag2 = new TagDTO();
-        tag2.setId(2L);
+	TagDTO tag1 = new TagDTO();
+	tag1.setId(1L);
+	TagDTO tag2 = new TagDTO();
+	tag2.setId(2L);
 	ArrayList<TagDTO> tags = new ArrayList<TagDTO>();
 	tags.add(tag1);
 	tags.add(tag2);
-	
+
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeType.FOLDER.name());
@@ -267,7 +277,7 @@ public class SampleDataGenerator {
 	nodeController.addTags(createdChildNode.getId(), tags);
 
 	NodeDTO secondNode = new NodeDTO();
-	secondNode.setName("POST Worksapce");
+	secondNode.setName("POST Workspace");
 	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
 	secondNode.setProjectId(1L);
 	secondNode.setConversationDTO(postConversationDTO);
@@ -291,7 +301,7 @@ public class SampleDataGenerator {
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 	createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
-	
+
 	NodeDTO starredNode = new NodeDTO();
 	starredNode.setName("Starred Node");
 	starredNode.setDescription("This API returns a list of requests which are marked as star.");
@@ -310,5 +320,25 @@ public class SampleDataGenerator {
 	TagDTO secondTag = new TagDTO();
 	secondTag.setName("Wishlist");
 	tagController.create(secondTag);
+    }
+
+    private void loadHttpRequestHeaders() {
+	String[] headersArr = { "Accept", "Accept-Charset", "Accept-Encoding", "Accept-Language", "Accept-Datetime", "Authorization",
+		"Cache-Control", "Connection", "Cookie", "Content-Length", "Content-MD5", "Content-Type", "Date", "Expect", "From", "Host",
+		"If-Match", "If-Modified-Since", "If-None-Match", "If-Range", "If-Unmodified-Since", "Max-Forwards", "Origin", "Pragma",
+		"Proxy-Authorization", "Range", "Referer", "TE", "User-Agent", "Upgrade", "Via", "Warning", "X-Requested-With", "DNT",
+		"X-Forwarded-For", "X-Forwarded-Host", "X-Forwarded-Proto", "Front-End-Https", "X-Http-Method-Override", "X-ATT-DeviceId",
+		"X-Wap-Profile", "Proxy-Connection" };
+
+	List<HttpRequestHeader> headers = new ArrayList<HttpRequestHeader>();
+	HttpRequestHeader header = null;
+
+	for (int i = 0; i < headersArr.length; i++) {
+	    header = new HttpRequestHeader();
+	    header.setName(headersArr[i]);
+	    headers.add(header);
+	}
+
+	requestHeaderRepository.save(headers);
     }
 }

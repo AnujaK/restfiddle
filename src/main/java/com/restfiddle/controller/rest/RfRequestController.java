@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.HttpRequestHeaderRepository;
 import com.restfiddle.dao.RfRequestRepository;
+import com.restfiddle.entity.HttpRequestHeader;
 
 @RestController
 @Transactional
@@ -34,11 +37,26 @@ public class RfRequestController {
     @Resource
     private RfRequestRepository requestRepository;
 
+    @Resource
+    private HttpRequestHeaderRepository requestHeaderRepository;
+
     @RequestMapping(value = "/api/requests/api-urls", method = RequestMethod.GET)
     public @ResponseBody
     List<String> findUniqueApiUrls() {
 
 	return requestRepository.findUniqueApiUrls();
+    }
+
+    @RequestMapping(value = "/api/requests/http-headers", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> findHttpRequestHeaders() {
+	List<HttpRequestHeader> requestHeaders = requestHeaderRepository.findAll();
+
+	List<String> headers = new ArrayList<String>();
+	for (HttpRequestHeader httpRequestHeader : requestHeaders) {
+	    headers.add(httpRequestHeader.getName());
+	}
+	return headers;
     }
 
 }

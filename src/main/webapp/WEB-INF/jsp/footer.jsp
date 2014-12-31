@@ -73,7 +73,7 @@
     <p>
         <div class="row">
             <div class="col-xs-6">
-                <input type="text" class="form-control headerName" placeholder="Enter Header Name">
+                <input type="text" class="form-control headerName http-header" placeholder="Enter Header Name">
             </div>
             <div class="col-xs-6">
                 <input type="text" class="form-control headerValue" placeholder="Enter Header Value">

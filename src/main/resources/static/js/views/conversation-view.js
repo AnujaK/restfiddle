@@ -12,6 +12,7 @@ define(function(require) {
     var CodeMirror = require('codemirror/lib/codemirror');
     var cmjs = require('codemirror/mode/javascript/javascript');
 
+    //API URLS
     var apiUrls = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -22,7 +23,7 @@ define(function(require) {
         // suggestion engine expects JavaScript objects so this converts all of
         // those strings
         filter: function(list) {
-          return $.map(list, function(country) { return { name: country }; });
+          return $.map(list, function(url) { return { name: url }; });
         }
       }
     });
@@ -34,6 +35,25 @@ define(function(require) {
       source: apiUrls.ttAdapter()
     });
     
+    //HTTP HEADERS
+    var httpHeaders = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        url: '/api/requests/http-headers',
+        filter: function(list) {
+          return $.map(list, function(httpHeader) { return { name: httpHeader }; });
+        }
+      }
+    });
+    httpHeaders.initialize();
+
+    $('.http-header').typeahead(null, {
+      name: 'httpHeaders',
+      displayKey: 'name',
+      source: httpHeaders.ttAdapter()
+    });
     
     $("#requestToggle").unbind("click").bind("click", function() {
         APP.conversation.toggleRequestSection();
@@ -76,6 +96,12 @@ define(function(require) {
     $("#addHeaderBtn").unbind("click").bind("click", function() {
         var headerListItemView = new HeaderListItemView();
         $("#headersWrapper").append(headerListItemView.render().el);
+        
+        headerListItemView.$el.find('.http-header').typeahead(null, {
+            name: 'httpHeaders',
+            displayKey: 'name',
+            source: httpHeaders.ttAdapter()
+        });
 	});
     
     $("#clearHeader").unbind("click").bind("click", function() {
