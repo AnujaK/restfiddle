@@ -209,9 +209,11 @@ define(function(require) {
         getHeaderParams : function(){
             var headerNames = [];
             this.$el.find(".headerName").each(function() {
-                var headerKey = {};
-                headerKey.headerName = $(this).val();
-                headerNames.push(headerKey);
+                if($(this).hasClass('tt-input')){
+                    var headerKey = {};
+                    headerKey.headerName = $(this).val();
+                    headerNames.push(headerKey);
+                }
             });  
             
             var headerValues = [];
