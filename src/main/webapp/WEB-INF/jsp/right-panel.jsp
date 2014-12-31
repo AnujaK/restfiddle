@@ -10,6 +10,41 @@
             <ul class="nav nav-pills nav-stacked" id="projectRunnerBody"></ul>
         </div>
     </div>
+    <div id="webSocketSection">
+        <br>
+        <div id="webSocketRequest">
+            <p>
+                <span id="socketName">My First Socket</span>
+            </p>
+             <p>
+                <span id="socketDescription">This is an echo socket.</span>
+            </p>
+            <br>
+            <p>
+                <input type="text" class="form-control" id="secketUrl" placeholder="Enter URL">
+            </p>
+            <p>
+                <button class="btn btn-primary btn-sm" id="btnConnectSocket">Connect</button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-default btn-sm" id="btnDisconnectSocket">Disconnect</button>
+            </p>
+            <br>
+            <p>
+                <textarea id="socketMessage" class="form-control" placeholder="Enter Message"></textarea>
+            </p>
+            <p>
+                <button class="btn btn-primary btn-sm" id="btnSendMessage">Send</button>
+            </p>
+        </div>
+        <hr>
+        <div id="webSocketResponse">
+            <p>
+                <span><b>Message Log</b></span>
+            </p>
+            <div id="webSocketResponseBody">
+                
+            </div>
+        </div>
+    </div>
     <div class="form-group" id="conversationSection">
         <div id="conversationHeader">
             <br>

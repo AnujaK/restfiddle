@@ -294,6 +294,8 @@ define(function(require) {
 			console.log(conversation);
             
             APP.projectRunner.$el.hide();
+            APP.socketConnector.$el.hide();
+            APP.socketConnector.$el.hide();
             this.$el.show();
             
 			var request = conversation.get('rfRequest');

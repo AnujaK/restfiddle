@@ -13,6 +13,7 @@ define(function(require) {
 	var StarView = require('views/star-view');
 	var ConversationView = require('views/conversation-view');
     var ProjectRunnerView = require('views/project-runner-view');
+    var SocketConnectorView = require('views/socket-connector-view');
     var HistoryView = require('views/history-view');
 	var tree = require('views/tree-view');
 	
@@ -50,6 +51,8 @@ define(function(require) {
 			
 			APP.conversation = new ConversationView();
             APP.projectRunner = new ProjectRunnerView();
+            APP.socketConnector = new SocketConnectorView();
+            
             APP.historyView = new HistoryView();
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE

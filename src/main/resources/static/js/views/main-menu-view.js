@@ -14,6 +14,7 @@ define(function(require) {
 
 	$(".run-project").unbind("click").bind("click", function() {
 	    APP.conversation.$el.hide();
+	    APP.socketConnector.$el.hide();
         APP.projectRunner.$el.show();
         var projectId = APP.appView.getCurrentProjectId();
 		$.ajax({
@@ -28,6 +29,12 @@ define(function(require) {
 		});
 	});
 
+	$(".socket-connector").unbind("click").bind("click", function() {
+	    APP.conversation.$el.hide();
+        APP.projectRunner.$el.hide();
+        APP.socketConnector.$el.show();
+	});
+	
 	$(".starred").unbind("click").bind("click", function() {
 	    $('#rf-col-1-body').find('li').each(function(){
 	    	$(this).removeClass('active');

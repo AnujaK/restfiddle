@@ -22,6 +22,8 @@
             <li><a class="rf-font-12" data-toggle="modal" data-target="#comingSoon">Filter</a></li>
             <li class="divider"></li>
             -->
+            <li><a class="rf-font-12 socket-connector">Socket</a></li>
+            <li class="divider"></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteRequestModal">Delete Request</a></li>
             <li class="divider"></li>
             <li><a class="rf-font-12 run-project">Run Project</a></li>

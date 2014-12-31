@@ -239,7 +239,7 @@ ul.fancytree-container {
 	overflow-y: auto;
 }
 
-#apiRequestName {
+#apiRequestName, #socketName {
 	font-weight:bold;
 }
 
@@ -265,7 +265,7 @@ ul.fancytree-container {
 	color:red;
 }
 
-#projectRunnerSection{
+#projectRunnerSection, #webSocketSection {
 	display:none;
 }
 .twitter-typeahead{
