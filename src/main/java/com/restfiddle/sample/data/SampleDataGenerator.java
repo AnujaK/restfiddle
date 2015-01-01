@@ -257,7 +257,7 @@ public class SampleDataGenerator {
 	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
 	rfRequestDTO2.setApiUrl("http://localhost:8080/api/workspaces");
 	rfRequestDTO2.setMethodType("POST");
-	rfRequestDTO2.setApiBody("{\"name\" : \"Test Worksapce\", \"description\" : \"This is test workspace from sample data generator\"}");
+	rfRequestDTO2.setApiBody("{\"name\" : \"Test Workspace\", \"description\" : \"This is test workspace from sample data generator\"}");
 	postConversationDTO.setRfRequestDTO(rfRequestDTO2);
 
 	Conversation createdConversation = conversationController.create(conversationDTO);
