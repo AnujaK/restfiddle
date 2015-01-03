@@ -5,47 +5,30 @@
 
 An Enterprise-grade API Management Platform for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
-Why RESTFiddle?
-==========
+Some of the key features of this platform are:
 
-We all usually work as a team- be it software development or testing. What consumes most of your time while working in a group? Collaboration. You need to share stuff with your colleague. It is a painful exercise with a lot of limitations and doesn't work seamlessly.
-
-##### How does RESTFiddle help you? 
-
-If you are developing or testing REST APIs, it will help you do that with ease. It will let a team or multiple teams work together effortlessly. You just have to focus on your APIs. Rest all is taken care by the tool.
-
-Time is valuable, so productivity is important. We have crafted RESTFiddle to avoid you fiddling with sharing or collaboration work and increase your productivity!
-
-##### How to Collaborate? 
-
-Adding collaborators to work on a shared workspace is just a click away.
-
-##### Cloud support?
-
-As the output of the build is a war file so it can be deployed over any server and can also be used as a cloud based hosted web application.
-
-Features
-==========
-
-RESTFiddle is not just a tool for API testing, it is an API Management "Platform". Some of the key features of this platform are:
-
-1. Collaboration - Add as many collaborators as you want from your team and work together on a project.
-2. Install it in your environment and own it completely.
-3. Store everything in your database - Your data is always with you. MySQL, PostgreSQL, Oracle, MS SQL Server etc. supported.
-4. Security - Runs over http/https.
-5. Work offline - You can work together with your team in your private network.
-6. Integration - RESTFiddle platform exposes APIs for everything it has. 
-7. Unlimited history/activity log.
-8. Scheduler - Run API projects on predefined time intervals.
-9. Open Source - Fork it and build the features of your choice.
-10. Access Control, Generate Reports, Notifications and much more.
+* Request Builder - Make HTTP requests with ease.
+* Request Tree - Organize requests in the form of a tree.
+* Collaboration - Add as many collaborators as you want from your team and work together on a project.
+* PDF Reports - Generate project status reports in PDF format.
+* Integration - RESTFiddle platform exposes APIs for everything it has.
+* History - Unlimited history/activity log.
+* Scheduler - Run API projects on predefined time intervals.
+* SendGrid - SendGrid integration to send notifications.
+* Cloud Deployment - It can be deployed over any server and can also be used as a cloud based hosted web application.
+* Private - Install it in your environment and own it completely. Work together with your team in your private network.
+* Database - Store everything in your database. MySQL, PostgreSQL, Oracle, MS SQL Server etc. supported.
+* Swagger - Access RESTFiddle API documentation using Swagger UI.
+* Tagging - Tags provide a useful way to group related requests together.
+* Open Source - Fork it and build the features of your choice.
+* More - Security, Access Control, Notifications and much more.
 
 A lot of powerful features coming soon!
 
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/rf_screenshot2.jpg "Initial Design")
+![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/home_page.png "Initial Design")
 
 Who Uses RESTFiddle
 ==========
