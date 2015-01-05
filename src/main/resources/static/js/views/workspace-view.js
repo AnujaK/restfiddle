@@ -16,6 +16,9 @@ define(function(require) {
 	var UserView = require('views/user-view');
 	var TagView = require('views/tag-view');
 	
+	//Initialize all tooltips.
+	$('[data-toggle="tooltip"]').tooltip();
+	
 	$('#workspace-share-tags').selectize({
 		persist: false,
 		createOnBlur: true,

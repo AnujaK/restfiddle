@@ -3,10 +3,23 @@
     <button class="btn btn-default btn-sm col-1-toggle-btn">
         <i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
     </button>
-    &nbsp;&nbsp;
+    &nbsp;
     <div class="btn-group">
-        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</button>
         <button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+            <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</a></li>
+            <li class="divider"></li>
+            <li><a class="rf-font-12 socket-connector">New Socket</a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">New Entity</a></li>
+        </ul>
+    </div>
+    &nbsp;
+    <div class="btn-group">
+        <button class="btn btn-default btn-sm run-project"  data-toggle="tooltip" data-placement="bottom" data-container="body" title="Run project does not work with in-memory database. Make sure you configure MySQL before using this feature!">Run Project</button>
     </div>
     &nbsp;&nbsp;
     <div class="btn-group">
