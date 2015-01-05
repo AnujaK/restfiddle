@@ -82,6 +82,17 @@ define(function(require) {
 		});
 	});
 
+	$("#createNewEntityBtn").bind("click", function() {
+		tree.createNewNode({
+			nodeName : $("#newEntityName").val(),
+			nodeDesc : $("#newEntityDescription").val(),
+			conversation : null,
+			successCallBack : function() {
+				$("#entityModal").modal("hide");
+			}
+		});
+	});
+	
 	$("#deleteRequestBtn").bind("click", function() {
 		var node = $("#tree").fancytree("getActiveNode");
 		$("#deleteRequestModal").modal("hide");

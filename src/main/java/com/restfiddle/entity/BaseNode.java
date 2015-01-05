@@ -30,20 +30,23 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/FOLDER etc
+    private String nodeType;// PROJECT/FOLDER/ENTITY/SOCKET etc
 
     private Long parentId;
 
     private Long position;// location in the parent node
 
     private Boolean starred;
-
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tags;
 
     @OneToOne
     @JsonManagedReference
     private Conversation conversation;
+
+    @OneToOne
+    @JsonManagedReference
+    private GenericEntity entity;
 
     @ManyToOne
     @JsonBackReference
@@ -103,6 +106,14 @@ public class BaseNode extends NamedEntity {
 
     public void setTags(List<Tag> tags) {
 	this.tags = tags;
+    }
+
+    public GenericEntity getEntity() {
+	return entity;
+    }
+
+    public void setEntity(GenericEntity entity) {
+	this.entity = entity;
     }
 
 }

@@ -14,7 +14,7 @@
             <li class="divider"></li>
             <li><a class="rf-font-12 socket-connector">New Socket</a></li>
             <li class="divider"></li>
-            <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">New Entity</a></li>
+            <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#entityModal">New Entity</a></li>
         </ul>
     </div>
     &nbsp;

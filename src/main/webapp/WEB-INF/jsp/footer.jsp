@@ -45,6 +45,23 @@
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
 			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
 	</script>
+    <script type="text/template" id="tpl-entity-field">
+    <p>
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="text" class="form-control entityFieldName" placeholder="Enter Field Name">
+            </div>
+            <div class="col-xs-6">
+                <select class="form-control entityFieldType">
+                    <option>STRING</option>
+                    <option>INTEGER</option>
+                    <option>LONG</option>
+                    <option>DATE</option>
+                </select>
+            </div>
+        </div>
+    </p>    
+    </script> 
     <script type="text/template" id="tpl-form-list-item">
     <p>
         <div class="row">

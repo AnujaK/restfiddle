@@ -1,4 +1,28 @@
 	<!-- Modals -->
+	<div class="modal fade" id="entityModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Entity</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name"> <br>
+					<textarea id="newEntityDescription" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                    <br>
+                    <p>
+                        <button type="button" class="btn btn-default btn-sm" id="addEntityFieldBtn">Add Field</button>
+                    </p>
+                    <div id="entityFieldsWrapper">
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewEntityBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="folderModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
