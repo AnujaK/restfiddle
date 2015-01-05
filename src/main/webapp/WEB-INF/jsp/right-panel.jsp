@@ -135,6 +135,7 @@
                         <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
                         <li><a href="#tab-form" data-toggle="tab">Form</a></li>
                         <li><a href="#tab-file" data-toggle="tab">Files</a></li>
+                        <li><a href="#tab-query" data-toggle="tab">Query</a></li>
                         <li><a href="#tab-header" data-toggle="tab">Header</a></li>
                         <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
                         <li class="dropdown">
@@ -180,7 +181,14 @@
                             <div id="fileDataWrapper">
                             </div>
                         </div>
-                        
+                        <div class="tab-pane" id="tab-query">
+                            <br>
+                            <p>
+                                Support for Query Params/URL Params will be added soon!
+                            </p>
+                            <div id="queryWrapper">
+                            </div>
+                        </div>                        
                         <div class="tab-pane" id="tab-header">
                             <br>
                             <!-- <p><span>Content-Type</span> : <span>application/json</span></p> -->
