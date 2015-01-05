@@ -88,6 +88,7 @@ define(function(require) {
 			nodeDesc : $("#newEntityDescription").val(),
 			conversation : null,
 			successCallBack : function() {
+                $("#entityFieldsWrapper").html('');
 				$("#entityModal").modal("hide");
 			}
 		});
