@@ -8,7 +8,9 @@ define(function(require) {
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var StarEvent = require('events/star-event');
+    
 	var NodeModel = require('models/node');
+    var EntityModel = require('models/entity');
 	var tree = {};
 
 	$("#requestBtn").bind("click", function() {
@@ -83,17 +85,58 @@ define(function(require) {
 	});
 
 	$("#createNewEntityBtn").bind("click", function() {
+        var entityName = $("#newEntityName").val();
+        var entityDescription = $("#newEntityDescription").val();
+        
+        var entityFields = getEntityFields();
+        
+        var entity = new EntityModel({
+            id : null,
+            name : entityName,
+            description : entityDescription,
+            fields : entityFields
+            
+        });
+        
 		tree.createNewNode({
-			nodeName : $("#newEntityName").val(),
-			nodeDesc : $("#newEntityDescription").val(),
+			nodeName : entityName,
+			nodeDesc : entityDescription,
 			conversation : null,
+            entity : entity,
 			successCallBack : function() {
                 $("#entityFieldsWrapper").html('');
 				$("#entityModal").modal("hide");
 			}
 		});
 	});
-	
+    
+    var getEntityFields = function(){
+        var fieldNames = [];
+        $(".entityFieldName").each(function() {
+            var fieldName = {};
+            fieldName.name = $(this).val();
+            fieldNames.push(fieldName);
+        });  
+
+        var fieldTypes = [];
+        $(".entityFieldType").each(function() {
+            var fieldType = {};
+            fieldType.type = $(this).text();
+            fieldTypes.push(fieldType);
+        }); 
+
+        var fieldArr = [];
+        var counter = 0;
+        $.each(fieldNames, function() {
+            var field = {};
+            field.name = fieldNames[counter].name;
+            field.type = fieldTypes[counter].type;
+            fieldArr.push(field);
+            counter++;
+        });  
+        return fieldArr;
+    };	
+    
 	$("#deleteRequestBtn").bind("click", function() {
 		var node = $("#tree").fancytree("getActiveNode");
 		$("#deleteRequestModal").modal("hide");
@@ -294,20 +337,30 @@ define(function(require) {
 	 * associated node.
 	 */
 	tree.createNewNode = function(params) {
-		if (params.conversation == null) {
-			createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, params.successCallBack);
+        if(params.entity && params.entity != null){
+            params.entity.save(null, {
+				success : function(response) {
+                    console.log("response # save entity" + response);
+                    createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, new EntityModel({
+                        id : response.get("id")
+                    }), params.successCallBack);
+                }
+			});
+        }
+		else if (params.conversation == null) {
+			createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, null, params.successCallBack);
 		} else {
 			params.conversation.save(null, {
 				success : function(response) {
 					createNode(params.nodeName, params.nodeDesc, null, new ConversationModel({
 						id : response.get("id")
-					}), params.successCallBack);
+					}), null, params.successCallBack);
 				}
 			});
 		}
 	};
 
-	var createNode = function(nodeName, nodeDesc, nodeType, conversation, successCallBack) {
+	var createNode = function(nodeName, nodeDesc, nodeType, conversation, entity, successCallBack) {
 		var activeFolder = tree.getActiveFolder();
 		var parentNodeId = activeFolder.data.id;
 		var node = new NodeModel({
