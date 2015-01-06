@@ -16,13 +16,25 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class GenericEntityData extends AbstractEntity {
-    private static final long serialVersionUID = 1L;
+public class GenericEntityData {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
+
+    @Version
+    private long version = 0;
 
     /**
      * Stores entity data in JSON format with key as field names.
@@ -32,7 +44,7 @@ public class GenericEntityData extends AbstractEntity {
     @ManyToOne
     @JsonBackReference
     private GenericEntity genericEntity;
-    
+
     public String getData() {
 	return data;
     }
@@ -42,11 +54,27 @@ public class GenericEntityData extends AbstractEntity {
     }
 
     public GenericEntity getGenericEntity() {
-        return genericEntity;
+	return genericEntity;
     }
 
     public void setGenericEntity(GenericEntity genericEntity) {
-        this.genericEntity = genericEntity;
+	this.genericEntity = genericEntity;
+    }
+
+    public String getId() {
+	return id;
+    }
+
+    public void setId(String id) {
+	this.id = id;
+    }
+
+    public long getVersion() {
+	return version;
+    }
+
+    public void setVersion(long version) {
+	this.version = version;
     }
 
 }

@@ -18,10 +18,9 @@ package com.restfiddle.controller.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +34,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dto.GenericEntityDTO;
 import com.restfiddle.dto.GenericEntityFieldDTO;
-import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.GenericEntityField;
 
@@ -46,7 +44,7 @@ import com.restfiddle.entity.GenericEntityField;
 public class GenericEntityController {
     Logger logger = LoggerFactory.getLogger(GenericEntityController.class);
 
-    @Resource
+    @Autowired
     private GenericEntityRepository genericEntityRepository;
 
     @RequestMapping(value = "/api/entities", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -66,11 +64,12 @@ public class GenericEntityController {
 		field = new GenericEntityField();
 		field.setName(fieldDTO.getName());
 		field.setType(fieldDTO.getType());
+		field.setGenericEntity(entity);
 		fields.add(field);
 	    }
 	    entity.setFields(fields);
 	}
-
+	
 	entity = genericEntityRepository.save(entity);
 	return entity;
     }
@@ -114,15 +113,5 @@ public class GenericEntityController {
 	entity.setDescription(updated.getDescription());
 
 	return entity;
-    }
-
-    @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.POST)
-    public @ResponseBody
-    StatusResponse generateApi(@PathVariable("id") Long id) {
-	logger.debug("Generating APIs for entity with id: " + id);
-
-	GenericEntity entity = genericEntityRepository.findOne(id);
-
-	return null;
     }
 }

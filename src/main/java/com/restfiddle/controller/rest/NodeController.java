@@ -71,6 +71,9 @@ public class NodeController {
     @Autowired
     private GenericEntityRepository genericEntityRepository;
 
+    @Autowired
+    private GenerateApiController generateApiController;
+
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
@@ -101,7 +104,13 @@ public class NodeController {
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
 	node.setProject(project);
 
-	return nodeRepository.save(node);
+	BaseNode savedNode = nodeRepository.save(node);
+
+	// Generate APIs for Entity
+	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
+	    generateApiController.generateApi(savedNode);
+	}
+	return savedNode;
     }
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")

@@ -121,7 +121,7 @@ define(function(require) {
         var fieldTypes = [];
         $(".entityFieldType").each(function() {
             var fieldType = {};
-            fieldType.type = $(this).text();
+            fieldType.type = $(this).val();
             fieldTypes.push(fieldType);
         }); 
 

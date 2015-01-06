@@ -19,6 +19,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.restfiddle.entity.GenericEntityData;
 
-public interface GenericEntityDataRepository extends JpaRepository<GenericEntityData, Long> {
+public interface GenericEntityDataRepository extends JpaRepository<GenericEntityData, String> {
 
 }

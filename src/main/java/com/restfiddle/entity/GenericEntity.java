@@ -18,6 +18,7 @@ package com.restfiddle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class GenericEntity extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
 
@@ -54,6 +55,14 @@ public class GenericEntity extends NamedEntity {
 
     public void setEntityDataList(List<GenericEntityData> entityDataList) {
 	this.entityDataList = entityDataList;
+    }
+
+    public BaseNode getBaseNode() {
+	return baseNode;
+    }
+
+    public void setBaseNode(BaseNode baseNode) {
+	this.baseNode = baseNode;
     }
 
 }
