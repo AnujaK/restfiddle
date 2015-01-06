@@ -21,6 +21,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,6 +36,9 @@ public class GenericEntity extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity")
     @JsonManagedReference
     private List<GenericEntityData> entityDataList = new ArrayList<GenericEntityData>();
+
+    @OneToOne(mappedBy = "genericEntity")
+    private BaseNode baseNode;
 
     public List<GenericEntityField> getFields() {
 	return fields;

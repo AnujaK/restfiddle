@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dao.TagRepository;
@@ -43,6 +44,7 @@ import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.TagDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
 import com.restfiddle.entity.TreeNode;
@@ -59,12 +61,15 @@ public class NodeController {
 
     @Autowired
     private NodeRepository nodeRepository;
-    
+
     @Autowired
     private TagRepository tagRepository;
 
     @Autowired
     private ConversationRepository conversationRepository;
+
+    @Autowired
+    private GenericEntityRepository genericEntityRepository;
 
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -86,6 +91,11 @@ public class NodeController {
 	if (nodeDTO.getConversationDTO() != null && nodeDTO.getConversationDTO().getId() != null) {
 	    Conversation conversation = conversationRepository.findOne(nodeDTO.getConversationDTO().getId());
 	    node.setConversation(conversation);
+	}
+
+	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
+	    GenericEntity genericEntity = genericEntityRepository.findOne(nodeDTO.getGenericEntityDTO().getId());
+	    node.setGenericEntity(genericEntity);
 	}
 
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
@@ -233,7 +243,7 @@ public class NodeController {
 	    tags = tagRepository.findAll(tagIds);
 	}
 	node.setTags(tags);
-	
+
 	return Boolean.TRUE;
-    }    
+    }
 }

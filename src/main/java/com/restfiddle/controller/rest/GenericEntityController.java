@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dto.GenericEntityDTO;
 import com.restfiddle.dto.GenericEntityFieldDTO;
+import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.GenericEntityField;
 
@@ -113,5 +114,15 @@ public class GenericEntityController {
 	entity.setDescription(updated.getDescription());
 
 	return entity;
+    }
+
+    @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.POST)
+    public @ResponseBody
+    StatusResponse generateApi(@PathVariable("id") Long id) {
+	logger.debug("Generating APIs for entity with id: " + id);
+
+	GenericEntity entity = genericEntityRepository.findOne(id);
+
+	return null;
     }
 }

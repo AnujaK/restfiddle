@@ -28,9 +28,11 @@ public class NodeDTO extends BaseDTO {
     private Long projectId;
 
     private Boolean starred;
-    
+
     private ConversationDTO conversationDTO;
-    
+
+    private GenericEntityDTO genericEntityDTO;
+
     private List<TagDTO> tags;
 
     public Long getProjectId() {
@@ -74,19 +76,27 @@ public class NodeDTO extends BaseDTO {
     }
 
     public Boolean getStarred() {
-        return starred;
+	return starred;
     }
 
     public void setStarred(Boolean starred) {
-        this.starred = starred;
+	this.starred = starred;
     }
 
-	public List<TagDTO> getTags() {
-		return tags;
-	}
+    public List<TagDTO> getTags() {
+	return tags;
+    }
 
-	public void setTags(List<TagDTO> tags) {
-		this.tags = tags;
-	}
+    public void setTags(List<TagDTO> tags) {
+	this.tags = tags;
+    }
+
+    public GenericEntityDTO getGenericEntityDTO() {
+	return genericEntityDTO;
+    }
+
+    public void setGenericEntityDTO(GenericEntityDTO genericEntityDTO) {
+	this.genericEntityDTO = genericEntityDTO;
+    }
 
 }

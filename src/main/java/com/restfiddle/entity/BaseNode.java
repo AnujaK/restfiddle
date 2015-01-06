@@ -46,7 +46,7 @@ public class BaseNode extends NamedEntity {
 
     @OneToOne
     @JsonManagedReference
-    private GenericEntity entity;
+    private GenericEntity genericEntity;
 
     @ManyToOne
     @JsonBackReference
@@ -108,12 +108,12 @@ public class BaseNode extends NamedEntity {
 	this.tags = tags;
     }
 
-    public GenericEntity getEntity() {
-	return entity;
+    public GenericEntity getGenericEntity() {
+        return genericEntity;
     }
 
-    public void setEntity(GenericEntity entity) {
-	this.entity = entity;
+    public void setGenericEntity(GenericEntity genericEntity) {
+        this.genericEntity = genericEntity;
     }
 
 }

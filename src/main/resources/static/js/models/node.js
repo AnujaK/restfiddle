@@ -5,6 +5,7 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var ConversationModel = require('models/conversation');
+    var EntityModel = require('models/entity');
 	var APP = require('commons/ns');
 
 	var NodeModel = Backbone.Model.extend({
@@ -17,6 +18,7 @@ define(function(require) {
 			projectId: '',
 			nodeType : '',
 			conversationDTO : ConversationModel,
+            genericEntityDTO : EntityModel
 		},
 		sync : function(method, model, options){
 			if(method == 'create'){

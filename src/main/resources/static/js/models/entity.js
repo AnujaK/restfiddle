@@ -10,8 +10,8 @@ define(function(require) {
 			id : null,
 			name : '',
 			description : '',
-			fields : '',
-			entityDataList : '', 
+			fields : null,
+			entityDataList : null, 
 		},
 		sync : function(method, model, options){
 			if(method == 'create' || method == 'update'){

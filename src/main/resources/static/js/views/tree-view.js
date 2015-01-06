@@ -369,6 +369,7 @@ define(function(require) {
 			description : nodeDesc,
 			projectId : APP.appView.getCurrentProjectId(),
 			conversationDTO : conversation,
+            genericEntityDTO : entity,
 			nodeType : nodeType
 		});
 		node.save(null, {
@@ -377,8 +378,8 @@ define(function(require) {
 
 				successCallBack();
 			},
-			error : function() {
-				alert('error while saving folder');
+			error : function(err) {
+				alert('error while saving folder'+err);
 			}
 		});
 	};
