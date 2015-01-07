@@ -86,7 +86,7 @@ public class GenerateApiController {
 	Conversation createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 
-	String nodeName = "GET List of " + entityNode.getName();
+	String nodeName = "Get List of " + entityNode.getName();
 	BaseNode createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
 
 	// API to GENERATE >> Get Entity Data By Id
@@ -99,7 +99,7 @@ public class GenerateApiController {
 	createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 
-	nodeName = "GET " + entityNode.getName() + " by Id";
+	nodeName = "Get " + entityNode.getName() + " by Id";
 	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
 
 	// API to GENERATE >> Delete Entity Data By Id
@@ -112,7 +112,7 @@ public class GenerateApiController {
 	createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 
-	nodeName = "DELETE " + entityNode.getName();
+	nodeName = "Delete " + entityNode.getName();
 	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
 
 	// API to GENERATE >> Create Entity Data
