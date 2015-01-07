@@ -190,7 +190,8 @@ define(function(require) {
 						}
 					}
 					prettyPrint();
-                    APP.conversation.toggleRequestSection();
+                    //TODO : Disable toggleRequestSection for now. Codemirror update issue.
+                    //APP.conversation.toggleRequestSection();
 				},
 				data : JSON.stringify(this.getProcessRequest())
 			});

@@ -16,9 +16,11 @@
 package com.restfiddle.controller.rest;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,6 +154,116 @@ public class GenerateApiController {
 	return null;
     }
 
+    @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
+    public @ResponseBody
+    String getEntityDataList(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName) {
+	List<GenericEntityData> dataList = genericEntityDataRepository.findEntityDataByName(entityName);
+	JSONArray jsonArray = new JSONArray();
+	for (GenericEntityData entityData : dataList) {
+	    jsonArray.put(createJsonFromEntityData(entityData));
+	}
+	return jsonArray.toString(4);
+    }
+
+    @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    public @ResponseBody
+    String getEntityDataById(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+	    @PathVariable("id") String entityDataId) {
+	GenericEntityData entityData = genericEntityDataRepository.findOne(entityDataId);
+	JSONObject jsonObject = createJsonFromEntityData(entityData);
+	return jsonObject.toString(4);
+    }
+
+    /**
+     * [NOTE] http://stackoverflow.com/questions/25953056/how-to-access-fields-of-converted-json-object-sent-in-post-body
+     */
+    @RequestMapping(value = "/api/{projectId}/entities/{name}", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
+    public @ResponseBody
+    String createEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+	    @RequestBody Object genericEntityDataDTO) {
+	String data = "";
+	if (genericEntityDataDTO instanceof Map) {
+	    // Note : Entity data is accessible through this map.
+	    Map map = (Map) genericEntityDataDTO;
+	    JSONObject jsonObj = createJsonFromMap(map);
+	    data = jsonObj.toString();
+	}
+	GenericEntityData entityData = new GenericEntityData();
+	entityData.setData(data);
+	// Get entity by name and set here.
+	GenericEntity genericEntity = genericEntityRepository.findEntityByName(entityName);
+	entityData.setGenericEntity(genericEntity);
+
+	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
+	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
+	return jsonObject.toString(4);
+    }
+
+    @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
+    public @ResponseBody
+    String updateEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
+	    @RequestBody Object genericEntityDataDTO) {
+	String data = "";
+	if (genericEntityDataDTO instanceof Map) {
+	    Map map = (Map) genericEntityDataDTO;
+	    if (map.get("id") != null && map.get("id") instanceof String) {
+		String entityDataId = (String) map.get("id");
+		logger.debug("Updating Entity Data with Id " + entityDataId);
+	    }
+	    JSONObject jsonObj = createJsonFromMap(map);
+	    // ID is stored separately (in a different column).
+	    jsonObj.remove("id");
+	    data = jsonObj.toString();
+	}
+	GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
+	entityData.setData(data);
+
+	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
+	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
+	return jsonObject.toString(4);
+    }
+
+    @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+    public @ResponseBody
+    StatusResponse deleteEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+	    @PathVariable("uuid") String uuid) {
+	// Delete entity-data by Id.
+	genericEntityDataRepository.delete(uuid);
+
+	StatusResponse res = new StatusResponse();
+	res.setStatus("DELETED");
+
+	return res;
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject createJsonFromMap(Map map) {
+	JSONObject jsonObject = new JSONObject();
+	for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext();) {
+	    String key = iterator.next();
+	    jsonObject.put(key, map.get(key));
+	}
+	return jsonObject;
+    }
+
+    private JSONObject createJsonFromEntityData(GenericEntityData entityData) {
+	JSONObject jsonObject = new JSONObject(entityData.getData());
+	jsonObject.put("id", entityData.getId());
+	jsonObject.put("version", entityData.getVersion());
+	jsonObject.put("createdDate", entityData.getCreatedDate());
+	jsonObject.put("lastModifiedDate", entityData.getLastModifiedDate());
+	return jsonObject;
+    }
+
+    private BaseNode createNode(String nodeName, Long parentId, Long projectId, ConversationDTO conversationDTO) {
+	NodeDTO childNode = new NodeDTO();
+	childNode.setName(nodeName);
+	childNode.setProjectId(projectId);
+	childNode.setConversationDTO(conversationDTO);
+	BaseNode createdNode = nodeController.create(parentId, childNode);
+	return createdNode;
+    }
+
     private JSONObject getFieldJson(GenericEntity genericEntity) {
 	// Create JSON template for the entity data based on fields and set it as api body.
 	List<GenericEntityField> fields = genericEntity.getFields();
@@ -169,65 +281,5 @@ public class GenerateApiController {
 	    }
 	}
 	return jsonObject;
-    }
-
-    private BaseNode createNode(String nodeName, Long parentId, Long projectId, ConversationDTO conversationDTO) {
-	NodeDTO childNode = new NodeDTO();
-	childNode.setName(nodeName);
-	childNode.setProjectId(projectId);
-	childNode.setConversationDTO(conversationDTO);
-	BaseNode createdNode = nodeController.create(parentId, childNode);
-	return createdNode;
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    List<GenericEntityData> getEntityDataList(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName) {
-	List<GenericEntityData> dataList = genericEntityDataRepository.findEntityDataByName(entityName);
-	return dataList;
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    GenericEntityData getEntityDataById(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
-	    @PathVariable("id") String entityDataId) {
-	return genericEntityDataRepository.findOne(entityDataId);
-    }
-
-    /**
-     * [NOTE] http://stackoverflow.com/questions/25953056/how-to-access-fields-of-converted-json-object-sent-in-post-body
-     */
-    @RequestMapping(value = "/api/{projectId}/entities/{name}", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
-    public @ResponseBody
-    GenericEntityData createEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
-	    @RequestBody Object genericEntityDataDTO) {
-	if (genericEntityDataDTO instanceof Map) {
-	    // Note : Entity data is accessible through this map.
-	    Map map = (Map) genericEntityDataDTO;
-	}
-	GenericEntityData entityData = new GenericEntityData();
-	entityData.setData(genericEntityDataDTO.toString());
-	// Get entity by name and set here.
-	GenericEntity genericEntity = genericEntityRepository.findEntityByName(entityName);
-	entityData.setGenericEntity(genericEntity);
-
-	return genericEntityDataRepository.save(entityData);
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
-    public @ResponseBody
-    GenericEntityData updateEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
-	    @PathVariable("uuid") String uuid, @RequestBody Object genericEntityDataDTO) {
-	if (genericEntityDataDTO instanceof Map) {
-	    Map map = (Map) genericEntityDataDTO;
-	    if (map.get("uuid") != null && map.get("uuid") instanceof String) {
-		String entityDataId = (String) map.get("uuid");
-		logger.debug("Updating Entity Data with Id " + entityDataId);
-	    }
-	}
-	GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
-	entityData.setData(genericEntityDataDTO.toString());
-
-	return genericEntityDataRepository.save(entityData);
     }
 }
