@@ -14,8 +14,6 @@
                     <li class="divider"></li>
                     <li><a href="#" data-toggle="modal" data-target="#projectModal">New Project</a></li>
                     <li class="divider"></li>
-                    <li><a href="#" data-toggle="modal" data-target="#comingSoon">Activity Log</a></li>
-                    <li class="divider"></li>
                     <li><a href="#" data-toggle="modal" data-target="#updateProfileModal">Update Profile</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></li>
                     <li class="divider"></li>

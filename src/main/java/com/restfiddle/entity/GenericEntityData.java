@@ -15,6 +15,8 @@
  */
 package com.restfiddle.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -36,6 +38,10 @@ public class GenericEntityData {
     @Version
     private long version = 0;
 
+    private Date createdDate;
+
+    private Date lastModifiedDate;
+
     /**
      * Stores entity data in JSON format with key as field names.
      */
@@ -44,6 +50,22 @@ public class GenericEntityData {
     @ManyToOne
     @JsonBackReference
     private GenericEntity genericEntity;
+
+    public String getId() {
+	return id;
+    }
+
+    public void setId(String id) {
+	this.id = id;
+    }
+
+    public long getVersion() {
+	return version;
+    }
+
+    public void setVersion(long version) {
+	this.version = version;
+    }
 
     public String getData() {
 	return data;
@@ -61,20 +83,20 @@ public class GenericEntityData {
 	this.genericEntity = genericEntity;
     }
 
-    public String getId() {
-	return id;
+    public Date getCreatedDate() {
+	return createdDate;
     }
 
-    public void setId(String id) {
-	this.id = id;
+    public void setCreatedDate(Date createdDate) {
+	this.createdDate = createdDate;
     }
 
-    public long getVersion() {
-	return version;
+    public Date getLastModifiedDate() {
+	return lastModifiedDate;
     }
 
-    public void setVersion(long version) {
-	this.version = version;
+    public void setLastModifiedDate(Date lastModifiedDate) {
+	this.lastModifiedDate = lastModifiedDate;
     }
 
 }

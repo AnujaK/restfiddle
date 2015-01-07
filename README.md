@@ -192,9 +192,14 @@ Releases
 
 https://github.com/ranjan-rk/restfiddle/releases
 
+Support
+==========
+
+If you need help in setting up RESTFiddle for your Team/Organization, feel free to contact me at [email address](mailto:ranjan.rk@gmail.com).
+
 Copyright and License
 ==========
 
-Copyright 2014 Ranjan Kumar
+Copyright 2014-15 Ranjan Kumar
 
 Licensed under Apache License, Version 2.0

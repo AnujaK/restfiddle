@@ -29,11 +29,12 @@ define(function(require) {
     });
     apiUrls.initialize();
 
-    $('#apiUrl').typeahead(null, {
-      name: 'apiUrls',
-      displayKey: 'name',
-      source: apiUrls.ttAdapter()
-    });
+    //TODO : Disabled URL autosuggest for now. Not working properly.
+    //$('#apiUrl').typeahead(null, {
+      //name: 'apiUrls',
+      //displayKey: 'name',
+      //source: apiUrls.ttAdapter()
+    //});
     
     //HTTP HEADERS
     var httpHeaders = new Bloodhound({
