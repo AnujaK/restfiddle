@@ -375,7 +375,9 @@ define(function(require) {
 		node.save(null, {
 			success : function(response) {
 				tree.appendChild(activeFolder, tree.convertModelToNode(response));
-
+                if(entity && entity != null){
+                    tree.showTree(tree.projectRefNodeId);
+                }
 				successCallBack();
 			},
 			error : function(err) {
@@ -429,6 +431,7 @@ define(function(require) {
 	};
 	
 	tree.showTree = function(projectRefNodeId) {
+        tree.projectRefNodeId = projectRefNodeId;
 		$.ajax({
 			url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree',
 			type : 'get',
