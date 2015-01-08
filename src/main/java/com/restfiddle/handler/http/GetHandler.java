@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
-import com.restfiddle.handler.http.auth.BasicHttpAuthHandler;
+import com.restfiddle.handler.http.auth.BasicAuthHandler;
 
 @Component
 @Deprecated
@@ -51,12 +51,13 @@ public class GetHandler extends GenericHandler {
 	RfResponseDTO response = null;
 
 	CloseableHttpClient httpclient = null;
-	BasicHttpAuthHandler basicHttpAuthHandler = new BasicHttpAuthHandler();
+	BasicAuthHandler basicHttpAuthHandler = new BasicAuthHandler();
 	HttpGet httpRequest = new HttpGet(apiUrl);
+	// TODO : Add auth logic.
 	if (useBasic64Auth) {
-	    httpclient = basicHttpAuthHandler.prepareBasicAuthWithBase64Encode(httpRequest, userName, password);
+	    //httpclient = basicHttpAuthHandler.prepareBasicAuthWithBase64Encode(httpRequest, userName, password);
 	} else {
-	    httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
+	    // httpclient = basicHttpAuthHandler.prepareBasicAuth(userName, password);
 	}
 	try {
 	    response = processHttpRequest(httpRequest, httpclient);

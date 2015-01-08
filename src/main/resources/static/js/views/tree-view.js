@@ -315,8 +315,7 @@ define(function(require) {
 						node.fetch({
 							success : function(response) {
 								console.log(response.get("conversation"));
-								var conversation = new ConversationModel(
-										response.get("conversation"));
+								var conversation = new ConversationModel(response.get("conversation"));
 								conversation.set("id", conversation.get("id"));
 								conversation.set("name", response.get("name"));
 								conversation.set("description",response.get("description"));
