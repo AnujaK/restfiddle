@@ -34,7 +34,7 @@ public class GenericEntity extends NamedEntity {
     @JsonManagedReference
     private List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<GenericEntityData> entityDataList = new ArrayList<GenericEntityData>();
 

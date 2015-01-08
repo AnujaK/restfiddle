@@ -143,8 +143,6 @@ public class NodeController {
 	    }
 
 	} else if (nodeType != null && NodeType.ENTITY.name().equalsIgnoreCase(nodeType)) {
-	    // TODO : Entity fields to be deleted as part of this.
-	    // Override the delete method in genericEntityRepository and delete fields as well.
 	    genericEntityRepository.delete(node.getGenericEntity());
 	}
 	nodeRepository.delete(node);
