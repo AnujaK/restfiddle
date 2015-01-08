@@ -16,5 +16,5 @@
 package com.restfiddle.constant;
 
 public enum NodeType {
-    PROJECT, FOLDER;
+    PROJECT, FOLDER, ENTITY, SOCKET, REQUEST;
 }

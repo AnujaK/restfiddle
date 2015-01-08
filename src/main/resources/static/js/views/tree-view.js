@@ -139,10 +139,10 @@ define(function(require) {
     
 	$("#deleteRequestBtn").bind("click", function() {
 		var node = $("#tree").fancytree("getActiveNode");
-		$("#deleteRequestModal").modal("hide");
+		$("#deleteNodeModal").modal("hide");
 
-		if (node == null || node.isFolder() == true) {
-			alert("Please select request to be deleted");
+		if (node == null) {
+			alert("Please select a node to be deleted.");
 			return;
 		}
 

@@ -309,15 +309,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="deleteRequestModal" tabindex="-1">
+	<div class="modal fade" id="deleteNodeModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Delete Request</h4>
+					<h4 class="modal-title" id="myModalLabel">Delete Node</h4>
 				</div>
 				<div class="modal-body">
-					Are You Sure You Want To Delete Selected Request?
+					Are You Sure You Want To Delete Selected Node?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>

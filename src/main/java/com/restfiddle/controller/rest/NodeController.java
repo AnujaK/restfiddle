@@ -118,11 +118,36 @@ public class NodeController {
     void delete(@PathVariable("id") Long id) {
 	logger.debug("Deleting node with id: " + id);
 
-	BaseNode deleted = nodeRepository.findOne(id);
-
-	nodeRepository.delete(deleted);
+	BaseNode nodeToDelete = nodeRepository.findOne(id);
+	deleteNodeRecursively(nodeToDelete);
 
 	// return deleted;
+    }
+
+    private void deleteNodeRecursively(BaseNode node) {
+	String nodeType = node.getNodeType();
+	if (nodeType != null
+		&& (NodeType.FOLDER.name().equalsIgnoreCase(nodeType) || NodeType.PROJECT.name().equalsIgnoreCase(nodeType) || NodeType.ENTITY.name()
+			.equalsIgnoreCase(nodeType))) {
+	    List<BaseNode> children = getChildren(node.getId());
+	    if (children != null && !children.isEmpty()) {
+		for (BaseNode childNode : children) {
+		    deleteNodeRecursively(childNode);
+		}
+	    }
+	}
+	// This is just a workaround added for now.
+	if (nodeType != null && NodeType.FOLDER.name().equalsIgnoreCase(nodeType)) {
+	    if (node.getGenericEntity() != null) {
+		genericEntityRepository.delete(node.getGenericEntity());
+	    }
+
+	} else if (nodeType != null && NodeType.ENTITY.name().equalsIgnoreCase(nodeType)) {
+	    // TODO : Entity fields to be deleted as part of this.
+	    // Override the delete method in genericEntityRepository and delete fields as well.
+	    genericEntityRepository.delete(node.getGenericEntity());
+	}
+	nodeRepository.delete(node);
     }
 
     @RequestMapping(value = "/api/nodes", method = RequestMethod.GET)
