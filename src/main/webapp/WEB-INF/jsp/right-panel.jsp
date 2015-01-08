@@ -14,10 +14,10 @@
         <br>
         <div id="webSocketRequest">
             <p>
-                <span id="socketName">My First Socket</span>
+                <span id="socketName">Socket Name</span>
             </p>
              <p>
-                <span id="socketDescription">This is an echo socket.</span>
+                <span id="socketDescription">Socket Description</span>
             </p>
             <br>
             <p>

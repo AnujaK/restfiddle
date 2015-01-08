@@ -139,10 +139,13 @@ define(function(require) {
 	$("#editNodeMenuItem").unbind("click").bind("click", function() {
         var node = $("#tree").fancytree("getActiveNode");
 		if (node == null) {
-            $("#editNodeModal").modal("hide");
-			alert("Please select a node to edit.");
+            alert("Please select a node to edit.");
 			return;
 		}
+        else if(node.data.nodeType == 'PROJECT'){
+            alert("Please use 'Edit Project' menu to edit a project.");
+			return;
+        }
         $("#editNodeModal").modal("show");
         $("#editNodeTextField").val(node.data.name);
         $("#editNodeTextArea").val(node.data.description);
@@ -340,12 +343,18 @@ define(function(require) {
 	var treeObj = $("#tree").fancytree("getTree");
 
 	function nodeConverter(serverNode, uiNode) {
-		if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER') {
+		if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER' || serverNode.nodeType == 'ENTITY') {
 			uiNode.folder = true;
 			uiNode.id = serverNode.id;
             uiNode.name = serverNode.name;
             uiNode.description = serverNode.description;
-			uiNode.title = '<p>' + serverNode.name + '</p>';
+            uiNode.nodeType = serverNode.nodeType;
+            if(serverNode.nodeType == 'ENTITY'){
+                uiNode.title = '<p>&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + '</p>';
+            }
+            else{
+			 uiNode.title = '<p>' + serverNode.name + '</p>';
+            }
 		}
 		if (serverNode.children == undefined || serverNode.children.length == 0) {
 			return;
@@ -353,14 +362,15 @@ define(function(require) {
 
 		uiNode.children = new Array();
 		for (var i = 0; i < serverNode.children.length; i++) {
-			if (serverNode.children[i].nodeType != 'FOLDER') {
+			if (serverNode.children[i].nodeType != 'FOLDER' && serverNode.children[i].nodeType != 'ENTITY') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>',
 					id : serverNode.children[i].id,
                     name : serverNode.children[i].name,
-                    description : serverNode.children[i].description
+                    description : serverNode.children[i].description,
+                    nodeType : serverNode.children[i].nodeType
 				});
-			} else if (serverNode.children[i].nodeType == 'FOLDER') {
+			} else if (serverNode.children[i].nodeType == 'FOLDER' || serverNode.children[i].nodeType == 'ENTITY') {
 				uiNode.children.push({});
 				nodeConverter(serverNode.children[i], uiNode.children[i]);
 			}
@@ -382,7 +392,7 @@ define(function(require) {
             params.entity.save(null, {
 				success : function(response) {
                     console.log("response # save entity" + response);
-                    createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, new EntityModel({
+                    createNode(params.nodeName, params.nodeDesc, 'ENTITY', null, new EntityModel({
                         id : response.get("id")
                     }), params.successCallBack);
                 }

@@ -67,6 +67,27 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="socketModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Socket</h4>
+				</div>
+				<input type="hidden" class="form-control" id="socketSource">
+				<div class="modal-body">
+					<div class="form-group">
+						<input class="form-control" id="socketName" placeholder="Enter Socket Name"> <br>
+						<textarea class="form-control" id="socketTextArea" rows="3" placeholder="Enter Description"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="createNewSocketBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="updateProfileModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
