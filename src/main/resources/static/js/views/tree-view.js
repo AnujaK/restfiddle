@@ -136,6 +136,43 @@ define(function(require) {
         });  
         return fieldArr;
     };	
+	$("#editNodeMenuItem").unbind("click").bind("click", function() {
+        var node = $("#tree").fancytree("getActiveNode");
+		if (node == null) {
+            $("#editNodeModal").modal("hide");
+			alert("Please select a node to edit.");
+			return;
+		}
+        $("#editNodeModal").modal("show");
+        $("#editNodeTextField").val(node.data.name);
+        $("#editNodeTextArea").val(node.data.description);
+
+	});
+	$("#editNodeBtn").unbind("click").bind("click", function() {
+        var node = $("#tree").fancytree("getActiveNode");
+        
+        var nodeModel = new NodeModel({
+			id : node.data.id,
+			name : $("#editNodeTextField").val(),
+			description : $("#editNodeTextArea").val()
+		});
+        
+        node.data.id = nodeModel.attributes.id;
+        node.data.name = nodeModel.attributes.name;
+        node.data.description = nodeModel.attributes.description;
+        node.setTitle('<p>'+nodeModel.attributes.name+'</p>');
+        
+		nodeModel.save(null, {
+			success : function(response) {
+				$("#editNodeTextField").val("");
+				$("#editNodeTextArea").val("");
+                $("#editNodeModal").modal("hide");
+			},
+			error : function(e) {
+				alert('Some unexpected error occured Please try later.');
+			}
+		});
+	});
     
 	$("#deleteRequestBtn").bind("click", function() {
 		var node = $("#tree").fancytree("getActiveNode");
@@ -305,7 +342,9 @@ define(function(require) {
 	function nodeConverter(serverNode, uiNode) {
 		if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER') {
 			uiNode.folder = true;
-			uiNode.id = serverNode.id
+			uiNode.id = serverNode.id;
+            uiNode.name = serverNode.name;
+            uiNode.description = serverNode.description;
 			uiNode.title = '<p>' + serverNode.name + '</p>';
 		}
 		if (serverNode.children == undefined || serverNode.children.length == 0) {
@@ -317,7 +356,9 @@ define(function(require) {
 			if (serverNode.children[i].nodeType != 'FOLDER') {
 				uiNode.children.push({
 					title : '<p>' + serverNode.children[i].name + '</p>',
-					id : serverNode.children[i].id
+					id : serverNode.children[i].id,
+                    name : serverNode.children[i].name,
+                    description : serverNode.children[i].description
 				});
 			} else if (serverNode.children[i].nodeType == 'FOLDER') {
 				uiNode.children.push({});
@@ -375,6 +416,7 @@ define(function(require) {
 		node.save(null, {
 			success : function(response) {
 				tree.appendChild(activeFolder, tree.convertModelToNode(response));
+                //Refresh tree after an entity got created. as service apis will be generated in the back-end.
                 if(entity && entity != null){
                     tree.showTree(tree.projectRefNodeId);
                 }

@@ -239,7 +239,25 @@
 			</div>
 		</div>
 	</div>	
-	
+	<div class="modal fade" id="editNodeModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editNodeModalLabel">Edit Node</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name"> <br>
+					<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editNodeBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
 	<div class="modal fade" id="editProjectModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
