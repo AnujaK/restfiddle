@@ -17,6 +17,9 @@ package com.restfiddle.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.api.client.auth.oauth2.BrowserClientRequestUrl;
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
@@ -156,5 +161,16 @@ public class ApiController {
 	    }
 	}
 	return nodeStatuses;
+    }
+
+    @RequestMapping(value = "/oauth/redirect", method = RequestMethod.GET)
+    public ModelAndView oauthRedirect() {
+	List<String> scopes = new ArrayList<String>();
+	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
+	String url = new BrowserClientRequestUrl("https://accounts.google.com/o/oauth2/auth",
+		"82089573969-nocs1ulh96n5kfut1bh5cq7n1enlfoe8.apps.googleusercontent.com").setState("restfiddle").setScopes(scopes)
+		.setRedirectUri("http://localhost:8080/oauth/response").build();
+
+	return new ModelAndView("redirect:" + url);
     }
 }

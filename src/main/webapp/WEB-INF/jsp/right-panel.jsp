@@ -229,7 +229,10 @@
                         </div>
                         <div class="tab-pane" id="tab-oauth2">
                             <br>
+                            <span id="fetchedAccessToken"></span>
                             <br>
+                            <br>
+                            <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
                             <br>
                             <p></p>
                         </div>

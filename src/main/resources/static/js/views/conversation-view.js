@@ -125,6 +125,14 @@ define(function(require) {
         $("#bAuthUsername").val('');
         $("#bAuthPassword").val('');
     });
+
+    $("#accessTokenBtn").unbind("click").bind("click", function() {
+        var w = "600";
+        var h = "400";
+        var left = (screen.width/2)-(w/2);
+        var top = 100; //(screen.height/2)-(h/2);
+        var oauthWindow = window.open("/oauth/redirect", "", "top="+top+", left="+left+", width="+w+", height="+h+"");
+	});      
     
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),
@@ -370,6 +378,11 @@ define(function(require) {
                 $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
                 $("#requestContainer").toggle();
             }
+        },
+        
+        handleOauthResult : function handleOauthResult(result) {
+            console.log("oauth access token : " + result);
+            $('#fetchedAccessToken').html("Access Token : " + result+"<br>");
         }
         
 	});

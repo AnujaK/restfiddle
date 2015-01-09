@@ -18,6 +18,8 @@ package com.restfiddle.controller;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,15 +44,9 @@ public class AppController {
 	return "home";
     }
 
-    @RequestMapping(value = "/ui/sample", method = RequestMethod.GET)
-    public String userForm(Model model) {
-	logger.info("URL : /ui/sample and method : GET");
-
-	model.addAttribute("user", new User());
-	model.addAttribute("time", new Date());
-	model.addAttribute("message", this.message);
-
-	return "sample";
+    @RequestMapping(value = "/oauth/response", method = RequestMethod.GET)
+    public String method(HttpServletRequest request) {
+	return "oauth-response";
     }
 
 }
