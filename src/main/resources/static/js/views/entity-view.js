@@ -12,10 +12,18 @@ define(function(require) {
 	var EntityFieldView = Backbone.View.extend({	
         template: _.template($('#tpl-entity-field').html()),
         
+        events : {
+            'click .destroy': 'clear',
+        },
+        
 		render : function() {
             this.$el.html(this.template());
 			return this;
-		}
+		},
+        
+        clear : function(){
+            this.remove();
+        }
 	});
 	
 	var EntityView = Backbone.View.extend({

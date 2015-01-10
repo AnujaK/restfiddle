@@ -137,28 +137,52 @@ define(function(require) {
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),
         
+        events : {
+            'click .destroy': 'clear',
+        },
+        
 		render : function() {
             this.$el.html(this.template());
 			return this;
-		}
+		},
+        
+        clear : function(){
+            this.remove();
+        }
 	});
 
 	var FileListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-file-list-item').html()),
         
+        events : {
+            'click .destroy': 'clear',
+        },
+        
 		render : function() {
             this.$el.html(this.template());
 			return this;
-		}
+		},
+        
+        clear : function(){
+            this.remove();
+        }
 	});
     
 	var HeaderListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-header-list-item').html()),
         
+        events : {
+            'click .destroy': 'clear',
+        },
+        
 		render : function() {
             this.$el.html(this.template());
 			return this;
-		}
+		},
+        
+        clear : function(){
+            this.remove();
+        }
 	});
     
 	var ConversationView = Backbone.View.extend({

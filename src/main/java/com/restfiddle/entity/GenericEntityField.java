@@ -26,6 +26,8 @@ public class GenericEntityField extends AbstractEntity {
 
     private String name;
 
+    // Note : It can be a simple data-type or another entity.
+    // When an entity is renamed, this field needs to get updated, if reference found here.
     private String type;
 
     @ManyToOne

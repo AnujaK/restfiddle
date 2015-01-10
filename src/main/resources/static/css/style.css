@@ -293,8 +293,17 @@ ul.fancytree-container {
 .tt-suggestion.tt-cursor {
 	color: #fff;
 	background-color: #0097cf;
-
 }
 .color-gray{
 	color: gray;
+}
+
+.destroy{
+	display: none;
+}
+#headersWrapper .row:hover .destroy, 
+#fileDataWrapper .row:hover .destroy, 
+#formDataWrapper .row:hover .destroy,
+#entityFieldsWrapper .row:hover .destroy{
+	display: block;
 }

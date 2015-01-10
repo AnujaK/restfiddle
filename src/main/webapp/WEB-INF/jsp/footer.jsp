@@ -48,10 +48,10 @@
     <script type="text/template" id="tpl-entity-field">
     <p>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control entityFieldName" placeholder="Enter Field Name">
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <select class="form-control entityFieldType">
                     <option>STRING</option>
                     <option>INTEGER</option>
@@ -59,17 +59,23 @@
                     <option>DATE</option>
                 </select>
             </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
+            </div>
         </div>
     </p>    
     </script> 
     <script type="text/template" id="tpl-form-list-item">
     <p>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control formDataName" placeholder="Enter Key">
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control formDataValue" placeholder="Enter Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
             </div>
         </div>
     </p>    
@@ -77,11 +83,14 @@
     <script type="text/template" id="tpl-file-list-item">
     <p>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control fileDataName" placeholder="Enter Key">
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="file" class="form-control fileDataValue" placeholder="Enter Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
             </div>
         </div>
     </p>    
@@ -89,11 +98,14 @@
     <script type="text/template" id="tpl-header-list-item">
     <p>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control headerName http-header" placeholder="Enter Header Name">
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-5">
                 <input type="text" class="form-control headerValue" placeholder="Enter Header Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
             </div>
         </div>
     </p>    

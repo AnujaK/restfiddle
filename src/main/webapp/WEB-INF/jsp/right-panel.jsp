@@ -231,7 +231,6 @@
                             <br>
                             <span id="fetchedAccessToken"></span>
                             <br>
-                            <br>
                             <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
                             <br>
                             <p></p>
