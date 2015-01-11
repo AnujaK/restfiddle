@@ -231,13 +231,15 @@
                             <br>
                             <span id="fetchedAccessToken"></span>
                             <br>
-                            <div><input type="text" class="form-control" placeholder="Enter Authorization Endpoint">                                 </div>
+                            <div><input type="text" class="form-control" id="authorizationUrl" placeholder="Enter Authorization Endpoint">                                 </div>
                             <br>
                             <div><input type="text" class="form-control" placeholder="Enter Access Token Endpoint">                                   </div>
                             <br>
-                            <div><input type="text" class="form-control" placeholder="Enter Client ID">                                               </div>
+                            <div><input type="text" class="form-control" id="clientId" placeholder="Enter Client ID">                                               </div>
                             <br>
                             <div><input type="text" class="form-control" placeholder="Enter Client Secret">                                           </div>
+                            <br>
+                            <div><input type="text" class="form-control" id="authScopes" placeholder="Enter Scope">                                           </div>
                             <br>
                             <div class="row">
                                 <div class="col-xs-6">

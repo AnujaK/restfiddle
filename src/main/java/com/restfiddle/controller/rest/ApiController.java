@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -161,7 +162,17 @@ public class ApiController {
 	return nodeStatuses;
     }
 
+    @RequestMapping(value = "/api/oauth/form", method = RequestMethod.POST)
+    public ModelAndView oauthFormRedirect(@ModelAttribute OAuth2RequestDTO oAuth2RequestDTO) {
+	List<String> scopes = oAuth2RequestDTO.getScopes();
+	String url = new BrowserClientRequestUrl(oAuth2RequestDTO.getAuthorizationUrl(), oAuth2RequestDTO.getClientId()).setState("restfiddle")
+		.setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
+
+	return new ModelAndView("redirect:" + url);
+    }
+
     @RequestMapping(value = "/oauth/demo-redirect", method = RequestMethod.GET)
+    @Deprecated
     public ModelAndView oauthRedirect() {
 	List<String> scopes = new ArrayList<String>();
 	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
@@ -171,15 +182,15 @@ public class ApiController {
 
 	return new ModelAndView("redirect:" + url);
     }
-    
-    @RequestMapping(value = "/oauth/redirect", method = RequestMethod.POST, headers = "Accept=application/json")
-    public ModelAndView oauth2Redirect(@RequestBody OAuth2RequestDTO oAuth2RequestDTO) {
-	List<String> scopes = new ArrayList<String>();
-	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
-	String url = new BrowserClientRequestUrl("https://accounts.google.com/o/oauth2/auth",
-		"82089573969-nocs1ulh96n5kfut1bh5cq7n1enlfoe8.apps.googleusercontent.com").setState("restfiddle").setScopes(scopes)
-		.setRedirectUri("http://localhost:8080/oauth/response").build();
 
-	return new ModelAndView("redirect:" + url);
+    @RequestMapping(value = "/api/oauth/redirect", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    @Deprecated
+    String oauth2Redirect(@RequestBody OAuth2RequestDTO oAuth2RequestDTO) {
+	List<String> scopes = oAuth2RequestDTO.getScopes();
+	String url = new BrowserClientRequestUrl(oAuth2RequestDTO.getAuthorizationUrl(), oAuth2RequestDTO.getClientId()).setState("restfiddle")
+		.setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
+
+	return url;
     }
 }

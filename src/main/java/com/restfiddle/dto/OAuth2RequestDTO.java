@@ -19,6 +19,64 @@ import java.util.List;
 
 public class OAuth2RequestDTO {
 
-    List<String> scopes;
-    
+    private String authorizationUrl;
+
+    private String accessTokenUrl;
+
+    private String clientId;
+
+    private String clientSecret;
+
+    private String accessTokenLocation;
+
+    private List<String> scopes;
+
+    public String getAuthorizationUrl() {
+        return authorizationUrl;
+    }
+
+    public void setAuthorizationUrl(String authorizationUrl) {
+        this.authorizationUrl = authorizationUrl;
+    }
+
+    public String getAccessTokenUrl() {
+        return accessTokenUrl;
+    }
+
+    public void setAccessTokenUrl(String accessTokenUrl) {
+        this.accessTokenUrl = accessTokenUrl;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
+    public String getAccessTokenLocation() {
+        return accessTokenLocation;
+    }
+
+    public void setAccessTokenLocation(String accessTokenLocation) {
+        this.accessTokenLocation = accessTokenLocation;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
+    }
+
 }

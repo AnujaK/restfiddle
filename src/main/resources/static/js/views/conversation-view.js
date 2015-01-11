@@ -127,12 +127,43 @@ define(function(require) {
     });
 
     $("#accessTokenBtn").unbind("click").bind("click", function() {
+        var scopes = new Array();
+        scopes.push($("#authScopes").val());
+        
         var w = "600";
         var h = "400";
         var left = (screen.width/2)-(w/2);
         var top = 100; //(screen.height/2)-(h/2);
-        var oauthWindow = window.open("/oauth/redirect", "", "top="+top+", left="+left+", width="+w+", height="+h+"");
-	});      
+        
+        var oauthWindow = window.open("", "OAUTHWINDOW", "top="+top+", left="+left+", width="+w+", height="+h+"");
+        
+        var args  = {
+            "authorizationUrl" : $("#authorizationUrl").val(),
+            "clientId" : $("#clientId").val(),
+            "scopes" : $("#authScopes").val()
+        };
+        
+        openWindowWithPost('POST', '/api/oauth/form', args, 'OAUTHWINDOW');
+	}); 
+    
+    //Note : http://stackoverflow.com/questions/17793183/how-to-replace-window-open-with-a-post
+    var openWindowWithPost = function(verb, url, data, target) {
+        var form = document.createElement("form");
+        form.action = url;
+        form.method = verb;
+        form.target = target || "_self";
+        if (data) {
+        for (var key in data) {
+          var input = document.createElement("textarea");
+          input.name = key;
+          input.value = typeof data[key] === "object" ? JSON.stringify(data[key]) : data[key];
+          form.appendChild(input);
+        }
+        }
+        form.style.display = 'none';
+        document.body.appendChild(form);
+        form.submit();
+    };
     
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),
