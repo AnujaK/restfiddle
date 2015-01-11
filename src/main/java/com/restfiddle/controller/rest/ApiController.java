@@ -17,9 +17,6 @@ package com.restfiddle.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +41,7 @@ import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeStatusResponseDTO;
+import com.restfiddle.dto.OAuth2RequestDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.BaseNode;
@@ -163,8 +161,19 @@ public class ApiController {
 	return nodeStatuses;
     }
 
-    @RequestMapping(value = "/oauth/redirect", method = RequestMethod.GET)
+    @RequestMapping(value = "/oauth/demo-redirect", method = RequestMethod.GET)
     public ModelAndView oauthRedirect() {
+	List<String> scopes = new ArrayList<String>();
+	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
+	String url = new BrowserClientRequestUrl("https://accounts.google.com/o/oauth2/auth",
+		"82089573969-nocs1ulh96n5kfut1bh5cq7n1enlfoe8.apps.googleusercontent.com").setState("restfiddle").setScopes(scopes)
+		.setRedirectUri("http://localhost:8080/oauth/response").build();
+
+	return new ModelAndView("redirect:" + url);
+    }
+    
+    @RequestMapping(value = "/oauth/redirect", method = RequestMethod.POST, headers = "Accept=application/json")
+    public ModelAndView oauth2Redirect(@RequestBody OAuth2RequestDTO oAuth2RequestDTO) {
 	List<String> scopes = new ArrayList<String>();
 	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
 	String url = new BrowserClientRequestUrl("https://accounts.google.com/o/oauth2/auth",

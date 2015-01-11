@@ -15,10 +15,13 @@
  */
 package com.restfiddle.entity;
 
+import javax.persistence.Entity;
+
 /**
  * Note : There will NOT be two separate records to A -> B and B -> A.
  * 
  */
+@Entity
 public class EntityRelationship extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
