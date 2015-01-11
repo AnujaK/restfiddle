@@ -231,7 +231,29 @@
                             <br>
                             <span id="fetchedAccessToken"></span>
                             <br>
-                            <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
+                            <div><input type="text" class="form-control" placeholder="Enter Authorization Endpoint">                                 </div>
+                            <br>
+                            <div><input type="text" class="form-control" placeholder="Enter Access Token Endpoint">                                   </div>
+                            <br>
+                            <div><input type="text" class="form-control" placeholder="Enter Client ID">                                               </div>
+                            <br>
+                            <div><input type="text" class="form-control" placeholder="Enter Client Secret">                                           </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <select class="form-control">
+                                        <option>Select Access Token Location</option>
+                                        <option>Auth Header With Bearer Prefix</option>
+                                        <option>Auth Header With OAuth Prefix</option>
+                                        <option>URL Parameter with access_token</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
+                                </div>
+                            </div>
+                            <br>
+                            
                             <br>
                             <p></p>
                         </div>

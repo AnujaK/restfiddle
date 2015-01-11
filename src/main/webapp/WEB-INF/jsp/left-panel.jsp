@@ -3,7 +3,10 @@
         <div id="dd-workspace-wrapper"></div>
         <br>
         <div class="rf-margin-5">
-            <h6 class="rf-h6">Projects&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right rf-btn-margin-2" ><span data-toggle="modal" data-target="#projectModal" class="glyphicon glyphicon-plus rf-plus-font" ></span></button>
+            <h6 class="rf-h6">Projects&nbsp;&nbsp;</h6>
+            <button class="btn btn-default btn-xs pull-right rf-btn-margin-2" data-toggle="modal" data-target="#projectModal" >
+                <span class="glyphicon glyphicon-plus rf-plus-font"></span>
+            </button>
         </div>
         <ul class="nav nav-pills nav-stacked rf-left-nav" id="test_project">
         </ul>
@@ -11,7 +14,10 @@
         <div class="left-menu-divider"></div>
         <br>
         <div class="rf-margin-5">
-            <h6 class="rf-h6">Tags&nbsp;&nbsp;</h6><button class="btn btn-default btn-xs pull-right rf-btn-margin-2"><span data-toggle="modal" data-target="#tagModal" class="glyphicon glyphicon-plus rf-plus-font"></span></button>
+            <h6 class="rf-h6">Tags&nbsp;&nbsp;</h6>
+            <button class="btn btn-default btn-xs pull-right rf-btn-margin-2" data-toggle="modal" data-target="#tagModal" >
+                <span class="glyphicon glyphicon-plus rf-plus-font"></span>
+            </button>
         </div>
         <ul class="nav nav-pills nav-stacked rf-left-nav" id="rfTags">
         </ul>
