@@ -143,10 +143,20 @@
                                 Auth <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li role="presentation"><a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a></li>
-                                <li role="presentation"><a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a></li>
-                                <li role="presentation"><a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a></li>
-                                <li role="presentation"><a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a></li>
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
+                                </li>
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
+                                </li>
+                                <!--
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a>
+                                </li>
+                                -->
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -184,9 +194,9 @@
                         <div class="tab-pane" id="tab-query">
                             <br>
                             <p>
-                                Support for Query Params/URL Params will be added soon!
+                                <button type="button" class="btn btn-default btn-sm" id="addQueryParamBtn">Add Query Param</button>
                             </p>
-                            <div id="queryWrapper">
+                            <div id="queryParamsWrapper">
                             </div>
                         </div>                        
                         <div class="tab-pane" id="tab-header">

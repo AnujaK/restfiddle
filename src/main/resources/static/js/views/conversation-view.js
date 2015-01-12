@@ -84,6 +84,11 @@ define(function(require) {
         
 	});
     
+    $("#addQueryParamBtn").unbind("click").bind("click", function() {
+        var queryParamListItemView = new QueryParamListItemView();
+        $("#queryParamsWrapper").append(queryParamListItemView.render().el);
+	});
+    
     $("#addFormDataBtn").unbind("click").bind("click", function() {
         var formListItemView = new FormListItemView();
         $("#formDataWrapper").append(formListItemView.render().el);
@@ -164,6 +169,23 @@ define(function(require) {
         document.body.appendChild(form);
         form.submit();
     };
+    
+ 	var QueryParamListItemView = Backbone.View.extend({	
+        template: _.template($('#tpl-query-param-list-item').html()),
+        
+        events : {
+            'click .destroy': 'clear',
+        },
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		},
+        
+        clear : function(){
+            this.remove();
+        }
+	});
     
 	var FormListItemView = Backbone.View.extend({	
         template: _.template($('#tpl-form-list-item').html()),

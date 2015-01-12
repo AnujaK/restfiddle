@@ -64,7 +64,22 @@
             </div>
         </div>
     </p>    
-    </script> 
+    </script>
+    <script type="text/template" id="tpl-query-param-list-item">
+    <p>
+        <div class="row">
+            <div class="col-xs-5">
+                <input type="text" class="form-control queryParamName" placeholder="Enter Key">
+            </div>
+            <div class="col-xs-5">
+                <input type="text" class="form-control queryParamValue" placeholder="Enter Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
+            </div>
+        </div>
+    </p>    
+    </script>
     <script type="text/template" id="tpl-form-list-item">
     <p>
         <div class="row">
