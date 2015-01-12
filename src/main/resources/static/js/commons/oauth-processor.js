@@ -1,8 +1,14 @@
 $(function() {
+    console.log("URL : "+window.location.href);
     
     function getQueryVariable(variable) {
       var query = window.location.href;
-      var vars = query.split("&");
+      var vars;
+      if(query && query.indexOf("?") != -1){
+          query = query.substring(query.indexOf("?")+1);
+      }
+      vars = query.split("&");
+        
       for (var i=0;i<vars.length;i++) {
         var pair = vars[i].split("=");
         if (pair[0] == variable) {
@@ -12,6 +18,10 @@ $(function() {
     }
 
     var access_token = getQueryVariable("access_token");
+    if(access_token == undefined){
+        access_token = getQueryVariable("code");
+    }
+    
     var token_type = getQueryVariable("token_type");
     var expires_in = getQueryVariable("expires_in");    
 

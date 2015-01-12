@@ -15,9 +15,12 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,10 +166,29 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/api/oauth/form", method = RequestMethod.POST)
-    public ModelAndView oauthFormRedirect(@ModelAttribute OAuth2RequestDTO oAuth2RequestDTO) {
+    public ModelAndView oauthFormRedirect(@ModelAttribute OAuth2RequestDTO oAuth2RequestDTO) throws URISyntaxException {
 	List<String> scopes = oAuth2RequestDTO.getScopes();
-	String url = new BrowserClientRequestUrl(oAuth2RequestDTO.getAuthorizationUrl(), oAuth2RequestDTO.getClientId()).setState("restfiddle")
-		.setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
+	String authorizationUrl = oAuth2RequestDTO.getAuthorizationUrl();
+	if (authorizationUrl == null || authorizationUrl.isEmpty()) {
+	    return null;
+	}
+	URIBuilder uriBuilder = new URIBuilder(authorizationUrl);
+	List<NameValuePair> queryParams = uriBuilder.getQueryParams();
+	List<String> responseTypes = new ArrayList<String>();
+	if (queryParams != null && !queryParams.isEmpty()) {
+	    for (NameValuePair nameValuePair : queryParams) {
+		if ("response_type".equals(nameValuePair.getName())) {
+		    responseTypes.add(nameValuePair.getValue());
+		    break;
+		}
+	    }
+	}
+
+	BrowserClientRequestUrl browserClientRequestUrl = new BrowserClientRequestUrl(authorizationUrl, oAuth2RequestDTO.getClientId());
+	if (!responseTypes.isEmpty()) {
+	    browserClientRequestUrl = browserClientRequestUrl.setResponseTypes(responseTypes);
+	}
+	String url = browserClientRequestUrl.setState("restfiddle").setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
 
 	return new ModelAndView("redirect:" + url);
     }
