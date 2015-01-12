@@ -8,18 +8,27 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.DigestScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Component;
+
+import com.restfiddle.dto.DigestAuthDTO;
+import com.restfiddle.dto.RfRequestDTO;
 
 @Component
 public class DigestAuthHandler {
 
-    public CredentialsProvider auth(String userName, String password) {
+    public void setCredentialsProvider(RfRequestDTO requestDTO, HttpClientBuilder clientBuilder) {
+	DigestAuthDTO digestAuthDTO = requestDTO.getDigestAuthDTO();
+	String userName = digestAuthDTO.getUsername();
+	String password = digestAuthDTO.getPassword();
+	if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+	    return;
+	}
 	CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 	credentialsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM),
 		new UsernamePasswordCredentials(userName, password));
 
-	return credentialsProvider;
-
+	clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
     }
 
     public HttpClientContext preemptive() {

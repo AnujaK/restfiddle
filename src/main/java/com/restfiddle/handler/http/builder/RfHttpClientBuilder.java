@@ -18,15 +18,23 @@ package com.restfiddle.handler.http.builder;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.handler.http.auth.DigestAuthHandler;
 
 @Component
 public class RfHttpClientBuilder {
 
+    @Autowired
+    private DigestAuthHandler digestAuthHandler;
+    
     public CloseableHttpClient build(RfRequestDTO requestDTO, HttpUriRequest request) {
 	HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+	
+	//Set Digest Authentication
+	digestAuthHandler.setCredentialsProvider(requestDTO, clientBuilder);
 
 	CloseableHttpClient httpClient = clientBuilder.build();
 	return httpClient;

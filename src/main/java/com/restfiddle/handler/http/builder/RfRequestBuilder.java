@@ -25,18 +25,23 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.handler.http.auth.BasicAuthHandler;
 
 @Component
 public class RfRequestBuilder {
     Logger logger = LoggerFactory.getLogger(RfRequestBuilder.class);
 
     // private static String[] entityContainerTypes = { "POST", "PUT", "PATCH", "DELETE" };
+
+    @Autowired
+    private BasicAuthHandler basicAuthHandler;
 
     public HttpUriRequest build(RfRequestDTO requestDTO) {
 	String methodType = requestDTO.getMethodType();
@@ -48,6 +53,9 @@ public class RfRequestBuilder {
 
 	setHeaders(requestDTO, requestBuilder);
 
+	// Set Basic Authentication
+	basicAuthHandler.setBasicAuthWithBase64Encode(requestDTO, requestBuilder);
+	
 	setRequestEntity(requestDTO, requestBuilder);
 
 	HttpUriRequest httpUriRequest = requestBuilder.build();

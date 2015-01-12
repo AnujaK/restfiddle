@@ -15,31 +15,43 @@
  */
 package com.restfiddle.handler.http.auth;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.springframework.stereotype.Component;
 
 import sun.misc.BASE64Encoder;
 
+import com.restfiddle.dto.BasicAuthDTO;
+import com.restfiddle.dto.RfRequestDTO;
+
 @Component
 public class BasicAuthHandler {
 
+    public void setBasicAuthWithBase64Encode(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
+	BasicAuthDTO basicAuthDTO = requestDTO.getBasicAuthDTO();
+	String userName = basicAuthDTO.getUsername();
+	String password = basicAuthDTO.getPassword();
+	if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+	    return;
+	}
+
+	String authStr = userName + ":" + password;
+	String encodedAuth = (new BASE64Encoder()).encode(authStr.getBytes());
+	requestBuilder.addHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedAuth);
+    }
+
+    /**
+     * TODO : Not used anywhere right now.
+     */
     public CredentialsProvider prepareBasicAuth(String userName, String password) {
 	CredentialsProvider provider = new BasicCredentialsProvider();
 	UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(userName, userName);
 	provider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), credentials);
 
 	return provider;
-    }
-
-    public HttpRequestBase prepareBasicAuthWithBase64Encode(HttpRequestBase httpGet, String userName, String password) {
-	String authStr = userName + ":" + password;
-	String encoding = (new BASE64Encoder()).encode(authStr.getBytes());
-	httpGet.setHeader("Authorization", "Basic " + encoding);
-
-	return httpGet;
     }
 }

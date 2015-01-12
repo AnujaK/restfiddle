@@ -266,10 +266,26 @@ define(function(require) {
 					apiBody : this.apiBodyCodeMirror.getValue(),
                     headers : this.getHeaderParams(),
                     urlParams : this.getUrlParams(),
-                    formParams : this.getFormParams()
+                    formParams : this.getFormParams(),
+                    basicAuthDTO : this.getBasicAuthDTO(),
+                    digestAuthDTO : this.getDigestAuthDTO()
 				};
 			return item;
 		},
+        
+        getBasicAuthDTO : function(){
+            var basicAuthDTO = {};
+            basicAuthDTO.username = $("#bAuthUsername").val();
+            basicAuthDTO.password = $("#bAuthPassword").val();
+            return basicAuthDTO;
+        },
+        
+        getDigestAuthDTO : function(){
+            var digestAuthDTO = {};
+            digestAuthDTO.username = $("#digestUsername").val();
+            digestAuthDTO.password = $("#digestPassword").val();
+            return digestAuthDTO;
+        },
         
         getHeaderParams : function(){
             var headerNames = [];

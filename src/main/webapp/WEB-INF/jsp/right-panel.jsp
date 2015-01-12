@@ -217,9 +217,14 @@
                         </div>
                         <div class="tab-pane" id="tab-digest-auth">
                             <br>
-                            <br> 
-                            <br>
-                            <p></p>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="digestUsername" placeholder="Enter Username">
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" id="digestPassword" placeholder="Enter Password">
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="tab-oauth1">
                             <br>

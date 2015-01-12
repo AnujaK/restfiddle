@@ -31,7 +31,11 @@ public class RfRequestDTO extends BaseDTO {
     private List<UrlParamDTO> urlParams;
     
     private List<FormDataDTO> formParams; 
+    
+    private BasicAuthDTO basicAuthDTO;
 
+    private DigestAuthDTO digestAuthDTO;
+    
     @JsonBackReference
     private ConversationDTO itemDTO;
 
@@ -89,5 +93,21 @@ public class RfRequestDTO extends BaseDTO {
 
     public void setFormParams(List<FormDataDTO> formParams) {
         this.formParams = formParams;
+    }
+
+    public BasicAuthDTO getBasicAuthDTO() {
+        return basicAuthDTO;
+    }
+
+    public void setBasicAuthDTO(BasicAuthDTO basicAuthDTO) {
+        this.basicAuthDTO = basicAuthDTO;
+    }
+
+    public DigestAuthDTO getDigestAuthDTO() {
+        return digestAuthDTO;
+    }
+
+    public void setDigestAuthDTO(DigestAuthDTO digestAuthDTO) {
+        this.digestAuthDTO = digestAuthDTO;
     }
 }
