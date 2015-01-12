@@ -59,7 +59,6 @@ import com.restfiddle.handler.http.GenericHandler;
 @ComponentScan
 @Transactional
 public class ApiController {
-
     Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
@@ -136,7 +135,7 @@ public class ApiController {
 		    RfRequest rfRequest = conversation.getRfRequest();
 		    String methodType = rfRequest.getMethodType();
 		    String apiUrl = rfRequest.getApiUrl();
-		    String apiBody = rfRequest.getApiBody();
+		    String apiBody = rfRequest.getApiBodyString();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);

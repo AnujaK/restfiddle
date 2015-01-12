@@ -17,7 +17,9 @@ public class ConversationConverter {
 	item.setRfRequest(request);
 	request.setApiUrl(requestDto.getApiUrl());
 	request.setMethodType(requestDto.getMethodType());
-	request.setApiBody(requestDto.getApiBody());
+	if(requestDto.getApiBody() != null){
+	    request.setApiBody(requestDto.getApiBody().getBytes());
+	}
 
 	// Note : We can plan to make it configurable.
 	RfResponse response = new RfResponse();
@@ -35,7 +37,9 @@ public class ConversationConverter {
 
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
 	RfRequest rfRequest = item.getRfRequest();
-	rfRequestDTO.setApiBody(rfRequest.getApiBody());
+	
+	rfRequestDTO.setApiBody(rfRequest.getApiBodyString());
+	
 	rfRequestDTO.setApiUrl(rfRequest.getApiUrl());
 	rfRequestDTO.setMethodType(rfRequest.getMethodType());
 

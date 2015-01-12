@@ -62,10 +62,12 @@ public class ConversationController {
 
 	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
 	RfRequest rfRequest = new RfRequest();
-	if(null != rfRequestDTO){
-		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
-		rfRequest.setApiBody(rfRequestDTO.getApiBody());
-		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	if (null != rfRequestDTO) {
+	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	    if(rfRequestDTO.getApiBody() != null){
+		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
+	    }
+	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 	}
 	conversation.setRfRequest(rfRequest);
 	RfResponse rfResponse = new RfResponse();
@@ -101,11 +103,11 @@ public class ConversationController {
 	for (Conversation item : content) {
 	    RfRequest rfRequest = item.getRfRequest();
 	    logger.debug(rfRequest.getApiUrl());
-//	    byte[] body = item.getRfResponse().getBody();
-//	    if (body != null) {
-//		String strBody = new String(body);
-//		System.out.println(strBody);
-//	    }
+	    // byte[] body = item.getRfResponse().getBody();
+	    // if (body != null) {
+	    // String strBody = new String(body);
+	    // System.out.println(strBody);
+	    // }
 	}
 	return content;
     }
@@ -130,10 +132,12 @@ public class ConversationController {
 
 	RfRequestDTO rfRequestDTO = updated.getRfRequestDTO();
 	RfRequest rfRequest = item.getRfRequest();
-	if(null != rfRequestDTO){
-		rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
-		rfRequest.setApiBody(rfRequestDTO.getApiBody());
-		rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	if (null != rfRequestDTO) {
+	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	    if(rfRequestDTO.getApiBody() != null){
+		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
+	    }
+	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 	}
 	item.setRfRequest(rfRequest);
 	return item;

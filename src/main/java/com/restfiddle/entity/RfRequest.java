@@ -18,8 +18,10 @@ package com.restfiddle.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -29,7 +31,12 @@ public class RfRequest extends NamedEntity {
 
     private String apiUrl;
     private String methodType;
-    private String apiBody;
+
+    @Lob
+    private byte[] apiBody;
+
+    @Transient
+    private String apiBodyString;
 
     @OneToMany
     private List<RfHeader> rfHeaders;
@@ -65,14 +72,6 @@ public class RfRequest extends NamedEntity {
 	this.methodType = methodType;
     }
 
-    public String getApiBody() {
-	return apiBody;
-    }
-
-    public void setApiBody(String apiBody) {
-	this.apiBody = apiBody;
-    }
-
     public List<RfHeader> getRfHeaders() {
 	return rfHeaders;
     }
@@ -82,11 +81,30 @@ public class RfRequest extends NamedEntity {
     }
 
     public List<RfCookie> getRfCookies() {
-        return rfCookies;
+	return rfCookies;
     }
 
     public void setRfCookies(List<RfCookie> rfCookies) {
-        this.rfCookies = rfCookies;
+	this.rfCookies = rfCookies;
+    }
+
+    public byte[] getApiBody() {
+	return apiBody;
+    }
+
+    public void setApiBody(byte[] apiBody) {
+	this.apiBody = apiBody;
+    }
+
+    public String getApiBodyString() {
+	if(apiBody == null){
+	    return "";
+	}
+	return new String(apiBody);
+    }
+
+    public void setApiBodyString(String apiBodyString) {
+	this.apiBodyString = apiBodyString;
     }
 
 }

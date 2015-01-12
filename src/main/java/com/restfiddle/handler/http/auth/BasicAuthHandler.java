@@ -33,6 +33,9 @@ public class BasicAuthHandler {
 
     public void setBasicAuthWithBase64Encode(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
 	BasicAuthDTO basicAuthDTO = requestDTO.getBasicAuthDTO();
+	if (basicAuthDTO == null) {
+	    return;
+	}
 	String userName = basicAuthDTO.getUsername();
 	String password = basicAuthDTO.getPassword();
 	if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {

@@ -19,6 +19,9 @@ public class DigestAuthHandler {
 
     public void setCredentialsProvider(RfRequestDTO requestDTO, HttpClientBuilder clientBuilder) {
 	DigestAuthDTO digestAuthDTO = requestDTO.getDigestAuthDTO();
+	if (digestAuthDTO == null) {
+	    return;
+	}
 	String userName = digestAuthDTO.getUsername();
 	String password = digestAuthDTO.getPassword();
 	if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
