@@ -21,6 +21,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -30,6 +31,9 @@ public class RfResponse extends NamedEntity {
 
     @Lob
     private byte[] body;
+
+    @Transient
+    private String bodyString;
 
     @OneToMany
     private List<RfHeader> rfHeaders;
@@ -60,6 +64,14 @@ public class RfResponse extends NamedEntity {
 
     public void setRfHeaders(List<RfHeader> rfHeaders) {
 	this.rfHeaders = rfHeaders;
+    }
+
+    public String getBodyString() {
+	return bodyString;
+    }
+
+    public void setBodyString(String bodyString) {
+	this.bodyString = bodyString;
     }
 
 }

@@ -15,6 +15,9 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -30,7 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.dto.ConversationDTO;
+import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
@@ -70,26 +75,53 @@ public class FileUploadController {
 		for (int i = 0; i < len; i++) {
 		    JSONObject request = (JSONObject) requests.get(i);
 		    String requestName = request.getString("name");
-		    System.out.println(requestName);
 		    String requestDescription = request.getString("description");
-		    System.out.println(requestDescription);
 		    String requestUrl = request.getString("url");
-		    System.out.println(requestUrl);
 		    String requestMethod = request.getString("method");
-		    System.out.println(requestMethod);
 
 		    ConversationDTO conversationDTO = new ConversationDTO();
 		    RfRequestDTO rfRequestDTO = new RfRequestDTO();
 		    rfRequestDTO.setApiUrl(requestUrl);
 		    rfRequestDTO.setMethodType(requestMethod);
-		    
-		    
+
+		    String headersString = request.getString("headers");
+		    if (headersString != null && !headersString.isEmpty()) {
+			List<RfHeaderDTO> headerDTOs = new ArrayList<RfHeaderDTO>();
+			RfHeaderDTO headerDTO = null;
+			String[] headersArr = headersString.split("\n");
+			for (String header : headersArr) {
+			    String[] headerToken = header.split(":");
+			    String headerName = headerToken[0];
+			    String headerValue = headerToken[1].trim();
+
+			    headerDTO = new RfHeaderDTO();
+			    headerDTO.setHeaderName(headerName);
+			    headerDTO.setHeaderValue(headerValue);
+			    headerDTOs.add(headerDTO);
+			}
+			rfRequestDTO.setHeaders(headerDTOs);
+		    }
+
 		    String dataMode = request.getString("dataMode");
-		    if("raw".equals(dataMode)){
+		    if ("raw".equals(dataMode)) {
 			String rawModeData = request.getString("rawModeData");
 			rfRequestDTO.setApiBody(rawModeData);
+		    } else if ("params".equals(dataMode)) {
+			JSONArray formParamsArr = request.getJSONArray("data");
+			int arrLen = formParamsArr.length();
+
+			FormDataDTO formParam = null;
+			List<FormDataDTO> formParams = new ArrayList<FormDataDTO>();
+			for (int j = 0; j < arrLen; j++) {
+			    JSONObject formParamJSON = (JSONObject) formParamsArr.get(j);
+			    formParam = new FormDataDTO();
+			    formParam.setKey(formParamJSON.getString("key"));
+			    formParam.setValue(formParamJSON.getString("value"));
+			    formParams.add(formParam);
+			}
+			rfRequestDTO.setFormParams(formParams);
 		    }
-		    
+
 		    conversationDTO.setRfRequestDTO(rfRequestDTO);
 		    Conversation createdConversation = conversationController.create(conversationDTO);
 		    conversationDTO.setId(createdConversation.getId());

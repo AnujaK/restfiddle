@@ -17,7 +17,9 @@ package com.restfiddle.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -38,11 +40,17 @@ public class RfRequest extends NamedEntity {
     @Transient
     private String apiBodyString;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RfHeader> rfHeaders;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RfCookie> rfCookies;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UrlParam> urlParams;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FormParam> formParams;
 
     @OneToOne(mappedBy = "rfRequest")
     @JsonBackReference
@@ -97,7 +105,7 @@ public class RfRequest extends NamedEntity {
     }
 
     public String getApiBodyString() {
-	if(apiBody == null){
+	if (apiBody == null) {
 	    return "";
 	}
 	return new String(apiBody);
@@ -105,6 +113,22 @@ public class RfRequest extends NamedEntity {
 
     public void setApiBodyString(String apiBodyString) {
 	this.apiBodyString = apiBodyString;
+    }
+
+    public List<UrlParam> getUrlParams() {
+	return urlParams;
+    }
+
+    public void setUrlParams(List<UrlParam> urlParams) {
+	this.urlParams = urlParams;
+    }
+
+    public List<FormParam> getFormParams() {
+	return formParams;
+    }
+
+    public void setFormParams(List<FormParam> formParams) {
+	this.formParams = formParams;
     }
 
 }

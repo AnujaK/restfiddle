@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Ranjan Kumar
+ * Copyright 2015 Ranjan Kumar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,27 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 
 @Entity
-public class RfCookie extends AbstractEntity {
+public class UrlParam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    private String cookieName;
+    private String key;
 
-    private String cookieValue;
+    private String value;
 
-    public String getCookieName() {
-	return cookieName;
+    public String getKey() {
+	return key;
     }
 
-    public void setCookieName(String cookieName) {
-	this.cookieName = cookieName;
+    public void setKey(String key) {
+	this.key = key;
     }
 
-    public String getCookieValue() {
-	return cookieValue;
+    public String getValue() {
+	return value;
     }
 
-    public void setCookieValue(String cookieValue) {
-	this.cookieValue = cookieValue;
+    public void setValue(String value) {
+	this.value = value;
     }
 
 }
