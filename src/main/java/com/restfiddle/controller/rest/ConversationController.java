@@ -15,7 +15,6 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,15 +35,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
-import com.restfiddle.dto.FormDataDTO;
-import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
-import com.restfiddle.entity.FormParam;
-import com.restfiddle.entity.RfHeader;
 import com.restfiddle.entity.RfRequest;
-import com.restfiddle.entity.RfResponse;
 
 @RestController
 @EnableAutoConfiguration
@@ -61,49 +57,12 @@ public class ConversationController {
     Conversation create(@RequestBody ConversationDTO conversationDTO) {
 	logger.debug("Creating a new item with information: " + conversationDTO);
 
-	Conversation conversation = new Conversation();
+	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
+	RfResponseDTO rfResponseDTO = new RfResponseDTO();
+
+	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, rfResponseDTO);
 	conversation.setName(conversationDTO.getName());
 	conversation.setDescription(conversationDTO.getDescription());
-
-	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
-	RfRequest rfRequest = new RfRequest();
-	if (rfRequestDTO != null) {
-	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
-	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
-
-	    List<FormDataDTO> formDataDTOs = rfRequestDTO.getFormParams();
-	    List<FormParam> formParams = new ArrayList<FormParam>();
-
-	    if (rfRequestDTO.getApiBody() != null) {
-		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
-	    } else if (formDataDTOs != null && !formDataDTOs.isEmpty()) {
-		FormParam formParam = null;
-		for (FormDataDTO formDataDTO : formDataDTOs) {
-		    formParam = new FormParam();
-		    formParam.setParamKey(formDataDTO.getKey());
-		    formParam.setValueString(formDataDTO.getValue());
-		    formParams.add(formParam);
-		}
-		rfRequest.setFormParams(formParams);
-	    }
-
-	    List<RfHeaderDTO> headerDTOs = rfRequestDTO.getHeaders();
-	    List<RfHeader> headers = new ArrayList<RfHeader>();
-	    RfHeader header = null;
-	    if (headerDTOs != null && !headerDTOs.isEmpty()) {
-		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
-		    header = new RfHeader();
-		    header.setHeaderName(rfHeaderDTO.getHeaderName());
-		    header.setHeaderValueString(rfHeaderDTO.getHeaderValue());
-		    headers.add(header);
-		}
-		rfRequest.setRfHeaders(headers);
-	    }
-	}
-	conversation.setRfRequest(rfRequest);
-	RfResponse rfResponse = new RfResponse();
-	rfResponse.setName("res1");
-	conversation.setRfResponse(rfResponse);
 
 	return itemRepository.save(conversation);
     }

@@ -26,42 +26,42 @@ public class FormParam extends AbstractEntity {
     private String paramKey;
 
     @Lob
-    private byte[] value;
+    private byte[] paramValue;
 
     @Transient
     private String valueString;
 
-    public byte[] getValue() {
-	return value;
-    }
-
-    public void setValue(byte[] value) {
-	this.value = value;
-    }
-
     public String getValueString() {
-	if (value == null) {
+	if (paramValue == null) {
 	    return null;
 	} else {
-	    return new String(value);
+	    return new String(paramValue);
 	}
     }
 
     public void setValueString(String valueString) {
 	this.valueString = valueString;
 	if (valueString != null) {
-	    this.setValue(valueString.getBytes());
+	    this.setParamValue(valueString.getBytes());
 	} else {
-	    this.setValue(null);
+	    this.setParamValue(null);
 	}
     }
 
     public String getParamKey() {
-        return paramKey;
+	return paramKey;
     }
 
     public void setParamKey(String paramKey) {
-        this.paramKey = paramKey;
+	this.paramKey = paramKey;
+    }
+
+    public byte[] getParamValue() {
+	return paramValue;
+    }
+
+    public void setParamValue(byte[] paramValue) {
+	this.paramValue = paramValue;
     }
 
 }

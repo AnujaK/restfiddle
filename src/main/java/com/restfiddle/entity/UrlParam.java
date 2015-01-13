@@ -23,15 +23,7 @@ public class UrlParam extends AbstractEntity {
 
     private String paramKey;
 
-    private String value;
-
-    public String getValue() {
-	return value;
-    }
-
-    public void setValue(String value) {
-	this.value = value;
-    }
+    private String paramValue;
 
     public String getParamKey() {
         return paramKey;
@@ -39,6 +31,14 @@ public class UrlParam extends AbstractEntity {
 
     public void setParamKey(String paramKey) {
         this.paramKey = paramKey;
+    }
+
+    public String getParamValue() {
+        return paramValue;
+    }
+
+    public void setParamValue(String paramValue) {
+        this.paramValue = paramValue;
     }
 
 }
