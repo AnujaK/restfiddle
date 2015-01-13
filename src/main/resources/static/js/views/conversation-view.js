@@ -407,7 +407,7 @@ define(function(require) {
 			this.$el.find("#apiRequestName").html(conversation.get('name'));
 			this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
 			
-			this.$el.find("#apiUrl").val(request.apiUrl);
+			this.$el.find("#apiUrl").val(request.apiUrlString);
 			this.$el.find(".apiRequestType").val(request.methodType);
             if(request.apiBody != null){
                 this.apiBodyCodeMirror.setValue(request.apiBodyString);

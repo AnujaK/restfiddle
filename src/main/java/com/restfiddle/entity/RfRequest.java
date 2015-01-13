@@ -31,7 +31,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String apiUrl;
+    @Lob
+    private byte[] apiUrl;
+
+    @Transient
+    private String apiUrlString;
+
     private String methodType;
 
     @Lob
@@ -62,14 +67,6 @@ public class RfRequest extends NamedEntity {
 
     public void setItem(Conversation item) {
 	this.item = item;
-    }
-
-    public String getApiUrl() {
-	return apiUrl;
-    }
-
-    public void setApiUrl(String apiUrl) {
-	this.apiUrl = apiUrl;
     }
 
     public String getMethodType() {
@@ -131,4 +128,28 @@ public class RfRequest extends NamedEntity {
 	this.formParams = formParams;
     }
 
+    public byte[] getApiUrl() {
+	return apiUrl;
+    }
+
+    public void setApiUrl(byte[] apiUrl) {
+	this.apiUrl = apiUrl;
+    }
+
+    public String getApiUrlString() {
+	if (apiUrl == null) {
+	    return null;
+	} else {
+	    return new String(apiUrl);
+	}
+    }
+
+    public void setApiUrlString(String apiUrlString) {
+	this.apiUrlString = apiUrlString;
+	if (apiUrlString != null) {
+	    this.setApiUrl(apiUrlString.getBytes());
+	} else {
+	    this.setApiUrl(null);
+	}
+    }
 }

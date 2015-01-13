@@ -92,7 +92,7 @@ public class ConversationController {
 
 	for (Conversation item : content) {
 	    RfRequest rfRequest = item.getRfRequest();
-	    logger.debug(rfRequest.getApiUrl());
+	    logger.debug(rfRequest.getApiUrlString());
 	    // byte[] body = item.getRfResponse().getBody();
 	    // if (body != null) {
 	    // String strBody = new String(body);
@@ -123,7 +123,7 @@ public class ConversationController {
 	RfRequestDTO rfRequestDTO = updated.getRfRequestDTO();
 	RfRequest rfRequest = item.getRfRequest();
 	if (null != rfRequestDTO) {
-	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	    rfRequest.setApiUrlString(rfRequestDTO.getApiUrl());
 	    if (rfRequestDTO.getApiBody() != null) {
 		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
 	    }

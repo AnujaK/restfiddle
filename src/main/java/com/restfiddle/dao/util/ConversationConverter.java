@@ -22,7 +22,7 @@ public class ConversationConverter {
 
 	RfRequest rfRequest = new RfRequest();
 	if (rfRequestDTO != null) {
-	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	    rfRequest.setApiUrlString(rfRequestDTO.getApiUrl());
 	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 
 	    List<FormDataDTO> formDataDTOs = rfRequestDTO.getFormParams();
@@ -75,7 +75,7 @@ public class ConversationConverter {
 
 	rfRequestDTO.setApiBody(rfRequest.getApiBodyString());
 
-	rfRequestDTO.setApiUrl(rfRequest.getApiUrl());
+	rfRequestDTO.setApiUrl(rfRequest.getApiUrlString());
 	rfRequestDTO.setMethodType(rfRequest.getMethodType());
 
 	return itemDTO;
