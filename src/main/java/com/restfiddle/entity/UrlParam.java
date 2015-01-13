@@ -21,17 +21,9 @@ import javax.persistence.Entity;
 public class UrlParam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    private String key;
+    private String paramKey;
 
     private String value;
-
-    public String getKey() {
-	return key;
-    }
-
-    public void setKey(String key) {
-	this.key = key;
-    }
 
     public String getValue() {
 	return value;
@@ -39,6 +31,14 @@ public class UrlParam extends AbstractEntity {
 
     public void setValue(String value) {
 	this.value = value;
+    }
+
+    public String getParamKey() {
+        return paramKey;
+    }
+
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
     }
 
 }

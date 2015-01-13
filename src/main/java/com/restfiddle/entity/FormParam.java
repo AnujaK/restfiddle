@@ -23,21 +23,13 @@ import javax.persistence.Transient;
 public class FormParam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    private String key;
+    private String paramKey;
 
     @Lob
     private byte[] value;
 
     @Transient
     private String valueString;
-
-    public String getKey() {
-	return key;
-    }
-
-    public void setKey(String key) {
-	this.key = key;
-    }
 
     public byte[] getValue() {
 	return value;
@@ -62,6 +54,14 @@ public class FormParam extends AbstractEntity {
 	} else {
 	    this.setValue(null);
 	}
+    }
+
+    public String getParamKey() {
+        return paramKey;
+    }
+
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
     }
 
 }

@@ -16,6 +16,8 @@
 package com.restfiddle.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
 
 /**
  * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
@@ -26,8 +28,11 @@ public class RfHeader extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     private String headerName;
+    @Lob
+    private byte[] headerValue;
 
-    private String headerValue;
+    @Transient
+    private String headerValueString;
 
     public String getHeaderName() {
 	return headerName;
@@ -37,12 +42,29 @@ public class RfHeader extends AbstractEntity {
 	this.headerName = headerName;
     }
 
-    public String getHeaderValue() {
+    public byte[] getHeaderValue() {
 	return headerValue;
     }
 
-    public void setHeaderValue(String headerValue) {
+    public void setHeaderValue(byte[] headerValue) {
 	this.headerValue = headerValue;
+    }
+
+    public String getHeaderValueString() {
+	if (headerValue == null) {
+	    return null;
+	} else {
+	    return new String(headerValue);
+	}
+    }
+
+    public void setHeaderValueString(String headerValueString) {
+	this.headerValueString = headerValueString;
+	if (headerValueString != null) {
+	    this.setHeaderValue(headerValueString.getBytes());
+	} else {
+	    this.setHeaderValue(null);
+	}
     }
 
 }

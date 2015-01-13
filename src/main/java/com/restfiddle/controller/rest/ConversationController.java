@@ -80,7 +80,7 @@ public class ConversationController {
 		FormParam formParam = null;
 		for (FormDataDTO formDataDTO : formDataDTOs) {
 		    formParam = new FormParam();
-		    formParam.setKey(formDataDTO.getKey());
+		    formParam.setParamKey(formDataDTO.getKey());
 		    formParam.setValueString(formDataDTO.getValue());
 		    formParams.add(formParam);
 		}
@@ -94,7 +94,7 @@ public class ConversationController {
 		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
 		    header = new RfHeader();
 		    header.setHeaderName(rfHeaderDTO.getHeaderName());
-		    header.setHeaderValue(rfHeaderDTO.getHeaderValue());
+		    header.setHeaderValueString(rfHeaderDTO.getHeaderValue());
 		    headers.add(header);
 		}
 		rfRequest.setRfHeaders(headers);
