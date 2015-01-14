@@ -43,7 +43,7 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrl@></a>
+			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@></a>
 	</script>
     <script type="text/template" id="tpl-entity-field">
     <p>

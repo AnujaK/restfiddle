@@ -25,34 +25,34 @@ import javax.persistence.Entity;
 public class DataMap extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    private String key;
-    
+    private String dataKey;
+
     private String value;
-    
+
     private String type;
 
-    public String getKey() {
-        return key;
+    public String getDataKey() {
+	return dataKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setDataKey(String dataKey) {
+	this.dataKey = dataKey;
     }
 
     public String getValue() {
-        return value;
+	return value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+	this.value = value;
     }
 
     public String getType() {
-        return type;
+	return type;
     }
 
     public void setType(String type) {
-        this.type = type;
+	this.type = type;
     }
-    
+
 }

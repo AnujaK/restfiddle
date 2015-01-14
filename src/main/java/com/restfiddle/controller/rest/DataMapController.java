@@ -51,7 +51,7 @@ public class DataMapController {
 	logger.debug("Creating a new dataMap with information: " + dataMapDTO);
 
 	DataMap dataMap = new DataMap();
-	dataMap.setKey(dataMapDTO.getKey());
+	dataMap.setDataKey(dataMapDTO.getKey());
 	dataMap.setValue(dataMapDTO.getValue());
 	dataMap.setType(dataMapDTO.getType());
 	return dataMapRepository.save(dataMap);
@@ -92,7 +92,7 @@ public class DataMapController {
 
 	DataMap dataMap = dataMapRepository.findOne(updated.getId());
 
-	dataMap.setKey(updated.getKey());
+	dataMap.setDataKey(updated.getKey());
 	dataMap.setValue(updated.getValue());
 
 	return dataMap;

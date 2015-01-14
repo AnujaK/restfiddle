@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -203,23 +204,30 @@ public class GenerateApiController {
     public @ResponseBody
     String updateEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
 	    @RequestBody Object genericEntityDataDTO) {
-	String data = "";
+	JSONObject jsonObject = new JSONObject();
 	if (genericEntityDataDTO instanceof Map) {
 	    Map map = (Map) genericEntityDataDTO;
 	    if (map.get("id") != null && map.get("id") instanceof String) {
 		String entityDataId = (String) map.get("id");
 		logger.debug("Updating Entity Data with Id " + entityDataId);
 	    }
-	    JSONObject jsonObj = createJsonFromMap(map);
+	    JSONObject uiJson = createJsonFromMap(map);
 	    // ID is stored separately (in a different column).
-	    jsonObj.remove("id");
-	    data = jsonObj.toString();
-	}
-	GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
-	entityData.setData(data);
+	    uiJson.remove("id");
 
-	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
-	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
+	    GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
+	    String dbData = entityData.getData();
+	    JSONObject dbJson = new JSONObject(dbData);
+	    
+	    Set<String> keySet = uiJson.keySet();
+	    for (String key : keySet) {
+		dbJson.put(key, uiJson.get(key));
+	    }
+	    entityData.setData(dbJson.toString());
+
+	    GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
+	    jsonObject = createJsonFromEntityData(savedEntityData);
+	}
 	return jsonObject.toString(4);
     }
 
