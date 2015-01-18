@@ -8,11 +8,13 @@ import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
+import com.restfiddle.dto.UrlParamDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.FormParam;
 import com.restfiddle.entity.RfHeader;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
+import com.restfiddle.entity.UrlParam;
 
 //TODO : Need to use Spring Object Mapping : http://docs.spring.io/spring/previews/mapping.html
 public class ConversationConverter {
@@ -39,6 +41,20 @@ public class ConversationConverter {
 		    formParams.add(formParam);
 		}
 		rfRequest.setFormParams(formParams);
+	    }
+
+	    List<UrlParamDTO> urlParamDTOs = rfRequestDTO.getUrlParams();
+	    List<UrlParam> urlParams = new ArrayList<UrlParam>();
+
+	    if (urlParamDTOs != null && !urlParamDTOs.isEmpty()) {
+		UrlParam urlParam = null;
+		for (UrlParamDTO urlParamDTO : urlParamDTOs) {
+		    urlParam = new UrlParam();
+		    urlParam.setParamKey(urlParamDTO.getKey());
+		    urlParam.setParamValue(urlParamDTO.getValue());
+		    urlParams.add(urlParam);
+		}
+		rfRequest.setUrlParams(urlParams);
 	    }
 
 	    List<RfHeaderDTO> headerDTOs = rfRequestDTO.getHeaders();

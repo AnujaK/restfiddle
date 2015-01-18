@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.dto.UrlParamDTO;
 import com.restfiddle.handler.http.auth.BasicAuthHandler;
 
 @Component
@@ -45,21 +46,51 @@ public class RfRequestBuilder {
 
     public HttpUriRequest build(RfRequestDTO requestDTO) {
 	String methodType = requestDTO.getMethodType();
-	String apiUrl = requestDTO.getApiUrl();
 
 	RequestBuilder requestBuilder = RequestBuilder.create(methodType);
 
-	requestBuilder.setUri(apiUrl);
+	setUriWithParams(requestDTO, requestBuilder);
 
 	setHeaders(requestDTO, requestBuilder);
 
 	// Set Basic Authentication
 	basicAuthHandler.setBasicAuthWithBase64Encode(requestDTO, requestBuilder);
-	
+
 	setRequestEntity(requestDTO, requestBuilder);
 
 	HttpUriRequest httpUriRequest = requestBuilder.build();
 	return httpUriRequest;
+    }
+
+    private void setUriWithParams(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
+	String apiUrl = requestDTO.getApiUrl();
+	List<UrlParamDTO> urlParams = requestDTO.getUrlParams();
+	if (urlParams != null && !urlParams.isEmpty()) {
+	    apiUrl = buildUrlWithParams(apiUrl, urlParams);
+	}
+	requestBuilder.setUri(apiUrl);
+	// TODO : Shall we set this API URL in UI Layer itself?
+	requestDTO.setApiUrl(apiUrl);
+    }
+
+    private String buildUrlWithParams(String apiUrl, List<UrlParamDTO> urlParams) {
+	StringBuilder sb = new StringBuilder();
+	sb.append(apiUrl);
+	boolean paramsAlreadyExist = false;
+	if (apiUrl.indexOf("?") > 0) {
+	    paramsAlreadyExist = true;
+	}
+
+	for (int i = 0; i < urlParams.size(); i++) {
+	    UrlParamDTO urlParam = urlParams.get(i);
+	    if (i == 0 && !paramsAlreadyExist) {
+		sb.append("?");
+	    } else {
+		sb.append("&");
+	    }
+	    sb.append(urlParam.getKey() + "=" + urlParam.getValue());
+	}
+	return sb.toString();
     }
 
     private void setHeaders(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {

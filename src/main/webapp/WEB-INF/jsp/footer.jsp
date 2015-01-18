@@ -69,10 +69,10 @@
     <p>
         <div class="row">
             <div class="col-xs-5">
-                <input type="text" class="form-control queryParamName" placeholder="Enter Key">
+                <input type="text" class="form-control urlDataName" placeholder="Enter Key">
             </div>
             <div class="col-xs-5">
-                <input type="text" class="form-control queryParamValue" placeholder="Enter Value">
+                <input type="text" class="form-control urlDataValue" placeholder="Enter Value">
             </div>
             <div class="col-xs-2">
                 <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
