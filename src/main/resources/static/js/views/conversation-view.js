@@ -476,6 +476,17 @@ define(function(require) {
         handleOauthResult : function handleOauthResult(result) {
             console.log("oauth access token : " + result);
             $('#fetchedAccessToken').html("Access Token : " + result+"<br>");
+            //Adding Access Token in the header
+            var headerListItemView = new HeaderListItemView();
+            $("#headersWrapper").append(headerListItemView.render().el);
+            headerListItemView.$el.find('.http-header').typeahead(null, {
+                name: 'httpHeaders',
+                displayKey: 'name',
+                source: httpHeaders.ttAdapter()
+            });
+            headerListItemView.$el.find('.headerName').val("Authorization");
+            headerListItemView.$el.find('.headerValue').val("Bearer "+result);
+            
         }
         
 	});
