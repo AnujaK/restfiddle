@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.Conversation;
 
-public interface ConversationRepository extends JpaRepository<Conversation, Long> {
+public interface ConversationRepository extends RfRepository<Conversation, Long> {
 
 }

@@ -17,13 +17,12 @@ package com.restfiddle.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.restfiddle.entity.BaseNode;
 
-public interface NodeRepository extends JpaRepository<BaseNode, Long> {
+public interface NodeRepository extends RfRepository<BaseNode, Long> {
 
     // TODO : Also check for hasChildren.
     @Query("SELECT bn FROM BaseNode bn WHERE bn.parentId = :parentId")

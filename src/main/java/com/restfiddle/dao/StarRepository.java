@@ -15,11 +15,9 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.Star;
 
 @Deprecated
-public interface StarRepository extends JpaRepository<Star, Long> {
+public interface StarRepository extends RfRepository<Star, Long> {
 
 }

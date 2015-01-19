@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.ActivityLog;
 
-public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> {
+public interface ActivityLogRepository extends RfRepository<ActivityLog, Long> {
 
 }

@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.ProjectRunnerLog;
 
-public interface ProjectRunnerLogRepository extends JpaRepository<ProjectRunnerLog, Long> {
+public interface ProjectRunnerLogRepository extends RfRepository<ProjectRunnerLog, Long> {
 
 }

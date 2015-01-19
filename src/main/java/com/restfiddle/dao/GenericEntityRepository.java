@@ -15,13 +15,12 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.restfiddle.entity.GenericEntity;
 
-public interface GenericEntityRepository extends JpaRepository<GenericEntity, Long> {
+public interface GenericEntityRepository extends RfRepository<GenericEntity, Long> {
 
     @Query("SELECT e FROM GenericEntity e WHERE e.name = :entityName")
     public GenericEntity findEntityByName(@Param("entityName") String entityName);

@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.EntityRelationship;
 
-public interface EntityRelationshipRepository extends JpaRepository<EntityRelationship, Long> {
+public interface EntityRelationshipRepository extends RfRepository<EntityRelationship, Long> {
 
 }

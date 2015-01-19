@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.RfResponse;
 
-public interface RfResponseRepository extends JpaRepository<RfResponse, Long> {
+public interface RfResponseRepository extends RfRepository<RfResponse, Long> {
 
 }

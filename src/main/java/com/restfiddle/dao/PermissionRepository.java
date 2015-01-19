@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.Permission;
 
-public interface PermissionRepository extends JpaRepository<Permission, Long> {
+public interface PermissionRepository extends RfRepository<Permission, Long> {
 
 }

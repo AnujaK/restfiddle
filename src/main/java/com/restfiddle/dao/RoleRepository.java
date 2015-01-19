@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.Role;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends RfRepository<Role, Long> {
 
 }

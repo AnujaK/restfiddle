@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.HttpRequestHeader;
 
-public interface HttpRequestHeaderRepository extends JpaRepository<HttpRequestHeader, Long> {
+public interface HttpRequestHeaderRepository extends RfRepository<HttpRequestHeader, Long> {
 
 }

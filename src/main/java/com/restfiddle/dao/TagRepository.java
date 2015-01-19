@@ -15,10 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.restfiddle.entity.Tag;
 
-public interface TagRepository extends JpaRepository<Tag, Long> {
+public interface TagRepository extends RfRepository<Tag, Long> {
 
 }
