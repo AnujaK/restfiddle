@@ -83,7 +83,29 @@ define(function(require) {
 			}
 		});
 	});
-
+    
+	$("#importFileBtn").unbind("click").bind("click", function() {
+        var projectId = APP.appView.getCurrentProjectId();
+        var fileInput = document.getElementById('importFileId');
+        var file = fileInput.files[0];
+        var fd = new FormData();
+        fd.append('projectId', projectId);
+        fd.append('name', '');
+        fd.append('file', file);
+		$.ajax({
+			url : APP.config.baseUrl + '/import',
+			type : 'post',
+            processData: false,
+            contentType: false,
+            data : fd,
+			success : function(response) {
+                console.log("Import file response : "+response);
+                $("#importModal").modal("hide");
+                tree.showTree(tree.projectRefNodeId);
+			}
+		});
+	});
+    
 	$("#createNewEntityBtn").bind("click", function() {
         var entityName = $("#newEntityName").val();
         var entityDescription = $("#newEntityDescription").val();

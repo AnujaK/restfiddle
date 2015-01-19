@@ -240,7 +240,30 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<div class="modal fade" id="importModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Import</h4>
+				</div>
+				<div class="modal-body">
+                    <div class="alert alert-info">
+                        Import a Postman Collection. Support for other file types will be added soon!
+                    </div>
+                    <br>
+					<input type="file" name="file" id="importFileId" class="form-control">
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="importFileBtn" type="button" class="btn btn-primary">Import</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
 	<div class="modal fade" id="tagModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">

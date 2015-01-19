@@ -40,7 +40,8 @@
             <li><a class="rf-font-12" id="editNodeMenuItem">Edit Node</a></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteNodeModal">Delete Node</a></li>
             <li class="divider"></li>
-            <li><a class="rf-font-12 run-project">Run Project</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" data-target="#importModal">Import</a></li>
+            <li class="divider"></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#editProjectModal">Edit Project</a></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteProjectModal">Delete Project</a></li>
             <li class="divider"></li>
