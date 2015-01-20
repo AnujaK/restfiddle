@@ -106,7 +106,7 @@ define(function(require) {
 		});
 	});
     
-	$("#createNewEntityBtn").bind("click", function() {
+	$("#createNewEntityBtn").unbind("click").bind("click", function() {
         var entityName = $("#newEntityName").val();
         var entityDescription = $("#newEntityDescription").val();
         

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Environment extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "environment", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "environment", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<EnvironmentProperty> properties = new ArrayList<EnvironmentProperty>();
 
