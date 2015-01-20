@@ -264,6 +264,41 @@
 		</div>
 	</div>	
 
+	<div class="modal fade" id="manageEnvironmentsModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Manage Environments</h4>
+				</div>
+				<div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-default" id="addNewEnvironmentBtn">New Environment</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <select class="existingEnvironments form-control">
+                                    <option>Update Existing</option>
+                                    <option>Dev Env</option>
+                                    <option>QA Env</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="environmentWrapper">
+
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveEnvironmentBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
 	<div class="modal fade" id="tagModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">

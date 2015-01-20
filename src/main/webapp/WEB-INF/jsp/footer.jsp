@@ -124,6 +124,35 @@
             </div>
         </div>
     </p>    
-    </script> 
+    </script>
+    <script type="text/template" id="tpl-environment">
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="text" id="environmentName" class="form-control" placeholder="Enter Environment Name"> <br>
+            <button type="button" class="btn btn-default btn-sm" id="addEnvFieldBtn">New Property</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="envFieldsWrapper">
+            </div>
+        </div>
+    </div>
+    </script>
+    <script type="text/template" id="tpl-env-field">
+    <p>
+        <div class="row">
+            <div class="col-xs-5">
+                <input type="text" class="form-control envPropertyName http-header" placeholder="Enter Property Name">
+            </div>
+            <div class="col-xs-5">
+                <input type="text" class="form-control envPropertyValue" placeholder="Enter Property Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
+            </div>
+        </div>
+    </p>    
+    </script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>

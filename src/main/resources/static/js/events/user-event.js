@@ -8,7 +8,7 @@ define(function(require) {
     var UserEvents = {};
     UserEvents.FETCH = 'user:fetch';
     
-   $("#managerUsersMenu").bind('click', function(){
+   $("#manageUsersMenu").bind('click', function(){
 		UserEvents.triggerFetch();
    });
    

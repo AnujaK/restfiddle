@@ -303,6 +303,7 @@ ul.fancytree-container {
 #fileDataWrapper .row:hover .destroy, 
 #formDataWrapper .row:hover .destroy,
 #entityFieldsWrapper .row:hover .destroy,
-#queryParamsWrapper .row:hover .destroy{
+#queryParamsWrapper .row:hover .destroy,
+#envFieldsWrapper .row:hover .destroy{
 	display: block;
 }

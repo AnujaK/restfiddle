@@ -17,8 +17,10 @@
                     <li><a href="#" data-toggle="modal" data-target="#updateProfileModal">Update Profile</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></li>
                     <li class="divider"></li>
+                    <li><a href="#" data-toggle="modal" id="manageEnvironments" data-target="#manageEnvironmentsModal">Manage Environments</a></li>
+                    <li class="divider"></li>
                     <li><a href="#" data-toggle="modal" data-target="#collaboratorModal">New Collaborator</a></li>
-                    <li><a href="#" data-toggle="modal" id="managerUsersMenu" data-target="#manageCollaboratorsModal">Manage Collaborators</a></li>
+                    <li><a href="#" data-toggle="modal" id="manageUsersMenu" data-target="#manageCollaboratorsModal">Manage Collaborators</a></li>
                     <li class="divider"></li>
                     <li><a href="#" data-toggle="modal" data-target="#comingSoon">Global Settings</a></li>
                 </ul>
