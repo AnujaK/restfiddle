@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Ranjan Kumar
+ * Copyright 2015 Ranjan Kumar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,40 +15,30 @@
  */
 package com.restfiddle.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class DataMap extends BaseEntity {
+public class Environment extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String dataKey;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "environment", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<EnvironmentProperty> properties = new ArrayList<EnvironmentProperty>();
 
-    private String value;
-
-    private String type;
-
-    public String getDataKey() {
-	return dataKey;
+    public List<EnvironmentProperty> getProperties() {
+	return properties;
     }
 
-    public void setDataKey(String dataKey) {
-	this.dataKey = dataKey;
-    }
-
-    public String getValue() {
-	return value;
-    }
-
-    public void setValue(String value) {
-	this.value = value;
-    }
-
-    public String getType() {
-	return type;
-    }
-
-    public void setType(String type) {
-	this.type = type;
+    public void setProperties(List<EnvironmentProperty> properties) {
+	this.properties = properties;
     }
 
 }
