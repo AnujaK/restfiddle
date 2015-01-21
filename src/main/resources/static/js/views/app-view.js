@@ -15,7 +15,7 @@ define(function(require) {
     var ProjectRunnerView = require('views/project-runner-view');
     var SocketConnectorView = require('views/socket-connector-view');
     var EntityView = require('views/entity-view');
-    var EnvironmentView = require('views/environment-view');
+    var ManageEnvironmentView = require('views/environment-view');
     var HistoryView = require('views/history-view');
 	var tree = require('views/tree-view');
 	

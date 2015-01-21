@@ -272,23 +272,7 @@
 					<h4 class="modal-title">Manage Environments</h4>
 				</div>
 				<div class="modal-body">
-                    <div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <button type="button" class="btn btn-default" id="addNewEnvironmentBtn">New Environment</button>
-                            </div>
-                            <div class="col-xs-6">
-                                <select class="existingEnvironments form-control">
-                                    <option>Update Existing</option>
-                                    <option>Dev Env</option>
-                                    <option>QA Env</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div id="environmentWrapper">
-
+                    <div id="manageEnvironmentWrapper">
                     </div>
 				</div>
 				<div class="modal-footer">

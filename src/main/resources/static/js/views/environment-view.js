@@ -7,22 +7,10 @@ define(function(require) {
     var Environments = require('collections/environments');
     
     $("#manageEnvironments").unbind("click").bind("click", function() {
-        var environments = new Environments();
-        $(".existingEnvironments").html('<option value="-1">Update Existing</option>');
-        environments.fetch({success : function(response){  
-                $.each(response.models,function(key, value) {
-                    console.log("environment "+value.get("name"));
-                    $(".existingEnvironments").append('<option value=' + key + '>' + value.get("name") + '</option>');
-                });
-            }
-        });
-	});
-    
-    $("#addNewEnvironmentBtn").unbind("click").bind("click", function() {
-        var environmentView = new EnvironmentView();
-        $("#environmentWrapper").html("");
-        $("#environmentWrapper").append(environmentView.render().el);
-	});
+        var manageEnvironmentView = new ManageEnvironmentView();
+        $("#manageEnvironmentWrapper").html("");
+        $("#manageEnvironmentWrapper").append(manageEnvironmentView.render().el); 
+	}); 
     
 	$("#saveEnvironmentBtn").unbind("click").bind("click", function() {
         var environmentName = $("#environmentName").val();
@@ -80,6 +68,10 @@ define(function(require) {
         
 		render : function() {
             this.$el.html(this.template());
+            if(this.model != null){
+                this.$el.find(".envPropertyName").val(this.model.propertyName);
+                this.$el.find(".envPropertyValue").val(this.model.propertyValue);
+            }
 			return this;
 		},
         
@@ -100,6 +92,18 @@ define(function(require) {
 		
 		render : function() {
             this.$el.html(this.template());
+            if(this.model != null){
+                console.log("selected env : "+this.model);
+                this.$el.find("#environmentName").val(this.model.get("name"));
+                if(this.model.get("properties") != null){
+                    var properties = this.model.get("properties");
+                    _.each(properties, function(property, index){
+                        var envFieldView = new EnvFieldView();
+                        envFieldView.model = property;
+                        this.$el.find("#envFieldsWrapper").append(envFieldView.render().el);  
+                    },this);
+                }
+            }
             return this;
 		},
         
@@ -108,6 +112,52 @@ define(function(require) {
             this.$el.find("#envFieldsWrapper").append(envFieldView.render().el);            
         }
 	});
-	
-	return EnvironmentView;
+
+    var ManageEnvironmentView = Backbone.View.extend({
+        template: _.template($('#tpl-manage-environment').html()),
+        
+        events : {
+            'click #addNewEnvironmentBtn': 'addEnvironment',
+            'change .existingEnvironments': 'editEnvironment'
+        },
+        
+		initialize : function() {
+		},
+		
+		render : function() {
+            this.$el.html(this.template());
+            var environments = new Environments();
+            this.$el.find(".existingEnvironments").html('<option value="-1" selected disabled>Update Existing</option>');
+            var me = this;
+            environments.fetch({success : function(response){  
+                    $.each(response.models,function(key, value) {
+                        console.log("environment "+value.get("name"));
+                        me.$el.find(".existingEnvironments").append('<option value=' + value.get("id") + '>' + value.get("name") + '</option>');
+                    });
+                }
+            });
+            this.model = environments;
+            return this;
+		},
+        
+        addEnvironment : function(){
+            var environmentView = new EnvironmentView();
+            this.$el.find("#environmentWrapper").html("");
+            this.$el.find("#environmentWrapper").append(environmentView.render().el);          
+        },
+        
+        editEnvironment : function(){
+            var option = this.$el.find(".existingEnvironments").val();
+            if(option == -1){
+                return;
+            }
+            var selectedEnvModel = this.model.get(option);
+            var environmentView = new EnvironmentView();
+            environmentView.model = selectedEnvModel;
+            this.$el.find("#environmentWrapper").html("");
+            this.$el.find("#environmentWrapper").append(environmentView.render().el);                 
+        }
+	});
+    
+	return ManageEnvironmentView;
 });

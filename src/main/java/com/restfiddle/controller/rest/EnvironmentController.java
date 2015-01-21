@@ -112,6 +112,19 @@ public class EnvironmentController {
 	environment.setName(updated.getName());
 	environment.setDescription(updated.getDescription());
 
+	List<EnvironmentPropertyDTO> propertyDTOs = updated.getProperties();
+	if (propertyDTOs != null && !propertyDTOs.isEmpty()) {
+	    List<EnvironmentProperty> properties = new ArrayList<EnvironmentProperty>();
+	    EnvironmentProperty property = null;
+	    for (EnvironmentPropertyDTO propertyDTO : propertyDTOs) {
+		property = new EnvironmentProperty();
+		property.setPropertyName(propertyDTO.getPropertyName());
+		property.setPropertyValue(propertyDTO.getPropertyValue());
+		property.setEnvironment(environment);
+		properties.add(property);
+	    }
+	    environment.setProperties(properties);
+	}	
 	return environment;
     }
 }
