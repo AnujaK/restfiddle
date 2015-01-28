@@ -17,8 +17,12 @@ define(function(require) {
         
         var envProperties = getEnvProperties();
         
+        var envId = $("#environmentName").data('environment-id');
+        if(envId == "-1"){
+            envId = null;
+        }
         var environmentModel = new EnvironmentModel({
-            id : null,
+            id : envId,
             name : environmentName,
             properties : envProperties
             
@@ -95,6 +99,7 @@ define(function(require) {
             if(this.model != null){
                 console.log("selected env : "+this.model);
                 this.$el.find("#environmentName").val(this.model.get("name"));
+                this.$el.find("#environmentName").data('environment-id', this.model.get("id"));
                 if(this.model.get("properties") != null){
                     var properties = this.model.get("properties");
                     _.each(properties, function(property, index){

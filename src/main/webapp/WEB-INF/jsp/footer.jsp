@@ -128,7 +128,7 @@
     <script type="text/template" id="tpl-environment">
     <div class="row">
         <div class="col-xs-12">
-            <input type="text" id="environmentName" class="form-control" placeholder="Enter Environment Name"> <br>
+            <input type="text" id="environmentName" data-environment-id="-1" class="form-control" placeholder="Enter Environment Name"> <br>
             <button type="button" class="btn btn-default btn-sm" id="addEnvFieldBtn">New Property</button>
         </div>
     </div>
