@@ -17,7 +17,7 @@ package com.restfiddle.dto;
 
 import java.util.List;
 
-public class OAuth2RequestDTO {
+public class OAuth2RequestDTO extends BaseDTO {
 
     private String authorizationUrl;
 
