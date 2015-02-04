@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.dto;
+package com.restfiddle.entity;
 
-import java.util.List;
+import javax.persistence.Entity;
 
-public class OAuth2RequestDTO extends BaseDTO {
+@Entity
+public class OAuth2 extends NamedEntity {
+    private static final long serialVersionUID = 1L;
 
     private String authorizationUrl;
 
@@ -29,7 +31,7 @@ public class OAuth2RequestDTO extends BaseDTO {
 
     private String accessTokenLocation;
 
-    private List<String> scopes;
+    private String scopes;
 
     public String getAuthorizationUrl() {
 	return authorizationUrl;
@@ -71,11 +73,11 @@ public class OAuth2RequestDTO extends BaseDTO {
 	this.accessTokenLocation = accessTokenLocation;
     }
 
-    public List<String> getScopes() {
+    public String getScopes() {
 	return scopes;
     }
 
-    public void setScopes(List<String> scopes) {
+    public void setScopes(String scopes) {
 	this.scopes = scopes;
     }
 
