@@ -3,7 +3,7 @@
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AnujaK/restfiddle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Build Status](https://travis-ci.org/ranjan-rk/restfiddle.svg?branch=master)](https://travis-ci.org/ranjan-rk/restfiddle)
+[![Build Status](https://travis-ci.org/AnujaK/restfiddle.svg?branch=master)](https://travis-ci.org/AnujaK/restfiddle)
 
 An Enterprise-grade API Management Platform for Teams. RESTFiddle helps you design, develop, test and release APIs.
 
@@ -30,7 +30,7 @@ A lot of powerful features coming soon!
 Initial Design
 ==========
 
-![alt text](https://raw.githubusercontent.com/ranjan-rk/restfiddle/gh-pages/images/home_page.png "Initial Design")
+![alt text](https://raw.githubusercontent.com/AnujaK/restfiddle/gh-pages/images/home_page.png "Initial Design")
 
 Who Uses RESTFiddle
 ==========
@@ -39,7 +39,7 @@ Who Uses RESTFiddle
 
 * BootSimply Solutions (http://bootsimply.com/)
 
-Want to be added to this section? Email me at ranjan dot rk at gmail dot com.
+Want to be added to this section? Email me at contact at bootsimply dot com.
 
 Building From Source
 ==========
@@ -163,7 +163,7 @@ Contribute
 You're interested in contributing to RESTFiddle? AWESOME. Here are the basic steps:
 
 - Make sure you have a [GitHub Account](https://github.com/signup/free)
-- Fork RESTFiddle from here : https://github.com/ranjan-rk/restfiddle/
+- Fork RESTFiddle from here : https://github.com/AnujaK/restfiddle/
 - Clone your fork  
 - Make your changes
 - Make sure everything is working fine
@@ -172,7 +172,7 @@ You're interested in contributing to RESTFiddle? AWESOME. Here are the basic ste
 
 ##### Code formatting :
 
-- If you're an Eclipse user, use the following code formatter : https://github.com/ranjan-rk/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
+- If you're an Eclipse user, use the following code formatter : https://github.com/AnujaK/restfiddle/blob/master/tools/restfiddle_code_formatter.xml
 - You should also activate automatic formatting and organizing imports on save.
 
 ##### GitHub help : 
@@ -192,12 +192,12 @@ http://www.meetup.com/RESTFiddle
 Releases
 ==========
 
-https://github.com/ranjan-rk/restfiddle/releases
+https://github.com/AnujaK/restfiddle/releases
 
 Support
 ==========
 
-If you need help in setting up RESTFiddle for your Team/Organization, feel free to contact me at this [email address](mailto:ranjan.rk@gmail.com).
+If you need help in setting up RESTFiddle for your Team/Organization, feel free to contact me at this [email address](mailto:contact@bootsimply.com).
 
 Copyright and License
 ==========
