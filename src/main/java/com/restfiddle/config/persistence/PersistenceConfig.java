@@ -22,9 +22,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.mongodb.MongoClient;
 
 /**
  * Created by santoshm1 on 04/06/14. Moving persistence config out to decouple from Application booter.
@@ -48,5 +54,16 @@ public class PersistenceConfig {
 	dataSource.setUsername(env.getProperty("database.username"));
 	dataSource.setPassword(env.getProperty("database.password"));
 	return dataSource;
+    }
+
+    public @Bean
+    MongoDbFactory mongoDbFactory() throws Exception {
+	UserCredentials userCredentials = new UserCredentials("rfuser", "secret");
+	return new SimpleMongoDbFactory(new MongoClient(), "restfiddle", userCredentials);
+    }
+
+    public @Bean
+    MongoTemplate mongoTemplate() throws Exception {
+	return new MongoTemplate(mongoDbFactory());
     }
 }
