@@ -18,13 +18,11 @@ package com.restfiddle.dao;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.restfiddle.entity.GenericEntityData;
 
 public interface GenericEntityDataRepository extends RfRepository<GenericEntityData, String> {
 
-    //@Query("SELECT data FROM GenericEntityData data WHERE data.genericEntity.name = :entityName")
-    @Query("{ 'entityName' : '' }")
-    public List<GenericEntityData> findEntityDataByName(@Param("entityName") String entityName);
+    @Query("{ 'name' : ?0 }")
+    public List<GenericEntityData> findEntityDataByName(String entityName);
 }

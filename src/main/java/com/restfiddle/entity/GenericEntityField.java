@@ -15,10 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class GenericEntityField extends AbstractEntity {
     private static final long serialVersionUID = 1L;
@@ -28,10 +24,6 @@ public class GenericEntityField extends AbstractEntity {
     // Note : It can be a simple data-type or another entity.
     // When an entity is renamed, this field needs to get updated, if reference found here.
     private String type;
-
-    @ManyToOne
-    @JsonBackReference
-    private GenericEntity genericEntity;
 
     public String getName() {
 	return name;
@@ -47,14 +39,6 @@ public class GenericEntityField extends AbstractEntity {
 
     public void setType(String type) {
 	this.type = type;
-    }
-
-    public GenericEntity getGenericEntity() {
-	return genericEntity;
-    }
-
-    public void setGenericEntity(GenericEntity genericEntity) {
-	this.genericEntity = genericEntity;
     }
 
 }

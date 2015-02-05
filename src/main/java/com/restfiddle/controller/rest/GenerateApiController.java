@@ -69,7 +69,9 @@ public class GenerateApiController {
 	logger.debug("Generating APIs for entity with id: " + id);
 
 	GenericEntity entity = genericEntityRepository.findOne(id);
-	BaseNode entityNode = entity.getBaseNode();
+
+	String baseNodeId = entity.getBaseNodeId();
+	BaseNode entityNode = nodeController.findById(baseNodeId);
 
 	return generateApi(entityNode);
     }
@@ -80,9 +82,9 @@ public class GenerateApiController {
 	// API to GENERATE >> List of Entity Data
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
-	
-	String projectId = "";//entityNode.getProject().getId();
-	
+
+	String projectId = entityNode.getProjectId();
+
 	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName() + "/list");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
@@ -160,8 +162,9 @@ public class GenerateApiController {
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
-    String getEntityDataList(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName) {
-	List<GenericEntityData> dataList = genericEntityDataRepository.findEntityDataByName(entityName);
+    String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName) {
+	GenericEntity entity = genericEntityRepository.findEntityByName(entityName);
+	List<GenericEntityData> dataList = entity.getEntityDataList();
 	JSONArray jsonArray = new JSONArray();
 	for (GenericEntityData entityData : dataList) {
 	    jsonArray.put(createJsonFromEntityData(entityData));
@@ -171,7 +174,7 @@ public class GenerateApiController {
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
-    String getEntityDataById(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+    String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("id") String entityDataId) {
 	GenericEntityData entityData = genericEntityDataRepository.findOne(entityDataId);
 	JSONObject jsonObject = createJsonFromEntityData(entityData);
@@ -183,7 +186,7 @@ public class GenerateApiController {
      */
     @RequestMapping(value = "/api/{projectId}/entities/{name}", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
-    String createEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+    String createEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestBody Object genericEntityDataDTO) {
 	String data = "";
 	if (genericEntityDataDTO instanceof Map) {
@@ -194,18 +197,20 @@ public class GenerateApiController {
 	}
 	GenericEntityData entityData = new GenericEntityData();
 	entityData.setData(data);
+	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
+	
 	// Get entity by name and set here.
 	GenericEntity genericEntity = genericEntityRepository.findEntityByName(entityName);
-	entityData.setGenericEntity(genericEntity);
-
-	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
+	genericEntity.getEntityDataList().add(savedEntityData);
+	genericEntityRepository.save(genericEntity);
+	
 	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
 	return jsonObject.toString(4);
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
-    String updateEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
+    String updateEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
 	    @RequestBody Object genericEntityDataDTO) {
 	JSONObject jsonObject = new JSONObject();
 	if (genericEntityDataDTO instanceof Map) {
@@ -221,7 +226,7 @@ public class GenerateApiController {
 	    GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
 	    String dbData = entityData.getData();
 	    JSONObject dbJson = new JSONObject(dbData);
-	    
+
 	    Set<String> keySet = uiJson.keySet();
 	    for (String key : keySet) {
 		dbJson.put(key, uiJson.get(key));
@@ -236,7 +241,7 @@ public class GenerateApiController {
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    StatusResponse deleteEntityData(@PathVariable("projectId") Long projectId, @PathVariable("name") String entityName,
+    StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("uuid") String uuid) {
 	// Delete entity-data by Id.
 	genericEntityDataRepository.delete(uuid);

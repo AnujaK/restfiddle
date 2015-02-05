@@ -64,7 +64,6 @@ public class GenericEntityController {
 		field = new GenericEntityField();
 		field.setName(fieldDTO.getName());
 		field.setType(fieldDTO.getType());
-		field.setGenericEntity(entity);
 		fields.add(field);
 	    }
 	    entity.setFields(fields);

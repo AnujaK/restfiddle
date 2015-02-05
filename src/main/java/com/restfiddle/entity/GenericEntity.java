@@ -18,29 +18,17 @@ package com.restfiddle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class GenericEntity extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genericEntity", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @DBRef
     private List<GenericEntityData> entityDataList = new ArrayList<GenericEntityData>();
 
-    @OneToOne(mappedBy = "genericEntity")
-    @JsonBackReference
-    private BaseNode baseNode;
+    private String baseNodeId;
 
     public List<GenericEntityField> getFields() {
 	return fields;
@@ -58,12 +46,12 @@ public class GenericEntity extends NamedEntity {
 	this.entityDataList = entityDataList;
     }
 
-    public BaseNode getBaseNode() {
-	return baseNode;
+    public String getBaseNodeId() {
+	return baseNodeId;
     }
 
-    public void setBaseNode(BaseNode baseNode) {
-	this.baseNode = baseNode;
+    public void setBaseNodeId(String baseNodeId) {
+	this.baseNodeId = baseNodeId;
     }
 
 }

@@ -17,11 +17,7 @@ package com.restfiddle.entity;
 
 import java.util.List;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
@@ -29,22 +25,20 @@ public class BaseNode extends NamedEntity {
     private String nodeType;// PROJECT/FOLDER/ENTITY/SOCKET etc
 
     private String parentId;
-    
+
     private String projectId;
 
     private Long position;// location in the parent node
 
     private Boolean starred;
-    
-    @ManyToMany(fetch = FetchType.LAZY)
+
+    @DBRef
     private List<Tag> tags;
 
-    @OneToOne
-    @JsonManagedReference
+    @DBRef
     private Conversation conversation;
 
-    @OneToOne
-    @JsonManagedReference
+    @DBRef
     private GenericEntity genericEntity;
 
     public String getNodeType() {
@@ -96,19 +90,19 @@ public class BaseNode extends NamedEntity {
     }
 
     public GenericEntity getGenericEntity() {
-        return genericEntity;
+	return genericEntity;
     }
 
     public void setGenericEntity(GenericEntity genericEntity) {
-        this.genericEntity = genericEntity;
+	this.genericEntity = genericEntity;
     }
 
     public String getProjectId() {
-        return projectId;
+	return projectId;
     }
 
     public void setProjectId(String projectId) {
-        this.projectId = projectId;
+	this.projectId = projectId;
     }
 
 }
