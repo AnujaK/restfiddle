@@ -27,7 +27,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
 public class GenericEntityData {
 
     @Id

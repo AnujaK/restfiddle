@@ -18,8 +18,6 @@ package com.restfiddle.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "acl_class")
 public class AclClass extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

@@ -17,26 +17,25 @@ package com.restfiddle.entity;
 
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
 public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String nodeType;// PROJECT/FOLDER/ENTITY/SOCKET etc
 
-    private Long parentId;
+    private String parentId;
+    
+    private String projectId;
 
     private Long position;// location in the parent node
 
     private Boolean starred;
+    
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Tag> tags;
 
@@ -48,10 +47,6 @@ public class BaseNode extends NamedEntity {
     @JsonManagedReference
     private GenericEntity genericEntity;
 
-    @ManyToOne
-    @JsonBackReference
-    private Project project;
-
     public String getNodeType() {
 	return nodeType;
     }
@@ -60,11 +55,11 @@ public class BaseNode extends NamedEntity {
 	this.nodeType = nodeType;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
 	return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
 	this.parentId = parentId;
     }
 
@@ -74,14 +69,6 @@ public class BaseNode extends NamedEntity {
 
     public void setPosition(Long position) {
 	this.position = position;
-    }
-
-    public Project getProject() {
-	return project;
-    }
-
-    public void setProject(Project project) {
-	this.project = project;
     }
 
     public Conversation getConversation() {
@@ -114,6 +101,14 @@ public class BaseNode extends NamedEntity {
 
     public void setGenericEntity(GenericEntity genericEntity) {
         this.genericEntity = genericEntity;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
 }

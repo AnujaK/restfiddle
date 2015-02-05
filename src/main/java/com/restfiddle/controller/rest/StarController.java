@@ -59,7 +59,7 @@ public class StarController {
 
     @RequestMapping(value = "/api/stars/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Star delete(@PathVariable("id") Long id) {
+    Star delete(@PathVariable("id") String id) {
 	logger.debug("Deleting star with id: " + id);
 
 	Star deleted = starRepository.findOne(id);
@@ -79,7 +79,7 @@ public class StarController {
 
     @RequestMapping(value = "/api/stars/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Star findById(@PathVariable("id") Long id) {
+    Star findById(@PathVariable("id") String id) {
 	logger.debug("Finding star by id: " + id);
 
 	return starRepository.findOne(id);

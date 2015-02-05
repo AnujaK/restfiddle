@@ -50,7 +50,6 @@ public class SampleWebController {
     public @ResponseBody
     User sayHello(@RequestParam(value = "name", required = false, defaultValue = "JSON") String name) {
 	User user = new User();
-	user.setId(counter.incrementAndGet());
 	user.setName(String.format(template, name));
 	return user;
     }

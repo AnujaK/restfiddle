@@ -15,11 +15,11 @@
  */
 package com.restfiddle.dao.util;
 
-import com.restfiddle.entity.TreeNode;
+import com.restfiddle.util.TreeNode;
 
 public class TreeNodeBuilder {
 
-    public static TreeNode createTreeNode(Long nodeId, String nodeName, String nodeType, Boolean starred) {
+    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeType, Boolean starred) {
 	TreeNode treeNode = new TreeNode();
 	treeNode.setId(nodeId);
 	treeNode.setName(nodeName);

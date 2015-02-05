@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Permission;
 
-public interface PermissionRepository extends RfRepository<Permission, Long> {
+public interface PermissionRepository extends RfRepository<Permission, String> {
 
 }

@@ -15,6 +15,8 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -56,10 +58,14 @@ public class ConfigController {
     }
 
     public @ResponseBody
-    Config findById(Long id) {
+    Config findById(String id) {
 	logger.debug("Finding config by id: " + id);
 
 	return configRepository.findOne(id);
     }
 
+    public @ResponseBody
+    List<Config> findAll() {
+	return configRepository.findAll();
+    }
 }

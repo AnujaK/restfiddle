@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.ActivityLog;
 
-public interface ActivityLogRepository extends RfRepository<ActivityLog, Long> {
+public interface ActivityLogRepository extends RfRepository<ActivityLog, String> {
 
 }

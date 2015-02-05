@@ -17,7 +17,6 @@ package com.restfiddle.entity;
 
 import javax.persistence.Entity;
 
-@Entity
 public class HttpRequestHeader extends NamedEntity {
     private static final long serialVersionUID = 1L;
 

@@ -18,6 +18,6 @@ package com.restfiddle.dao;
 import com.restfiddle.entity.Star;
 
 @Deprecated
-public interface StarRepository extends RfRepository<Star, Long> {
+public interface StarRepository extends RfRepository<Star, String> {
 
 }

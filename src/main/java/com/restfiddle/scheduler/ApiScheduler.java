@@ -49,7 +49,7 @@ public class ApiScheduler {
 
     // @Scheduled(cron = "${cron.expression}")
     public void runSelectedProjects() {
-	apiController.runProjectById(1l);
+	//apiController.runProjectById(1l);
     }
 
     @Scheduled(cron = "${cron.expression}")

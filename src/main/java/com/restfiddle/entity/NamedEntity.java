@@ -15,9 +15,7 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
 public abstract class NamedEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

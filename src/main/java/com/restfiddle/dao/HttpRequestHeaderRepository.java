@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.HttpRequestHeader;
 
-public interface HttpRequestHeaderRepository extends RfRepository<HttpRequestHeader, Long> {
+public interface HttpRequestHeaderRepository extends RfRepository<HttpRequestHeader, String> {
 
 }

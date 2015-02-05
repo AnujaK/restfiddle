@@ -58,7 +58,7 @@ public class ActivityLogController {
 
     @RequestMapping(value = "/api/logs/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    ActivityLog delete(@PathVariable("id") Long id) {
+    ActivityLog delete(@PathVariable("id") String id) {
 	logger.debug("Deleting activityLog with id: " + id);
 
 	ActivityLog deleted = activityLogRepository.findOne(id);
@@ -78,7 +78,7 @@ public class ActivityLogController {
 
     @RequestMapping(value = "/api/logs/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    ActivityLog findById(@PathVariable("id") Long id) {
+    ActivityLog findById(@PathVariable("id") String id) {
 	logger.debug("Finding activityLog by id: " + id);
 
 	return activityLogRepository.findOne(id);

@@ -60,7 +60,7 @@ public class PermissionController {
 
     @RequestMapping(value = "/api/permissions/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Permission delete(@PathVariable("id") Long id) {
+    Permission delete(@PathVariable("id") String id) {
 	logger.debug("Deleting permission with id: " + id);
 
 	Permission deleted = permissionRepository.findOne(id);
@@ -80,7 +80,7 @@ public class PermissionController {
 
     @RequestMapping(value = "/api/permissions/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Permission findById(@PathVariable("id") Long id) {
+    Permission findById(@PathVariable("id") String id) {
 	logger.debug("Finding permission by id: " + id);
 
 	return permissionRepository.findOne(id);

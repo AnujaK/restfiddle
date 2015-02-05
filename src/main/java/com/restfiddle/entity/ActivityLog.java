@@ -15,30 +15,12 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-@Entity
 public class ActivityLog extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String type; // e.g. CONVERSATION
 
     private String data;
-
-    @ManyToOne
-    @JsonBackReference
-    private Workspace workspace; //
-
-    @ManyToOne
-    @JsonBackReference
-    private Project project;
-
-    @ManyToOne
-    @JsonBackReference
-    private BaseNode baseNode;
 
     public String getType() {
 	return type;
@@ -48,35 +30,11 @@ public class ActivityLog extends NamedEntity {
 	this.type = type;
     }
 
-    public Workspace getWorkspace() {
-	return workspace;
-    }
-
-    public void setWorkspace(Workspace workspace) {
-	this.workspace = workspace;
-    }
-
-    public Project getProject() {
-	return project;
-    }
-
-    public void setProject(Project project) {
-	this.project = project;
-    }
-
     public String getData() {
 	return data;
     }
 
     public void setData(String data) {
 	this.data = data;
-    }
-
-    public BaseNode getBaseNode() {
-	return baseNode;
-    }
-
-    public void setBaseNode(BaseNode baseNode) {
-	this.baseNode = baseNode;
     }
 }

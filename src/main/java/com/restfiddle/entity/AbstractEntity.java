@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -28,13 +27,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@MappedSuperclass
 public abstract class AbstractEntity implements Serializable, Cloneable, Comparable<Object> {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
 
     @Version
     private long version = 0;
@@ -55,11 +53,11 @@ public abstract class AbstractEntity implements Serializable, Cloneable, Compara
 	return HashCodeBuilder.reflectionHashCode(o);
     }
 
-    public Long getId() {
+    public String getId() {
 	return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
 	this.id = id;
     }
 

@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.EntityRelationship;
 
-public interface EntityRelationshipRepository extends RfRepository<EntityRelationship, Long> {
+public interface EntityRelationshipRepository extends RfRepository<EntityRelationship, String> {
 
 }

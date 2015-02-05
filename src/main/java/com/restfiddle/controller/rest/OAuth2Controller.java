@@ -62,8 +62,8 @@ public class OAuth2Controller {
 	    scope += oauth2ScopeList.get(oauth2ScopeList.size() - 1);
 	}
 
-	oauth2.setName(OAuth2RequestDTO.getName());
-	oauth2.setDescription(OAuth2RequestDTO.getDescription());
+	//oauth2.setName(OAuth2RequestDTO.getName());
+	//oauth2.setDescription(OAuth2RequestDTO.getDescription());
 	oauth2.setAccessTokenLocation(OAuth2RequestDTO.getAccessTokenLocation());
 	oauth2.setAccessTokenUrl(OAuth2RequestDTO.getAccessTokenUrl());
 	oauth2.setAuthorizationUrl(OAuth2RequestDTO.getAuthorizationUrl());
@@ -75,7 +75,7 @@ public class OAuth2Controller {
 
     @RequestMapping(value = "/api/oauth2/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    void delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") String id) {
 	logger.debug("Deleting oauth2 with id: " + id);
 
 	OAuth2 deleted = oauth2Repository.findOne(id);
@@ -93,7 +93,7 @@ public class OAuth2Controller {
 
     @RequestMapping(value = "/api/oauth2/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    OAuth2 findById(@PathVariable("id") Long id) {
+    OAuth2 findById(@PathVariable("id") String id) {
 	logger.debug("Finding oauth2 by id: " + id);
 
 	return oauth2Repository.findOne(id);
@@ -106,8 +106,8 @@ public class OAuth2Controller {
 
 	OAuth2 oauth2 = oauth2Repository.findOne(updated.getId());
 
-	oauth2.setName(updated.getName());
-	oauth2.setDescription(updated.getDescription());
+	//oauth2.setName(updated.getName());
+	//oauth2.setDescription(updated.getDescription());
 
 	return oauth2;
     }

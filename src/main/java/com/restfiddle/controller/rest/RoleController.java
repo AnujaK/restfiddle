@@ -60,7 +60,7 @@ public class RoleController {
 
     @RequestMapping(value = "/api/roles/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Role delete(@PathVariable("id") Long id) {
+    Role delete(@PathVariable("id") String id) {
 	logger.debug("Deleting role with id: " + id);
 
 	Role deleted = roleRepository.findOne(id);
@@ -80,7 +80,7 @@ public class RoleController {
 
     @RequestMapping(value = "/api/roles/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Role findById(@PathVariable("id") Long id) {
+    Role findById(@PathVariable("id") String id) {
 	logger.debug("Finding role by id: " + id);
 
 	return roleRepository.findOne(id);
@@ -88,7 +88,7 @@ public class RoleController {
 
     @RequestMapping(value = "/api/roles/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Role update(@PathVariable("id") Long id, @RequestBody RoleDTO updated) {
+    Role update(@PathVariable("id") String id, @RequestBody RoleDTO updated) {
 	logger.debug("Updating role with information: " + updated);
 
 	Role role = roleRepository.findOne(updated.getId());

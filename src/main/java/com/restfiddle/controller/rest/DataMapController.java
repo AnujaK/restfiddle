@@ -59,7 +59,7 @@ public class DataMapController {
 
     @RequestMapping(value = "/api/dataMaps/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    DataMap delete(@PathVariable("id") Long id) {
+    DataMap delete(@PathVariable("id") String id) {
 	logger.debug("Deleting dataMap with id: " + id);
 
 	DataMap deleted = dataMapRepository.findOne(id);
@@ -79,7 +79,7 @@ public class DataMapController {
 
     @RequestMapping(value = "/api/dataMaps/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    DataMap findById(@PathVariable("id") Long id) {
+    DataMap findById(@PathVariable("id") String id) {
 	logger.debug("Finding dataMap by id: " + id);
 
 	return dataMapRepository.findOne(id);

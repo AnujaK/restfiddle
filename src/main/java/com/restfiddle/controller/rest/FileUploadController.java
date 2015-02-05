@@ -53,7 +53,7 @@ public class FileUploadController {
 
     @RequestMapping(value = "/api/import", method = RequestMethod.POST)
     public @ResponseBody
-    void upload(@RequestParam("projectId") Long projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+    void upload(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
 
 	if (!file.isEmpty()) {
 	    try {

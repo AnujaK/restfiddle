@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.restfiddle.entity;
+package com.restfiddle.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.restfiddle.entity.BaseNode;
 
 //NOTE : TreeNode is NOT an Entity.
 public class TreeNode extends BaseNode {

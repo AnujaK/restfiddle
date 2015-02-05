@@ -27,6 +27,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -39,27 +40,27 @@ import com.mongodb.MongoClient;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "com.restfiddle.dao" })
+@EnableMongoRepositories(basePackages = { "com.restfiddle.dao" })
 public class PersistenceConfig {
 
     @Autowired
     private Environment env;
 
-    @Primary
-    @Bean
-    public DataSource dataSource() {
-	DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	dataSource.setDriverClassName(env.getProperty("database.driver"));
-	dataSource.setUrl(env.getProperty("database.url"));
-	dataSource.setUsername(env.getProperty("database.username"));
-	dataSource.setPassword(env.getProperty("database.password"));
-	return dataSource;
-    }
+//    @Primary
+//    @Bean
+//    public DataSource dataSource() {
+//	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//	dataSource.setDriverClassName(env.getProperty("database.driver"));
+//	dataSource.setUrl(env.getProperty("database.url"));
+//	dataSource.setUsername(env.getProperty("database.username"));
+//	dataSource.setPassword(env.getProperty("database.password"));
+//	return dataSource;
+//    }
 
     public @Bean
     MongoDbFactory mongoDbFactory() throws Exception {
-	UserCredentials userCredentials = new UserCredentials("rfuser", "secret");
-	return new SimpleMongoDbFactory(new MongoClient(), "restfiddle", userCredentials);
+	UserCredentials userCredentials = new UserCredentials(env.getProperty("mongodb.username"), env.getProperty("mongodb.password"));
+	return new SimpleMongoDbFactory(new MongoClient(), env.getProperty("mongodb.name"), userCredentials);
     }
 
     public @Bean

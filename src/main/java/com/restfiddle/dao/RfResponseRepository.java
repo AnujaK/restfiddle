@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.RfResponse;
 
-public interface RfResponseRepository extends RfRepository<RfResponse, Long> {
+public interface RfResponseRepository extends RfRepository<RfResponse, String> {
 
 }

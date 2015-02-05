@@ -18,7 +18,6 @@ package com.restfiddle.entity;
 import java.util.Collection;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
@@ -27,7 +26,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.restfiddle.constant.StatusType;
 
-@Entity
 public class User extends NamedEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 

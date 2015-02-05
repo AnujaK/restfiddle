@@ -69,7 +69,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation delete(@PathVariable("conversationId") Long conversationId) {
+    Conversation delete(@PathVariable("conversationId") String conversationId) {
 	logger.debug("Deleting item with id: " + conversationId);
 
 	Conversation deleted = itemRepository.findOne(conversationId);
@@ -104,7 +104,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.GET)
     public @ResponseBody
-    Conversation findById(@PathVariable("conversationId") Long conversationId) {
+    Conversation findById(@PathVariable("conversationId") String conversationId) {
 	logger.debug("Finding item by id: " + conversationId);
 
 	return itemRepository.findOne(conversationId);

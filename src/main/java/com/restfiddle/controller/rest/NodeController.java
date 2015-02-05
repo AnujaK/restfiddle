@@ -47,7 +47,7 @@ import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
-import com.restfiddle.entity.TreeNode;
+import com.restfiddle.util.TreeNode;
 
 @RestController
 @EnableAutoConfiguration
@@ -77,7 +77,7 @@ public class NodeController {
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    BaseNode create(@PathVariable("parentId") Long parentId, @RequestBody NodeDTO nodeDTO) {
+    BaseNode create(@PathVariable("parentId") String parentId, @RequestBody NodeDTO nodeDTO) {
 	logger.debug("Creating a new node with information: " + nodeDTO);
 
 	BaseNode node = new BaseNode();
@@ -102,7 +102,7 @@ public class NodeController {
 	}
 
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
-	node.setProject(project);
+	node.setProjectId(project.getId());
 
 	BaseNode savedNode = nodeRepository.save(node);
 
@@ -115,7 +115,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    void delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") String id) {
 	logger.debug("Deleting node with id: " + id);
 
 	BaseNode nodeToDelete = nodeRepository.findOne(id);
@@ -158,7 +158,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    BaseNode findById(@PathVariable("id") Long id) {
+    BaseNode findById(@PathVariable("id") String id) {
 	logger.debug("Finding node by id: " + id);
 
 	BaseNode baseNode = nodeRepository.findOne(id);
@@ -169,7 +169,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> getChildren(@PathVariable("parentId") Long parentId) {
+    List<BaseNode> getChildren(@PathVariable("parentId") String parentId) {
 	logger.debug("Finding children nodes");
 
 	return nodeRepository.getChildren(parentId);
@@ -200,18 +200,19 @@ public class NodeController {
     // Get tree-structure for a project. Id parameter is the project-reference node-id.
     @RequestMapping(value = "/api/nodes/{id}/tree", method = RequestMethod.GET)
     public @ResponseBody
-    TreeNode getProjectTree(@PathVariable("id") Long id) {
+    TreeNode getProjectTree(@PathVariable("id") String id) {
 	// Note : There must be a better way of doing it. This method is written in a hurry.
 
 	// Get project Id from the reference node
-	BaseNode projectRefNode = nodeRepository.getOne(id);
-	Long projectId = projectRefNode.getProject().getId();
+	BaseNode projectRefNode = nodeRepository.findOne(id);
+
+	String projectId = projectRefNode.getProjectId();
 
 	// Get the list of nodes for a project.
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(projectId);
 
 	// Creating a map of nodes with node-id as key
-	Map<Long, BaseNode> nodeIdMap = new HashMap<Long, BaseNode>();
+	Map<String, BaseNode> nodeIdMap = new HashMap<String, BaseNode>();
 	for (BaseNode baseNode : listOfNodes) {
 	    nodeIdMap.put(baseNode.getId(), baseNode);
 	}
@@ -219,11 +220,11 @@ public class NodeController {
 	TreeNode rootNode = null;
 	TreeNode treeNode = null;
 	TreeNode parentTreeNode = null;
-	Map<Long, TreeNode> treeNodeMap = new HashMap<Long, TreeNode>();
+	Map<String, TreeNode> treeNodeMap = new HashMap<String, TreeNode>();
 
 	for (BaseNode baseNode : listOfNodes) {
-	    Long nodeId = baseNode.getId();
-	    Long parentId = baseNode.getParentId();
+	    String nodeId = baseNode.getId();
+	    String parentId = baseNode.getParentId();
 
 	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
 	    treeNodeMap.put(nodeId, treeNode);
@@ -261,18 +262,19 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}/tags", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Boolean addTags(@PathVariable("id") Long id, @RequestBody List<TagDTO> tagDTOs) {
+    Boolean addTags(@PathVariable("id") String id, @RequestBody List<TagDTO> tagDTOs) {
 	logger.debug("Adding the following tags: " + tagDTOs);
 
 	BaseNode node = nodeRepository.findOne(id);
 
 	List<Tag> tags = new ArrayList<Tag>();
 	if (tagDTOs != null && !tagDTOs.isEmpty()) {
-	    List<Long> tagIds = new ArrayList<Long>();
+	    List<String> tagIds = new ArrayList<String>();
 	    for (TagDTO tagDTO : tagDTOs) {
 		tagIds.add(tagDTO.getId());
 	    }
-	    tags = tagRepository.findAll(tagIds);
+	    // TODO : Fix Me!
+	    tags = null;// tagRepository.findAll(tagIds);
 	}
 	node.setTags(tags);
 

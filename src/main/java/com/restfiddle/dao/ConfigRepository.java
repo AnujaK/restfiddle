@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Config;
 
-public interface ConfigRepository extends RfRepository<Config, Long> {
+public interface ConfigRepository extends RfRepository<Config, String> {
 
 }

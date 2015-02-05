@@ -23,7 +23,7 @@ import com.restfiddle.entity.User;
 
 @Repository
 @Transactional(readOnly = true)
-public interface UserRepository extends RfRepository<User, Long> {
+public interface UserRepository extends RfRepository<User, String> {
 
     public User findByEmail(@Param("email") String email);
 

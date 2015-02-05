@@ -17,13 +17,14 @@ package com.restfiddle.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.restfiddle.entity.Project;
 
-public interface ProjectRepository extends RfRepository<Project, Long> {
+public interface ProjectRepository extends RfRepository<Project, String> {
 
-    @Query("SELECT p FROM Project p WHERE p.workspace.id = :workspaceId")
+//    @Query("SELECT p FROM Project p WHERE p.workspace.id = :workspaceId")
+    @Query("{ 'workspaceId' : '' }")
     public List<Project> findProjectsFromAWorkspace(@Param("workspaceId") Long workspaceId);
 }

@@ -15,32 +15,13 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-@Entity
 public class Project extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JsonBackReference
-    private Workspace workspace;
-
-    @OneToOne
-    @JsonManagedReference
+    @DBRef
     private BaseNode projectRef;
-
-    public Workspace getWorkspace() {
-	return workspace;
-    }
-
-    public void setWorkspace(Workspace workspace) {
-	this.workspace = workspace;
-    }
 
     public BaseNode getProjectRef() {
 	return projectRef;

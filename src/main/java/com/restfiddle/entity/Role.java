@@ -24,7 +24,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-@Entity
 public class Role extends NamedEntity {
     private static final long serialVersionUID = 1L;
 

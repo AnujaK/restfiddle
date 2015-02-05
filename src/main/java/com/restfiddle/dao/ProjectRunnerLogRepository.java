@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.ProjectRunnerLog;
 
-public interface ProjectRunnerLogRepository extends RfRepository<ProjectRunnerLog, Long> {
+public interface ProjectRunnerLogRepository extends RfRepository<ProjectRunnerLog, String> {
 
 }

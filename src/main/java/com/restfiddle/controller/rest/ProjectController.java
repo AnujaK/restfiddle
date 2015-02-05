@@ -58,7 +58,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Project create(@PathVariable("workspaceId") Long workspaceId, @RequestBody ProjectDTO projectDTO) {
+    Project create(@PathVariable("workspaceId") String workspaceId, @RequestBody ProjectDTO projectDTO) {
 	logger.debug("Creating a new project with information: " + projectDTO);
 
 	// Create project
@@ -66,19 +66,12 @@ public class ProjectController {
 	project.setName(projectDTO.getName());
 	project.setDescription(projectDTO.getDescription());
 
-	// Set workspace
-	Workspace workspace = workspaceRepository.findOne(workspaceId);
-	project.setWorkspace(workspace);
-
 	// Create project reference node
 	BaseNode projectRef = new BaseNode();
 	projectRef.setName(projectDTO.getName());
 	projectRef.setNodeType(NodeType.PROJECT.name());
-	projectRef.setParentId(Long.valueOf(-1));
+	projectRef.setParentId("-1");
 	projectRef.setPosition(Long.valueOf(0));
-
-	// Set project to the reference node
-	projectRef.setProject(project);
 
 	// Save project reference node
 	BaseNode savedRef = nodeRepository.save(projectRef);
@@ -86,21 +79,29 @@ public class ProjectController {
 	// Set project reference node
 	project.setProjectRef(savedRef);
 
-	return projectRepository.save(project);
+	Project savedProject = projectRepository.save(project);
+	
+	// Update projectRef (Set projectId to the reference node)
+	projectRef.setProjectId(savedProject.getId());
+	savedRef = nodeRepository.save(projectRef);
+
+	// Update workspace
+	Workspace workspace = workspaceRepository.findOne(workspaceId);
+	workspace.getProjects().add(savedProject);
+	workspaceRepository.save(workspace);
+
+	return savedProject;
     }
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    void delete(@PathVariable("workspaceId") Long workspaceId, @PathVariable("id") Long id) {
+    void delete(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id) {
 	logger.debug("Deleting project with id: " + id);
 
 	Project deleted = projectRepository.findOne(id);
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
 
-	for (BaseNode baseNode : listOfNodes) {
-	    baseNode.setProject(null);
-	}
 	nodeRepository.delete(listOfNodes);
 
 	projectRepository.delete(deleted);
@@ -122,7 +123,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Project findById(@PathVariable("workspaceId") Long workspaceId, @PathVariable("id") Long id) {
+    Project findById(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id) {
 	logger.debug("Finding project by id: " + id);
 
 	return projectRepository.findOne(id);

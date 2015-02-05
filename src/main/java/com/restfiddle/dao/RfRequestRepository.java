@@ -17,13 +17,16 @@ package com.restfiddle.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
+
+
+import org.springframework.data.mongodb.repository.Query;
 
 import com.restfiddle.entity.RfRequest;
 
-public interface RfRequestRepository extends RfRepository<RfRequest, Long> {
+public interface RfRequestRepository extends RfRepository<RfRequest, String> {
     
-    @Query("SELECT DISTINCT rf.apiUrl FROM RfRequest rf")
+    //@Query("SELECT DISTINCT rf.apiUrl FROM RfRequest rf")
+    @Query("{ 'apiUrl' : '' }")
     public List<String> findUniqueApiUrls();
 
 }

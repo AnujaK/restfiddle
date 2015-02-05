@@ -19,7 +19,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-@Entity
 public class Tag extends NamedEntity {
     private static final long serialVersionUID = 1L;
 

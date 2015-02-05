@@ -83,7 +83,7 @@ public class ApiController {
 
 	if (rfRequestDTO == null) {
 	    return null;
-	} else if (rfRequestDTO.getId() != null && rfRequestDTO.getId() > 0) {
+	} else if (rfRequestDTO.getId() != null && !rfRequestDTO.getId().isEmpty()) {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
 	    existingConversation = rfRequest.getItem();
 	}
@@ -119,7 +119,7 @@ public class ApiController {
      */
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") Long id) {
+    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id) {
 	logger.debug("Running all requests inside project : " + id);
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;

@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Conversation;
 
-public interface ConversationRepository extends RfRepository<Conversation, Long> {
+public interface ConversationRepository extends RfRepository<Conversation, String> {
 
 }

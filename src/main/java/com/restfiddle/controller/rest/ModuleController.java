@@ -60,7 +60,7 @@ public class ModuleController {
 
     @RequestMapping(value = "/api/modules/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Module delete(@PathVariable("id") Long id) {
+    Module delete(@PathVariable("id") String id) {
 	logger.debug("Deleting module with id: " + id);
 
 	Module deleted = moduleRepository.findOne(id);
@@ -80,7 +80,7 @@ public class ModuleController {
 
     @RequestMapping(value = "/api/modules/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Module findById(@PathVariable("id") Long id) {
+    Module findById(@PathVariable("id") String id) {
 	logger.debug("Finding module by id: " + id);
 
 	return moduleRepository.findOne(id);
@@ -88,7 +88,7 @@ public class ModuleController {
 
     @RequestMapping(value = "/api/modules/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Module update(@PathVariable("id") Long id, @RequestBody ModuleDTO updated) {
+    Module update(@PathVariable("id") String id, @RequestBody ModuleDTO updated) {
 	logger.debug("Updating module with information: " + updated);
 
 	Module module = moduleRepository.findOne(updated.getId());

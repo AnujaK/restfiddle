@@ -27,7 +27,6 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity
 public class GenericEntity extends NamedEntity {
     private static final long serialVersionUID = 1L;
 

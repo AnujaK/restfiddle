@@ -23,7 +23,6 @@ import javax.persistence.Transient;
  * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
  * 
  */
-@Entity
 public class RfHeader extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

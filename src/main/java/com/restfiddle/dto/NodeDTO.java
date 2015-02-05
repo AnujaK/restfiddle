@@ -21,11 +21,11 @@ public class NodeDTO extends BaseDTO {
 
     private String nodeType;
 
-    private Long parentId;
+    private String parentId;
 
     private Long position;
 
-    private Long projectId;
+    private String projectId;
 
     private Boolean starred;
 
@@ -35,19 +35,19 @@ public class NodeDTO extends BaseDTO {
 
     private List<TagDTO> tags;
 
-    public Long getProjectId() {
+    public String getProjectId() {
 	return projectId;
     }
 
-    public void setProjectId(Long projectId) {
+    public void setProjectId(String projectId) {
 	this.projectId = projectId;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
 	return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
 	this.parentId = parentId;
     }
 

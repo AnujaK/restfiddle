@@ -63,7 +63,7 @@ public class TagController {
 
     @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Tag delete(@PathVariable("id") Long id) {
+    Tag delete(@PathVariable("id") String id) {
 	logger.debug("Deleting tag with id: " + id);
 
 	Tag deleted = tagRepository.findOne(id);
@@ -83,7 +83,7 @@ public class TagController {
 
     @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Tag findById(@PathVariable("id") Long id) {
+    Tag findById(@PathVariable("id") String id) {
 	logger.debug("Finding tag by id: " + id);
 
 	return tagRepository.findOne(id);
@@ -104,7 +104,7 @@ public class TagController {
     
     @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{tagId}/nodes", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") Long workspaceId, @PathVariable("tagId") Long tagId) {
+    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId) {
 	logger.debug("Finding nodes by tag id: " + tagId);
 	
 	List<BaseNode> taggedNodes = nodeRepository.findTaggedNodes(tagId);

@@ -65,7 +65,7 @@ public class GenerateApiController {
 
     @RequestMapping(value = "/api/entities/{id}/generate-api", method = RequestMethod.POST)
     public @ResponseBody
-    StatusResponse generateApiByEntityId(@PathVariable("id") Long id) {
+    StatusResponse generateApiByEntityId(@PathVariable("id") String id) {
 	logger.debug("Generating APIs for entity with id: " + id);
 
 	GenericEntity entity = genericEntityRepository.findOne(id);
@@ -80,7 +80,10 @@ public class GenerateApiController {
 	// API to GENERATE >> List of Entity Data
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + entityNode.getProject().getId() + "/entities/" + entityNode.getName() + "/list");
+	
+	String projectId = "";//entityNode.getProject().getId();
+	
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName() + "/list");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -88,12 +91,12 @@ public class GenerateApiController {
 	conversationDTO.setId(createdConversation.getId());
 
 	String nodeName = "Get List of " + entityNode.getName();
-	BaseNode createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
+	BaseNode createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	// API to GENERATE >> Get Entity Data By Id
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + entityNode.getProject().getId() + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -101,12 +104,12 @@ public class GenerateApiController {
 	conversationDTO.setId(createdConversation.getId());
 
 	nodeName = "Get " + entityNode.getName() + " by Id";
-	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
+	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	// API to GENERATE >> Delete Entity Data By Id
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + entityNode.getProject().getId() + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("DELETE");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -114,12 +117,12 @@ public class GenerateApiController {
 	conversationDTO.setId(createdConversation.getId());
 
 	nodeName = "Delete " + entityNode.getName();
-	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
+	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	// API to GENERATE >> Create Entity Data
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + entityNode.getProject().getId() + "/entities/" + entityNode.getName());
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName());
 	rfRequestDTO.setMethodType("POST");
 
 	JSONObject jsonObject = getFieldJson(genericEntity);
@@ -131,12 +134,12 @@ public class GenerateApiController {
 	conversationDTO.setId(createdConversation.getId());
 
 	nodeName = "Create " + entityNode.getName();
-	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
+	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	// API to GENERATE >> Update Entity Data
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + entityNode.getProject().getId() + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("PUT");
 
 	jsonObject = getFieldJson(genericEntity);
@@ -150,7 +153,7 @@ public class GenerateApiController {
 	conversationDTO.setId(createdConversation.getId());
 
 	nodeName = "Update " + entityNode.getName();
-	createdNode = createNode(nodeName, entityNode.getId(), entityNode.getProject().getId(), conversationDTO);
+	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	return null;
     }
@@ -263,7 +266,7 @@ public class GenerateApiController {
 	return jsonObject;
     }
 
-    private BaseNode createNode(String nodeName, Long parentId, Long projectId, ConversationDTO conversationDTO) {
+    private BaseNode createNode(String nodeName, String parentId, String projectId, ConversationDTO conversationDTO) {
 	NodeDTO childNode = new NodeDTO();
 	childNode.setName(nodeName);
 	childNode.setProjectId(projectId);

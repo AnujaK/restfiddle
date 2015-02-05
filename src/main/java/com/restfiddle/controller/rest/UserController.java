@@ -90,7 +90,7 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    void delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") String id) {
 	logger.debug("Deleting user with id: " + id);
 
 	User deleted = userRepository.findOne(id);
@@ -108,7 +108,7 @@ public class UserController {
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    User findById(@PathVariable("id") Long id) {
+    User findById(@PathVariable("id") String id) {
 	logger.debug("Finding user by id: " + id);
 
 	return userRepository.findOne(id);

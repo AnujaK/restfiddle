@@ -61,7 +61,7 @@ public class WorkspaceController {
 
     @RequestMapping(value = "/api/workspaces/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    void delete(@PathVariable("id") Long id) {
+    void delete(@PathVariable("id") String id) {
 	logger.debug("Deleting workspace with id: " + id);
 
 	Workspace deleted = workspaceRepository.findOne(id);
@@ -69,7 +69,7 @@ public class WorkspaceController {
 	List<Project> projects = deleted.getProjects();
 
 	for (Project project : projects) {
-	    project.setWorkspace(null);
+	    //project.setWorkspace(null);
 	}
 	// TODO : Delete projects from this workspace
 
@@ -86,7 +86,7 @@ public class WorkspaceController {
 
     @RequestMapping(value = "/api/workspaces/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Workspace findById(@PathVariable("id") Long id) {
+    Workspace findById(@PathVariable("id") String id) {
 	logger.debug("Finding workspace by id: " + id);
 
 	return workspaceRepository.findOne(id);

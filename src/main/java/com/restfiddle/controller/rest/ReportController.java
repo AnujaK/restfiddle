@@ -78,13 +78,13 @@ public class ReportController {
 
 	List<TagDTO> tags = new ArrayList<TagDTO>();
 	TagDTO tag = new TagDTO();
-	tag.setId(24L);
+	//tag.setId(24);
 	tag.setName("GET Workspaces");
 	tag.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
 	tags.add(tag);
 
 	TagDTO tag2 = new TagDTO();
-	tag2.setId(30L);
+	//tag2.setId(30L);
 	tag2.setName("Post Workspace");
 	tag2.setDescription("This API is used to create a new workspace.");
 	tags.add(tag2);

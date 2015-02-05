@@ -18,18 +18,12 @@ package com.restfiddle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-@Entity
 public class Workspace extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workspace")
-    @JsonManagedReference
+    @DBRef
     private List<Project> projects = new ArrayList<Project>();
 
     public List<Project> getProjects() {

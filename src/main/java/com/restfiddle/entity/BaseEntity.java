@@ -19,13 +19,11 @@ import java.util.Date;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.restfiddle.constant.StatusType;
 
-@MappedSuperclass
 public abstract class BaseEntity extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.OAuth2;
 
-public interface OAuth2Repository extends RfRepository<OAuth2, Long> {
+public interface OAuth2Repository extends RfMongoRepository<OAuth2, String> {
 
 }

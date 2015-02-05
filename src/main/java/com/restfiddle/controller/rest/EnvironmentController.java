@@ -76,7 +76,7 @@ public class EnvironmentController {
 
     @RequestMapping(value = "/api/environments/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    Environment delete(@PathVariable("id") Long id) {
+    Environment delete(@PathVariable("id") String id) {
 	logger.debug("Deleting environment with id: " + id);
 
 	Environment deleted = environmentRepository.findOne(id);
@@ -96,7 +96,7 @@ public class EnvironmentController {
 
     @RequestMapping(value = "/api/environments/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Environment findById(@PathVariable("id") Long id) {
+    Environment findById(@PathVariable("id") String id) {
 	logger.debug("Finding environment by id: " + id);
 
 	return environmentRepository.findOne(id);

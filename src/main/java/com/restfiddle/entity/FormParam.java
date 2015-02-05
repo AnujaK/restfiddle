@@ -19,7 +19,6 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-@Entity
 public class FormParam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

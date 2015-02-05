@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
 public class GenericEntityField extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

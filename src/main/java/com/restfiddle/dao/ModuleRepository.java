@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Module;
 
-public interface ModuleRepository extends RfRepository<Module, Long> {
+public interface ModuleRepository extends RfRepository<Module, String> {
 
 }

@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Workspace;
 
-public interface WorkspaceRepository extends RfRepository<Workspace, Long> {
+public interface WorkspaceRepository extends RfRepository<Workspace, String> {
 
 }

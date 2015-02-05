@@ -76,7 +76,7 @@ public class GenericEntityController {
 
     @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
-    GenericEntity delete(@PathVariable("id") Long id) {
+    GenericEntity delete(@PathVariable("id") String id) {
 	logger.debug("Deleting entity with id: " + id);
 
 	GenericEntity deleted = genericEntityRepository.findOne(id);
@@ -96,7 +96,7 @@ public class GenericEntityController {
 
     @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    GenericEntity findById(@PathVariable("id") Long id) {
+    GenericEntity findById(@PathVariable("id") String id) {
 	logger.debug("Finding entity by id: " + id);
 
 	return genericEntityRepository.findOne(id);
@@ -104,7 +104,7 @@ public class GenericEntityController {
 
     @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    GenericEntity update(@PathVariable("id") Long id, @RequestBody GenericEntityDTO updated) {
+    GenericEntity update(@PathVariable("id") String id, @RequestBody GenericEntityDTO updated) {
 	logger.debug("Updating entity with information: " + updated);
 
 	GenericEntity entity = genericEntityRepository.findOne(updated.getId());

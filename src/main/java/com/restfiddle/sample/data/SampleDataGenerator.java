@@ -52,7 +52,9 @@ import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Config;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.HttpRequestHeader;
+import com.restfiddle.entity.Project;
 import com.restfiddle.entity.User;
+import com.restfiddle.entity.Workspace;
 import com.restfiddle.util.CommonUtil;
 
 @Component
@@ -90,6 +92,11 @@ public class SampleDataGenerator {
 
     @Autowired
     private HttpRequestHeaderRepository requestHeaderRepository;
+
+    private String demoWorkspaceId;
+    private String socialWorkspaceId;
+    private String firstProjectId;
+    private String firstProjectRefId;
 
     @PostConstruct
     public void initialize() {
@@ -184,9 +191,9 @@ public class SampleDataGenerator {
 
     private boolean isSampleDataPresent() {
 	// TODO : find sampleDataConfig by key
-	Config sampleDataConfig = configController.findById(1L);
+	List<Config> configList = configController.findAll();
 
-	if (sampleDataConfig == null || sampleDataConfig.getConfigKey() == null) {
+	if (configList == null || configList.size() == 0) {
 	    ConfigDTO configDTO = new ConfigDTO();
 	    configDTO.setName("Sample Data Present");
 	    configDTO.setConfigKey("SAMPLE_DATA_PRESENT");
@@ -200,45 +207,49 @@ public class SampleDataGenerator {
 	WorkspaceDTO demoWorkspace = new WorkspaceDTO();
 	demoWorkspace.setName("Demo Workspace");
 	demoWorkspace.setDescription("This is a demo workspace");
-	workspaceController.create(demoWorkspace);
+	Workspace workspace1 = workspaceController.create(demoWorkspace);
+	demoWorkspaceId = workspace1.getId();
 
 	WorkspaceDTO socialWorkspace = new WorkspaceDTO();
 	socialWorkspace.setName("Social Workspace");
 	socialWorkspace.setDescription("This is my social workspace");
-	workspaceController.create(socialWorkspace);
+	Workspace workspace2 = workspaceController.create(socialWorkspace);
+	socialWorkspaceId = workspace2.getId();
     }
 
     private void loadProjectData() {
 	ProjectDTO firstProject = new ProjectDTO();
 	firstProject.setName("My First Project");
-	projectController.create(1L, firstProject);
+	Project proj1 = projectController.create(demoWorkspaceId, firstProject);
+	firstProjectId = proj1.getId();
+	firstProjectRefId = proj1.getProjectRef().getId();
 
 	ProjectDTO secondProject = new ProjectDTO();
 	secondProject.setName("My Second Project");
-	projectController.create(1L, secondProject);
+	projectController.create(demoWorkspaceId, secondProject);
 
 	ProjectDTO googleProject = new ProjectDTO();
 	googleProject.setName("Google");
-	projectController.create(2L, googleProject);
+	projectController.create(socialWorkspaceId, googleProject);
 
 	ProjectDTO facebookProject = new ProjectDTO();
 	facebookProject.setName("Facebook");
-	projectController.create(2L, facebookProject);
+	projectController.create(socialWorkspaceId, facebookProject);
 
 	ProjectDTO twitterProject = new ProjectDTO();
 	twitterProject.setName("Twitter");
-	projectController.create(2L, twitterProject);
+	projectController.create(socialWorkspaceId, twitterProject);
 
 	ProjectDTO linkedinProject = new ProjectDTO();
 	linkedinProject.setName("LinkedIn");
-	projectController.create(2L, linkedinProject);
+	projectController.create(socialWorkspaceId, linkedinProject);
     }
 
     private void loadNodeData() {
 	TagDTO tag1 = new TagDTO();
-	tag1.setId(1L);
+	// tag1.setId(1L);
 	TagDTO tag2 = new TagDTO();
-	tag2.setId(2L);
+	// tag2.setId(2L);
 	ArrayList<TagDTO> tags = new ArrayList<TagDTO>();
 	tags.add(tag1);
 	tags.add(tag2);
@@ -246,7 +257,7 @@ public class SampleDataGenerator {
 	NodeDTO firstFolderNode = new NodeDTO();
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeType.FOLDER.name());
-	firstFolderNode.setProjectId(1L);
+	firstFolderNode.setProjectId(firstProjectId);
 
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
@@ -258,11 +269,11 @@ public class SampleDataGenerator {
 	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
 	rfRequestDTO2.setApiUrl("http://localhost:8080/api/workspaces");
 	rfRequestDTO2.setMethodType("POST");
-	
+
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("name", "Test Workspace");
 	jsonObject.put("description", "This is test workspace from sample data generator");
-	
+
 	rfRequestDTO2.setApiBody(jsonObject.toString(4));
 	postConversationDTO.setRfRequestDTO(rfRequestDTO2);
 
@@ -272,12 +283,12 @@ public class SampleDataGenerator {
 	postConversationDTO.setId(createdPostConversation.getId());
 	// firstFolderNode.setConversationDTO(conversationDTO);
 
-	BaseNode createdFolderNode = nodeController.create(1L, firstFolderNode);
+	BaseNode createdFolderNode = nodeController.create(firstProjectRefId, firstFolderNode);
 
 	NodeDTO childNode = new NodeDTO();
 	childNode.setName("GET Workspace");
 	childNode.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
-	childNode.setProjectId(1L);
+	childNode.setProjectId(firstProjectId);
 	childNode.setConversationDTO(conversationDTO);
 	BaseNode createdChildNode = nodeController.create(createdFolderNode.getId(), childNode);
 	nodeController.addTags(createdChildNode.getId(), tags);
@@ -285,20 +296,20 @@ public class SampleDataGenerator {
 	NodeDTO secondNode = new NodeDTO();
 	secondNode.setName("POST Workspace");
 	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
-	secondNode.setProjectId(1L);
+	secondNode.setProjectId(firstProjectId);
 	secondNode.setConversationDTO(postConversationDTO);
-	BaseNode createdSecondNode = nodeController.create(1L, secondNode);
+	BaseNode createdSecondNode = nodeController.create(firstProjectRefId, secondNode);
 	nodeController.addTags(createdSecondNode.getId(), tags);
 
 	NodeDTO dummyNode = new NodeDTO();
 	dummyNode.setName("Dummy Node");
-	dummyNode.setProjectId(1L);
-	nodeController.create(1L, dummyNode);
+	dummyNode.setProjectId(firstProjectId);
+	nodeController.create(firstProjectRefId, dummyNode);
 
 	NodeDTO testNode = new NodeDTO();
 	testNode.setName("Test Node");
-	testNode.setProjectId(1L);
-	nodeController.create(1L, testNode);
+	testNode.setProjectId(firstProjectId);
+	nodeController.create(firstProjectRefId, testNode);
 
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
@@ -312,10 +323,10 @@ public class SampleDataGenerator {
 	starredNode.setName("Starred Node");
 	starredNode.setDescription("This API returns a list of requests which are marked as star.");
 	starredNode.setStarred(Boolean.TRUE);
-	starredNode.setProjectId(1L);
+	starredNode.setProjectId(firstProjectId);
 	starredNode.setConversationDTO(conversationDTO);
 
-	nodeController.create(1L, starredNode);
+	nodeController.create(firstProjectRefId, starredNode);
     }
 
     private void loadTagData() {

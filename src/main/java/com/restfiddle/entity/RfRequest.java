@@ -27,7 +27,6 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
 

@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Environment;
 
-public interface EnvironmentRepository extends RfRepository<Environment, Long> {
+public interface EnvironmentRepository extends RfRepository<Environment, String> {
 
 }

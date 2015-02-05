@@ -15,13 +15,8 @@
  */
 package com.restfiddle.dao;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.restfiddle.entity.DataMap;
 
-@Repository
-@Transactional(readOnly = true)
-public interface DataMapRepository extends RfRepository<DataMap, Long> {
+public interface DataMapRepository extends RfRepository<DataMap, String> {
 
 }

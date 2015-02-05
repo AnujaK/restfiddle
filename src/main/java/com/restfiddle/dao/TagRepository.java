@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Tag;
 
-public interface TagRepository extends RfRepository<Tag, Long> {
+public interface TagRepository extends RfRepository<Tag, String> {
 
 }

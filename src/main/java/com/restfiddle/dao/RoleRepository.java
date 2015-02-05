@@ -17,6 +17,6 @@ package com.restfiddle.dao;
 
 import com.restfiddle.entity.Role;
 
-public interface RoleRepository extends RfRepository<Role, Long> {
+public interface RoleRepository extends RfRepository<Role, String> {
 
 }
