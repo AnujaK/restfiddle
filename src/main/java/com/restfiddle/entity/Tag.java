@@ -15,16 +15,14 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Tag extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne
     private Color color;
 
-    @ManyToOne
+    @DBRef
     private Workspace workspace;
 
     public Color getColor() {
@@ -42,5 +40,4 @@ public class Tag extends NamedEntity {
     public void setWorkspace(Workspace workspace) {
 	this.workspace = workspace;
     }
-
 }

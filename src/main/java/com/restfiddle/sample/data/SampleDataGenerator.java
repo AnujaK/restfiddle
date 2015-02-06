@@ -53,6 +53,7 @@ import com.restfiddle.entity.Config;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.HttpRequestHeader;
 import com.restfiddle.entity.Project;
+import com.restfiddle.entity.Tag;
 import com.restfiddle.entity.User;
 import com.restfiddle.entity.Workspace;
 import com.restfiddle.util.CommonUtil;
@@ -95,8 +96,12 @@ public class SampleDataGenerator {
 
     private String demoWorkspaceId;
     private String socialWorkspaceId;
+
     private String firstProjectId;
     private String firstProjectRefId;
+
+    private String impTagId;
+    private String wlTagId;
 
     @PostConstruct
     public void initialize() {
@@ -247,9 +252,9 @@ public class SampleDataGenerator {
 
     private void loadNodeData() {
 	TagDTO tag1 = new TagDTO();
-	// tag1.setId(1L);
+	tag1.setId(impTagId);
 	TagDTO tag2 = new TagDTO();
-	// tag2.setId(2L);
+	tag2.setId(wlTagId);
 	ArrayList<TagDTO> tags = new ArrayList<TagDTO>();
 	tags.add(tag1);
 	tags.add(tag2);
@@ -332,11 +337,13 @@ public class SampleDataGenerator {
     private void loadTagData() {
 	TagDTO tagDTO = new TagDTO();
 	tagDTO.setName("Important");
-	tagController.create(tagDTO);
+	Tag impTag = tagController.create(tagDTO);
+	impTagId = impTag.getId();
 
 	TagDTO secondTag = new TagDTO();
 	secondTag.setName("Wishlist");
-	tagController.create(secondTag);
+	Tag wlTag = tagController.create(secondTag);
+	wlTagId = wlTag.getId();
     }
 
     private void loadHttpRequestHeaders() {

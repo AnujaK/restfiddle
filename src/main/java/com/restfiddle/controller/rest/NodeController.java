@@ -256,7 +256,7 @@ public class NodeController {
     List<BaseNode> findStarredNodes() {
 	logger.debug("Finding starred nodes.");
 
-	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(Boolean.TRUE);
+	List<BaseNode> starredNodes = nodeRepository.findStarredNodes();
 	return starredNodes;
     }
 
@@ -273,11 +273,11 @@ public class NodeController {
 	    for (TagDTO tagDTO : tagDTOs) {
 		tagIds.add(tagDTO.getId());
 	    }
-	    // TODO : Fix Me!
-	    tags = null;// tagRepository.findAll(tagIds);
+	    tags = (List<Tag>) tagRepository.findAll(tagIds);
 	}
 	node.setTags(tags);
 
+	nodeRepository.save(node);
 	return Boolean.TRUE;
     }
 }
