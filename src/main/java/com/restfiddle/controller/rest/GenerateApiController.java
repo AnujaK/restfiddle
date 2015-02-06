@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +63,9 @@ public class GenerateApiController {
 
     @Autowired
     private GenericEntityDataRepository genericEntityDataRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @RequestMapping(value = "/api/entities/{id}/generate-api", method = RequestMethod.POST)
     public @ResponseBody
@@ -198,12 +202,15 @@ public class GenerateApiController {
 	GenericEntityData entityData = new GenericEntityData();
 	entityData.setData(data);
 	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
-	
+
 	// Get entity by name and set here.
 	GenericEntity genericEntity = genericEntityRepository.findEntityByName(entityName);
 	genericEntity.getEntityDataList().add(savedEntityData);
 	genericEntityRepository.save(genericEntity);
-	
+
+	// Create a new document for the entity.
+	mongoTemplate.save(data, entityName);
+
 	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
 	return jsonObject.toString(4);
     }

@@ -16,7 +16,6 @@
 package com.restfiddle.entity;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;

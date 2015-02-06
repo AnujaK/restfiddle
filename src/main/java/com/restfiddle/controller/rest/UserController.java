@@ -76,7 +76,7 @@ public class UserController {
 	user.setPassword(CommonUtil.isNotEmpty(passwordDTO.getPassword()) ? passwordEncoder.encode(passwordDTO.getPassword()) : passwordEncoder
 		.encode("default"));
 
-	user.setStatus(StatusType.ACTIVE);
+	user.setStatus(StatusType.ACTIVE.name());
 
 	User savedUser = userRepository.save(user);
 

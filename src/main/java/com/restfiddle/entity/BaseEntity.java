@@ -17,26 +17,32 @@ package com.restfiddle.entity;
 
 import java.util.Date;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.restfiddle.constant.StatusType;
 
 public abstract class BaseEntity extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
+    @CreatedDate
     private Date createdDate;
 
+    @DBRef
+    @CreatedBy
     private User createdBy;
 
+    @LastModifiedDate
     private Date lastModifiedDate;
 
+    @DBRef
+    @LastModifiedBy
     private User lastModifiedBy;
 
-    @Enumerated(EnumType.STRING)
-    private StatusType status;
+    private String status = StatusType.ACTIVE.name();
 
     public Date getCreatedDate() {
 	return createdDate;
@@ -70,27 +76,11 @@ public abstract class BaseEntity extends AbstractEntity {
 	this.lastModifiedBy = lastModifiedBy;
     }
 
-    public StatusType getStatus() {
+    public String getStatus() {
 	return status;
     }
 
-    public void setStatus(StatusType status) {
+    public void setStatus(String status) {
 	this.status = status;
-    }
-
-    public static long getSerialversionuid() {
-	return serialVersionUID;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-	lastModifiedDate = new Date();
-    }
-
-    @PrePersist
-    public void prePersist() {
-	Date currentDate = new Date();
-	createdDate = currentDate;
-	lastModifiedDate = currentDate;
     }
 }

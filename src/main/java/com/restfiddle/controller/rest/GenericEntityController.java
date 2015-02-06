@@ -52,8 +52,10 @@ public class GenericEntityController {
     GenericEntity create(@RequestBody GenericEntityDTO genericEntityDTO) {
 	logger.debug("Creating a new entity with information: " + genericEntityDTO);
 
+	String entityName = genericEntityDTO.getName();
+	
 	GenericEntity entity = new GenericEntity();
-	entity.setName(genericEntityDTO.getName());
+	entity.setName(entityName);
 	entity.setDescription(genericEntityDTO.getDescription());
 
 	List<GenericEntityFieldDTO> fieldDTOs = genericEntityDTO.getFields();
