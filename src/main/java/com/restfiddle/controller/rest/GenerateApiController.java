@@ -177,9 +177,15 @@ public class GenerateApiController {
     public @ResponseBody
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
-	    @RequestParam(value = "sort", required = false) String sort) {
+	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query) {
 	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-	DBCursor cursor = dbCollection.find();
+	DBCursor cursor = null;
+	if (query != null && !query.isEmpty()) {
+	    Object queryObject = JSON.parse(query);
+	    cursor = dbCollection.find((BasicDBObject) queryObject);
+	} else {
+	    cursor = dbCollection.find();
+	}
 
 	if (sort != null && !sort.isEmpty()) {
 	    Object sortObject = JSON.parse(sort);
