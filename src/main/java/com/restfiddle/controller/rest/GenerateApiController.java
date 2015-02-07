@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bson.types.ObjectId;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -171,12 +173,23 @@ public class GenerateApiController {
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
-    String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName) {
+    String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
+	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
 	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
 	DBCursor cursor = dbCollection.find();
+
+	if (limit != null && limit > 0) {
+	    if (page != null && page > 0) {
+		cursor.skip((page - 1) * limit);
+	    }
+	    cursor.limit(limit);
+	}
 	List<DBObject> array = cursor.toArray();
 	String json = JSON.serialize(array);
-	return json;
+
+	// Indentation
+	JSONArray jsonArr = new JSONArray(json);
+	return jsonArr.toString(4);
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
@@ -190,7 +203,10 @@ public class GenerateApiController {
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
 	String json = resultObject.toString();
-	return json;
+
+	// Indentation
+	JSONObject jsonObject = new JSONObject(json);
+	return jsonObject.toString(4);
     }
 
     /**
@@ -216,7 +232,9 @@ public class GenerateApiController {
 	dbCollection.save((BasicDBObject) dbObject);
 	String json = dbObject.toString();
 
-	return json;
+	// Indentation
+	JSONObject jsonObject = new JSONObject(json);
+	return jsonObject.toString(4);
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
@@ -247,7 +265,9 @@ public class GenerateApiController {
 	}
 	String json = resultObject.toString();
 
-	return json;
+	// Indentation
+	JSONObject jsonObject = new JSONObject(json);
+	return jsonObject.toString(4);
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
@@ -258,7 +278,7 @@ public class GenerateApiController {
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(uuid));
 	dbCollection.remove(queryObject);
-	
+
 	StatusResponse res = new StatusResponse();
 	res.setStatus("DELETED");
 
