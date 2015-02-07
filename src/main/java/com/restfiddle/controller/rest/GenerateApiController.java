@@ -171,12 +171,20 @@ public class GenerateApiController {
 	return null;
     }
 
+    // Note : SORT PARAM : Specify in the sort parameter the field or fields to sort by and a value of 1 or -1 to specify an ascending or descending
+    // sort respectively (http://docs.mongodb.org/manual/reference/method/cursor.sort/).
     @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
+	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
+	    @RequestParam(value = "sort", required = false) String sort) {
 	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
 	DBCursor cursor = dbCollection.find();
+
+	if (sort != null && !sort.isEmpty()) {
+	    Object sortObject = JSON.parse(sort);
+	    cursor.sort((BasicDBObject) sortObject);
+	}
 
 	if (limit != null && limit > 0) {
 	    if (page != null && page > 0) {
