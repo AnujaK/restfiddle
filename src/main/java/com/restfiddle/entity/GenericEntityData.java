@@ -15,7 +15,6 @@
  */
 package com.restfiddle.entity;
 
-
 public class GenericEntityData extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
