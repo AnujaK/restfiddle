@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.JSONArray;
+import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +35,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import com.restfiddle.dao.GenericEntityDataRepository;
 import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dto.ConversationDTO;
@@ -167,22 +172,25 @@ public class GenerateApiController {
     @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName) {
-	GenericEntity entity = genericEntityRepository.findEntityByName(entityName);
-	List<GenericEntityData> dataList = entity.getEntityDataList();
-	JSONArray jsonArray = new JSONArray();
-	for (GenericEntityData entityData : dataList) {
-	    jsonArray.put(createJsonFromEntityData(entityData));
-	}
-	return jsonArray.toString(4);
+	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCursor cursor = dbCollection.find();
+	List<DBObject> array = cursor.toArray();
+	String json = JSON.serialize(array);
+	return json;
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("id") String entityDataId) {
-	GenericEntityData entityData = genericEntityDataRepository.findOne(entityDataId);
-	JSONObject jsonObject = createJsonFromEntityData(entityData);
-	return jsonObject.toString(4);
+	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+
+	BasicDBObject queryObject = new BasicDBObject();
+	queryObject.append("_id", new ObjectId(entityDataId));
+
+	DBObject resultObject = dbCollection.findOne(queryObject);
+	String json = resultObject.toString();
+	return json;
     }
 
     /**
@@ -193,33 +201,29 @@ public class GenerateApiController {
     String createEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestBody Object genericEntityDataDTO) {
 	String data = "";
-	if (genericEntityDataDTO instanceof Map) {
+	if (!(genericEntityDataDTO instanceof Map)) {
+	    return null;
+	} else {
 	    // Note : Entity data is accessible through this map.
 	    Map map = (Map) genericEntityDataDTO;
 	    JSONObject jsonObj = createJsonFromMap(map);
 	    data = jsonObj.toString();
 	}
-	GenericEntityData entityData = new GenericEntityData();
-	entityData.setData(data);
-	GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
-
-	// Get entity by name and set here.
-	GenericEntity genericEntity = genericEntityRepository.findEntityByName(entityName);
-	genericEntity.getEntityDataList().add(savedEntityData);
-	genericEntityRepository.save(genericEntity);
-
 	// Create a new document for the entity.
-	mongoTemplate.save(data, entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
 
-	JSONObject jsonObject = createJsonFromEntityData(savedEntityData);
-	return jsonObject.toString(4);
+	Object dbObject = JSON.parse(data);
+	dbCollection.save((BasicDBObject) dbObject);
+	String json = dbObject.toString();
+
+	return json;
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
     String updateEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
 	    @RequestBody Object genericEntityDataDTO) {
-	JSONObject jsonObject = new JSONObject();
+	DBObject resultObject = new BasicDBObject();
 	if (genericEntityDataDTO instanceof Map) {
 	    Map map = (Map) genericEntityDataDTO;
 	    if (map.get("id") != null && map.get("id") instanceof String) {
@@ -230,29 +234,31 @@ public class GenerateApiController {
 	    // ID is stored separately (in a different column).
 	    uiJson.remove("id");
 
-	    GenericEntityData entityData = genericEntityDataRepository.findOne(uuid);
-	    String dbData = entityData.getData();
-	    JSONObject dbJson = new JSONObject(dbData);
+	    DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	    BasicDBObject queryObject = new BasicDBObject();
+	    queryObject.append("_id", new ObjectId(uuid));
+	    resultObject = dbCollection.findOne(queryObject);
 
 	    Set<String> keySet = uiJson.keySet();
 	    for (String key : keySet) {
-		dbJson.put(key, uiJson.get(key));
+		resultObject.put(key, uiJson.get(key));
 	    }
-	    entityData.setData(dbJson.toString());
-
-	    GenericEntityData savedEntityData = genericEntityDataRepository.save(entityData);
-	    jsonObject = createJsonFromEntityData(savedEntityData);
+	    dbCollection.save(resultObject);
 	}
-	return jsonObject.toString(4);
+	String json = resultObject.toString();
+
+	return json;
     }
 
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
     StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("uuid") String uuid) {
-	// Delete entity-data by Id.
-	genericEntityDataRepository.delete(uuid);
-
+	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	BasicDBObject queryObject = new BasicDBObject();
+	queryObject.append("_id", new ObjectId(uuid));
+	dbCollection.remove(queryObject);
+	
 	StatusResponse res = new StatusResponse();
 	res.setStatus("DELETED");
 

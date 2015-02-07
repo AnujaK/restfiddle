@@ -20,21 +20,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.authentication.UserCredentials;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mongodb.MongoClient;
-import com.restfiddle.entity.User;
 
 @Configuration
 @EnableTransactionManagement
 @EnableMongoRepositories(basePackages = { "com.restfiddle.dao" })
-@EnableMongoAuditing
 public class PersistenceConfig {
 
     @Autowired
@@ -50,10 +46,5 @@ public class PersistenceConfig {
     public @Bean
     MongoTemplate mongoTemplate() throws Exception {
 	return new MongoTemplate(mongoDbFactory());
-    }
-    
-    @Bean
-    public AuditorAware<User> myAuditorProvider() {
-        return new SpringSecurityAuditorAware();
     }
 }

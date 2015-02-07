@@ -17,29 +17,22 @@ package com.restfiddle.entity;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.restfiddle.constant.StatusType;
 
+//NOTE : SpringSecurityAuditorAware does not work for dynamic collections.
 public abstract class BaseEntity extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    @CreatedDate
     private Date createdDate;
 
     @DBRef
-    @CreatedBy
     private User createdBy;
 
-    @LastModifiedDate
     private Date lastModifiedDate;
 
     @DBRef
-    @LastModifiedBy
     private User lastModifiedBy;
 
     private String status = StatusType.ACTIVE.name();
