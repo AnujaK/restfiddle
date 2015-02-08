@@ -52,7 +52,7 @@ public class OAuth2Controller {
 
 	OAuth2 oauth2 = new OAuth2();
 	List<String> oauth2ScopeList = OAuth2RequestDTO.getScopes();
-	String scope = null;
+	String scope = "";
 
 	if (oauth2ScopeList != null && oauth2ScopeList.size() != 0) {
 	    for (int i = 0; i < oauth2ScopeList.size() - 1; i++) {
@@ -62,8 +62,9 @@ public class OAuth2Controller {
 	    scope += oauth2ScopeList.get(oauth2ScopeList.size() - 1);
 	}
 
-	//oauth2.setName(OAuth2RequestDTO.getName());
-	//oauth2.setDescription(OAuth2RequestDTO.getDescription());
+	oauth2.setName(OAuth2RequestDTO.getName());
+	oauth2.setDescription(OAuth2RequestDTO.getDescription());
+
 	oauth2.setAccessTokenLocation(OAuth2RequestDTO.getAccessTokenLocation());
 	oauth2.setAccessTokenUrl(OAuth2RequestDTO.getAccessTokenUrl());
 	oauth2.setAuthorizationUrl(OAuth2RequestDTO.getAuthorizationUrl());
@@ -106,8 +107,8 @@ public class OAuth2Controller {
 
 	OAuth2 oauth2 = oauth2Repository.findOne(updated.getId());
 
-	//oauth2.setName(updated.getName());
-	//oauth2.setDescription(updated.getDescription());
+	// oauth2.setName(updated.getName());
+	// oauth2.setDescription(updated.getDescription());
 
 	return oauth2;
     }

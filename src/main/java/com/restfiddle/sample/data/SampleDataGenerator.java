@@ -94,6 +94,9 @@ public class SampleDataGenerator {
     @Autowired
     private HttpRequestHeaderRepository requestHeaderRepository;
 
+    @Autowired
+    private OAuth2DataGenerator oauth2DataGenerator;
+
     private String demoWorkspaceId;
     private String socialWorkspaceId;
 
@@ -124,6 +127,10 @@ public class SampleDataGenerator {
 	loadNodeData();
 
 	loadHttpRequestHeaders();
+
+	oauth2DataGenerator.loadAsanaAPI();
+	oauth2DataGenerator.loadTrelloAPI();
+	oauth2DataGenerator.loadGitHubAPI();
     }
 
     private void loadRoleData() {

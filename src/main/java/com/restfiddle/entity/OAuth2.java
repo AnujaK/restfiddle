@@ -15,8 +15,8 @@
  */
 package com.restfiddle.entity;
 
-public class OAuth2 {
-    private String id;
+public class OAuth2 extends NamedEntity{
+    private static final long serialVersionUID = 1L;
 
     private String authorizationUrl;
 
@@ -77,13 +77,4 @@ public class OAuth2 {
     public void setScopes(String scopes) {
 	this.scopes = scopes;
     }
-
-    public String getId() {
-	return id;
-    }
-
-    public void setId(String id) {
-	this.id = id;
-    }
-
 }
