@@ -16,32 +16,19 @@
 package com.restfiddle.controller.rest;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import org.bson.types.ObjectId;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
 import com.restfiddle.dao.GenericEntityDataRepository;
 import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dto.ConversationDTO;
@@ -51,7 +38,6 @@ import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.GenericEntity;
-import com.restfiddle.entity.GenericEntityData;
 import com.restfiddle.entity.GenericEntityField;
 
 @RestController
@@ -70,9 +56,6 @@ public class GenerateApiController {
 
     @Autowired
     private GenericEntityDataRepository genericEntityDataRepository;
-
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     @RequestMapping(value = "/api/entities/{id}/generate-api", method = RequestMethod.POST)
     public @ResponseBody
@@ -169,153 +152,6 @@ public class GenerateApiController {
 	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	return null;
-    }
-
-    // Note : SORT PARAM : Specify in the sort parameter the field or fields to sort by and a value of 1 or -1 to specify an ascending or descending
-    // sort respectively (http://docs.mongodb.org/manual/reference/method/cursor.sort/).
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/list", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
-	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-	DBCursor cursor = null;
-	if (query != null && !query.isEmpty()) {
-	    Object queryObject = JSON.parse(query);
-	    cursor = dbCollection.find((BasicDBObject) queryObject);
-	} else {
-	    cursor = dbCollection.find();
-	}
-
-	if (sort != null && !sort.isEmpty()) {
-	    Object sortObject = JSON.parse(sort);
-	    cursor.sort((BasicDBObject) sortObject);
-	}
-
-	if (limit != null && limit > 0) {
-	    if (page != null && page > 0) {
-		cursor.skip((page - 1) * limit);
-	    }
-	    cursor.limit(limit);
-	}
-	List<DBObject> array = cursor.toArray();
-	String json = JSON.serialize(array);
-
-	// Indentation
-	JSONArray jsonArr = new JSONArray(json);
-	return jsonArr.toString(4);
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @PathVariable("id") String entityDataId) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-
-	BasicDBObject queryObject = new BasicDBObject();
-	queryObject.append("_id", new ObjectId(entityDataId));
-
-	DBObject resultObject = dbCollection.findOne(queryObject);
-	String json = resultObject.toString();
-
-	// Indentation
-	JSONObject jsonObject = new JSONObject(json);
-	return jsonObject.toString(4);
-    }
-
-    /**
-     * [NOTE] http://stackoverflow.com/questions/25953056/how-to-access-fields-of-converted-json-object-sent-in-post-body
-     */
-    @RequestMapping(value = "/api/{projectId}/entities/{name}", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
-    public @ResponseBody
-    String createEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @RequestBody Object genericEntityDataDTO) {
-	String data = "";
-	if (!(genericEntityDataDTO instanceof Map)) {
-	    return null;
-	} else {
-	    // Note : Entity data is accessible through this map.
-	    Map map = (Map) genericEntityDataDTO;
-	    JSONObject jsonObj = createJsonFromMap(map);
-	    data = jsonObj.toString();
-	}
-	// Create a new document for the entity.
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-
-	Object dbObject = JSON.parse(data);
-	dbCollection.save((BasicDBObject) dbObject);
-	String json = dbObject.toString();
-
-	// Indentation
-	JSONObject jsonObject = new JSONObject(json);
-	return jsonObject.toString(4);
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
-    public @ResponseBody
-    String updateEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
-	    @RequestBody Object genericEntityDataDTO) {
-	DBObject resultObject = new BasicDBObject();
-	if (genericEntityDataDTO instanceof Map) {
-	    Map map = (Map) genericEntityDataDTO;
-	    if (map.get("id") != null && map.get("id") instanceof String) {
-		String entityDataId = (String) map.get("id");
-		logger.debug("Updating Entity Data with Id " + entityDataId);
-	    }
-	    JSONObject uiJson = createJsonFromMap(map);
-	    // ID is stored separately (in a different column).
-	    uiJson.remove("id");
-
-	    DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-	    BasicDBObject queryObject = new BasicDBObject();
-	    queryObject.append("_id", new ObjectId(uuid));
-	    resultObject = dbCollection.findOne(queryObject);
-
-	    Set<String> keySet = uiJson.keySet();
-	    for (String key : keySet) {
-		resultObject.put(key, uiJson.get(key));
-	    }
-	    dbCollection.save(resultObject);
-	}
-	String json = resultObject.toString();
-
-	// Indentation
-	JSONObject jsonObject = new JSONObject(json);
-	return jsonObject.toString(4);
-    }
-
-    @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
-    public @ResponseBody
-    StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @PathVariable("uuid") String uuid) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
-	BasicDBObject queryObject = new BasicDBObject();
-	queryObject.append("_id", new ObjectId(uuid));
-	dbCollection.remove(queryObject);
-
-	StatusResponse res = new StatusResponse();
-	res.setStatus("DELETED");
-
-	return res;
-    }
-
-    @SuppressWarnings("unchecked")
-    private JSONObject createJsonFromMap(Map map) {
-	JSONObject jsonObject = new JSONObject();
-	for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext();) {
-	    String key = iterator.next();
-	    jsonObject.put(key, map.get(key));
-	}
-	return jsonObject;
-    }
-
-    private JSONObject createJsonFromEntityData(GenericEntityData entityData) {
-	JSONObject jsonObject = new JSONObject(entityData.getData());
-	jsonObject.put("id", entityData.getId());
-	jsonObject.put("version", entityData.getVersion());
-	jsonObject.put("createdDate", entityData.getCreatedDate());
-	jsonObject.put("lastModifiedDate", entityData.getLastModifiedDate());
-	return jsonObject;
     }
 
     private BaseNode createNode(String nodeName, String parentId, String projectId, ConversationDTO conversationDTO) {
