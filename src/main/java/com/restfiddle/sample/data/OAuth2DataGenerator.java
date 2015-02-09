@@ -30,6 +30,37 @@ public class OAuth2DataGenerator {
     @Autowired
     private OAuth2Controller oauth2Controller;
 
+    public void loadGoogleAPI() {
+	// Documentation : https://developers.google.com/oauthplayground/
+	String name = "Google";
+	String authorizationUrl = "https://accounts.google.com/o/oauth2/auth";
+	String accessTokenUrl = "https://accounts.google.com/o/oauth2/token";
+	String clientId = "";
+	String clientSecret = "";
+	String accessTokenLocation = "HEADER_BEARER";// Authorization: Bearer OAUTH-TOKEN
+	List<String> scopes = new ArrayList<String>();
+	scopes.add("profile");
+	scopes.add("email");
+
+	OAuth2RequestDTO oauth2DTO = buildOAuth2DTO(name, authorizationUrl, accessTokenUrl, clientId, clientSecret, accessTokenLocation, scopes);
+	oauth2Controller.create(oauth2DTO);
+    }
+
+    public void loadInstagramAPI() {
+	// Documentation : http://instagram.com/developer/authentication/
+	String name = "Instagram";
+	String authorizationUrl = "https://api.instagram.com/oauth/authorize";
+	String accessTokenUrl = "https://api.instagram.com/oauth/access_token";
+	String clientId = "";
+	String clientSecret = "";
+	String accessTokenLocation = "URL_PARAM_ACCESS_TOKEN";// Authorization: Bearer OAUTH-TOKEN
+	List<String> scopes = new ArrayList<String>();
+	scopes.add("basic");
+
+	OAuth2RequestDTO oauth2DTO = buildOAuth2DTO(name, authorizationUrl, accessTokenUrl, clientId, clientSecret, accessTokenLocation, scopes);
+	oauth2Controller.create(oauth2DTO);
+    }
+
     public void loadGitHubAPI() {
 	// Documentation : https://developer.github.com/v3/oauth/
 	String name = "GitHub";
