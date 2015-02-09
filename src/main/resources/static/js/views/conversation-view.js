@@ -405,7 +405,7 @@ define(function(require) {
 			var response = conversation.get('rfResponse');
 			
 			this.$el.find("#apiRequestName").html(conversation.get('name'));
-			this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
+			this.$el.find("#apiRequestDescription").html(conversation.get('description'));
 			
 			this.$el.find("#apiUrl").val(request.apiUrlString);
 			this.$el.find(".apiRequestType").val(request.methodType);
