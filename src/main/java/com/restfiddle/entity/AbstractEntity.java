@@ -17,8 +17,6 @@ package com.restfiddle.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -26,12 +24,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.data.annotation.Id;
 
 public abstract class AbstractEntity implements Serializable, Cloneable, Comparable<Object> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     private String id;
 
     @Version

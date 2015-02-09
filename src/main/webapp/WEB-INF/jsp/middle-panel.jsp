@@ -19,7 +19,7 @@
     </div>
     &nbsp;
     <div class="btn-group">
-        <button class="btn btn-default btn-sm run-project"  data-toggle="tooltip" data-placement="bottom" data-container="body" title="Run project does not work with in-memory database. Make sure you configure MySQL before using this feature!">Run Project</button>
+        <button class="btn btn-default btn-sm run-project"  data-toggle="tooltip" data-placement="bottom" data-container="body" title="Run project lets you run requests together.">Run Project</button>
     </div>
     &nbsp;&nbsp;
     <div class="btn-group">

@@ -177,7 +177,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    BaseNode update(@PathVariable("id") Long id, @RequestBody NodeDTO updated) {
+    BaseNode update(@PathVariable("id") String id, @RequestBody NodeDTO updated) {
 	logger.debug("Updating node with information: " + updated);
 
 	BaseNode node = nodeRepository.findOne(updated.getId());
@@ -193,6 +193,8 @@ public class NodeController {
 	if (updated.getStarred() != null) {
 	    node.setStarred(updated.getStarred());
 	}
+
+	nodeRepository.save(node);
 
 	return node;
     }
@@ -212,34 +214,32 @@ public class NodeController {
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(projectId);
 
 	// Creating a map of nodes with node-id as key
-	Map<String, BaseNode> nodeIdMap = new HashMap<String, BaseNode>();
-	for (BaseNode baseNode : listOfNodes) {
-	    nodeIdMap.put(baseNode.getId(), baseNode);
-	}
-
+	Map<String, BaseNode> baseNodeMap = new HashMap<String, BaseNode>();
+	Map<String, TreeNode> treeNodeMap = new HashMap<String, TreeNode>();
 	TreeNode rootNode = null;
 	TreeNode treeNode = null;
 	TreeNode parentTreeNode = null;
-	Map<String, TreeNode> treeNodeMap = new HashMap<String, TreeNode>();
+
+	for (BaseNode baseNode : listOfNodes) {
+	    String nodeId = baseNode.getId();
+	    baseNodeMap.put(nodeId, baseNode);
+
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
+	    treeNodeMap.put(nodeId, treeNode);
+	}
 
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeId = baseNode.getId();
 	    String parentId = baseNode.getParentId();
 
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
-	    treeNodeMap.put(nodeId, treeNode);
+	    treeNode = treeNodeMap.get(nodeId);
 
 	    if (NodeType.PROJECT.name().equals(baseNode.getNodeType())) {
 		// Identify root node for a project
 		rootNode = treeNode;
 	    } else {
 		// Build parent node
-		BaseNode baseParentNode = nodeIdMap.get(parentId);
 		parentTreeNode = treeNodeMap.get(parentId);
-		if (parentTreeNode == null) {
-		    parentTreeNode = TreeNodeBuilder.createTreeNode(parentId, baseParentNode.getName(), baseParentNode.getNodeType(),
-			    baseParentNode.getStarred());
-		}
 
 		// Set parent tree node
 		treeNode.setParent(parentTreeNode);

@@ -15,8 +15,16 @@
  */
 package com.restfiddle.dao;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.Query;
+
 import com.restfiddle.entity.Workspace;
 
 public interface WorkspaceRepository extends RfRepository<Workspace, String> {
 
+    List<Workspace> findByName(String name);
+
+    @Query(value = "?0")
+    List<Workspace> findByQuery(String query);
 }

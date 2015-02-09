@@ -24,7 +24,7 @@ import com.restfiddle.entity.Project;
 
 public interface ProjectRepository extends RfRepository<Project, String> {
 
-//    @Query("SELECT p FROM Project p WHERE p.workspace.id = :workspaceId")
+    // TODO : Implement me!
     @Query("{ 'workspaceId' : '' }")
     public List<Project> findProjectsFromAWorkspace(@Param("workspaceId") Long workspaceId);
 }
