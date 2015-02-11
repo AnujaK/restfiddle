@@ -92,3 +92,6 @@ p, li{
 .well:hover p{
     color: white;
 }
+.well:hover a{
+    color: white;
+}
