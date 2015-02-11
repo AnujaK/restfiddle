@@ -16,7 +16,7 @@
             <p>
                 <span id="socketName">Socket Name</span>
             </p>
-             <p>
+            <p>
                 <span id="socketDescription">Socket Description</span>
             </p>
             <br>
@@ -41,7 +41,7 @@
                 <span><b>Message Log</b></span>
             </p>
             <div id="webSocketResponseBody">
-                
+
             </div>
         </div>
     </div>
@@ -94,76 +94,90 @@
             <button id="starNodeBtn" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-star"></span>&nbsp;Star
             </button>
-            <button class="btn btn-default btn-sm pull-right header-toggle-btn" data-toggle="tooltip" data-placement="left">
-                <i id="header-toggle-icon" class="fa fa-angle-double-up"></i>
+            <button class="btn btn-default btn-sm pull-right right-pannel-toggle-btn" data-toggle="tooltip" data-placement="left">
+                <i id="full-screen-icon" class="fa fa-arrows-alt"></i>
             </button>
+         <!--    <button class="btn btn-default btn-sm pull-right header-toggle-btn" data-toggle="tooltip" data-placement="left">
+                <i id="header-toggle-icon" class="fa fa-angle-double-up"></i>
+            </button> -->
             <br> <br>
         </div>
         
         <div id="conversationBody">
             <div>
                 <div>
-                    <p>
-                        <span id="requestToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<span id="apiRequestName"></span>
+                    <p class="apiRequestContainer">
+                        <span id="requestToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<input id="apiRequestNameTextBox"></input><span id="apiRequestName"></span>
                     </p>
                 </div>
                 <div id="requestContainer">
                     <p id="apiRequestDescription"></p>
-                    <p>
-                        &nbsp;&nbsp;<span class="label label-default">Important</span>&nbsp;<span class="label label-default">Wishlist</span>
-                    </p>
-                    <br>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xs-2 rf-col-xs-2-padding" >
-                                <select class="apiRequestType form-control">
-                                    <option>GET</option>
-                                    <option>POST</option>
-                                    <option>PUT</option>
-                                    <option>DELETE</option>
-                                    <option>HEAD</option>
-                                    <option>OPTIONS</option>
-                                    <option>TRACE</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-10 rf-col-xs-10-padding">
-                                <input type="text" class="form-control typeahead" id="apiUrl" placeholder="Enter URL"> <br> <br>
-                            </div>
+                    <div class="btn-group label-btn-group">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-tags"></span> &nbsp;Labels&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu label-dropdown-menu">
+                            <li>Edit Gist Labels</li>
+                            <li><input type="checkbox"  value="important" name ="importLabel" id="important-label-opt" checked><label for = "important-label-opt">Important</label></li>
+
+                            <li><input type ="checkbox" value = "wishlist"  name ="wishlistLabel" id="wishlist-label-opt" checked><label for="wishlist-label-opt">Wishlist</label></li>
+                        </ul>
+                    </div>
+                    <span class="label label-default important-label-opt">Important</span>&nbsp;<span class="label label-default wishlist-label-opt">Wishlist</span>
+
+                <br>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-2 rf-col-xs-2-padding" >
+                            <select class="apiRequestType form-control">
+                                <option>GET</option>
+                                <option>POST</option>
+                                <option>PUT</option>
+                                <option>DELETE</option>
+                                <option>HEAD</option>
+                                <option>OPTIONS</option>
+                                <option>TRACE</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-10 rf-col-xs-10-padding">
+                            <input type="text" class="form-control typeahead" id="apiUrl" placeholder="Enter URL"> <br> <br>
                         </div>
                     </div>
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
-                        <li><a href="#tab-form" data-toggle="tab">Form</a></li>
-                        <li><a href="#tab-file" data-toggle="tab">Files</a></li>
-                        <li><a href="#tab-query" data-toggle="tab">Query</a></li>
-                        <li><a href="#tab-header" data-toggle="tab">Header</a></li>
-                        <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Auth <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
-                                </li>
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
-                                </li>
+                </div>
+                <ul class="nav nav-tabs reponse-pannel-ul">
+                    <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
+                    <li><a href="#tab-form" data-toggle="tab">Form</a></li>
+                    <li><a href="#tab-file" data-toggle="tab">Files</a></li>
+                    <li><a href="#tab-query" data-toggle="tab">Query</a></li>
+                    <li><a href="#tab-header" data-toggle="tab">Header</a></li>
+                    <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Auth <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation">
+                                <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
+                            </li>
+                            <li role="presentation">
+                                <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
+                            </li>
                                 <!--
                                 <li role="presentation">
                                     <a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a>
                                 </li>
-                                -->
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab-body">
-                            <br>
+                            -->
+                            <li role="presentation">
+                                <a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content reponse-pannel">
+                    <div class="tab-pane active" id="tab-body">
+                        <br>
                             <!-- <div class="btn-group">
                                 <button class="btn btn-default btn-sm">raw</button>
                                 <button class="btn btn-default btn-sm">form</button>
@@ -213,105 +227,105 @@
                             <br>
                             <p></p>
                         </div>
-                        -->
-                        <div class="tab-pane" id="tab-basic-auth">
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" id="bAuthUsername" placeholder="Enter Username">
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" id="bAuthPassword" placeholder="Enter Password">
-                                </div>
+                    -->
+                    <div class="tab-pane" id="tab-basic-auth">
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" id="bAuthUsername" placeholder="Enter Username">
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" id="bAuthPassword" placeholder="Enter Password">
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab-digest-auth">
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" id="digestUsername" placeholder="Enter Username">
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" id="digestPassword" placeholder="Enter Password">
-                                </div>
+                    </div>
+                    <div class="tab-pane" id="tab-digest-auth">
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" id="digestUsername" placeholder="Enter Username">
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" id="digestPassword" placeholder="Enter Password">
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab-oauth1">
-                            <br>
-                            <br>
-                            <br>
-                            <p></p>
-                        </div>
-                        <div class="tab-pane" id="tab-oauth2">
-                            <br>
-                            <span id="fetchedAccessToken"></span>
-                            <br>
-                            <div><input type="text" class="form-control" id="authorizationUrl" placeholder="Enter Authorization Endpoint">                                 </div>
-                            <br>
-                            <div><input type="text" class="form-control" placeholder="Enter Access Token Endpoint">                                   </div>
-                            <br>
-                            <div><input type="text" class="form-control" id="clientId" placeholder="Enter Client ID">                                               </div>
-                            <br>
-                            <div><input type="text" class="form-control" placeholder="Enter Client Secret">                                           </div>
-                            <br>
-                            <div><input type="text" class="form-control" id="authScopes" placeholder="Enter Scope">                                           </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <select class="form-control">
-                                        <option>Select Access Token Location</option>
-                                        <option>Auth Header With Bearer Prefix</option>
-                                        <option>Auth Header With OAuth Prefix</option>
-                                        <option>URL Parameter with access_token</option>
-                                    </select>
-                                </div>
-                                <div class="col-xs-6">
-                                    <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
-                                </div>
+                    </div>
+                    <div class="tab-pane" id="tab-oauth1">
+                        <br>
+                        <br>
+                        <br>
+                        <p></p>
+                    </div>
+                    <div class="tab-pane" id="tab-oauth2">
+                        <br>
+                        <span id="fetchedAccessToken"></span>
+                        <br>
+                        <div><input type="text" class="form-control" id="authorizationUrl" placeholder="Enter Authorization Endpoint">                                 </div>
+                        <br>
+                        <div><input type="text" class="form-control" placeholder="Enter Access Token Endpoint">                                   </div>
+                        <br>
+                        <div><input type="text" class="form-control" id="clientId" placeholder="Enter Client ID">                                               </div>
+                        <br>
+                        <div><input type="text" class="form-control" placeholder="Enter Client Secret">                                           </div>
+                        <br>
+                        <div><input type="text" class="form-control" id="authScopes" placeholder="Enter Scope">                                           </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <select class="form-control">
+                                    <option>Select Access Token Location</option>
+                                    <option>Auth Header With Bearer Prefix</option>
+                                    <option>Auth Header With OAuth Prefix</option>
+                                    <option>URL Parameter with access_token</option>
+                                </select>
                             </div>
-                            <br>
-                            
-                            <br>
-                            <p></p>
+                            <div class="col-xs-6">
+                                <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
+                            </div>
                         </div>
+                        <br>
+
+                        <br>
+                        <p></p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <hr>
+        <hr>
 
+        <div>
             <div>
-                <div>
-                    <p>
-                        <span id="responseToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Response</b>
-                    </p>
-                </div>
+                <p>
+                    <span id="responseToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Response</b>
+                </p>
+            </div>
 
-                <div id="responseContainer">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
-                        <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="res-tab-body">
-                            <br>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div id="response-wrapper"></div>
-                                </div>
+            <div id="responseContainer">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
+                    <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="res-tab-body">
+                        <br>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div id="response-wrapper"></div>
                             </div>
-                            <br><br>					
                         </div>
-                        <div class="tab-pane" id="res-tab-header">
-                            <div><br>
-                                <table id="res-header-wrapper" class="table">
-                                </table>
-                            </div>
-                            <br><br>
+                        <br><br>					
+                    </div>
+                    <div class="tab-pane" id="res-tab-header">
+                        <div><br>
+                            <table id="res-header-wrapper" class="table">
+                            </table>
                         </div>
+                        <br><br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

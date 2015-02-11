@@ -3,6 +3,7 @@ body {
 	font-size: 13px;
 }
 
+
 #dd-workspace-wrapper{
 	padding-left: 5px;
 	padding-bottom: 10px;
@@ -22,7 +23,7 @@ ul.fancytree-container {
 .div-list-item{
 	border-bottom: 1px solid lightgray;
 }
-	
+
 .rf-left-nav2>li>a {
 	border-radius: 0px;
 	padding: 6px 5px;
@@ -307,3 +308,98 @@ ul.fancytree-container {
 #envFieldsWrapper .row:hover .destroy{
 	display: block;
 }
+
+.menu-arrow button{
+	padding: 0px;
+	background-color: inherit;
+	border: none;
+	margin-bottom: 5px;
+}
+
+.menu-arrow.open .dropdown-toggle {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.menu-arrow{
+	visibility:hidden;
+}
+
+.hover-down-arrow button{
+	padding: 0px;
+	background-color: inherit;
+	border: none;
+}
+
+ul .dropdown-menu li{
+	color: #333 !important;
+	padding-left: 7px;
+}
+
+#apiRequestNameEdit{
+	visibility:hidden;
+	cursor: pointer;
+}
+
+#apiRequestName:hover > #apiRequestNameEdit{
+	visibility:visible;
+}
+
+#apiRequestNameTextBox{
+	display: none;
+}
+
+.label-btn-group > button{ 
+	padding: 3px 10px !important;
+	font-size: 12px !important;
+}
+
+.label-dropdown-menu{
+	padding: 0px 0px !important;
+}
+
+.label-dropdown-menu li:first-child{
+	padding: 6px 6px 4px 10px;
+	background-color: #f5f5f5;
+	color: #666666;
+	font-weight: 600;
+	border-bottom: 1px solid #cecece;
+}
+
+.label-dropdown-menu li{
+	padding: 4px 6px;
+}
+
+.label-dropdown-menu label{
+	font-weight: 400 !important;
+	margin-bottom: 0px !important;
+	padding-left: 6	px;
+}
+
+#tree ul{
+	overflow: visible !important;
+}
+
+.hover-down-arrow > ul li:hover{
+	background-color: #eee;
+}
+
+
+.hover-down-arrow.open .dropdown-toggle {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.hover-down-arrow{
+	visibility:hidden;
+	position: static !important;
+}
+
+.menu-arrow > ul li:hover{
+	background-color: #eee;
+}
+
+.menu-arrow .dropdown-menu{
+	padding: 3px 0px 4px !important;
+}
+
