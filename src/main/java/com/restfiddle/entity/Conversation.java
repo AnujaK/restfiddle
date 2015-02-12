@@ -15,19 +15,14 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 public class Conversation extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     private RfRequest rfRequest;
 
-    @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     private RfResponse rfResponse;
 

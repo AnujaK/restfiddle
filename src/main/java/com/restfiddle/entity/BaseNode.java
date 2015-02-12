@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 public class BaseNode extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    private String nodeType;// PROJECT/FOLDER/ENTITY/SOCKET etc
+    private String nodeType;// PROJECT/FOLDER/REQUEST/ENTITY/SOCKET etc.
 
     private String parentId;
 
@@ -31,6 +31,9 @@ public class BaseNode extends NamedEntity {
     private Long position;// location in the parent node
 
     private Boolean starred;
+    
+    //API method type - GET/POST/PUT/DELETE etc.
+    private String method;
 
     @DBRef
     private List<Tag> tags;
@@ -105,4 +108,11 @@ public class BaseNode extends NamedEntity {
 	this.projectId = projectId;
     }
 
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
 }

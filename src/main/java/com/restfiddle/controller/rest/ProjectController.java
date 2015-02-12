@@ -80,7 +80,7 @@ public class ProjectController {
 	project.setProjectRef(savedRef);
 
 	Project savedProject = projectRepository.save(project);
-	
+
 	// Update projectRef (Set projectId to the reference node)
 	projectRef.setProjectId(savedProject.getId());
 	savedRef = nodeRepository.save(projectRef);
@@ -131,7 +131,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Project update(@PathVariable("workspaceId") Long workspaceId, @PathVariable("id") Long id, @RequestBody ProjectDTO updated) {
+    Project update(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id, @RequestBody ProjectDTO updated) {
 	logger.debug("Updating project with information: " + updated);
 
 	Project project = projectRepository.findOne(updated.getId());
@@ -149,6 +149,9 @@ public class ProjectController {
 	    projectRef.setDescription(updatedDescription);
 	}
 
+	nodeRepository.save(projectRef);
+	projectRepository.save(project);
+	
 	return project;
     }
 

@@ -67,15 +67,29 @@ define(function (require) {
             console.log("Event star a node was fired for node Id " + "");
             if (APP.appView.getCurrentRequestNodeId() != null) {
                 console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
-                var starModel = new StarModel();
-                starModel.set('id', APP.appView.getCurrentRequestNodeId());
-                starModel.set('starred', true);
-                starModel.save(null, {
-                    success: function () {
-                        console.log("changes saves successfully");
-                    },
-                    error: function () {
-                        alert('some error occured while saving the request');
+                var node = new NodeModel({
+                    id : APP.appView.getCurrentRequestNodeId()
+                });
+                node.fetch({
+                    success : function(response) {
+                    	var starred = !response.get("starred");
+                        var starModel = new StarModel();
+                        starModel.set('id', APP.appView.getCurrentRequestNodeId());
+                        starModel.set('starred', !response.get("starred"));
+                        starModel.save(null, {
+                            success: function () {
+                                console.log("changes saves successfully");
+                                if(starred){
+                                	$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+                                }
+                                else{
+                                	$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+                                }
+                            },
+                            error: function () {
+                                alert('some error occured while saving the request');
+                            }
+                        });
                     }
                 });
             }

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,9 @@ import com.restfiddle.entity.Workspace;
 @Transactional
 public class WorkspaceController {
     Logger logger = LoggerFactory.getLogger(WorkspaceController.class);
+
+    @Resource
+    private ProjectController projectController;
 
     @Resource
     private WorkspaceRepository workspaceRepository;
@@ -69,18 +73,20 @@ public class WorkspaceController {
 	List<Project> projects = deleted.getProjects();
 
 	for (Project project : projects) {
-	    //project.setWorkspace(null);
+	    projectController.delete(id, project.getId());
 	}
-	// TODO : Delete projects from this workspace
 
 	workspaceRepository.delete(deleted);
     }
 
     @RequestMapping(value = "/api/workspaces", method = RequestMethod.GET)
     public @ResponseBody
-    List<Workspace> findAll() {
+    List<Workspace> findAll(@RequestParam(value = "name", required = false) String name) {
 	logger.debug("Finding all workspaces");
-
+	if (name != null && !name.isEmpty()) {
+	    List<Workspace> workspaces = workspaceRepository.findByName(name);
+	    return workspaces;
+	}
 	return workspaceRepository.findAll();
     }
 
@@ -94,14 +100,16 @@ public class WorkspaceController {
 
     @RequestMapping(value = "/api/workspaces/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Workspace update(@PathVariable("id") Long id, @RequestBody WorkspaceDTO updated) {
+    Workspace update(@PathVariable("id") String id, @RequestBody WorkspaceDTO updated) {
 	logger.debug("Updating workspace with information: " + updated);
 
 	Workspace workspace = workspaceRepository.findOne(updated.getId());
 
 	workspace.setName(updated.getName());
 	workspace.setDescription(updated.getDescription());
-
+	
+	workspaceRepository.save(workspace);
+	
 	return workspace;
     }
 
