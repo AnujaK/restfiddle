@@ -321,10 +321,6 @@ ul.fancytree-container {
 	box-shadow: none !important;
 }
 
-.menu-arrow{
-	visibility:hidden;
-}
-
 .hover-down-arrow button{
 	padding: 0px;
 	background-color: inherit;
@@ -376,14 +372,9 @@ ul .dropdown-menu li{
 	padding-left: 6	px;
 }
 
-#tree ul{
-	overflow: visible !important;
-}
-
 .hover-down-arrow > ul li:hover{
 	background-color: #eee;
 }
-
 
 .hover-down-arrow.open .dropdown-toggle {
 	-webkit-box-shadow: none !important;
@@ -391,7 +382,6 @@ ul .dropdown-menu li{
 }
 
 .hover-down-arrow{
-	visibility:hidden;
 	position: static !important;
 }
 
@@ -403,3 +393,10 @@ ul .dropdown-menu li{
 	padding: 3px 0px 4px !important;
 }
 
+.fa-angle-down{
+	display: none;
+}
+
+.project-name:hover .fa-angle-down, .open .fa-angle-down, .tag-name:hover .fa-angle-down,.fancytree-node:hover .fa-angle-down{
+	display: block;
+}

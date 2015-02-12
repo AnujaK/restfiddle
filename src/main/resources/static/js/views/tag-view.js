@@ -14,8 +14,7 @@ define(function(require) {
 		template : _.template($('#tpl-tag-list-item').html()),
 		events : {
 			"click a" : "showTaggedNodes",
-			"click .hover-down-arrow" : "preventParentElmSelection",
-			"hover a"  : "displayDownArrow"
+			"click .hover-down-arrow" : "preventParentElmSelection"
 		},
 		
 		render : function(eventName) {
@@ -33,22 +32,10 @@ define(function(require) {
 			if(currentElm.hasClass('open')){
 				$('.btn-group').removeClass('open');
 				currentElm.removeClass('open');
-				this.delegateEvents();
 			}else{
 				$('.btn-group').removeClass('open');
 				currentElm.addClass('open');
-				$(this.el).undelegate('a', 'hover');
 				
-			}
-		},
-
-		displayDownArrow : function(event){
-		var currentElm = $(event.currentTarget);
-			if(event.type == "mouseenter"){
-				currentElm.find(".hover-down-arrow").css('visibility','visible')
-			}
-			if(event.type == "mouseleave"){
-				currentElm.find(".hover-down-arrow").css('visibility','hidden')
 			}
 		},
 
