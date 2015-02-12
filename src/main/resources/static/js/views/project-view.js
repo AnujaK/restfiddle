@@ -32,8 +32,7 @@ define(function(require) {
 		tagName : 'li',
 		events : {
 			"click a" : "showProjectTree",
-			"click .hover-down-arrow" : "preventParentElmSelection",
-			"hover a"  : "displayDownArrow"
+			"click .hover-down-arrow" : "preventParentElmSelection"
 		},
 		template : _.template($('#tpl-project-list-item').html()),
 		
@@ -50,24 +49,12 @@ define(function(require) {
 			if(currentElm.hasClass('open')){
 				$('.btn-group').removeClass('open');
 				currentElm.removeClass('open');
-				this.delegateEvents();
 			}else{
 				$('.btn-group').removeClass('open');
 				currentElm.addClass('open');
-				$(this.el).undelegate('a', 'hover');
-				
+
 			}
 			
-		},
-
-		displayDownArrow : function(event){
-			var currentElm = $(event.currentTarget);
-			if(event.type == "mouseenter"){
-				currentElm.find(".hover-down-arrow").css('visibility','visible')
-			}
-			if(event.type == "mouseleave"){
-				currentElm.find(".hover-down-arrow").css('visibility','hidden')
-			}
 		},
 
 		showProjectTree : function(){
@@ -75,20 +62,20 @@ define(function(require) {
 				//$(this).removeClass('active');
 			//});
 
-$('#rf-col-1-body').find('li').each(function(){
-	$(this).removeClass('active');
-});
-this.$el.addClass("active");
+	$('#rf-col-1-body').find('li').each(function(){
+		$(this).removeClass('active');
+	});
+	this.$el.addClass("active");
 
-$('#tagged-items').hide();
-$('#starred-items').hide();
-$('#history-items').hide();
-$('#tree').show();
+	$('#tagged-items').hide();
+	$('#starred-items').hide();
+	$('#history-items').hide();
+	$('#tree').show();
 
-console.log('Project Id : ' + this.$el.find('a').data('project-id'))
-ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
-console.log('current project id is ' + APP.appView.getCurrentProjectId());
-tree.showTree(this.$el.find('a').data('project-ref-id'));
+	console.log('Project Id : ' + this.$el.find('a').data('project-id'))
+	ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
+	console.log('current project id is ' + APP.appView.getCurrentProjectId());
+	tree.showTree(this.$el.find('a').data('project-ref-id'));
 },
 render : function() {
 	this.$el.html(this.template({project : this.model.toJSON()}));

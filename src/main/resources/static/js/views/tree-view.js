@@ -390,7 +390,7 @@ function nodeConverter(serverNode, uiNode) {
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
 		if(serverNode.nodeType == 'ENTITY'){
-			uiNode.title = '<p>&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + '</p>';
+			uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>';
 		}
 		else{
 			uiNode.title = serverNode.name + '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>';
@@ -521,16 +521,6 @@ function nodeConverter(serverNode, uiNode) {
 			return null;
 		}
 	};
-
-	var onDownArrowHover = function(event){
-		var currentElm = $(event.currentTarget);
-		if(event.type == "mouseenter"){
-			currentElm.find(".menu-arrow").css('visibility','visible')
-		}
-		if(event.type == "mouseleave"){
-			currentElm.find(".menu-arrow").css('visibility','hidden')
-		}
-	}
 	
 	tree.showTree = function(projectRefNodeId) {
 		tree.projectRefNodeId = projectRefNodeId;
@@ -562,18 +552,13 @@ function nodeConverter(serverNode, uiNode) {
 					if(currentElm.hasClass('open')){
 						$('.btn-group').removeClass('open');
 						currentElm.removeClass('open');
-						$('.fancytree-node').bind('hover',onDownArrowHover)
 					}else{
 						$('.btn-group').removeClass('open');
 						currentElm.addClass('open');
-						currentElm.parent().parent().off('mouseenter mouseleave');
-
 					}
 				});
 
-				$('.fancytree-node').hover(onDownArrowHover)
-
-
+				$("#tree ul").css("overflow","");
 			}
 		});
 };
