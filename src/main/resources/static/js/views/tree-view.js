@@ -356,6 +356,12 @@ dragDrop : function(node, data) {
 							node.fetch({
 								success : function(response) {
 									console.log(response.get("conversation"));
+    								if(response.get("starred")){
+    									$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+    								}
+    								else{
+    									$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+    								}
 									var conversation = new ConversationModel(response.get("conversation"));
 									conversation.set("id", conversation.get("id"));
 									conversation.set("name", response.get("name"));

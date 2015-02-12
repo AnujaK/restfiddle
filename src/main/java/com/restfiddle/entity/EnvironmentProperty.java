@@ -15,10 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class EnvironmentProperty extends AbstractEntity {
     private static final long serialVersionUID = 1L;
@@ -26,10 +22,6 @@ public class EnvironmentProperty extends AbstractEntity {
     private String propertyName;
 
     private String propertyValue;
-
-    @ManyToOne
-    @JsonBackReference
-    private Environment environment;
 
     public String getPropertyName() {
 	return propertyName;
@@ -46,13 +38,4 @@ public class EnvironmentProperty extends AbstractEntity {
     public void setPropertyValue(String propertyValue) {
 	this.propertyValue = propertyValue;
     }
-
-    public Environment getEnvironment() {
-	return environment;
-    }
-
-    public void setEnvironment(Environment environment) {
-	this.environment = environment;
-    }
-
 }

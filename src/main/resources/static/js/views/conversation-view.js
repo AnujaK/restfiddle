@@ -5,7 +5,8 @@ define(function(require) {
 	var Backbone = require('backbone');
 	var _ = require('underscore');
 	var ConversationModel = require("models/conversation");
-	
+    var AssertView = require('views/assert-view');
+    
   require('libs/prettify/prettify');
   require('typeahead');
 
