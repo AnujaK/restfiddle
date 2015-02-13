@@ -21,7 +21,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -55,9 +54,10 @@ public class RfRequest extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FormParam> formParams;
 
-    @OneToOne(mappedBy = "rfRequest")
     @JsonBackReference
     private Conversation item;
+
+    private Assertion assertion;
 
     public Conversation getItem() {
 	return item;
@@ -149,5 +149,13 @@ public class RfRequest extends NamedEntity {
 	} else {
 	    this.setApiUrl(null);
 	}
+    }
+
+    public Assertion getAssertion() {
+	return assertion;
+    }
+
+    public void setAssertion(Assertion assertion) {
+	this.assertion = assertion;
     }
 }
