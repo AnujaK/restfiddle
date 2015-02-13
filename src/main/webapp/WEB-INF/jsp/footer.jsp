@@ -192,5 +192,35 @@
     <div id="environmentWrapper">
     </div>
     </script>
+    <script type="text/template" id="tpl-assert">
+    <p>
+        <div class="row">
+            <div class="col-xs-4">
+                <input type="text" class="form-control assertPropertyName http-header" placeholder="Property Name or Expression">
+            </div>
+            <div class="col-xs-2">
+                <input type="text" class="form-control assertCompare" placeholder="Compare">
+            </div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control assertExpectedValue" placeholder="Expected Value">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
+            </div>
+        </div>
+    </p>    
+    </script>
+    <script type="text/template" id="tpl-manage-asserts">
+    <div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-sm" id="addAssertBtn">Add Assert</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="assertsWrapper">
+    </div>
+    </script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>

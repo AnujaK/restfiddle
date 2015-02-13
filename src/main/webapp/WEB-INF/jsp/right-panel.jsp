@@ -57,7 +57,7 @@
                     <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Save and Run</a></li>
                 </ul>
             </div>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" id="saveConversationBtn">Save</button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -67,7 +67,17 @@
                     <li><a href="#" class="btn-sm" data-toggle="modal" id="saveAsConversationBtn">Save As</a></li>
                 </ul>
             </div>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts</button>
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">View Previous Results</a></li>
+                </ul>
+            </div>
+            &nbsp;&nbsp;
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-sm" id="clearRequest">Clear</button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -80,13 +90,13 @@
                     <li><a href="#" class="btn-sm" id="clearAuth">Clear Auth</a></li>
                 </ul>
             </div>
-            &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                    More&nbsp;&nbsp;<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
+                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</a></li>
                     <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Saved Response</a></li>
                 </ul>
             </div>
@@ -114,10 +124,10 @@
                     <p id="apiRequestDescription"></p>
                     <div class="btn-group label-btn-group">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-tags"></span> &nbsp;Labels&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+                            <span class="glyphicon glyphicon-tags"></span> &nbsp;Tags&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu label-dropdown-menu">
-                            <li>Edit Gist Labels</li>
+                            <li>Select Tags</li>
                             <li><input type="checkbox"  value="important" name ="importLabel" id="important-label-opt" checked><label for = "important-label-opt">Important</label></li>
 
                             <li><input type ="checkbox" value = "wishlist"  name ="wishlistLabel" id="wishlist-label-opt" checked><label for="wishlist-label-opt">Wishlist</label></li>
