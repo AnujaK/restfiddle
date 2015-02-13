@@ -272,7 +272,8 @@ define(function(require) {
     var ConversationView = Backbone.View.extend({
       el : '#conversationSection',
       events : {
-       "click #apiRequestNameEdit" : "convertToTextBox"
+       "click #apiRequestNameEdit" : "convertToTextBox",
+       "focusout #apiRequestNameTextBox" : "converToLabel"
 
      },
 
@@ -343,7 +344,15 @@ define(function(require) {
        convertToTextBox : function(){
          $('#apiRequestName').hide();
          $('#apiRequestNameTextBox').show();
+         $('#apiRequestNameTextBox').focus();
          $('#apiRequestNameTextBox').val($('#apiRequestName').text());
+       },
+
+       converToLabel : function(){
+
+         $('#apiRequestNameTextBox').hide();
+         $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
+         $('#apiRequestName').show();
        },
 
        getBasicAuthDTO : function(){
@@ -455,7 +464,7 @@ define(function(require) {
        var request = conversation.get('rfRequest');
        var response = conversation.get('rfResponse');
 
-       this.$el.find("#apiRequestName").html(conversation.get('name') + '&nbsp;&nbsp;<i class = "fa fa-pencil" id ="apiRequestNameEdit"></i>');
+       this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
        this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
 
        this.$el.find("#apiUrl").val(request.apiUrlString);

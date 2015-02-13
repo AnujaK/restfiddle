@@ -400,3 +400,11 @@ ul .dropdown-menu li{
 .project-name:hover .fa-angle-down, .open .fa-angle-down, .tag-name:hover .fa-angle-down,.fancytree-node:hover .fa-angle-down{
 	display: block;
 }
+
+.edit-pencil{
+	padding-left: 6px;
+}
+
+ul.fancytree-container{
+	overflow: visible !important;
+}
