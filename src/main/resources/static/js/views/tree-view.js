@@ -467,9 +467,9 @@ function nodeConverter(serverNode, uiNode) {
 	 		success : function(response) {
 	 			tree.appendChild(activeFolder, tree.convertModelToNode(response));
                 //Refresh tree after an entity got created. as service apis will be generated in the back-end.
-                if(entity && entity != null){
+              /*  if(entity && entity != null){*/
                 	tree.showTree(tree.projectRefNodeId);
-                }
+                /*}*/
                 successCallBack();
             },
             error : function(err) {
@@ -553,12 +553,14 @@ function nodeConverter(serverNode, uiNode) {
 						$('.btn-group').removeClass('open');
 						currentElm.removeClass('open');
 					}else{
+						var liElm = $(currentElm.closest('.fancytree-node'));
+						if($(liElm.parent()).hasClass("fancytree-lastsib")){
+							$(liElm.parent().parent()).css("overflow","");
+						}
 						$('.btn-group').removeClass('open');
 						currentElm.addClass('open');
 					}
 				});
-
-				$("#tree ul").css("overflow","");
 			}
 		});
 };

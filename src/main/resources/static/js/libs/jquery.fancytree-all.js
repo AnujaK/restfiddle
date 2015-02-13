@@ -2797,6 +2797,7 @@ $.extend(Fancytree.prototype,
 				parent.ul.appendChild(node.li);
 			}
 		}
+		$("#tree ul").css("overflow","");
 	},
 	/** Create HTML for the node's outer <span> (expander, checkbox, icon, and title).
 	 *
