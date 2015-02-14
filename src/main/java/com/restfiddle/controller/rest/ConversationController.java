@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -63,6 +64,8 @@ public class ConversationController {
 	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, rfResponseDTO);
 	conversation.setName(conversationDTO.getName());
 	conversation.setDescription(conversationDTO.getDescription());
+	conversation.setCreatedDate(new Date());
+	conversation.setLastModifiedDate(new Date());
 
 	return itemRepository.save(conversation);
     }

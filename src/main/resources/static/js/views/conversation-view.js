@@ -31,11 +31,11 @@ define(function(require) {
     apiUrls.initialize();
 
     //TODO : Disabled URL autosuggest for now. Not working properly.
-    //$('#apiUrl').typeahead(null, {
-      //name: 'apiUrls',
-      //displayKey: 'name',
-      //source: apiUrls.ttAdapter()
-    //});
+    $('#apiUrl').typeahead(null, {
+      name: 'apiUrls',
+      displayKey: 'name',
+      source: apiUrls.ttAdapter()
+    });
 
     //HTTP HEADERS
     var httpHeaders = new Bloodhound({

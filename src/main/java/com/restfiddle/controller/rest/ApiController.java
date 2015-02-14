@@ -42,6 +42,7 @@ import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.RfRequestRepository;
+import com.restfiddle.dao.RfResponseRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeStatusResponseDTO;
@@ -73,6 +74,9 @@ public class ApiController {
     @Autowired
     private RfRequestRepository rfRequestRepository;
 
+    @Autowired
+    private RfResponseRepository rfResponseRepository;
+
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
 	Conversation existingConversation = null;
@@ -85,7 +89,9 @@ public class ApiController {
 	    return null;
 	} else if (rfRequestDTO.getId() != null && !rfRequestDTO.getId().isEmpty()) {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
-	    existingConversation = rfRequest.getItem();
+	    String conversationId = rfRequest.getConversationId();
+	    existingConversation = conversationRepository.findOne(conversationId);
+	    ;
 	}
 
 	long startTime = System.currentTimeMillis();
@@ -94,10 +100,18 @@ public class ApiController {
 	long duration = endTime - startTime;
 
 	conversationForLogging = ConversationConverter.convertToEntity(rfRequestDTO, result);
+
+	rfRequestRepository.save(conversationForLogging.getRfRequest());
+	rfResponseRepository.save(conversationForLogging.getRfResponse());
+
 	conversationForLogging.setDuration(duration);
 
 	try {
 	    conversationForLogging = conversationRepository.save(conversationForLogging);
+
+	    conversationForLogging.getRfRequest().setConversationId(conversationForLogging.getId());
+	    rfRequestRepository.save(conversationForLogging.getRfRequest());
+
 	    // Note : existingConversation will be null if the request was not saved previously.
 	    if (existingConversation != null) {
 		existingConversation.setRfRequest(conversationForLogging.getRfRequest());

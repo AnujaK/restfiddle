@@ -20,6 +20,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,11 +42,16 @@ public class RfRequestController {
     @Resource
     private HttpRequestHeaderRepository requestHeaderRepository;
 
+    @Autowired
+    MongoTemplate mongoTemplate;
+
     @RequestMapping(value = "/api/requests/api-urls", method = RequestMethod.GET)
     public @ResponseBody
     List<String> findUniqueApiUrls() {
-
-	return requestRepository.findUniqueApiUrls();
+	@SuppressWarnings("unchecked")
+	List<String> uniqueRfRequests = (List<String>) mongoTemplate.getCollection("rfRequest").distinct("apiUrlString");
+	// List<RfRequest> uniqueRfRequests = requestRepository.findDistinctRfRequestByApiUrlString();
+	return uniqueRfRequests;// uniqueRfRequests;
     }
 
     @RequestMapping(value = "/api/requests/http-headers", method = RequestMethod.GET)

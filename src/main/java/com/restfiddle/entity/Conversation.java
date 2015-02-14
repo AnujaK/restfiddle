@@ -15,15 +15,16 @@
  */
 package com.restfiddle.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 
 public class Conversation extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @JsonManagedReference
+    @DBRef
     private RfRequest rfRequest;
 
-    @JsonManagedReference
+    @DBRef
     private RfResponse rfResponse;
 
     private Long duration;

@@ -97,7 +97,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</a></li>
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Saved Response</a></li>
+                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Last Response</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;&nbsp;

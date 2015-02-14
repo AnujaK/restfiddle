@@ -17,13 +17,8 @@ package com.restfiddle.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
@@ -42,30 +37,17 @@ public class RfRequest extends NamedEntity {
     @Transient
     private String apiBodyString;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RfHeader> rfHeaders;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RfCookie> rfCookies;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UrlParam> urlParams;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FormParam> formParams;
 
-    @JsonBackReference
-    private Conversation item;
+    private String conversationId;
 
     private Assertion assertion;
-
-    public Conversation getItem() {
-	return item;
-    }
-
-    public void setItem(Conversation item) {
-	this.item = item;
-    }
 
     public String getMethodType() {
 	return methodType;
@@ -157,5 +139,13 @@ public class RfRequest extends NamedEntity {
 
     public void setAssertion(Assertion assertion) {
 	this.assertion = assertion;
+    }
+
+    public String getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 }
