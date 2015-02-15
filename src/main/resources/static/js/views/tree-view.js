@@ -13,6 +13,34 @@ define(function(require) {
 	var EntityModel = require('models/entity');
 	var tree = {};
 
+	var TreeNodeView = Backbone.View.extend({	
+        template: _.template($('#tpl-tree-node').html()),
+        
+        initialize : function() {
+            this.render();
+		},
+		
+        render : function() {
+            this.$el.html(this.template());
+			return this;
+		}
+	});
+    
+    function editNode(node){
+        //var node = $("#tree").fancytree("getActiveNode");
+        if (node == null) {
+            alert("Please select a node to edit.");
+            return;
+        }
+        else if(node.data.nodeType == 'PROJECT'){
+            alert("Please use 'Edit Project' menu to edit a project.");
+            return;
+        }
+        $("#editNodeModal").modal("show");
+        $("#editNodeTextField").val(node.data.name);
+        $("#editNodeTextArea").val(node.data.description);
+    }
+    
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
 		$("#requestModal").modal("show");
@@ -173,6 +201,7 @@ define(function(require) {
 		$("#editNodeTextArea").val(node.data.description);
 
 	});
+   
 	$("#editNodeBtn").unbind("click").bind("click", function() {
 		var node = $("#tree").fancytree("getActiveNode");
 
@@ -357,6 +386,9 @@ dragDrop : function(node, data) {
 						 data.otherNode.moveTo(node, data.hitMode);
 						}
 					},
+                    createNode: function(event, data) {
+                        data.node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(data.node);});
+                      },
 					click : function(event, data) {
 						if (!data.node.isFolder() && data.node.data.id) {
 							APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
@@ -405,11 +437,13 @@ function nodeConverter(serverNode, uiNode) {
 		uiNode.name = serverNode.name;
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
+        
+        var treeNodeView = new TreeNodeView();
 		if(serverNode.nodeType == 'ENTITY'){
-			uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>';
+			uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + treeNodeView.template();
 		}
 		else{
-			uiNode.title = serverNode.name + '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>';
+			uiNode.title = serverNode.name + treeNodeView.template();
 		}
 	}
 	if (serverNode.children == undefined || serverNode.children.length == 0) {
@@ -419,8 +453,9 @@ function nodeConverter(serverNode, uiNode) {
 	uiNode.children = new Array();
 	for (var i = 0; i < serverNode.children.length; i++) {
 		if (serverNode.children[i].nodeType != 'FOLDER' && serverNode.children[i].nodeType != 'ENTITY') {
+            var treeNodeView = new TreeNodeView();
 			uiNode.children.push({
-				title : serverNode.children[i].name + '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>',
+				title : serverNode.children[i].name + treeNodeView.template(),
 				id : serverNode.children[i].id,
 				name : serverNode.children[i].name,
 				description : serverNode.children[i].description,
