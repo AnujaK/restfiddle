@@ -243,7 +243,17 @@ $("#deleteWorkspaceBtn").bind("click", function() {
 	});
 });
 
-
+$("#deleteTagBtn").bind("click", function() {
+	$.ajax({
+		url : APP.config.baseUrl + '/tags/' + $("#deleteTagId").val(),
+		type : 'delete',
+		dataType : 'json',
+		contentType : "application/json",
+		success : function(data) {
+			location.reload();
+		}
+	});
+});
 
 $('.col-1-toggle-btn').toggle(function() {
 	$('.rf-col-1').hide();

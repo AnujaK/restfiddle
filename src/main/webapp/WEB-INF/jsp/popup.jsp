@@ -359,6 +359,26 @@
 			</div>
 		</div>
 	</div>
+    <div class="modal fade" id="editTagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editTagModalLabel">Edit Tag</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="editTagId">
+					<input type="text" id="editTagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
+					<textarea id="editTagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editTagBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="editWorkspaceModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -440,6 +460,24 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 					<button type="button" class="btn btn-primary" id="deleteProjectBtn">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="deleteTagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Tag</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="deleteTagId">
+					Are You Sure You Want To Delete Selected Tag?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteTagBtn">Yes</button>
 				</div>
 			</div>
 		</div>

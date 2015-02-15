@@ -91,14 +91,15 @@ public class TagController {
 
     @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Tag update(@PathVariable("id") Long id, @RequestBody TagDTO updated) {
+    Tag update(@PathVariable("id") String id, @RequestBody TagDTO updated) {
 	logger.debug("Updating tag with information: " + updated);
 
 	Tag tag = tagRepository.findOne(updated.getId());
 
 	tag.setName(updated.getName());
 	tag.setDescription(updated.getDescription());
-
+	
+	tagRepository.save(tag);
 	return tag;
     }
     

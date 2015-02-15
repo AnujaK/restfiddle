@@ -42,8 +42,8 @@
                     <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><i class="fa fa-pencil fa-fw"></i> Edit Tag</li>
-                    <li><i class="fa fa-trash-o fa-fw"></i> Delete Tag</li>
+                    <li class="edit-tag"><i class="fa fa-pencil fa-fw"></i> Edit Tag</li>
+                    <li class="delete-tag"><i class="fa fa-trash-o fa-fw"></i> Delete Tag</li>
                 </ul>
             </div>
 	</script>

@@ -109,6 +109,7 @@ define(function(require) {
 				$('#tagModal').modal("hide");
 				$("#tagTextField").val("");
 				$("#tagTextArea").val("");
+                location.reload();
 			},
 			error : function(e) {
 				alert('Some unexpected error occured Please try later.');
@@ -134,6 +135,24 @@ define(function(require) {
 		});
 	});
 
+	$("#editTagBtn").unbind("click").bind("click", function() {
+		var tag = new TagModel({
+			id : $("#editTagId").val(),
+			name : $("#editTagTextField").val(),
+			description : $("#editTagTextArea").val()
+		});
+		tag.save(null, {
+			success : function(response) {
+				$("#editTagTextField").val("");
+				$("#editTagTextArea").val("");
+				location.reload();
+			},
+			error : function(e) {
+				alert('Some unexpected error occured Please try later.');
+			}
+		});
+	});
+    
 	$("#editWorkspaceBtn").unbind("click").bind("click", function() {
 		var newWorkspace = new Workspace({
 			id : APP.appView.getCurrentWorkspaceId(),

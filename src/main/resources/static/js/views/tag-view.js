@@ -14,7 +14,9 @@ define(function(require) {
 		template : _.template($('#tpl-tag-list-item').html()),
 		events : {
 			"click a" : "showTaggedNodes",
-			"click .hover-down-arrow" : "preventParentElmSelection"
+			"click .hover-down-arrow" : "preventParentElmSelection",
+            "click .edit-tag" : "editTag",
+            "click .delete-tag" : "deleteTag"
 		},
 		
 		render : function(eventName) {
@@ -38,6 +40,18 @@ define(function(require) {
 				
 			}
 		},
+        
+        editTag : function(){
+            $("#editTagId").val(this.model.get('id'));
+            $("#editTagTextField").val(this.model.get('name'));
+            $("#editTagTextArea").val(this.model.get('description'));
+            $("#editTagModal").modal("show");
+        },
+        
+        deleteTag : function(){
+            $("#deleteTagId").val(this.model.get('id'));
+            $("#deleteTagModal").modal("show");
+        },
 
 		showTaggedNodes : function(){
 			console.log("Inside showTaggedNodes");
