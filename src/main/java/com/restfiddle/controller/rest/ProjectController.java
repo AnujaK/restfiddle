@@ -98,13 +98,17 @@ public class ProjectController {
     void delete(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id) {
 	logger.debug("Deleting project with id: " + id);
 
-	Project deleted = projectRepository.findOne(id);
+	Project projectToBeDeleted = projectRepository.findOne(id);
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
 
 	nodeRepository.delete(listOfNodes);
 
-	projectRepository.delete(deleted);
+	projectRepository.delete(projectToBeDeleted);
+	
+	Workspace workspace = workspaceRepository.findOne(workspaceId);
+	workspace.getProjects().remove(projectToBeDeleted);
+	workspaceRepository.save(workspace);
     }
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.GET)

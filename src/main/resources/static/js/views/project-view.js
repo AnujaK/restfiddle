@@ -32,7 +32,9 @@ define(function(require) {
 		tagName : 'li',
 		events : {
 			"click a" : "showProjectTree",
-			"click .hover-down-arrow" : "preventParentElmSelection"
+			"click .hover-down-arrow" : "preventParentElmSelection",
+            "click .edit-project" : "editProject",
+            "click .delete-project" : "deleteProject"
 		},
 		template : _.template($('#tpl-project-list-item').html()),
 		
@@ -56,31 +58,43 @@ define(function(require) {
 			}
 			
 		},
-
+        
+        editProject : function(){
+            $("#editProjectId").val(this.model.get('id'));
+            $("#editProjectTextField").val(this.model.get('name'));
+            $("#editProjectTextArea").val(this.model.get('description'));
+            $("#editProjectModal").modal("show");
+        },
+        
+        deleteProject : function(){
+            $("#deleteProjectId").val(this.model.get('id'));
+            $("#deleteProjectModal").modal("show");
+        },
+        
 		showProjectTree : function(){
 			//this.$el.parent('ul').find('li').each(function(){
 				//$(this).removeClass('active');
 			//});
 
-	$('#rf-col-1-body').find('li').each(function(){
-		$(this).removeClass('active');
-	});
-	this.$el.addClass("active");
+            $('#rf-col-1-body').find('li').each(function(){
+                $(this).removeClass('active');
+            });
+            this.$el.addClass("active");
 
-	$('#tagged-items').hide();
-	$('#starred-items').hide();
-	$('#history-items').hide();
-	$('#tree').show();
+            $('#tagged-items').hide();
+            $('#starred-items').hide();
+            $('#history-items').hide();
+            $('#tree').show();
 
-	console.log('Project Id : ' + this.$el.find('a').data('project-id'))
-	ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
-	console.log('current project id is ' + APP.appView.getCurrentProjectId());
-	tree.showTree(this.$el.find('a').data('project-ref-id'));
-},
-render : function() {
-	this.$el.html(this.template({project : this.model.toJSON()}));
-	return this;
-}
+            console.log('Project Id : ' + this.$el.find('a').data('project-id'))
+            ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
+            console.log('current project id is ' + APP.appView.getCurrentProjectId());
+            tree.showTree(this.$el.find('a').data('project-ref-id'));
+        },
+        render : function() {
+            this.$el.html(this.template({project : this.model.toJSON()}));
+            return this;
+        }
 });
 
 return ProjectView;

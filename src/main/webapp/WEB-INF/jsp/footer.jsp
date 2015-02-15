@@ -16,8 +16,8 @@
                     <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><i class="fa fa-pencil fa-fw"></i> Edit Project</li>
-                    <li><i class="fa fa-trash-o fa-fw"></i> Delete Project</li>
+                    <li class="edit-project"><i class="fa fa-pencil fa-fw"></i> Edit Project</li>
+                    <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Project</li>
                 </ul>
             </div>
         </a>

@@ -347,6 +347,7 @@
 					<h4 class="modal-title" id="editProjectModalLabel">Edit Project</h4>
 				</div>
 				<div class="modal-body">
+                    <input type="hidden" id="editProjectId">
 					<input type="text" id="editProjectTextField" class="form-control" placeholder="Enter Project Name"> <br>
 					<textarea id="editProjectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
@@ -433,6 +434,7 @@
 					<h4 class="modal-title" id="myModalLabel">Delete Project</h4>
 				</div>
 				<div class="modal-body">
+                    <input type="hidden" id="deleteProjectId">
 					Are You Sure You Want To Delete Selected Project?
 				</div>
 				<div class="modal-footer">

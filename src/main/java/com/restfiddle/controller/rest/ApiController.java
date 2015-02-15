@@ -91,7 +91,6 @@ public class ApiController {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
 	    String conversationId = rfRequest.getConversationId();
 	    existingConversation = conversationRepository.findOne(conversationId);
-	    ;
 	}
 
 	long startTime = System.currentTimeMillis();

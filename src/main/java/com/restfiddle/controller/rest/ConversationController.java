@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.ConversationRepository;
+import com.restfiddle.dao.RfRequestRepository;
+import com.restfiddle.dao.RfResponseRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.RfRequestDTO;
@@ -53,6 +56,12 @@ public class ConversationController {
     @Resource
     private ConversationRepository itemRepository;
 
+    @Autowired
+    private RfRequestRepository rfRequestRepository;
+
+    @Autowired
+    private RfResponseRepository rfResponseRepository;
+
     @RequestMapping(value = "/api/conversations", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Conversation create(@RequestBody ConversationDTO conversationDTO) {
@@ -67,7 +76,15 @@ public class ConversationController {
 	conversation.setCreatedDate(new Date());
 	conversation.setLastModifiedDate(new Date());
 
-	return itemRepository.save(conversation);
+	rfRequestRepository.save(conversation.getRfRequest());
+	rfResponseRepository.save(conversation.getRfResponse());
+
+	conversation = itemRepository.save(conversation);
+	
+	conversation.getRfRequest().setConversationId(conversation.getId());
+	rfRequestRepository.save(conversation.getRfRequest());
+	
+	return conversation;
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")

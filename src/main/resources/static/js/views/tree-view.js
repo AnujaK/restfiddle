@@ -221,7 +221,7 @@ $("#deleteRequestBtn").bind("click", function() {
 
 $("#deleteProjectBtn").bind("click", function() {
 	$.ajax({
-		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + APP.appView.getCurrentProjectId(),
+		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + $("#deleteProjectId").val(),
 		type : 'delete',
 		dataType : 'json',
 		contentType : "application/json",

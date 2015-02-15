@@ -118,7 +118,7 @@ define(function(require) {
 
 	$("#editProjectBtn").unbind("click").bind("click", function() {
 		var project = new ProjectModel({
-			id : APP.appView.getCurrentProjectId(),
+			id : $("#editProjectId").val(),
 			name : $("#editProjectTextField").val(),
 			description : $("#editProjectTextArea").val()
 		});
