@@ -328,6 +328,7 @@
 					<h4 class="modal-title" id="editNodeModalLabel">Edit Node</h4>
 				</div>
 				<div class="modal-body">
+                    <input type="hidden" id="editNodeId">
 					<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name"> <br>
 					<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
@@ -437,6 +438,7 @@
 					<h4 class="modal-title" id="myModalLabel">Delete Node</h4>
 				</div>
 				<div class="modal-body">
+                    <input type="hidden" id="deleteNodeId">
 					Are You Sure You Want To Delete Selected Node?
 				</div>
 				<div class="modal-footer">

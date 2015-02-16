@@ -27,7 +27,6 @@ define(function(require) {
 	});
     
     function editNode(node){
-        //var node = $("#tree").fancytree("getActiveNode");
         if (node == null) {
             alert("Please select a node to edit.");
             return;
@@ -37,8 +36,28 @@ define(function(require) {
             return;
         }
         $("#editNodeModal").modal("show");
+        
+        $("#editNodeId").val(node.data.id);
         $("#editNodeTextField").val(node.data.name);
         $("#editNodeTextArea").val(node.data.description);
+    }
+    
+    function nodeMenuEventHandler(event){
+        event.stopPropagation();
+
+        var currentElm = $(event.currentTarget);
+
+        if(currentElm.hasClass('open')){
+            $('.btn-group').removeClass('open');
+            currentElm.removeClass('open');
+        }else{
+            var liElm = $(currentElm.closest('.fancytree-node'));
+            if($(liElm.parent()).hasClass("fancytree-lastsib")){
+                $(liElm.parent().parent()).css("overflow","");
+            }
+            $('.btn-group').removeClass('open');
+            currentElm.addClass('open');
+        }
     }
     
 	$("#requestBtn").bind("click", function() {
@@ -197,14 +216,17 @@ define(function(require) {
 			return;
 		}
 		$("#editNodeModal").modal("show");
+        
+        $("#editNodeId").val(node.data.id);
 		$("#editNodeTextField").val(node.data.name);
 		$("#editNodeTextArea").val(node.data.description);
 
 	});
    
-	$("#editNodeBtn").unbind("click").bind("click", function() {
-		var node = $("#tree").fancytree("getActiveNode");
-
+	$("#editNodeBtn").unbind("click").bind("click", function(event) {
+        var nodeId = $("#editNodeId").val();
+        var node = treeObj.getNodeByKey(nodeId);
+        
 		var nodeModel = new NodeModel({
 			id : node.data.id,
 			name : $("#editNodeTextField").val(),
@@ -214,8 +236,11 @@ define(function(require) {
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
 		node.data.description = nodeModel.attributes.description;
-		node.setTitle(nodeModel.attributes.name+ '&nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>');
-
+        
+         var treeNodeView = new TreeNodeView();
+		node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+        node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+        node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
 				$("#editNodeTextField").val("");
@@ -387,7 +412,10 @@ dragDrop : function(node, data) {
 						}
 					},
                     createNode: function(event, data) {
-                        data.node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(data.node);});
+                        var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
+                        if(editNodeBtn && editNodeBtn.length > 0){
+                           editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
+                        }
                       },
 					click : function(event, data) {
 						if (!data.node.isFolder() && data.node.data.id) {
@@ -434,6 +462,7 @@ function nodeConverter(serverNode, uiNode) {
 	if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER' || serverNode.nodeType == 'ENTITY') {
 		uiNode.folder = true;
 		uiNode.id = serverNode.id;
+        uiNode.key = serverNode.id;
 		uiNode.name = serverNode.name;
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
@@ -457,6 +486,7 @@ function nodeConverter(serverNode, uiNode) {
 			uiNode.children.push({
 				title : serverNode.children[i].name + treeNodeView.template(),
 				id : serverNode.children[i].id,
+                key : serverNode.children[i].id,
 				name : serverNode.children[i].name,
 				description : serverNode.children[i].description,
 				nodeType : serverNode.children[i].nodeType
@@ -595,23 +625,7 @@ function nodeConverter(serverNode, uiNode) {
 					node.setExpanded(true);
 				});
 
-				$('.menu-arrow').unbind("click").bind("click",function(event){
-					event.stopPropagation();
-
-					var currentElm = $(event.currentTarget);
-
-					if(currentElm.hasClass('open')){
-						$('.btn-group').removeClass('open');
-						currentElm.removeClass('open');
-					}else{
-						var liElm = $(currentElm.closest('.fancytree-node'));
-						if($(liElm.parent()).hasClass("fancytree-lastsib")){
-							$(liElm.parent().parent()).css("overflow","");
-						}
-						$('.btn-group').removeClass('open');
-						currentElm.addClass('open');
-					}
-				});
+				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
 			}
 		});
 };
