@@ -42,6 +42,11 @@ define(function(require) {
         $("#editNodeTextArea").val(node.data.description);
     }
     
+     function deleteNode(node){
+        $("#deleteNodeId").val(node.data.id);
+        $("#deleteNodeModal").modal("show");
+    }
+    
     function nodeMenuEventHandler(event){
         event.stopPropagation();
 
@@ -255,7 +260,8 @@ define(function(require) {
 	});
 
 $("#deleteRequestBtn").bind("click", function() {
-	var node = $("#tree").fancytree("getActiveNode");
+    var nodeId = $("#deleteNodeId").val();
+    var node = treeObj.getNodeByKey(nodeId);
 	$("#deleteNodeModal").modal("hide");
 
 	if (node == null) {
@@ -416,6 +422,10 @@ dragDrop : function(node, data) {
                         var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
                         if(editNodeBtn && editNodeBtn.length > 0){
                            editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
+                        }
+                        var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
+                        if(deleteNodeBtn && deleteNodeBtn.length > 0){
+                           deleteNodeBtn[0].addEventListener("click", function(){deleteNode(data.node);});
                         }
                       },
 					click : function(event, data) {

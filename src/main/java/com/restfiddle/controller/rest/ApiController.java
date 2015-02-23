@@ -127,17 +127,29 @@ public class ApiController {
 	return result;
     }
 
-    /**
-     * TODO : This API may not work with in-memory database (in some cases).
-     */
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
     List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id) {
 	logger.debug("Running all requests inside project : " + id);
-	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
-	NodeStatusResponseDTO nodeStatus = null;
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes);
+	return nodeStatuses;
+    }
+
+    @RequestMapping(value = "/api/processor/folders/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id) {
+	logger.debug("Running all requests inside folder : " + id);
+
+	List<BaseNode> listOfNodes = nodeRepository.getChildren(id);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes);
+	return nodeStatuses;
+    }
+
+    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes) {
+	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
+	NodeStatusResponseDTO nodeStatus = null;
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
 	    if (nodeType != null && (NodeType.PROJECT.name().equals(nodeType) || NodeType.FOLDER.name().equals(nodeType))) {
