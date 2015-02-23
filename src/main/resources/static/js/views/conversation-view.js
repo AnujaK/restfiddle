@@ -4,11 +4,13 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	var ConversationModel = require("models/conversation");
-    var AssertView = require('views/assert-view');
-    
+  var ZeroClipboard = require('zeroClipboard');
+  var ConversationModel = require("models/conversation");
+  var AssertView = require('views/assert-view');
+
   require('libs/prettify/prettify');
   require('typeahead');
+  var lastResponse;
 
   var CodeMirror = require('codemirror/lib/codemirror');
   var cmjs = require('codemirror/mode/javascript/javascript');
@@ -125,20 +127,84 @@ define(function(require) {
         source: httpHeaders.ttAdapter()
       });
     });
+
+    $("#copyResponse").unbind("click").bind("click",function(event){
+     event.stopPropagation();
+   })
+
+    ZeroClipboard.config( { 
+      moviePath: 'http://localhost:8080/js/libs/ZeroClipboard.swf' 
+    } );
+    var client = new ZeroClipboard($("#copyResponse"));
+
+    $('#global-zeroclipboard-html-bridge').attr({
+      'data-toggle': 'tooltip',
+      'data-placement': 'top',
+      'data-title': 'Click to copy'
+    }).tooltip({
+      trigger: 'manual',
+      container: 'body'
+    });
+
+    $("#copyResponse").on('mouseover', function() {
+     $('#global-zeroclipboard-html-bridge').tooltip('show');
+   });
+    $("#copyResponse").on('mouseleave', function(){
+      $('#global-zeroclipboard-html-bridge').tooltip('hide');
+    });
     
+    client.on( 'ready', function(event) {
+      console.log( 'movie is loaded' );
+
+      client.on('copy', function(event) {
+        event.clipboardData.setData('text/plain',$("#response-wrapper").text());
+      } );
+
+      client.on('aftercopy', function(event) {
+        console.log('Copied text to clipboard: ' + event.data['text/plain']);
+     // show the tooltip
+     if ($("#response-wrapper").text()) {
+       $('.tooltip .tooltip-inner').text('Copied!');
+     } else {
+      $('.tooltip .tooltip-inner').text('Response is empty!');
+    }
+
+  } );
+    } );
+
+    client.on('error', function(event) {
+      console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+      ZeroClipboard.destroy();
+    } );
+
+
+    $("#showLastResponse").unbind("click").bind("click",function(){
+      var response = JSON.parse(localStorage.getItem("lastResponse"));
+      $('#responseData').val(JSON.stringify(response));
+      $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
+      if(response.headers && response.headers.length > 0){
+        $("#res-header-wrapper").html('');
+        for(var i = 0 ; i < response.headers.length; i++){
+         $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
+       }
+       $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
+     }
+     prettyPrint();
+   });
+
     $("#clearHeader").unbind("click").bind("click", function() {
       $("#headersWrapper").html('');
     });
-    
+
     $("#clearBody").unbind("click").bind("click", function() {
       APP.conversation.apiBodyCodeMirror.setValue('');
     });
-    
+
     $("#clearAuth").unbind("click").bind("click", function() {
       $("#bAuthUsername").val('');
       $("#bAuthPassword").val('');
     });  
-    
+
     $("#clearRequest").unbind("click").bind("click", function() {
       $("#headersWrapper").html('');
       APP.conversation.apiBodyCodeMirror.setValue('');
@@ -181,7 +247,7 @@ define(function(require) {
         
         openWindowWithPost('POST', '/api/oauth/form', args, 'OAUTHWINDOW');
       }); 
-    
+
     //Note : http://stackoverflow.com/questions/17793183/how-to-replace-window-open-with-a-post
     var openWindowWithPost = function(verb, url, data, target) {
       var form = document.createElement("form");
@@ -306,6 +372,7 @@ define(function(require) {
           },
 
           run : function(){
+           localStorage.setItem("lastResponse",lastResponse);
            $.ajax({
             url : APP.config.baseUrl + '/processor',
             type : 'post',
@@ -313,12 +380,15 @@ define(function(require) {
             contentType : "application/json",
             success : function(response) {
              console.log("####" + response);
+             lastResponse = JSON.stringify(response);
+             $('#responseData').val(JSON.stringify(response));
              $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
              if(response.headers && response.headers.length > 0){
               $("#res-header-wrapper").html('');
               for(var i = 0 ; i < response.headers.length; i++){
                $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
              }
+             $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
            }
            prettyPrint();
                     //TODO : Disable toggleRequestSection for now. Codemirror update issue.
@@ -326,216 +396,216 @@ define(function(require) {
                   },
                   data : JSON.stringify(this.getProcessRequest())
                 });
-         },
-         getProcessRequest : function(){
-          var item = {
-           apiUrl : this.$el.find("#apiUrl").val(),
-           methodType : this.$el.find(".apiRequestType").val(),
-           apiBody : this.apiBodyCodeMirror.getValue(),
-           headers : this.getHeaderParams(),
-           urlParams : this.getUrlParams(),
-           formParams : this.getFormParams(),
-           basicAuthDTO : this.getBasicAuthDTO(),
-           digestAuthDTO : this.getDigestAuthDTO()
-         };
-         return item;
-       },
+},
+getProcessRequest : function(){
+  var item = {
+   apiUrl : this.$el.find("#apiUrl").val(),
+   methodType : this.$el.find(".apiRequestType").val(),
+   apiBody : this.apiBodyCodeMirror.getValue(),
+   headers : this.getHeaderParams(),
+   urlParams : this.getUrlParams(),
+   formParams : this.getFormParams(),
+   basicAuthDTO : this.getBasicAuthDTO(),
+   digestAuthDTO : this.getDigestAuthDTO()
+ };
+ return item;
+},
 
-       convertToTextBox : function(){
-         $('#apiRequestName').hide();
-         $('#apiRequestNameTextBox').show();
-         $('#apiRequestNameTextBox').focus();
-         $('#apiRequestNameTextBox').val($('#apiRequestName').text());
-       },
+convertToTextBox : function(){
+ $('#apiRequestName').hide();
+ $('#apiRequestNameTextBox').show();
+ $('#apiRequestNameTextBox').focus();
+ $('#apiRequestNameTextBox').val($('#apiRequestName').text());
+},
 
-       converToLabel : function(){
+converToLabel : function(){
 
-         $('#apiRequestNameTextBox').hide();
-         $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
-         $('#apiRequestName').show();
-       },
+ $('#apiRequestNameTextBox').hide();
+ $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
+ $('#apiRequestName').show();
+},
 
-       getBasicAuthDTO : function(){
-        var basicAuthDTO = {};
-        basicAuthDTO.username = $("#bAuthUsername").val();
-        basicAuthDTO.password = $("#bAuthPassword").val();
-        return basicAuthDTO;
-      },
+getBasicAuthDTO : function(){
+  var basicAuthDTO = {};
+  basicAuthDTO.username = $("#bAuthUsername").val();
+  basicAuthDTO.password = $("#bAuthPassword").val();
+  return basicAuthDTO;
+},
 
-      getDigestAuthDTO : function(){
-        var digestAuthDTO = {};
-        digestAuthDTO.username = $("#digestUsername").val();
-        digestAuthDTO.password = $("#digestPassword").val();
-        return digestAuthDTO;
-      },
+getDigestAuthDTO : function(){
+  var digestAuthDTO = {};
+  digestAuthDTO.username = $("#digestUsername").val();
+  digestAuthDTO.password = $("#digestPassword").val();
+  return digestAuthDTO;
+},
 
-      getHeaderParams : function(){
-        var headerNames = [];
-        this.$el.find(".headerName").each(function() {
-          if($(this).hasClass('tt-input')){
-            var headerKey = {};
-            headerKey.headerName = $(this).val();
-            headerNames.push(headerKey);
-          }
-        });  
-
-        var headerValues = [];
-        this.$el.find(".headerValue").each(function() {
-          var headerVal = {};
-          headerVal.headerValue = $(this).val();
-          headerValues.push(headerVal);
-        }); 
-
-        var headerDataArr = [];
-        var counter = 0;
-        $.each(headerNames, function() {
-          var headerData = {};
-          headerData.headerName = headerNames[counter].headerName;
-          headerData.headerValue = headerValues[counter].headerValue;
-          headerDataArr.push(headerData);
-          counter++;
-        });  
-        return headerDataArr;
-      },
-
-      getFormParams : function(){
-        var formDataNames = [];
-        this.$el.find(".formDataName").each(function() {
-          var formDataKey = {};
-          formDataKey.key = $(this).val();
-          formDataNames.push(formDataKey);
-        });  
-
-        var formDataValues = [];
-        this.$el.find(".formDataValue").each(function() {
-          var formDataVal = {};
-          formDataVal.value = $(this).val();
-          formDataValues.push(formDataVal);
-        }); 
-
-        var formDataArr = [];
-        var counter = 0;
-        $.each(formDataNames, function() {
-          var formData = {};
-          formData.key = formDataNames[counter].key;
-          formData.value = formDataValues[counter].value;
-          formDataArr.push(formData);
-          counter++;
-        });  
-        return formDataArr;
-      },
-
-      getUrlParams : function(){
-        var urlDataNames = [];
-        this.$el.find(".urlDataName").each(function() {
-          var urlDataKey = {};
-          urlDataKey.key = $(this).val();
-          urlDataNames.push(urlDataKey);
-        });  
-
-        var urlDataValues = [];
-        this.$el.find(".urlDataValue").each(function() {
-          var urlDataVal = {};
-          urlDataVal.value = $(this).val();
-          urlDataValues.push(urlDataVal);
-        }); 
-
-        var urlDataArr = [];
-        var counter = 0;
-        $.each(urlDataNames, function() {
-          var urlData = {};
-          urlData.key = urlDataNames[counter].key;
-          urlData.value = urlDataValues[counter].value;
-          urlDataArr.push(urlData);
-          counter++;
-        });  
-        return urlDataArr;
-      },
-
-      render : function(conversation) {
-       console.log('render conversation view with model');
-       console.log(conversation);
-
-       APP.projectRunner.$el.hide();
-       APP.socketConnector.$el.hide();
-       APP.socketConnector.$el.hide();
-       this.$el.show();
-
-       var request = conversation.get('rfRequest');
-       var response = conversation.get('rfResponse');
-
-       this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
-       this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
-
-       this.$el.find("#apiUrl").val(request.apiUrlString);
-       this.$el.find(".apiRequestType").val(request.methodType).change();
-       if(request.apiBody != null){
-        this.apiBodyCodeMirror.setValue(request.apiBodyString);
-      }
-      else{
-       this.apiBodyCodeMirror.setValue('');
-     }
-
-
-     this.$el.find("#response-wrapper").html('');
-   },
-   saveOrUpdateConversation : function(){
-     if(APP.appView.getCurrentConversationId() != null){
-      var rfRequest = {
-        apiUrl : this.$el.find("#apiUrl").val(),
-        apiBody : this.apiBodyCodeMirror.getValue(),
-        methodType : this.$el.find(".apiRequestType").val()
-      }
-      var rfResponse = {
-
-      }
-      var conversation = new ConversationModel({
-       id : APP.appView.getCurrentConversationId(),
-       rfRequestDTO : rfRequest,
-       rfResponseDTO : rfResponse
-
-     });
-      conversation.save(null, {
-       success: function(){
-        alert('Changes saved successfully!');
-      },
-      error : function(){
-        alert('some error occured while saving the request');
-      }
-    });
-    }else{
-      $("#requestModal").find("#source").val("conversation");
-      $("#requestModal").modal("show");
+getHeaderParams : function(){
+  var headerNames = [];
+  this.$el.find(".headerName").each(function() {
+    if($(this).hasClass('tt-input')){
+      var headerKey = {};
+      headerKey.headerName = $(this).val();
+      headerNames.push(headerKey);
     }
-  },
+  });  
 
-  toggleRequestSection : function(){
+  var headerValues = [];
+  this.$el.find(".headerValue").each(function() {
+    var headerVal = {};
+    headerVal.headerValue = $(this).val();
+    headerValues.push(headerVal);
+  }); 
+
+  var headerDataArr = [];
+  var counter = 0;
+  $.each(headerNames, function() {
+    var headerData = {};
+    headerData.headerName = headerNames[counter].headerName;
+    headerData.headerValue = headerValues[counter].headerValue;
+    headerDataArr.push(headerData);
+    counter++;
+  });  
+  return headerDataArr;
+},
+
+getFormParams : function(){
+  var formDataNames = [];
+  this.$el.find(".formDataName").each(function() {
+    var formDataKey = {};
+    formDataKey.key = $(this).val();
+    formDataNames.push(formDataKey);
+  });  
+
+  var formDataValues = [];
+  this.$el.find(".formDataValue").each(function() {
+    var formDataVal = {};
+    formDataVal.value = $(this).val();
+    formDataValues.push(formDataVal);
+  }); 
+
+  var formDataArr = [];
+  var counter = 0;
+  $.each(formDataNames, function() {
+    var formData = {};
+    formData.key = formDataNames[counter].key;
+    formData.value = formDataValues[counter].value;
+    formDataArr.push(formData);
+    counter++;
+  });  
+  return formDataArr;
+},
+
+getUrlParams : function(){
+  var urlDataNames = [];
+  this.$el.find(".urlDataName").each(function() {
+    var urlDataKey = {};
+    urlDataKey.key = $(this).val();
+    urlDataNames.push(urlDataKey);
+  });  
+
+  var urlDataValues = [];
+  this.$el.find(".urlDataValue").each(function() {
+    var urlDataVal = {};
+    urlDataVal.value = $(this).val();
+    urlDataValues.push(urlDataVal);
+  }); 
+
+  var urlDataArr = [];
+  var counter = 0;
+  $.each(urlDataNames, function() {
+    var urlData = {};
+    urlData.key = urlDataNames[counter].key;
+    urlData.value = urlDataValues[counter].value;
+    urlDataArr.push(urlData);
+    counter++;
+  });  
+  return urlDataArr;
+},
+
+render : function(conversation) {
+ console.log('render conversation view with model');
+ console.log(conversation);
+
+ APP.projectRunner.$el.hide();
+ APP.socketConnector.$el.hide();
+ APP.socketConnector.$el.hide();
+ this.$el.show();
+
+ var request = conversation.get('rfRequest');
+ var response = conversation.get('rfResponse');
+
+ this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
+ this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
+
+ this.$el.find("#apiUrl").val(request.apiUrlString);
+ this.$el.find(".apiRequestType").val(request.methodType).change();
+ if(request.apiBody != null){
+  this.apiBodyCodeMirror.setValue(request.apiBodyString);
+}
+else{
+ this.apiBodyCodeMirror.setValue('');
+}
+
+
+this.$el.find("#response-wrapper").html('');
+},
+saveOrUpdateConversation : function(){
+ if(APP.appView.getCurrentConversationId() != null){
+  var rfRequest = {
+    apiUrl : this.$el.find("#apiUrl").val(),
+    apiBody : this.apiBodyCodeMirror.getValue(),
+    methodType : this.$el.find(".apiRequestType").val()
+  }
+  var rfResponse = {
+
+  }
+  var conversation = new ConversationModel({
+   id : APP.appView.getCurrentConversationId(),
+   rfRequestDTO : rfRequest,
+   rfResponseDTO : rfResponse
+
+ });
+  conversation.save(null, {
+   success: function(){
+    alert('Changes saved successfully!');
+  },
+  error : function(){
+    alert('some error occured while saving the request');
+  }
+});
+}else{
+  $("#requestModal").find("#source").val("conversation");
+  $("#requestModal").modal("show");
+}
+},
+
+toggleRequestSection : function(){
+  $("#requestContainer").toggle();
+  if($("#requestToggle").hasClass('glyphicon-chevron-down')){
+    $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+  }
+  else{
+    $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
+  }
+},
+
+expandRequestSection : function(){
+  if($("#requestToggle").hasClass('glyphicon-chevron-right')){
+    $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
     $("#requestContainer").toggle();
-    if($("#requestToggle").hasClass('glyphicon-chevron-down')){
-      $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
-    }
-    else{
-      $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
-    }
-  },
+  }
+},
 
-  expandRequestSection : function(){
-    if($("#requestToggle").hasClass('glyphicon-chevron-right')){
-      $("#requestToggle").removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
-      $("#requestContainer").toggle();
-    }
-  },
+collapseRequestSection : function(){
+  if($("#requestToggle").hasClass('glyphicon-chevron-down')){
+    $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+    $("#requestContainer").toggle();
+  }
+},
 
-  collapseRequestSection : function(){
-    if($("#requestToggle").hasClass('glyphicon-chevron-down')){
-      $("#requestToggle").removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
-      $("#requestContainer").toggle();
-    }
-  },
-
-  handleOauthResult : function handleOauthResult(result) {
-    console.log("oauth access token : " + result);
-    $('#fetchedAccessToken').html("Access Token : " + result+"<br>");
+handleOauthResult : function handleOauthResult(result) {
+  console.log("oauth access token : " + result);
+  $('#fetchedAccessToken').html("Access Token : " + result+"<br>");
             //Adding Access Token in the header
             var headerListItemView = new HeaderListItemView();
             $("#headersWrapper").append(headerListItemView.render().el);
