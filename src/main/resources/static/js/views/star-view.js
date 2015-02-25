@@ -4,7 +4,6 @@ define(function (require) {
     var Backbone = require('backbone');
     var _ = require('underscore');
     require('jquery');
-    require('bootpag');
     var StarEvents = require('events/star-event');
     var ConversationEvents = require('events/conversation-event');
     var ProjectEvents = require('events/project-event');
@@ -20,7 +19,7 @@ define(function (require) {
         },
         template: _.template($('#tpl-star-list-item').html()),
 
-        renderConversationEvent : function(event){
+        renderConversationEvent : function(){
             console.log("converstaion event clicked"+this.el);
             this.$el.parent('ul').find('li').each(function(){
                 $(this).removeClass('active');
@@ -29,7 +28,7 @@ define(function (require) {
             console.log('Starred Node Id : ' + this.$el.find('a').data('data-star-id'));
 
             var node = new NodeModel({
-                id : $(event.currentTarget).data('starId')
+                id : this.model.id
             });
             node.fetch({
                 success : function(response) {
@@ -47,92 +46,65 @@ define(function (require) {
         initialize: function () {
             console.log('called initialize');
         },
-        render: function (pageNumber) {
-            var start = 10 * (pageNumber-1);
-            var end = start + 9;
-            end = end > this.model.length-1 ? this.model.length-1 : end;
-            return this.renderStarredGroup(start, end);
-        },
-        renderStarredGroup : function(start, end) {
-            var that = this;
-            this.$el.html('');
-            var subset = _.filter(this.model, function(num, index){
-                return (index >= start) && (index <= end);
-            });
-
-            _.each(subset, function (starredRequest) {
-                var starredTemplate = this.template({node : starredRequest});
-                $(this.el).append(starredTemplate);
-            }, this); 
-
+        render: function () {
+            this.$el.html(this.template({node: this.model}));
             return this;
         }
     });
 
 
-var StarView = Backbone.View.extend({
-    el: '#starred-items',
-    addOne: function (model) {
-        var starListView = new StarListView({model: model});
-        this.$el.append(starListView.render().el);
-        return this;
-    },
-    initialize: function () {
-        this.listenTo(APP.Events, StarEvents.SAVE, this.markAsStarred);
-    },
-    markAsStarred: function () {
-        console.log("Event star a node was fired for node Id " + "");
-        if (APP.appView.getCurrentRequestNodeId() != null) {
-            console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
-            var node = new NodeModel({
-                id : APP.appView.getCurrentRequestNodeId()
-            });
-            node.fetch({
-                success : function(response) {
-                 var starred = !response.get("starred");
-                 var starModel = new StarModel();
-                 starModel.set('id', APP.appView.getCurrentRequestNodeId());
-                 starModel.set('starred', !response.get("starred"));
-                 starModel.save(null, {
-                    success: function () {
-                        console.log("changes saves successfully");
-                        if(starred){
-                         $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
-                     }
-                     else{
-                         $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
-                     }
-                 },
-                 error: function () {
-                    alert('some error occured while saving the request');
-                }
-            });
-             }
-         });
+    var StarView = Backbone.View.extend({
+        el: '#starred-items',
+        addOne: function (model) {
+            var starListView = new StarListView({model: model});
+            this.$el.append(starListView.render().el);
+            return this;
+        },
+        initialize: function () {
+            this.listenTo(APP.Events, StarEvents.SAVE, this.markAsStarred);
+        },
+        markAsStarred: function () {
+            console.log("Event star a node was fired for node Id " + "");
+            if (APP.appView.getCurrentRequestNodeId() != null) {
+                console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
+                var node = new NodeModel({
+                    id : APP.appView.getCurrentRequestNodeId()
+                });
+                node.fetch({
+                    success : function(response) {
+                    	var starred = !response.get("starred");
+                        var starModel = new StarModel();
+                        starModel.set('id', APP.appView.getCurrentRequestNodeId());
+                        starModel.set('starred', !response.get("starred"));
+                        starModel.save(null, {
+                            success: function () {
+                                console.log("changes saves successfully");
+                                if(starred){
+                                	$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+                                }
+                                else{
+                                	$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+                                }
+                            },
+                            error: function () {
+                                alert('some error occured while saving the request');
+                            }
+                        });
+                    }
+                });
+            }
+        },
+
+        render: function () {
+            this.$el.html('');
+            _.each(this.model, function (index) {
+                var starListView = new StarListView({model: index});
+                this.$el.append(starListView.render().el);
+            }, this);
         }
-    },
+    });
 
-    render: function () {
-        this.$el.html('');
-        var starListView = new StarListView({model: this.model});
-        this.$el.append('<div id="star-request-pannel"></div><div class= "star-paginator"></div>');
-        $("#star-request-pannel").html(starListView.render(1).el);
-
-        $('.star-paginator').bootpag({
-            total: Math.ceil(this.model.length/10),
-            page: 1,
-            maxVisible: 5
-        }).on("page", function(event, num){
-            $("#star-request-pannel").html(starListView.render(num).el);
-
-        });
-
-        return this;
-
-    }
-});
-
-return StarView;
+    return StarView;
 
 });
-
+	

@@ -35,21 +35,6 @@
             <li><a class="rf-font-12" data-toggle="modal" data-target="#comingSoon">Sort</a></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#comingSoon">Filter</a></li>
             <li class="divider"></li>
-<<<<<<< HEAD
-        -->
-        <li><a class="rf-font-12 socket-connector">Socket</a></li>
-        <li class="divider"></li>
-        <li><a class="rf-font-12" id="editNodeMenuItem">Edit Node</a></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteNodeModal">Delete Node</a></li>
-        <li class="divider"></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#importModal">Import</a></li>
-        <li class="divider"></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#editProjectModal">Edit Project</a></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteProjectModal">Delete Project</a></li>
-        <li class="divider"></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#editWorkspaceModal">Edit Workspace</a></li>
-        <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteWorkspaceModal">Delete Workspace</a></li>
-=======
             
             <li class="divider"></li>
             <li><a class="rf-font-12" id="editNodeMenuItem">Edit Node</a></li>
@@ -69,21 +54,14 @@
     <br> <br>
     
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="starred-items">
->>>>>>> upstream/master
     </ul>
-</div>
-
-<br> <br>
-
-<ul class="nav nav-pills nav-stacked rf-left-nav" id="starred-items">
-</ul>
-
-<ul class="nav nav-pills nav-stacked rf-left-nav" id="tagged-items">
-</ul> 
-
-<ul class="nav nav-pills nav-stacked rf-left-nav" id="history-items">
-</ul>
-
-<div id="tree"></div>
-<br><br>
+    
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="tagged-items">
+    </ul> 
+    
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="history-items">
+    </ul>
+    
+    <div id="tree"></div>
+    <br><br>
 </div>
