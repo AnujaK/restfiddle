@@ -4,6 +4,7 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+  var ZeroClipboard = require('zeroClipboard');
 	var ConversationModel = require("models/conversation");
     var AssertView = require('views/assert-view');
     
@@ -125,7 +126,6 @@ define(function(require) {
         source: httpHeaders.ttAdapter()
       });
     });
-<<<<<<< HEAD
 
     $("#copyResponse").unbind("click").bind("click",function(event){
      event.stopPropagation();
@@ -181,10 +181,7 @@ define(function(require) {
      prettyPrint();
    });
 
-=======
-    
->>>>>>> upstream/master
-    $("#clearHeader").unbind("click").bind("click", function() {
+   $("#clearHeader").unbind("click").bind("click", function() {
       $("#headersWrapper").html('');
     });
     

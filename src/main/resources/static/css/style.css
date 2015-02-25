@@ -229,8 +229,7 @@ ul.fancytree-container {
 .rf-col-3 {
 	border-left: 1px solid lightgray; 
 	left: 50%; 
-	height: 100%; 
-	position: fixed; 
+	height: auto;  
 	overflow-y: hidden;
 }
 
@@ -406,6 +405,42 @@ ul .dropdown-menu li{
 	padding-left: 6px;
 }
 
-ul.fancytree-container{
-	overflow: visible !important;
+.lozenge.auth_required {
+	padding: 2px 10px;
+	min-width: 45px;
+	font-size: 12px;
+	border-radius: 3px;
+	color:#fff;
+}
+
+.lozenge.green {
+	background-color: #46a546;
+}
+
+.lozenge.left {
+	margin-right: 1.5em;
+}
+
+.lozenge.orange{
+	background-color:#f89406;
+}
+
+.lozenge.blue {
+	background-color: #0064cd;
+}
+
+.lozenge.red {
+	background-color: #e50000;
+}
+
+.text-danger{
+	font-weight: 700;
+}
+
+.error{
+	color: #a94442;
+}
+
+.dropdown-menu>li>a{
+	outline: none;
 }
