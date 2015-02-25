@@ -7,8 +7,8 @@
 					<h4 class="modal-title">Manage Asserts</h4>
 				</div>
 				<div class="modal-body">
-					<div id="manageAssertsWrapper">
-					</div>
+                    <div id="manageAssertsWrapper">
+                    </div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -27,12 +27,12 @@
 				<div class="modal-body">
 					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name"> <br>
 					<textarea id="newEntityDescription" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-					<br>
-					<p>
-						<button type="button" class="btn btn-default btn-sm" id="addEntityFieldBtn">Add Field</button>
-					</p>
-					<div id="entityFieldsWrapper">
-					</div>
+                    <br>
+                    <p>
+                        <button type="button" class="btn btn-default btn-sm" id="addEntityFieldBtn">Add Field</button>
+                    </p>
+                    <div id="entityFieldsWrapper">
+                    </div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -76,7 +76,7 @@
 					 <div class="form-group">
 				    	<label for="requestUrl">API End Point</label>
 				    	<input class="form-control" id="requestUrl" placeholder="http://example.com/api/v1/users">
-				    </div> -->
+				 	</div> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -171,29 +171,29 @@
 				</div>
 				<div class="modal-body">
 					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>RF Admin</td>
-								<td>rf-admin@example.com</td>
-								<td style="color:lightgray;">Delete</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>RF User</td>
-								<td>rf-user@example.com</td>
-								<td>Delete</td>
-							</tr>
-						</tbody>
-					</table>			
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>Name</th>
+				          <th>Email</th>
+				          <th>Action</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr>
+				          <td>1</td>
+				          <td>RF Admin</td>
+				          <td>rf-admin@example.com</td>
+				          <td style="color:lightgray;">Delete</td>
+				        </tr>
+				        <tr>
+				          <td>2</td>
+				          <td>RF User</td>
+				          <td>rf-user@example.com</td>
+				          <td>Delete</td>
+				        </tr>
+				      </tbody>
+				    </table>			
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -209,12 +209,9 @@
 					<h4 class="modal-title" id="workspaceModalLabel">New Workspace</h4>
 				</div>
 				<div class="modal-body">
-					<form id = "workspaceForm">
-						<input type="text" id="workspaceTextField" class="form-control" name ="workspaceName" placeholder="Enter Workspace Name" required>
-						<p class="text-danger" id="workspace-error"></p> <br>
-						<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-						<br>
-					</form>
+					<input type="text" id="workspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
+					<textarea id="workspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
 					<!-- 
 					<div>
 						<label class="radio-inline"> <input type="radio" name="workspaceRadioOptions" id="privateWorkspace" value="private"><span>&nbsp;Private</span>
@@ -224,29 +221,26 @@
 						</label>
 					</div>
 					<br> <input type="text" id="workspace-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
-				-->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="saveWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+					-->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="projectModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="projectModalLabel">New Project</h4>
-			</div>
-			<div class="modal-body">
-				<form id = "projectCreationForm">
-					<input type="text" id="projectTextField" class="form-control" name = "projectName" placeholder="Enter Project Name" required>
-					<p class="text-danger" id="project-error"></p> <br> 
+	<div class="modal fade" id="projectModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="projectModalLabel">New Project</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="projectTextField" class="form-control" placeholder="Enter Project Name"> <br>
 					<textarea id="projectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
-				</form>
 					<!-- 
 					<div>
 						<label class="radio-inline"> <input type="radio" name="projectRadioOptions" id="privateProject" value="private"><span>&nbsp;Private</span>
@@ -255,255 +249,253 @@
 						</label>
 					</div>
 					<br> <input type="text" id="project-share-tags" class="demo-default" value="Core Engg Team, QA Team, Ranjan">
-				-->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="saveProjectBtn" type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="importModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Import</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-info">
-					Import a Postman Collection. Support for other file types will be added soon!
+					 -->
 				</div>
-				<br>
-				<input type="file" name="file" id="importFileId" class="form-control">
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="importFileBtn" type="button" class="btn btn-primary">Import</button>
-			</div>
-		</div>
-	</div>
-</div>	
-
-<div class="modal fade" id="manageEnvironmentsModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Manage Environments</h4>
-			</div>
-			<div class="modal-body">
-				<div id="manageEnvironmentWrapper">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveProjectBtn" type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="saveEnvironmentBtn" type="button" class="btn btn-primary">Save changes</button>
-			</div>
 		</div>
 	</div>
-</div>	
 
-<div class="modal fade" id="tagModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="tagModalLabel">New Tag</h4>
+	<div class="modal fade" id="importModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Import</h4>
+				</div>
+				<div class="modal-body">
+                    <div class="alert alert-info">
+                        Import a Postman Collection. Support for other file types will be added soon!
+                    </div>
+                    <br>
+					<input type="file" name="file" id="importFileId" class="form-control">
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="importFileBtn" type="button" class="btn btn-primary">Import</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<form id = "tagForm">
-					<input type="text" id="tagTextField" class="form-control" name = "tagName" placeholder="Enter Tag Name" required><p class="text-danger" id="tag-name-error"></p> <br>
+		</div>
+	</div>	
+
+	<div class="modal fade" id="manageEnvironmentsModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Manage Environments</h4>
+				</div>
+				<div class="modal-body">
+                    <div id="manageEnvironmentWrapper">
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveEnvironmentBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div class="modal fade" id="tagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="tagModalLabel">New Tag</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="tagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
 					<textarea id="tagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
-				</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveTagBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="saveTagBtn" type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	</div>	
+	<div class="modal fade" id="editNodeModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editNodeModalLabel">Edit Node</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="editNodeId">
+					<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name"> <br>
+					<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editNodeBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="modal fade" id="editProjectModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editProjectModalLabel">Edit Project</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="editProjectId">
+					<input type="text" id="editProjectTextField" class="form-control" placeholder="Enter Project Name"> <br>
+					<textarea id="editProjectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>	
-<div class="modal fade" id="editNodeModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="editNodeModalLabel">Edit Node</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="editNodeId">
-				<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name"> <br>
-				<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="editNodeBtn" type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
-</div>	
-<div class="modal fade" id="editProjectModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="editProjectModalLabel">Edit Project</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="editProjectId">
-				<input type="text" id="editProjectTextField" class="form-control" placeholder="Enter Project Name"> <br>
-				<textarea id="editProjectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="editProjectBtn" type="button" class="btn btn-primary">Save changes</button>
+    <div class="modal fade" id="editTagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editTagModalLabel">Edit Tag</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="editTagId">
+					<input type="text" id="editTagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
+					<textarea id="editTagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editTagBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="editTagModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="editTagModalLabel">Edit Tag</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="editTagId">
-				<input type="text" id="editTagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
-				<textarea id="editTagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="editTagBtn" type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="editWorkspaceModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="editWorkspaceModalLabel">Edit Workspace</h4>
-			</div>
-			<div class="modal-body">
-				<input type="text" id="editWorkspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
-				<textarea id="editWorkspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="editWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+	<div class="modal fade" id="editWorkspaceModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="editWorkspaceModalLabel">Edit Workspace</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="editWorkspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
+					<textarea id="editWorkspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="editWorkspaceBtn" type="button" class="btn btn-primary">Save changes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="deleteWorkspaceModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Delete Workspace</h4>
-			</div>
-			<div class="modal-body">
-				Are You Sure You Want To Delete Current Workspace?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="deleteWorkspaceBtn">Yes</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="switchWorkspaceModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="projectModalLabel">Switch Workspace</h4>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<div class="modal fade" id="deleteWorkspaceModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Workspace</h4>
+				</div>
+				<div class="modal-body">
+					Are You Sure You Want To Delete Current Workspace?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteWorkspaceBtn">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="deleteNodeModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Delete Node</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="deleteNodeId">
-				Are You Sure You Want To Delete Selected Node?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="deleteRequestBtn">Yes</button>
+	<div class="modal fade" id="switchWorkspaceModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="projectModalLabel">Switch Workspace</h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="deleteProjectModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Delete Project</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="deleteProjectId">
-				Are You Sure You Want To Delete Selected Project?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="deleteProjectBtn">Yes</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="deleteTagModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Delete Tag</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="deleteTagId">
-				Are You Sure You Want To Delete Selected Tag?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="deleteTagBtn">Yes</button>
+	<div class="modal fade" id="deleteNodeModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Node</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="deleteNodeId">
+					Are You Sure You Want To Delete Selected Node?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteRequestBtn">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="modal fade" id="comingSoon" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="comingSoonLabel">Coming Soon</h4>
-			</div>
-			<div class="modal-body">UnsupportedOperationException("Not implemented yet")</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+	<div class="modal fade" id="deleteProjectModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Project</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="deleteProjectId">
+					Are You Sure You Want To Delete Selected Project?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteProjectBtn">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<div class="modal fade" id="deleteTagModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Delete Tag</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="deleteTagId">
+					Are You Sure You Want To Delete Selected Tag?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="deleteTagBtn">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="comingSoon" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="comingSoonLabel">Coming Soon</h4>
+				</div>
+				<div class="modal-body">UnsupportedOperationException("Not implemented yet")</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>

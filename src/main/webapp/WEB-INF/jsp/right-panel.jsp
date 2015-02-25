@@ -69,7 +69,7 @@
             </div>
             &nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts <span class="badge">0</span></button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts</button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
@@ -96,8 +96,8 @@
                     More&nbsp;&nbsp;<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" id = "copyResponse">Copy Response</a></li>
-                    <li><a href="#" class="btn-sm" id="showLastResponse">Show Last Response</a></li>
+                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</a></li>
+                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Last Response</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;&nbsp;
