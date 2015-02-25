@@ -59,6 +59,7 @@ define(function(require) {
             var liElm = $(currentElm.closest('.fancytree-node'));
             if($(liElm.parent()).hasClass("fancytree-lastsib")){
                 $(liElm.parent().parent()).css("overflow","");
+                $('ul.fancytree-container').css("overflow","visible");
             }
             $('.btn-group').removeClass('open');
             currentElm.addClass('open');
@@ -493,8 +494,19 @@ function nodeConverter(serverNode, uiNode) {
 	for (var i = 0; i < serverNode.children.length; i++) {
 		if (serverNode.children[i].nodeType != 'FOLDER' && serverNode.children[i].nodeType != 'ENTITY') {
             var treeNodeView = new TreeNodeView();
+            var colorCode = "";
+            switch (serverNode.children[i].method){
+            	case "GET" : colorCode = "blue";
+            	break;
+            	case "POST" : colorCode = "green";
+            	break;
+            	case "DELETE" : colorCode = "red";
+            	break;
+            	case "PUT" : colorCode = "orange";
+            	break;
+            }
 			uiNode.children.push({
-				title : serverNode.children[i].name + treeNodeView.template(),
+				title : '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + serverNode.children[i].name + treeNodeView.template(),
 				id : serverNode.children[i].id,
                 key : serverNode.children[i].id,
 				name : serverNode.children[i].name,
