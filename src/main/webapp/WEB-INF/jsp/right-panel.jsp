@@ -96,7 +96,7 @@
                     More&nbsp;&nbsp;<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" id = "copyResponse">Copy Response</a></li>
+                    <li class="copyResponseList"><a href="#" class="btn-sm" id = "copyResponse">Copy Response</a></li>
                     <li><a href="#" class="btn-sm" id="showLastResponse">Show Last Response</a></li>
                 </ul>
             </div>

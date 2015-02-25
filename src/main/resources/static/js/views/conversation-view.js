@@ -132,49 +132,39 @@ define(function(require) {
      event.stopPropagation();
    })
 
-    ZeroClipboard.config( { 
-      moviePath: 'http://localhost:8080/js/libs/ZeroClipboard.swf' 
-    } );
-    var client = new ZeroClipboard($("#copyResponse"));
+    ZeroClipboard.config({
+      moviePath:"http://localhost:8080/js/libs/ZeroClipboard.swf",
+      hoverClass:"btn-clipboard-hover"});
 
-    $('#global-zeroclipboard-html-bridge').attr({
-      'data-toggle': 'tooltip',
-      'data-placement': 'top',
-      'data-title': 'Click to copy'
-    }).tooltip({
-      trigger: 'manual',
-      container: 'body'
-    });
+    var clip = new ZeroClipboard($("#copyResponse"));
+    var htmlBridge = $(".copyResponseList");
 
-    $("#copyResponse").on('mouseover', function() {
-     $('#global-zeroclipboard-html-bridge').tooltip('show');
-   });
-    $("#copyResponse").on('mouseleave', function(){
-      $('#global-zeroclipboard-html-bridge').tooltip('hide');
-    });
-    
-    client.on( 'ready', function(event) {
+    clip.on( 'ready', function(event) {
       console.log( 'movie is loaded' );
+      htmlBridge.data("placement","top").attr("title","Copy to clipboard").tooltip()
 
-      client.on('copy', function(event) {
+      clip.on('copy', function(event) {
         event.clipboardData.setData('text/plain',$("#response-wrapper").text());
       } );
 
-      client.on('aftercopy', function(event) {
+      clip.on('aftercopy', function(event) {
         console.log('Copied text to clipboard: ' + event.data['text/plain']);
      // show the tooltip
+     var tooltipText = "";
      if ($("#response-wrapper").text()) {
-       $('.tooltip .tooltip-inner').text('Copied!');
+       tooltipText = 'Copied!';
      } else {
-      $('.tooltip .tooltip-inner').text('Response is empty!');
-    }
-
-  } );
+       tooltipText = 'Response is empty!';
+     }
+     htmlBridge.attr("title",tooltipText).tooltip("fixTitle").tooltip("show").attr("title","Copy to clipboard").tooltip("fixTitle");
+   } );
     } );
 
-    client.on('error', function(event) {
+    clip.on('error', function(event) {
       console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+      htmlBridge.attr("title","Flash required").tooltip("fixTitle").tooltip("show");
       ZeroClipboard.destroy();
+
     } );
 
 
