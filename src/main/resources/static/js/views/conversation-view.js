@@ -7,10 +7,10 @@ define(function(require) {
   var ZeroClipboard = require('zeroClipboard');
 	var ConversationModel = require("models/conversation");
     var AssertView = require('views/assert-view');
-    
+  
   require('libs/prettify/prettify');
   require('typeahead');
-
+  var lastResponse;
   var CodeMirror = require('codemirror/lib/codemirror');
   var cmjs = require('codemirror/mode/javascript/javascript');
 
@@ -361,6 +361,7 @@ define(function(require) {
           },
 
           run : function(){
+            localStorage.setItem("lastResponse",lastResponse);
            $.ajax({
             url : APP.config.baseUrl + '/processor',
             type : 'post',
@@ -368,12 +369,15 @@ define(function(require) {
             contentType : "application/json",
             success : function(response) {
              console.log("####" + response);
+              lastResponse = JSON.stringify(response);
+              $('#responseData').val(JSON.stringify(response));
              $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
              if(response.headers && response.headers.length > 0){
               $("#res-header-wrapper").html('');
               for(var i = 0 ; i < response.headers.length; i++){
                $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
              }
+             $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
            }
            prettyPrint();
                     //TODO : Disable toggleRequestSection for now. Codemirror update issue.
