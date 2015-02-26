@@ -25,11 +25,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -224,11 +227,11 @@ public class NodeController {
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeId = baseNode.getId();
 	    baseNodeMap.put(nodeId, baseNode);
-     
-        if(baseNode.getConversation() != null){
-        	methodType = baseNode.getConversation().getRfRequest().getMethodType();
-        }
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred(),methodType);
+
+	    if (baseNode.getConversation() != null) {
+		methodType = baseNode.getConversation().getRfRequest().getMethodType();
+	    }
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred(), methodType);
 	    treeNodeMap.put(nodeId, treeNode);
 	}
 
@@ -257,10 +260,23 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findStarredNodes() {
+    List<BaseNode> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
+	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding starred nodes.");
 
-	List<BaseNode> starredNodes = nodeRepository.findStarredNodes();
+	int pageNo = 0;
+	if (page != null && page > 0) {
+	    pageNo = page;
+	}
+
+	int numberOfRecords = 10;
+	if (limit != null && limit > 0) {
+	    numberOfRecords = limit;
+	}
+
+	Pageable pageable = new PageRequest(pageNo, numberOfRecords);
+
+	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(pageable);
 	return starredNodes;
     }
 

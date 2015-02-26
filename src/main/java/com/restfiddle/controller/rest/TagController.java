@@ -23,11 +23,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,7 +52,7 @@ public class TagController {
 
     @Resource
     private NodeRepository nodeRepository;
-    
+
     @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Tag create(@RequestBody TagDTO tagDTO) {
@@ -98,19 +101,31 @@ public class TagController {
 
 	tag.setName(updated.getName());
 	tag.setDescription(updated.getDescription());
-	
+
 	tagRepository.save(tag);
 	return tag;
     }
-    
+
     @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{tagId}/nodes", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId) {
+    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId,
+	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding nodes by tag id: " + tagId);
 	
-	List<BaseNode> taggedNodes = nodeRepository.findTaggedNodes(tagId);
+	int pageNo = 0;
+	if (page != null && page > 0) {
+	    pageNo = page;
+	}
+
+	int numberOfRecords = 10;
+	if (limit != null && limit > 0) {
+	    numberOfRecords = limit;
+	}
 	
+	Pageable pageable = new PageRequest(pageNo, numberOfRecords);
+	List<BaseNode> taggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
+
 	return taggedNodes;
     }
-    
+
 }

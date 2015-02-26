@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,10 +81,10 @@ public class ConversationController {
 	rfResponseRepository.save(conversation.getRfResponse());
 
 	conversation = itemRepository.save(conversation);
-	
+
 	conversation.getRfRequest().setConversationId(conversation.getId());
 	rfRequestRepository.save(conversation.getRfRequest());
-	
+
 	return conversation;
     }
 
@@ -101,11 +102,21 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
-    List<Conversation> findAll() {
+    List<Conversation> findAll(@RequestParam(value = "page", required = false) Integer page,
+	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding all items");
 
-	// Return 10 records for now.
-	Pageable topRecords = new PageRequest(0, 10);
+	int pageNo = 0;
+	if (page != null && page > 0) {
+	    pageNo = page;
+	}
+
+	int numberOfRecords = 10;
+	if (limit != null && limit > 0) {
+	    numberOfRecords = limit;
+	}
+
+	Pageable topRecords = new PageRequest(pageNo, numberOfRecords);
 	Page<Conversation> result = itemRepository.findAll(topRecords);
 
 	List<Conversation> content = result.getContent();

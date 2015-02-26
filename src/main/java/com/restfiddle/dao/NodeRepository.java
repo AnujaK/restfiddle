@@ -17,6 +17,7 @@ package com.restfiddle.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.restfiddle.entity.BaseNode;
@@ -34,9 +35,9 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
     public List<BaseNode> findNodesFromAProject(String projectId);
 
     @Query("{ 'starred' : true }")
-    public List<BaseNode> findStarredNodes();
+    public List<BaseNode> findStarredNodes(Pageable pageable);
 
     @Query("{ 'tags' : ?0 }")
-    public List<BaseNode> findTaggedNodes(String tagId);
+    public List<BaseNode> findTaggedNodes(String tagId, Pageable pageable);
 
 }
