@@ -69,7 +69,7 @@
             </div>
             &nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts</button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts<span class="badge">0</span></button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
@@ -96,8 +96,8 @@
                     More&nbsp;&nbsp;<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Copy Response</a></li>
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">Show Last Response</a></li>
+                    <li class="copyResponseList"><a href="#" class="btn-sm" id = "copyResponse">Copy Response</a></li>
+                    <li><a href="#" class="btn-sm" id="showLastResponse">Show Last Response</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;&nbsp;
@@ -135,44 +135,44 @@
                     </div>
                     <span class="label label-default important-label-opt">Important</span>&nbsp;<span class="label label-default wishlist-label-opt">Wishlist</span>
 
-                <br>
-                <br>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-2 rf-col-xs-2-padding" >
-                            <select class="apiRequestType form-control">
-                                <option>GET</option>
-                                <option>POST</option>
-                                <option>PUT</option>
-                                <option>DELETE</option>
-                                <option>HEAD</option>
-                                <option>OPTIONS</option>
-                                <option>TRACE</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-10 rf-col-xs-10-padding">
-                            <input type="text" class="form-control typeahead" id="apiUrl" placeholder="Enter URL"> <br> <br>
+                    <br>
+                    <br>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-2 rf-col-xs-2-padding" >
+                                <select class="apiRequestType form-control">
+                                    <option>GET</option>
+                                    <option>POST</option>
+                                    <option>PUT</option>
+                                    <option>DELETE</option>
+                                    <option>HEAD</option>
+                                    <option>OPTIONS</option>
+                                    <option>TRACE</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-10 rf-col-xs-10-padding">
+                                <input type="text" class="form-control typeahead" id="apiUrl" placeholder="Enter URL"> <br> <br>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <ul class="nav nav-tabs reponse-pannel-ul">
-                    <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
-                    <li><a href="#tab-form" data-toggle="tab">Form</a></li>
-                    <li><a href="#tab-file" data-toggle="tab">Files</a></li>
-                    <li><a href="#tab-query" data-toggle="tab">Query</a></li>
-                    <li><a href="#tab-header" data-toggle="tab">Header</a></li>
-                    <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Auth <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li role="presentation">
-                                <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
-                            </li>
-                            <li role="presentation">
-                                <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
-                            </li>
+                    <ul class="nav nav-tabs reponse-pannel-ul">
+                        <li class="active"><a href="#tab-body" data-toggle="tab">Raw</a></li>
+                        <li><a href="#tab-form" data-toggle="tab">Form</a></li>
+                        <li><a href="#tab-file" data-toggle="tab">Files</a></li>
+                        <li><a href="#tab-query" data-toggle="tab">Query</a></li>
+                        <li><a href="#tab-header" data-toggle="tab">Header</a></li>
+                        <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Auth <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
+                                </li>
+                                <li role="presentation">
+                                    <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
+                                </li>
                                 <!--
                                 <li role="presentation">
                                     <a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a>

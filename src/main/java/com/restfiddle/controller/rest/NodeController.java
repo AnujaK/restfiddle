@@ -219,12 +219,16 @@ public class NodeController {
 	TreeNode rootNode = null;
 	TreeNode treeNode = null;
 	TreeNode parentTreeNode = null;
+	String methodType = "";
 
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeId = baseNode.getId();
 	    baseNodeMap.put(nodeId, baseNode);
-
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred());
+     
+        if(baseNode.getConversation() != null){
+        	methodType = baseNode.getConversation().getRfRequest().getMethodType();
+        }
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred(),methodType);
 	    treeNodeMap.put(nodeId, treeNode);
 	}
 

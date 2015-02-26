@@ -4,12 +4,13 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+  var ZeroClipboard = require('zeroClipboard');
 	var ConversationModel = require("models/conversation");
     var AssertView = require('views/assert-view');
-    
+  
   require('libs/prettify/prettify');
   require('typeahead');
-
+  var lastResponse;
   var CodeMirror = require('codemirror/lib/codemirror');
   var cmjs = require('codemirror/mode/javascript/javascript');
 
@@ -125,8 +126,62 @@ define(function(require) {
         source: httpHeaders.ttAdapter()
       });
     });
-    
-    $("#clearHeader").unbind("click").bind("click", function() {
+
+    $("#copyResponse").unbind("click").bind("click",function(event){
+     event.stopPropagation();
+   })
+
+    ZeroClipboard.config({
+      moviePath:"http://localhost:8080/js/libs/ZeroClipboard.swf",
+      hoverClass:"btn-clipboard-hover"});
+
+    var clip = new ZeroClipboard($("#copyResponse"));
+    var htmlBridge = $(".copyResponseList");
+
+    clip.on( 'ready', function(event) {
+      console.log( 'movie is loaded' );
+      htmlBridge.data("placement","top").attr("title","Copy to clipboard").tooltip()
+
+      clip.on('copy', function(event) {
+        event.clipboardData.setData('text/plain',$("#response-wrapper").text());
+      } );
+
+      clip.on('aftercopy', function(event) {
+        console.log('Copied text to clipboard: ' + event.data['text/plain']);
+     // show the tooltip
+     var tooltipText = "";
+     if ($("#response-wrapper").text()) {
+       tooltipText = 'Copied!';
+     } else {
+       tooltipText = 'Response is empty!';
+     }
+     htmlBridge.attr("title",tooltipText).tooltip("fixTitle").tooltip("show").attr("title","Copy to clipboard").tooltip("fixTitle");
+   } );
+    } );
+
+    clip.on('error', function(event) {
+      console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
+      htmlBridge.attr("title","Flash required").tooltip("fixTitle").tooltip("show");
+      ZeroClipboard.destroy();
+
+    } );
+
+
+    $("#showLastResponse").unbind("click").bind("click",function(){
+      var response = JSON.parse(localStorage.getItem("lastResponse"));
+      $('#responseData').val(JSON.stringify(response));
+      $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
+      if(response.headers && response.headers.length > 0){
+        $("#res-header-wrapper").html('');
+        for(var i = 0 ; i < response.headers.length; i++){
+         $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
+       }
+       $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
+     }
+     prettyPrint();
+   });
+
+   $("#clearHeader").unbind("click").bind("click", function() {
       $("#headersWrapper").html('');
     });
     
@@ -306,6 +361,7 @@ define(function(require) {
           },
 
           run : function(){
+            localStorage.setItem("lastResponse",lastResponse);
            $.ajax({
             url : APP.config.baseUrl + '/processor',
             type : 'post',
@@ -313,12 +369,15 @@ define(function(require) {
             contentType : "application/json",
             success : function(response) {
              console.log("####" + response);
+              lastResponse = JSON.stringify(response);
+              $('#responseData').val(JSON.stringify(response));
              $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
              if(response.headers && response.headers.length > 0){
               $("#res-header-wrapper").html('');
               for(var i = 0 ; i < response.headers.length; i++){
                $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
              }
+             $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
            }
            prettyPrint();
                     //TODO : Disable toggleRequestSection for now. Codemirror update issue.

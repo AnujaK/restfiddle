@@ -14,57 +14,58 @@ define(function(require) {
 	var tree = {};
 
 	var TreeNodeView = Backbone.View.extend({	
-        template: _.template($('#tpl-tree-node').html()),
-        
-        initialize : function() {
-            this.render();
+		template: _.template($('#tpl-tree-node').html()),
+		
+		initialize : function() {
+			this.render();
 		},
 		
-        render : function() {
-            this.$el.html(this.template());
+		render : function() {
+			this.$el.html(this.template());
 			return this;
 		}
 	});
-    
-    function editNode(node){
-        if (node == null) {
-            alert("Please select a node to edit.");
-            return;
-        }
-        else if(node.data.nodeType == 'PROJECT'){
-            alert("Please use 'Edit Project' menu to edit a project.");
-            return;
-        }
-        $("#editNodeModal").modal("show");
-        
-        $("#editNodeId").val(node.data.id);
-        $("#editNodeTextField").val(node.data.name);
-        $("#editNodeTextArea").val(node.data.description);
-    }
-    
-     function deleteNode(node){
-        $("#deleteNodeId").val(node.data.id);
-        $("#deleteNodeModal").modal("show");
-    }
-    
-    function nodeMenuEventHandler(event){
-        event.stopPropagation();
+	
+	function editNode(node){
+		if (node == null) {
+			alert("Please select a node to edit.");
+			return;
+		}
+		else if(node.data.nodeType == 'PROJECT'){
+			alert("Please use 'Edit Project' menu to edit a project.");
+			return;
+		}
+		$("#editNodeModal").modal("show");
+		
+		$("#editNodeId").val(node.data.id);
+		$("#editNodeTextField").val(node.data.name);
+		$("#editNodeTextArea").val(node.data.description);
+	}
+	
+	function deleteNode(node){
+		$("#deleteNodeId").val(node.data.id);
+		$("#deleteNodeModal").modal("show");
+	}
+	
+	function nodeMenuEventHandler(event){
+		event.stopPropagation();
 
-        var currentElm = $(event.currentTarget);
+		var currentElm = $(event.currentTarget);
 
-        if(currentElm.hasClass('open')){
-            $('.btn-group').removeClass('open');
-            currentElm.removeClass('open');
-        }else{
-            var liElm = $(currentElm.closest('.fancytree-node'));
-            if($(liElm.parent()).hasClass("fancytree-lastsib")){
-                $(liElm.parent().parent()).css("overflow","");
-            }
-            $('.btn-group').removeClass('open');
-            currentElm.addClass('open');
-        }
-    }
-    
+		if(currentElm.hasClass('open')){
+			$('.btn-group').removeClass('open');
+			currentElm.removeClass('open');
+		}else{
+			var liElm = $(currentElm.closest('.fancytree-node'));
+			if($(liElm.parent()).hasClass("fancytree-lastsib")){
+				$(liElm.parent().parent()).css("overflow","");
+				$('ul.fancytree-container').css("overflow","visible");
+			}
+			$('.btn-group').removeClass('open');
+			currentElm.addClass('open');
+		}
+	}
+	
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
 		$("#requestModal").modal("show");
@@ -221,17 +222,17 @@ define(function(require) {
 			return;
 		}
 		$("#editNodeModal").modal("show");
-        
-        $("#editNodeId").val(node.data.id);
+		
+		$("#editNodeId").val(node.data.id);
 		$("#editNodeTextField").val(node.data.name);
 		$("#editNodeTextArea").val(node.data.description);
 
 	});
-   
+	
 	$("#editNodeBtn").unbind("click").bind("click", function(event) {
-        var nodeId = $("#editNodeId").val();
-        var node = treeObj.getNodeByKey(nodeId);
-        
+		var nodeId = $("#editNodeId").val();
+		var node = treeObj.getNodeByKey(nodeId);
+		
 		var nodeModel = new NodeModel({
 			id : node.data.id,
 			name : $("#editNodeTextField").val(),
@@ -241,11 +242,11 @@ define(function(require) {
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
 		node.data.description = nodeModel.attributes.description;
-        
-         var treeNodeView = new TreeNodeView();
+		
+		var treeNodeView = new TreeNodeView();
 		node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
-        node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
-        node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
 				$("#editNodeTextField").val("");
@@ -259,8 +260,8 @@ define(function(require) {
 	});
 
 $("#deleteRequestBtn").bind("click", function() {
-    var nodeId = $("#deleteNodeId").val();
-    var node = treeObj.getNodeByKey(nodeId);
+	var nodeId = $("#deleteNodeId").val();
+	var node = treeObj.getNodeByKey(nodeId);
 	$("#deleteNodeModal").modal("hide");
 
 	if (node == null) {
@@ -417,16 +418,16 @@ dragDrop : function(node, data) {
 						 data.otherNode.moveTo(node, data.hitMode);
 						}
 					},
-                    createNode: function(event, data) {
-                        var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
-                        if(editNodeBtn && editNodeBtn.length > 0){
-                           editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
-                        }
-                        var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
-                        if(deleteNodeBtn && deleteNodeBtn.length > 0){
-                           deleteNodeBtn[0].addEventListener("click", function(){deleteNode(data.node);});
-                        }
-                      },
+					createNode: function(event, data) {
+						var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
+						if(editNodeBtn && editNodeBtn.length > 0){
+							editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
+						}
+						var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
+						if(deleteNodeBtn && deleteNodeBtn.length > 0){
+							deleteNodeBtn[0].addEventListener("click", function(){deleteNode(data.node);});
+						}
+					},
 					click : function(event, data) {
 						if (!data.node.isFolder() && data.node.data.id) {
 							APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
@@ -436,12 +437,12 @@ dragDrop : function(node, data) {
 							node.fetch({
 								success : function(response) {
 									console.log(response.get("conversation"));
-    								if(response.get("starred")){
-    									$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
-    								}
-    								else{
-    									$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
-    								}
+									if(response.get("starred")){
+										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+									}
+									else{
+										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+									}
 									var conversation = new ConversationModel(response.get("conversation"));
 									conversation.set("id", conversation.get("id"));
 									conversation.set("name", response.get("name"));
@@ -472,12 +473,12 @@ function nodeConverter(serverNode, uiNode) {
 	if (serverNode.nodeType == 'PROJECT' || serverNode.nodeType == 'FOLDER' || serverNode.nodeType == 'ENTITY') {
 		uiNode.folder = true;
 		uiNode.id = serverNode.id;
-        uiNode.key = serverNode.id;
+		uiNode.key = serverNode.id;
 		uiNode.name = serverNode.name;
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
-        
-        var treeNodeView = new TreeNodeView();
+		
+		var treeNodeView = new TreeNodeView();
 		if(serverNode.nodeType == 'ENTITY'){
 			uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + treeNodeView.template();
 		}
@@ -492,11 +493,23 @@ function nodeConverter(serverNode, uiNode) {
 	uiNode.children = new Array();
 	for (var i = 0; i < serverNode.children.length; i++) {
 		if (serverNode.children[i].nodeType != 'FOLDER' && serverNode.children[i].nodeType != 'ENTITY') {
-            var treeNodeView = new TreeNodeView();
+			var treeNodeView = new TreeNodeView();
+			var colorCode = "";
+			switch (serverNode.children[i].method){
+				case "GET" : colorCode = "blue";
+				break;
+				case "POST" : colorCode = "green";
+				break;
+				case "DELETE" : colorCode = "red";
+				break;
+				case "PUT" : colorCode = "orange";
+				break;
+			}
+
 			uiNode.children.push({
-				title : serverNode.children[i].name + treeNodeView.template(),
+				title : '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + serverNode.children[i].name + treeNodeView.template(),
 				id : serverNode.children[i].id,
-                key : serverNode.children[i].id,
+				key : serverNode.children[i].id,
 				name : serverNode.children[i].name,
 				description : serverNode.children[i].description,
 				nodeType : serverNode.children[i].nodeType
@@ -558,15 +571,15 @@ function nodeConverter(serverNode, uiNode) {
 	 		success : function(response) {
 	 			tree.appendChild(activeFolder, tree.convertModelToNode(response));
                 //Refresh tree after an entity got created. as service apis will be generated in the back-end.
-              /*  if(entity && entity != null){*/
+                /*  if(entity && entity != null){*/
                 	tree.showTree(tree.projectRefNodeId);
-                /*}*/
-                successCallBack();
-            },
-            error : function(err) {
-            	alert('error while saving folder'+err);
-            }
-        });
+                	/*}*/
+                	successCallBack();
+                },
+                error : function(err) {
+                	alert('error while saving folder'+err);
+                }
+            });
 	 };
 
 	 tree.appendChild = function(parent, child) {
@@ -638,7 +651,7 @@ function nodeConverter(serverNode, uiNode) {
 				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
 			}
 		});
-};
+	};
 
-return tree;
+	return tree;
 });
