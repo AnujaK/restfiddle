@@ -57,10 +57,10 @@ define(function(require) {
 			currentElm.removeClass('open');
 		}else{
 			var liElm = $(currentElm.closest('.fancytree-node'));
-			if($(liElm.parent()).hasClass("fancytree-lastsib")){
-				$(liElm.parent().parent()).css("overflow","");
-				$('ul.fancytree-container').css("overflow","visible");
-			}
+			
+			$(liElm.parent().parent()).css("overflow","");
+			$('ul.fancytree-container').css("overflow","visible");
+			
 			$('.btn-group').removeClass('open');
 			currentElm.addClass('open');
 		}

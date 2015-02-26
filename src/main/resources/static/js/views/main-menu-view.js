@@ -86,6 +86,9 @@ define(function(require) {
 			projectName : "Project name is empty"
 		}
 	});
+	$("#projectCreationForm").submit(function(e) {
+		e.preventDefault();
+	});
 
 	$("#projectModal").on('show.bs.modal',function(e){
 		$("#project-error").text("");
@@ -137,7 +140,12 @@ $('#tagForm').validate({
 	}
 });
 
+$("#tagForm").submit(function(e) {
+	e.preventDefault();
+});
+
 $("#saveTagBtn").unbind("click").bind("click", function() {
+	console.log("reached")
 	if($("#tagForm").valid()){
 		var that = this;
 		APP.tags.fetch({
@@ -301,6 +309,10 @@ $('#workspaceForm').validate({
 	messages : {
 		workspaceName : "Workspace name is empty"
 	}
+});
+
+$("#workspaceForm").submit(function(e) {
+	e.preventDefault();
 });
 
 

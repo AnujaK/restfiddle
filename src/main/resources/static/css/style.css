@@ -216,6 +216,7 @@ ul.fancytree-container {
 
 .rf-col-2 {
 	left: 17%;
+	border-right: 1px solid lightgray; 
 	height: 100%; 
 	position: fixed; 
 	overflow-y: hidden;
@@ -227,9 +228,8 @@ ul.fancytree-container {
 }
 
 .rf-col-3 {
-	border-left: 1px solid lightgray; 
 	left: 50%; 
-	height: auto;  
+	height: 100%; 
 	overflow-y: hidden;
 }
 
