@@ -17,6 +17,7 @@ package com.restfiddle.controller.rest;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -104,7 +105,9 @@ public class ApiController {
 	rfResponseRepository.save(conversationForLogging.getRfResponse());
 
 	conversationForLogging.setDuration(duration);
-
+	
+	conversationForLogging.setCreatedDate(new Date());
+	conversationForLogging.setLastModifiedDate(new Date());
 	try {
 	    conversationForLogging = conversationRepository.save(conversationForLogging);
 

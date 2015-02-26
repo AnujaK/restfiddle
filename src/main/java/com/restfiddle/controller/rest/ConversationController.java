@@ -143,7 +143,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation update(@PathVariable("conversationId") Long conversationId, @RequestBody ConversationDTO updated) {
+    Conversation update(@PathVariable("conversationId") String conversationId, @RequestBody ConversationDTO updated) {
 	logger.debug("Updating item with information: " + updated);
 
 	Conversation item = itemRepository.findOne(updated.getId());
