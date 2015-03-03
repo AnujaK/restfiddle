@@ -64,7 +64,9 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@></a>
+			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@>
+             <span><@=conversation.time@></span>
+        </a>
 	</script>
     <script type="text/template" id="tpl-entity-field">
     <p>

@@ -6,6 +6,7 @@ define(function(require) {
 	var ConversationModel = require("models/conversation");
 	var ConversationEvents = require('events/conversation-event');
 	require('bootpag');
+	require('moment');
 	
 	var HistoryListItemView = Backbone.View.extend({	
 		tagName : 'li',
@@ -14,7 +15,7 @@ define(function(require) {
 		},
 		template : _.template($('#tpl-history-list-item').html()),
 
-		renderConversationEvent : function(){
+		renderConversationEvent : function(event){
 			var conversation = new ConversationModel({
 				id : $(event.currentTarget).data('historyId')
 			});
@@ -39,12 +40,21 @@ define(function(require) {
 
 		renderActivityGroup : function(start, end) {
 			var that = this;
+			var currentDate = moment(new Date());
 			this.$el.html('');
 			var subset = _.filter(this.model, function(num, index){
 				return (index >= start) && (index <= end);
 			});
 			
 			_.each(subset, function (activity) {
+				if(activity.lastModifiedDate){
+                   var requestDiff = currentDate.diff(activity.lastModifiedDate,'days');
+                   if(requestDiff == 0){
+                   	activity.time = currentDate.diff(activity.lastModifiedDate,'hours') + "h ago";
+                   }else{
+                   	activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
+                   }
+				}
 				var activityTemplate = this.template({conversation : activity});
 				$(this.el).append(activityTemplate);
 			}, this); 
