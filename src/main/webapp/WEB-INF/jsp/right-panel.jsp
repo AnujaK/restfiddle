@@ -308,6 +308,7 @@
             <div>
                 <p>
                     <span id="responseToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Response</b>
+                <div class="pull-right">&nbsp;&nbsp;<span>Status : 200 OK</span>&nbsp;&nbsp;<span>Time : 20 ms</span>&nbsp;&nbsp;<span>Size : 20 KB</span></div>
                 </p>
             </div>
 
@@ -315,6 +316,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
                     <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
+                    <li><a href="#res-tab-assert" data-toggle="tab">Asserts <span class="badge">2/6</span></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="res-tab-body">

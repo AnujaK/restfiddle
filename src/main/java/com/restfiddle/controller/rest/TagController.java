@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,7 +124,10 @@ public class TagController {
 	}
 	
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords);
-	List<BaseNode> taggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
+	
+	Page<BaseNode> paginatedTaggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
+	
+	List<BaseNode> taggedNodes = paginatedTaggedNodes.getContent();
 
 	return taggedNodes;
     }

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -276,7 +277,12 @@ public class NodeController {
 
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords);
 
-	List<BaseNode> starredNodes = nodeRepository.findStarredNodes(pageable);
+	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(pageable);
+	
+	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
+	long totalElements = paginatedStarredNodes.getTotalElements();
+	
+	System.out.println("totalElements : "+totalElements);
 	return starredNodes;
     }
 
