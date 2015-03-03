@@ -12,7 +12,8 @@ require.config({
 		text : 'libs/require/text',
 		typeahead : 'libs/typeahead.bundle.min',
 		zeroClipboard : 'libs/zeroClipboard',
-		bootpag : 'libs/bootpag.min'
+		bootpag : 'libs/bootpag.min',
+		moment : 'libs/moment'
 	},
 	shim : {
 		'underscore' : {
