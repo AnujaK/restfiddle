@@ -100,6 +100,20 @@ mongodb.username=
 mongodb.password=
 ```
 
+##### Steps to re-build the database:
+
+```
+1. Stop RESTFiddle server, if running.
+2. Start MongoDB, if not running.
+	Here is the command I use : "C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddle\data
+3. Connect to MongoDB.
+	Here is one of the ways to connect to MongoDB : 
+	Go to "C:\Program Files\MongoDB 2.6 Standard\bin" folder and run "mongo" command.
+	Then run "use restfiddle" command and finally "db.dropDatabase()" command to delete the existing RESTFiddle database.
+	Note : you will see following message on the command prompt : { "dropped" : "restfiddle", "ok" : 1 }
+4. Start RESTFiddle application (mvn spring-boot:run) - This will create and initialize the database.
+```
+
 Deployment
 ==========
 
