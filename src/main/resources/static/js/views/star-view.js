@@ -53,6 +53,19 @@ define(function (require) {
             end = end > this.model.length-1 ? this.model.length-1 : end;
             return this.renderStarredGroup(start, end);
         },
+
+        getColorCode : function(method){
+            switch (method){
+                case "GET" : return "blue";
+                break;
+                case "POST" : return "green";
+                break;
+                case "DELETE" : return "red";
+                break;
+                case "PUT" : return "orange";
+                break;
+            }
+        },
         renderStarredGroup : function(start, end) {
             var that = this;
             this.$el.html('');
@@ -61,6 +74,11 @@ define(function (require) {
             });
 
             _.each(subset, function (starredRequest) {
+                var methodType = starredRequest.conversation.rfRequest.methodType;
+                if(methodType){
+                    starredRequest.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
+                    starredRequest.methodType = methodType;
+                }
                 var starredTemplate = this.template({node : starredRequest});
                 $(this.el).append(starredTemplate);
             }, this); 

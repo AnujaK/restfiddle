@@ -83,6 +83,7 @@ define(function(require) {
 				dataType : 'json',
 				contentType : "application/json",
 				success : function(workspace) {
+					$("#editWorkspaceId").val(workspace.id);
 					$("#editWorkspaceTextField").val(workspace.name);
 					$("#editWorkspaceTextArea").val(workspace.description);
 				}

@@ -38,6 +38,19 @@ define(function(require) {
 			return this.renderActivityGroup(start, end);
 		},
 
+		 getColorCode : function(method){
+            switch (method){
+                case "GET" : return "blue";
+                break;
+                case "POST" : return "green";
+                break;
+                case "DELETE" : return "red";
+                break;
+                case "PUT" : return "orange";
+                break;
+            }
+        },
+
 		renderActivityGroup : function(start, end) {
 			var that = this;
 			var currentDate = moment(new Date());
@@ -55,6 +68,7 @@ define(function(require) {
                    	activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
 				}
+				activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
 				var activityTemplate = this.template({conversation : activity});
 				$(this.el).append(activityTemplate);
 			}, this); 

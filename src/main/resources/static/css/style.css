@@ -397,7 +397,7 @@ ul .dropdown-menu li{
 	display: none;
 }
 
-.project-name:hover .fa-angle-down, .open .fa-angle-down, .tag-name:hover .fa-angle-down,.fancytree-node:hover .fa-angle-down{
+.project-name:hover .fa-angle-down, .open .fa-angle-down, .tag-name:hover .fa-angle-down,.dummyWorkspaceName:hover .fa-angle-down,.fancytree-node:hover .fa-angle-down{
 	display: block;
 }
 
@@ -443,4 +443,17 @@ ul .dropdown-menu li{
 
 .dropdown-menu>li>a{
 	outline: none;
+}
+
+
+#dd-workspace .dropdown-menu{
+	top: inherit !important;
+}
+
+#dd-workspace .dropdown-menu>li{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	font-size: 14px !important;
+	margin-top: 7px;
+	padding-left: 6px;
+}
 }
