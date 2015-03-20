@@ -62,11 +62,29 @@ define(function(require) {
 		tagName : 'li',
 		el : '#dd-workspace-wrapper',
 		template : _.template($('#tpl-workspace-list-item').html()),
+		events : {
+			"click .hover-down-arrow" : "preventParentElmSelection"
+		},
 		render : function(eventName) {
 			$(this.el).html(this.template({
 				workspace : this.model.toJSON()
 			}));
 			return this;
+		},
+		preventParentElmSelection : function(event){
+			event.stopPropagation();
+			
+			var currentElm = $(event.currentTarget);
+
+			if(currentElm.hasClass('open')){
+				$('.btn-group').removeClass('open');
+				currentElm.removeClass('open');
+			}else{
+				$('.btn-group').removeClass('open');
+				currentElm.addClass('open');
+
+			}
+			
 		}
 	});
 	

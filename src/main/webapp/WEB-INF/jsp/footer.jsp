@@ -4,7 +4,18 @@
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
 		<div id="dd-workspace">
-          <h5 class="dummyWorkspaceName"><@=workspace.name@></h5>
+          <h5 class="dummyWorkspaceName"><@=workspace.name@>&nbsp;&nbsp;
+              <div class="btn-group hover-down-arrow">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="edit-project"><i class="fa fa-pencil fa-fw"></i> Edit Workspace</li>
+                    <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Workspace</li>
+                    <li class="divider"></li>
+                    <li class="edit-project"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
+                </ul>
+            </div></h5>
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
@@ -50,10 +61,10 @@
             </div>
 	</script>
 	<script type="text/template" id="tpl-star-list-item">
-		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> >&nbsp;&nbsp;<@=node.name@></a>
+		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> ><span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@></a>
 	</script>
     <script type="text/template" id="tpl-tagged-node-list-item">
-		<a href="#" class="list-group-item" data-node-id=<@=node.id@> data-tag-node-id=<@=node.id@> >&nbsp;&nbsp;<@=node.name@></a>
+		<a href="#" class="list-group-item" data-node-id=<@=node.id@> data-tag-node-id=<@=node.id@> ><span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@></a>
 	</script>
 	<script type="text/template" id="tpl-project-runner-list-item">
         <div class="div-list-item">
@@ -64,7 +75,7 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<span class="label label-primary"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@>
+			<span class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@>
              <span><@=conversation.time@></span>
         </a>
 	</script>

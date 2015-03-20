@@ -356,10 +356,12 @@
 				<h4 class="modal-title" id="editProjectModalLabel">Edit Project</h4>
 			</div>
 			<div class="modal-body">
-				<input type="hidden" id="editProjectId">
-				<input type="text" id="editProjectTextField" class="form-control" placeholder="Enter Project Name"> <br>
-				<textarea id="editProjectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
+				<form id = "projectEditForm">
+					<input type="hidden" id="editProjectId">
+					<input type="text" id="editProjectTextField" class="form-control" placeholder="Enter Project Name" name="projectName" required> <p class="text-danger" id="project-edit-error"></p><br>
+					<textarea id="editProjectTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -376,10 +378,13 @@
 				<h4 class="modal-title" id="editTagModalLabel">Edit Tag</h4>
 			</div>
 			<div class="modal-body">
-				<input type="hidden" id="editTagId">
-				<input type="text" id="editTagTextField" class="form-control" placeholder="Enter Tag Name"> <br>
-				<textarea id="editTagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
+				<form id ="tagEditForm">
+					<input type="hidden" id="editTagId">
+					<input type="text" id="editTagTextField" class="form-control" placeholder="Enter Tag Name" name ="tagName" required> 
+					<p class="text-danger" id="tag-name-edit-error"></p><br>
+					<textarea id="editTagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -396,9 +401,14 @@
 				<h4 class="modal-title" id="editWorkspaceModalLabel">Edit Workspace</h4>
 			</div>
 			<div class="modal-body">
-				<input type="text" id="editWorkspaceTextField" class="form-control" placeholder="Enter Workspace Name"> <br>
-				<textarea id="editWorkspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
+				<form id = "workspaceEditForm">
+					<input type="hidden" id="editWorkspaceId">
+					<input type="text" id="editWorkspaceTextField" class="form-control" placeholder="Enter Workspace Name" name ="workspaceName" required>
+					<p class="text-danger" id="workspace-edit-error"></p>
+					<br>
+					<textarea id="editWorkspaceTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -121,7 +121,7 @@ define(function(require) {
 							}
 						});
 					}else{
-						$("#project-error").text("Project name already exist");
+						$("#project-error").text("Project name already exists");
 					}
 				}
 			})
@@ -145,7 +145,7 @@ $("#tagForm").submit(function(e) {
 });
 
 $("#saveTagBtn").unbind("click").bind("click", function() {
-	console.log("reached")
+
 	if($("#tagForm").valid()){
 		var that = this;
 		APP.tags.fetch({
@@ -170,65 +170,175 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 					});
 				}
 				else{
-					$("#tag-name-error").text("Tag name already exist");
+					$("#tag-name-error").text("Tag name already exists");
 				}
 			}
 		})
 	}
 });	
 
+$("#editProjectModal").on('show.bs.modal',function(e){
+	$("#project-edit-error").text("");
+});
+
+$('#projectEditForm').validate({
+	messages : {
+		projectName : "Project name is empty"
+	}
+});
+$("#projectEditForm").submit(function(e) {
+	e.preventDefault();
+});
+
 $("#editProjectBtn").unbind("click").bind("click", function() {
-	var project = new ProjectModel({
-		id : $("#editProjectId").val(),
-		name : $("#editProjectTextField").val(),
-		description : $("#editProjectTextArea").val()
-	});
-	project.save(null, {
-		success : function(response) {
-			$("#editProjectTextField").val("");
-			$("#editProjectTextArea").val("");
-			location.reload();
-		},
-		error : function(e) {
-			alert('Some unexpected error occured Please try later.');
-		}
-	});
+	if($("#projectEditForm").valid()){
+		APP.workspaces.fetch({
+			success : function(response){
+				var currenctWorkspace = _.findWhere(response.models,{id : APP.appView.getCurrentWorkspaceId()});
+				var projects = currenctWorkspace.get('projects');
+				var projectWithSameName = _.findWhere(projects,{name : $("#editProjectTextField").val()});
+				
+				var saveProject = function(){
+					var project = new ProjectModel({
+						id : $("#editProjectId").val(),
+						name : $("#editProjectTextField").val(),
+						description : $("#editProjectTextArea").val()
+					});
+					project.save(null, {
+						success : function(response) {
+							$("#editProjectTextField").val("");
+							$("#editProjectTextArea").val("");
+							location.reload();
+						},
+						error : function(e) {
+							alert('Some unexpected error occured Please try later.');
+						}
+					});
+				};
+
+				if(!projectWithSameName){
+					saveProject();
+				}else{
+
+					if(projectWithSameName.id == $('#editProjectId').val()){
+						saveProject();
+					}else{
+						$("#project-edit-error").text("Project name already exists");
+					}
+				}
+			}
+		})
+}
+});
+
+$("#editTagModal").on('show.bs.modal',function(e){
+	$("#tag-name-edit-error").text("");
+});
+
+$('#tagEditForm').validate({
+	messages : {
+		tagName : "Tag name is empty"
+	}
+});
+$("#tagEditForm").submit(function(e) {
+	e.preventDefault();
 });
 
 $("#editTagBtn").unbind("click").bind("click", function() {
-	var tag = new TagModel({
-		id : $("#editTagId").val(),
-		name : $("#editTagTextField").val(),
-		description : $("#editTagTextArea").val()
-	});
-	tag.save(null, {
-		success : function(response) {
-			$("#editTagTextField").val("");
-			$("#editTagTextArea").val("");
-			location.reload();
-		},
-		error : function(e) {
-			alert('Some unexpected error occured Please try later.');
-		}
-	});
+
+	if($("#tagEditForm").valid()){
+		var that = this;
+		APP.tags.fetch({
+			success : function(response){
+				that.collection = response;
+				var tagWithSameName = that.collection.findWhere({name : $("#editTagTextField").val()});
+				var saveTag = function(){
+					var tag = new TagModel({
+						id : $("#editTagId").val(),
+						name : $("#editTagTextField").val(),
+						description : $("#editTagTextArea").val()
+					});
+					tag.save(null, {
+						success : function(response) {
+							$("#editTagTextField").val("");
+							$("#editTagTextArea").val("");
+							location.reload();
+						},
+						error : function(e) {
+							alert('Some unexpected error occured Please try later.');
+						}
+					});
+				}
+				if(!tagWithSameName){
+					saveTag();
+				}
+				else{
+					if(tagWithSameName.id == $("#editTagId").val()){
+						saveTag();
+					}else{
+						$("#tag-name-edit-error").text("Tag name already exists");
+					}
+					
+				}
+			}
+		})
+	}
+	
+});
+
+$("#editWorkspaceModal").on('show.bs.modal',function(e){
+	$("#workspace-edit-error").text("");
+});
+
+$('#workspaceEditForm').validate({
+	messages : {
+		workspaceName : "Workspace name is empty"
+	}
+});
+$("#workspaceEditForm").submit(function(e) {
+	e.preventDefault();
 });
 
 $("#editWorkspaceBtn").unbind("click").bind("click", function() {
-	var newWorkspace = new Workspace({
-		id : APP.appView.getCurrentWorkspaceId(),
-		name : $("#editWorkspaceTextField").val(),
-		description : $("#editWorkspaceTextArea").val()
-	});
-	newWorkspace.save(null, {
-		success : function(response) {
-			$("#editWorkspaceTextField").val("");
-			$("#editWorkspaceTextArea").val("");
-			location.reload();
-		},
-		error : function(e) {
-			alert('Some unexpected error occured Please try later.');
-		}
-	});
+	if($("#workspaceEditForm").valid()){
+		var that = this;
+
+		var saveWorkspace = function(){
+			var newWorkspace = new Workspace({
+				id : APP.appView.getCurrentWorkspaceId(),
+				name : $("#editWorkspaceTextField").val(),
+				description : $("#editWorkspaceTextArea").val()
+			});
+			newWorkspace.save(null, {
+				success : function(response) {
+					$("#editWorkspaceTextField").val("");
+					$("#editWorkspaceTextArea").val("");
+					location.reload();
+				},
+				error : function(e) {
+					alert('Some unexpected error occured Please try later.');
+				}
+			});
+		};
+
+		APP.workspaces.fetch({
+			success : function(response){
+				that.collection = response;
+				var modelWithSameName = that.collection.findWhere({name : $("#editWorkspaceTextField").val()});
+				if(!modelWithSameName){
+					saveWorkspace();
+				}else{
+					if(modelWithSameName == $("#editWorkspaceId").val()){
+						saveWorkspace();
+					}else{
+						$("#workspace-edit-error").text("Workspace name already exists");
+					}
+					
+				}
+			}
+		});
+
+	}
 });
 
 $("#createNewCollaboratorBtn").bind("click", function() {
@@ -346,7 +456,7 @@ function saveWorkspace() {
 						}
 					});
 				}else{
-					$("#workspace-error").text("Workspace name already exist");
+					$("#workspace-error").text("Workspace name already exists");
 				}
 			}
 		});
