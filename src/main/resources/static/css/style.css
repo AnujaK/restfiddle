@@ -456,4 +456,46 @@ ul .dropdown-menu li{
 	margin-top: 7px;
 	padding-left: 6px;
 }
+
+.date-time{
+	margin-left: 62px;
+}
+
+.username{
+  background-color: inherit;
+  border: none;
+  color: #999;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.logout-btn{
+  margin-left: 15px;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 5px;
+  outline: none;
+}
+
+.circle{
+  border-radius: 50%;
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  margin-right: 11px;
+}
+
+.success-icon {
+	background-color: green;
+}
+
+.failure-icon {
+	background-color: red;
+}
+
+.env-selectbox{
+  position: absolute;
+  left: 84%;
+  top: 7px;
+  width: 7%;
 }

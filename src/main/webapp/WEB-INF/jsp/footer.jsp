@@ -75,8 +75,8 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<span class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></span>&nbsp;&nbsp;<@=conversation.rfRequest.apiUrlString@>
-             <span><@=conversation.time@></span>
+			<span class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></span><@=conversation.rfRequest.apiUrlString@><br>
+             <span class= "date-time"><@=conversation.time@></span>
         </a>
 	</script>
     <script type="text/template" id="tpl-entity-field">
@@ -239,7 +239,7 @@
     </script>
     </script>
     <script type="text/template" id="tpl-tree-node">
-    &nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li class="edit-node"><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li class="delete-node"><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>
+    &nbsp;&nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li class="edit-node"><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li class="delete-node"><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li class="copy-node"><i class="fa fa-copy fa-fw"></i> Copy Node</li></ul></div>
     </script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>
