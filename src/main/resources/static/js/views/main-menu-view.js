@@ -90,6 +90,12 @@ define(function(require) {
 		e.preventDefault();
 	});
 
+	$('#projectTextField').keyup(function() {
+	    if($('#projectTextField').val() == ''){
+	    	$('#project-error').remove();
+	    };
+    });
+
 	$("#projectModal").on('show.bs.modal',function(e){
 		$("#project-error").text("");
 		$("#projectTextField").val("");
@@ -121,7 +127,7 @@ define(function(require) {
 							}
 						});
 					}else{
-						$("#project-error").text("Project name already exists");
+						$('#projectTextField').after('<label class="text-danger" id="project-error">Project name already exists</label>');
 					}
 				}
 			})
@@ -143,6 +149,13 @@ $('#tagForm').validate({
 $("#tagForm").submit(function(e) {
 	e.preventDefault();
 });
+
+$('#tagTextField').keyup(function() {
+    if($('#tagTextField').val() == ''){
+    	$('#tag-name-error').remove();
+    };
+});
+
 
 $("#saveTagBtn").unbind("click").bind("click", function() {
 
@@ -170,7 +183,7 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 					});
 				}
 				else{
-					$("#tag-name-error").text("Tag name already exists");
+					$('#tagTextField').after('<label class="text-danger" id="tag-name-error">Tag name already exists</label>');
 				}
 			}
 		})
@@ -186,6 +199,13 @@ $('#projectEditForm').validate({
 		projectName : "Project name is empty"
 	}
 });
+
+$('#editProjectTextField').keyup(function() {
+    if($('#editProjectTextField').val() == ''){
+    	$('#project-edit-error').remove();
+    };
+});
+
 $("#projectEditForm").submit(function(e) {
 	e.preventDefault();
 });
@@ -223,7 +243,7 @@ $("#editProjectBtn").unbind("click").bind("click", function() {
 					if(projectWithSameName.id == $('#editProjectId').val()){
 						saveProject();
 					}else{
-						$("#project-edit-error").text("Project name already exists");
+						$('#editProjectTextField').after('<label class="text-danger" id="project-edit-error">Project name already exists</label>');
 					}
 				}
 			}
@@ -240,6 +260,13 @@ $('#tagEditForm').validate({
 		tagName : "Tag name is empty"
 	}
 });
+
+$('#editTagTextField').keyup(function() {
+    if($('#editTagTextField').val() == ''){
+    	$('#tag-name-edit-error').remove();
+    };
+});
+
 $("#tagEditForm").submit(function(e) {
 	e.preventDefault();
 });
@@ -276,7 +303,7 @@ $("#editTagBtn").unbind("click").bind("click", function() {
 					if(tagWithSameName.id == $("#editTagId").val()){
 						saveTag();
 					}else{
-						$("#tag-name-edit-error").text("Tag name already exists");
+						$('#editTagTextField').after('<label class="text-danger" id="tag-name-edit-error">Tag name already exists</label>');
 					}
 					
 				}
@@ -295,6 +322,13 @@ $('#workspaceEditForm').validate({
 		workspaceName : "Workspace name is empty"
 	}
 });
+
+$('#editWorkspaceTextField').keyup(function() {
+	    if($('#editWorkspaceTextField').val() == ''){
+	    	$('#workspace-edit-error').remove();
+	    };
+});
+
 $("#workspaceEditForm").submit(function(e) {
 	e.preventDefault();
 });
@@ -331,7 +365,7 @@ $("#editWorkspaceBtn").unbind("click").bind("click", function() {
 					if(modelWithSameName == $("#editWorkspaceId").val()){
 						saveWorkspace();
 					}else{
-						$("#workspace-edit-error").text("Workspace name already exists");
+						$('#editWorkspaceTextField').after('<label class="text-danger" id="workspace-edit-error">Workspace name already exists</label>');
 					}
 					
 				}
@@ -425,6 +459,11 @@ $("#workspaceForm").submit(function(e) {
 	e.preventDefault();
 });
 
+$('#workspaceTextField').keyup(function() {
+	    if($('#workspaceTextField').val() == ''){
+	    	$('#workspace-error').remove();
+	    };
+});
 
 $("#workspaceModal").on('show.bs.modal',function(e){
 	$("#workspace-error").text("");
@@ -456,7 +495,7 @@ function saveWorkspace() {
 						}
 					});
 				}else{
-					$("#workspace-error").text("Workspace name already exists");
+					$('#workspaceTextField').after('<label class="text-danger" id="workspace-error">Workspace name already exists</label>');
 				}
 			}
 		});

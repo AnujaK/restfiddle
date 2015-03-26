@@ -22,23 +22,39 @@
                     <li><a href="#" data-toggle="modal" data-target="#collaboratorModal">New Collaborator</a></li>
                     <li><a href="#" data-toggle="modal" id="manageUsersMenu" data-target="#manageCollaboratorsModal">Manage Collaborators</a></li>
                     <li class="divider"></li>
-                    <li><a href="#" data-toggle="modal" data-target="#comingSoon">Global Settings</a></li>
+                    <li><a href="#" data-toggle="modal" id = "globalSettings" data-target="#globalSettingsModal">Global Settings</a></li>
                 </ul>
             </div>
             <a class="navbar-brand" href="#">RESTFiddle</a>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
+        <div class="env-selectbox" >
+            <select class="environmentsSelectBox form-control">
+                <option>ENV-1</option>
+                <option>ENV-2</option>
+                <option>ENV-3</option>
+                <option>ENV-4</option>
+                <option value = "manage-env">Manage Environments</option>
+            </select>
+        </div>
+    <div class="btn-group pull-right">
+         <button type="button" class="username dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Rajan RK</span>
+        </button>
+          <ul class="dropdown-menu" role="menu">
+           <li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
+           <li class="divider"></li>
                 <li><a href="https://github.com/ranjan-rk/restfiddle" target="_blank">GitHub</a></li>
+                <li class="divider"></li>
                 <li><a href="http://restfiddle.blogspot.com/" target="_blank">Blog</a></li>
+                <li class="divider"></li>
                 <li><a href="https://github.com/ranjan-rk" target="_blank">Contact</a></li>
+                <li class="divider"></li>
                 <li>
                     <form action="/logout">
-                        <button class="btn btn-link rf-btn-margin" type="submit">Logout</button>
+                        <button class="logout-btn" type="submit">Logout</button>
                     </form>
                 </li>
-            </ul>
-        </div>
+          </ul>
+    </div>
     </div>
 </div>

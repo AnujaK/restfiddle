@@ -5,12 +5,14 @@ define(function(require) {
 	require('jquery');
 	require('fancytree');
 	require('bootstarp');
+	require("libs/jquery.validate");
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var StarEvent = require('events/star-event');
 
 	var NodeModel = require('models/node');
 	var EntityModel = require('models/entity');
+	var treeData;
 	var tree = {};
 
 	var TreeNodeView = Backbone.View.extend({	
@@ -41,6 +43,25 @@ define(function(require) {
 		$("#editNodeTextField").val(node.data.name);
 		$("#editNodeTextArea").val(node.data.description);
 	}
+
+	function copyNode(node){
+		if (node == null) {
+			alert("Please select a node to copy.");
+			return;
+		}
+
+		$("#copyNodeModal").modal("show");
+		
+		$("#copyNodeId").val(node.data.id);
+		$("#copyNodeTextField").text(node.data.name);
+		$("#copyNodeTextArea").text(node.data.description);
+		if(node.data.nodeType){
+			$("#copyNodeType").text(node.data.nodeType);
+		}else{
+		    $("#copyNodeType").text("REQUEST");
+		}
+		
+	}
 	
 	function deleteNode(node){
 		$("#deleteNodeId").val(node.data.id);
@@ -65,6 +86,7 @@ define(function(require) {
 			currentElm.addClass('open');
 		}
 	}
+
 	
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
@@ -88,7 +110,25 @@ define(function(require) {
 		});
 	});	
 
+	$('#newRequestForm').validate({
+		messages : {
+			newRequestName : "Request name is empty"
+		}
+	});
+	
+	$("#newRequestForm").submit(function(e) {
+		e.preventDefault();
+	});
+
+	$("#requestModal").on('show.bs.modal',function(e){
+		$('#newRequestForm .error').text('');
+		$("#requestName").val("");
+		$("#requestTextArea").val("");
+	});
+
+
 	$("#createNewRequestBtn").bind("click", function() {
+	  if($('#newRequestForm').valid()){
 		var conversation = null;
 		if ($("#requestModal").find("#source").val() == 'request') {
 			conversation = new ConversationModel({});
@@ -123,18 +163,36 @@ define(function(require) {
 				$("#requestModal").find("#requestTextArea").val("");
 			}
 		});
+       }
+	});
 
+	$('#newFolderCreationForm').validate({
+		messages : {
+			folderName : "Folder name is empty"
+		}
+	});
+	$("#newFolderCreationForm").submit(function(e) {
+		e.preventDefault();
+	});
+
+	$("#folderModal").on('show.bs.modal',function(e){
+		$('#newFolderCreationForm .error').text('');
+		$("#folderId").val("");
+		$("#folderTextArea").val("");
 	});
 
 	$("#createNewFolderBtn").bind("click", function() {
-		tree.createNewNode({
-			nodeName : $("#folderId").val(),
-			nodeDesc : $("#folderTextArea").val(),
-			conversation : null,
-			successCallBack : function() {
-				$("#folderModal").modal("hide");
-			}
-		});
+	  if($("#newFolderCreationForm").valid()){
+       
+			tree.createNewNode({
+				nodeName : $("#folderId").val(),
+				nodeDesc : $("#folderTextArea").val(),
+				conversation : null,
+				successCallBack : function() {
+					$("#folderModal").modal("hide");
+				}
+			});
+	    }
 	});
 
 	$("#importFileBtn").unbind("click").bind("click", function() {
@@ -159,30 +217,61 @@ define(function(require) {
 		});
 	});
 
+	$('#createNewEntityForm').validate({
+		messages : {
+			entityName : "Entity name is empty"
+		}
+	});
+	$("#createNewEntityForm").submit(function(e) {
+		e.preventDefault();
+	});
+
+	
+	$('#newEntityName').keyup(function() {
+	    if($('#newEntityName').val() == ''){
+	    	$('#new-entity-error').remove();
+	    };
+    });
+
+	$("#entityModal").on('show.bs.modal',function(e){
+		$("#new-entity-error").text("");
+		$('#createNewEntityForm .error').text('');
+		$("#newEntityName").val("");
+		$("#newEntityDescription").val("");
+	});
+
 	$("#createNewEntityBtn").unbind("click").bind("click", function() {
-		var entityName = $("#newEntityName").val();
-		var entityDescription = $("#newEntityDescription").val();
+	  if($('#createNewEntityForm').valid()){
+	  	var activeFolder = tree.getActiveFolder();
+	 
+	    if(activeFolder.data.nodeType != 'ENTITY'){
+			var entityName = $("#newEntityName").val();
+			var entityDescription = $("#newEntityDescription").val();
 
-		var entityFields = getEntityFields();
+			var entityFields = getEntityFields();
 
-		var entity = new EntityModel({
-			id : null,
-			name : entityName,
-			description : entityDescription,
-			fields : entityFields
+			var entity = new EntityModel({
+				id : null,
+				name : entityName,
+				description : entityDescription,
+				fields : entityFields
 
-		});
+			});
 
-		tree.createNewNode({
-			nodeName : entityName,
-			nodeDesc : entityDescription,
-			conversation : null,
-			entity : entity,
-			successCallBack : function() {
-				$("#entityFieldsWrapper").html('');
-				$("#entityModal").modal("hide");
-			}
-		});
+			tree.createNewNode({
+				nodeName : entityName,
+				nodeDesc : entityDescription,
+				conversation : null,
+				entity : entity,
+				successCallBack : function() {
+					$("#entityFieldsWrapper").html('');
+					$("#entityModal").modal("hide");
+				}
+			});
+        }else{
+        	$('#newEntityName').after('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
+     	}
+	  }
 	});
 
 	var getEntityFields = function(){
@@ -228,6 +317,23 @@ define(function(require) {
 		$("#editNodeTextArea").val(node.data.description);
 
 	});
+
+	$('#editNodeForm').validate({
+		messages : {
+			newRequestName : "Enitity name is empty"
+		}
+	});
+	$("#editNodeForm").submit(function(e) {
+		e.preventDefault();
+	});
+
+	$("#editNodeModal").on('show.bs.modal',function(e){
+		$('#editNodeForm .error').text('');
+	});
+
+	$("#copyNodeBtn").unbind("click").bind("click",function(event){
+		$("#copyNodeModal").modal("hide");
+	})
 	
 	$("#editNodeBtn").unbind("click").bind("click", function(event) {
 		var nodeId = $("#editNodeId").val();
@@ -246,9 +352,35 @@ define(function(require) {
 		var treeNodeView = new TreeNodeView();
 		node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
+				if($("#apiReqNodeId").text() == response.get('id')){
+					var node = new NodeModel({
+								id : response.get('id')
+							});
+							node.fetch({
+								success : function(response) {
+									console.log(response.get("conversation"));
+									if(response.get("starred")){
+										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+									}
+									else{
+										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+									}
+									var conversation = new ConversationModel(response.get("conversation"));
+									$("#apiReqNodeId").html(response.get('id'));
+									conversation.set("id", conversation.get("id"));
+									conversation.set("name", response.get("name"));
+									conversation.set("description",response.get("description"));
+								APP.conversation.render(conversation);
+								ConversationEvents.triggerChange(response
+									.get("conversation") ? response
+									.get("conversation").id : null);
+							}
+						});
+				}
 				$("#editNodeTextField").val("");
 				$("#editNodeTextArea").val("");
 				$("#editNodeModal").modal("hide");
@@ -420,8 +552,10 @@ dragDrop : function(node, data) {
 					},
 					createNode: function(event, data) {
 						var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
+						var copyNodeBtn = data.node.li.getElementsByClassName("copy-node");
 						if(editNodeBtn && editNodeBtn.length > 0){
 							editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
+							copyNodeBtn[0].addEventListener("click", function(){copyNode(data.node);});
 						}
 						var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 						if(deleteNodeBtn && deleteNodeBtn.length > 0){
@@ -444,6 +578,7 @@ dragDrop : function(node, data) {
 										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
 									}
 									var conversation = new ConversationModel(response.get("conversation"));
+									$("#apiReqNodeId").html(data.node.data.id);
 									conversation.set("id", conversation.get("id"));
 									conversation.set("name", response.get("name"));
 									conversation.set("description",response.get("description"));
@@ -592,6 +727,36 @@ function nodeConverter(serverNode, uiNode) {
             });
 	 };
 
+	tree.updateTreeNode = function(){
+
+    var nodeId = $("#apiReqNodeId").text();
+    var node = treeObj.getNodeByKey(nodeId);
+    
+    var nodeModel = new NodeModel({
+      id : node.data.id,
+      name : $('#apiRequestNameTextBox').val()
+    });
+
+    node.data.id = nodeModel.attributes.id;
+    node.data.name = nodeModel.attributes.name;
+    
+    var treeNodeView = new TreeNodeView();
+    node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+    nodeModel.save(null, {
+      success : function(response) {
+       $('#apiRequestNameTextBox').hide();
+       $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
+       $('#apiRequestName').show();
+      },
+      error : function(e) {
+        alert('Some unexpected error occured Please try later.');
+      }
+    });
+	};
+
 	 tree.appendChild = function(parent, child) {
 	 	var childNode = parent.addChildren(child);
 	 	childNode.setActive(true);
@@ -645,6 +810,7 @@ function nodeConverter(serverNode, uiNode) {
 			contentType : "application/json",
 			success : function(serviceSideTreeData) {
 				console.log("server side tree data : ");
+				treeData = serviceSideTreeData;
 				console.log(serviceSideTreeData);
 				var uiTree = [];
 				var uiSideTreeData = {};

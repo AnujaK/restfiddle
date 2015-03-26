@@ -7,6 +7,8 @@ define(function(require) {
   var ZeroClipboard = require('zeroClipboard');
   var ConversationModel = require("models/conversation");
   var AssertView = require('views/assert-view');
+  var TreeView = require('views/tree-view');
+  var ManageEnvironmentView = require('views/environment-view');
   
   require('libs/prettify/prettify');
   require('typeahead');
@@ -81,7 +83,23 @@ define(function(require) {
 
     $('.reponse-pannel-ul li').filter(':lt(3)').hide();
     tabSelection(3,"tab-query");
+    
+    var lastSel = $(".environmentsSelectBox option:selected");
 
+    $('.environmentsSelectBox').unbind("change").bind("change", function(event){
+      var selctedEnv = $('.environmentsSelectBox').val();
+        if(selctedEnv === 'manage-env'){
+          lastSel.attr("selected", true);
+          var manageEnvironmentView = new ManageEnvironmentView();
+          $("#manageEnvironmentWrapper").html("");
+          $("#manageEnvironmentWrapper").append(manageEnvironmentView.render().el); 
+          $('#manageEnvironmentsModal').modal('show');
+        }
+    });
+
+    $(".environmentsSelectBox").click(function(){
+      lastSel = $(".environmentsSelectBox option:selected");
+}   );
 
     $(".apiRequestType").unbind("change").bind("change", function() {
       var selectedVal = $(".apiRequestType").val();
@@ -324,6 +342,8 @@ define(function(require) {
       }
     });
 
+    var treeObj = $("#tree").fancytree("getTree");
+
     var ConversationView = Backbone.View.extend({
       el : '#conversationSection',
       events : {
@@ -393,7 +413,7 @@ define(function(require) {
 },
 getProcessRequest : function(){
   var item = {
-   apiUrl : this.$el.find("#apiUrl").val(),
+   apiUrl : encodeURI(this.$el.find("#apiUrl").val()),
    methodType : this.$el.find(".apiRequestType").val(),
    apiBody : this.apiBodyCodeMirror.getValue(),
    headers : this.getHeaderParams(),
@@ -413,10 +433,7 @@ convertToTextBox : function(){
 },
 
 converToLabel : function(){
-
- $('#apiRequestNameTextBox').hide();
- $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
- $('#apiRequestName').show();
+   TreeView.updateTreeNode();
 },
 
 getBasicAuthDTO : function(){
@@ -527,7 +544,7 @@ render : function(conversation) {
 
  var request = conversation.get('rfRequest');
  var response = conversation.get('rfResponse');
-
+ 
  this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
  this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
 

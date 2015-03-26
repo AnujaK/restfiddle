@@ -31,7 +31,7 @@
             <li class="list-view-menu-item starred"><a href="#"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Starred</a></li>
             <li class="list-view-menu-item history"><a href="#"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Activity Log
             </a></li>
-            <li><a href="#" data-toggle="modal" data-target="#comingSoon"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
+            <li><a href="#" data-toggle="modal" data-target="#globalSettingsModal"> <span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Settings
             </a></li>
         </ul>
         <br>

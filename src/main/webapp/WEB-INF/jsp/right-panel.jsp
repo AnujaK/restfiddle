@@ -117,6 +117,7 @@
             <div>
                 <div>
                     <p class="apiRequestContainer">
+                        <input type = "hidden" id = "apiReqNodeId">
                         <span id="requestToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<input id="apiRequestNameTextBox"></input><span id="apiRequestName"></span>
                     </p>
                 </div>
@@ -331,6 +332,15 @@
                     <div class="tab-pane" id="res-tab-header">
                         <div><br>
                             <table id="res-header-wrapper" class="table">
+                            </table>
+                        </div>
+                        <br><br>
+                    </div>
+                     <div class="tab-pane" id="res-tab-assert">
+                        <div><br>
+                            <table id="res-assert-wrapper" class="table">
+                              <p><div class= "success-icon circle"></div>2 Success</p>
+                              <p><div class="failure-icon circle"></div>4 Failures</p>
                             </table>
                         </div>
                         <br><br>

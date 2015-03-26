@@ -25,7 +25,10 @@
 					<h4 class="modal-title">New Entity</h4>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name"> <br>
+					<form id = "createNewEntityForm">
+					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name" name = "entityName" required>
+                    <p class="text-danger" id="new-entity-error"></p>
+					 <br>
 					<textarea id="newEntityDescription" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
 					<p>
@@ -33,6 +36,7 @@
 					</p>
 					<div id="entityFieldsWrapper">
 					</div>
+				    </form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -48,9 +52,12 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">New Folder</h4>
 				</div>
+
 				<div class="modal-body">
-					<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name"> <br>
-					<textarea id="folderTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<form id= "newFolderCreationForm">
+						<input type="text" id="folderId" class="form-control" placeholder="Enter Folder Name" name = "folderName" required><br>
+						<textarea id="folderTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -69,8 +76,10 @@
 				<input type="hidden" class="form-control" id="source">
 				<div class="modal-body">
 					<div class="form-group">
-						<input class="form-control" id="requestName" placeholder="Enter Request Name"> <br>
+						<form id = "newRequestForm">
+						<input class="form-control" id="requestName" placeholder="Enter Request Name" name = "newRequestName" required><br>
 						<textarea id="requestTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					    </form>
 					</div>
 					<!-- 
 					 <div class="form-group">
@@ -316,7 +325,7 @@
 			</div>
 			<div class="modal-body">
 				<form id = "tagForm">
-					<input type="text" id="tagTextField" class="form-control" name = "tagName" placeholder="Enter Tag Name" required><p class="text-danger" id="tag-name-error"></p> <br>
+					<input type="text" id="tagTextField" class="form-control" name = "tagName" placeholder="Enter Tag Name" required> <br>
 					<textarea id="tagTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
 					<br>
 				</form>
@@ -336,14 +345,63 @@
 				<h4 class="modal-title" id="editNodeModalLabel">Edit Node</h4>
 			</div>
 			<div class="modal-body">
-				<input type="hidden" id="editNodeId">
-				<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name"> <br>
-				<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
-				<br>
+				<form id = "editNodeForm">
+					<input type="hidden" id="editNodeId">
+					<input type="text" id="editNodeTextField" class="form-control" placeholder="Enter Node Name" name = "editNodeName" required> <br>
+					<textarea id="editNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+			    </form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button id="editNodeBtn" type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>	
+
+<div class="modal fade" id="copyNodeModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="copyNodeModalLabel">Copy Node</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+				  <input type="hidden" id="copyNodeId">
+				  <div class="form-group">
+				    <label class="col-sm-3 control-label">Node Type</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static" id= "copyNodeType"></p>
+				    </div>
+				    <div class="col-sm-1">
+				      <input id = "nodeTypeCheckbox" type = "checkbox" checked>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-3 control-label">Node Title</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static" id="copyNodeTextField"></p>
+				    </div>
+				    <div class="col-sm-1">
+				      <input id = "nodeTitleCheckbox" type = "checkbox" checked>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-3 control-label">Node Description</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static" id="copyNodeTextArea"></p>
+				    </div>
+				    <div class="col-sm-1">
+				      <input id = "nodeDescCheckbox" type = "checkbox" checked>
+				    </div>
+				  </div>
+                </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="copyNodeBtn" type="button" class="btn btn-primary">Copy</button>
 			</div>
 		</div>
 	</div>
@@ -498,6 +556,25 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 				<button type="button" class="btn btn-primary" id="deleteTagBtn">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="globalSettingsModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Global Settings</h4>
+			</div>
+			<div class="modal-body">
+			<input type="text" class="form-control" placeholder="Request Timeout" name ="requestTimeout"><br>
+			<input type="text" class="form-control" placeholder="Expression Language" name ="expressionLanguage">
+			<br>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="" type="button" class="btn btn-primary">Save changes</button>
 			</div>
 		</div>
 	</div>
