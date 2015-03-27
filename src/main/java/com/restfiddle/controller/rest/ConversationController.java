@@ -28,6 +28,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +44,7 @@ import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dao.RfResponseRepository;
 import com.restfiddle.dao.util.ConversationConverter;
 import com.restfiddle.dto.ConversationDTO;
+import com.restfiddle.dto.PaginatedResponse;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
@@ -102,7 +105,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
-    List<Conversation> findAll(@RequestParam(value = "page", required = false) Integer page,
+    PaginatedResponse<Conversation> findAll(@RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding all items");
 
@@ -116,11 +119,19 @@ public class ConversationController {
 	    numberOfRecords = limit;
 	}
 
-	Pageable topRecords = new PageRequest(pageNo, numberOfRecords);
+	Sort sort = new Sort(Direction.DESC , "lastModifiedDate");
+	Pageable topRecords = new PageRequest(pageNo, numberOfRecords, sort);
 	Page<Conversation> result = itemRepository.findAll(topRecords);
 
 	List<Conversation> content = result.getContent();
 
+	PaginatedResponse<Conversation> response = new PaginatedResponse<Conversation>();
+	response.setData(content);
+	response.setLimit(numberOfRecords);
+	response.setPage(pageNo);
+	response.setTotalElements(result.getTotalElements());
+	response.setTotalPages(result.getTotalPages());
+	
 	for (Conversation item : content) {
 	    RfRequest rfRequest = item.getRfRequest();
 	    logger.debug(rfRequest.getApiUrlString());
@@ -130,7 +141,7 @@ public class ConversationController {
 	    // System.out.println(strBody);
 	    // }
 	}
-	return content;
+	return response;
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.GET)

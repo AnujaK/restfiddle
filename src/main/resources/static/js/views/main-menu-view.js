@@ -71,7 +71,10 @@ define(function(require) {
 			dataType : 'json',
 			contentType : "application/json",
 			success : function(response) {
-				APP.historyView.render(response);
+                if(response != undefined){
+                    //var conversations = response.data;
+				    APP.historyView.render(response);
+                }
 			}
 		});
 		
