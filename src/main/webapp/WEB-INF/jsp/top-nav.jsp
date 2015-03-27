@@ -38,16 +38,16 @@
         </div>
     <div class="btn-group pull-right">
          <button type="button" class="username dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Rajan RK</span>
+            Me<span class="caret"></span>
         </button>
           <ul class="dropdown-menu" role="menu">
            <li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
            <li class="divider"></li>
-                <li><a href="https://github.com/ranjan-rk/restfiddle" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/AnujaK/restfiddle" target="_blank">GitHub</a></li>
                 <li class="divider"></li>
                 <li><a href="http://restfiddle.blogspot.com/" target="_blank">Blog</a></li>
                 <li class="divider"></li>
-                <li><a href="https://github.com/ranjan-rk" target="_blank">Contact</a></li>
+                <li><a href="https://github.com/AnujaK/restfiddle" target="_blank">Contact</a></li>
                 <li class="divider"></li>
                 <li>
                     <form action="/logout">
