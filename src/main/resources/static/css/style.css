@@ -400,7 +400,11 @@ ul .dropdown-menu li{
 .project-name:hover .fa-angle-down, .open .fa-angle-down, .tag-name:hover .fa-angle-down,.dummyWorkspaceName:hover .fa-angle-down,.fancytree-node:hover .fa-angle-down{
 	display: block;
 }
-
+.dummyWorkspaceName{
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .edit-pencil{
 	padding-left: 6px;
 }
@@ -453,7 +457,7 @@ ul .dropdown-menu li{
 #dd-workspace .dropdown-menu>li{
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 	font-size: 14px !important;
-	margin-top: 7px;
+	/*margin-top: 7px;*/
 	padding-left: 6px;
 }
 

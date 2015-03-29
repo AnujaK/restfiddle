@@ -4,7 +4,7 @@
 	<!-- Templates -->
 	<script type="text/template" id="tpl-workspace-list-item">
 		<div id="dd-workspace">
-          <h5 class="dummyWorkspaceName"><@=workspace.name@>&nbsp;&nbsp;
+          <div class="dummyWorkspaceName"><@=workspace.name@>&nbsp;&nbsp;
               <div class="btn-group hover-down-arrow">
                 <button type="button" class="dropdown-toggle" data-toggle="dropdown">
                     <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
