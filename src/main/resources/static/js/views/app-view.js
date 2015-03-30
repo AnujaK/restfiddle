@@ -9,6 +9,7 @@ define(function(require) {
 	var MenuView = require("views/main-menu-view");
 	var UserView = require('views/user-view');
 	var TagView = require('views/tag-view');
+	var TagsView = require('views/tags-view');
 	var WorkspaceView = require('views/workspace-view');
 	var StarView = require('views/star-view');
 	var ConversationView = require('views/conversation-view');
@@ -52,6 +53,7 @@ define(function(require) {
 			});
 			
 			APP.conversation = new ConversationView();
+			APP.tagsLabel = new TagsView();
             APP.projectRunner = new ProjectRunnerView();
             APP.socketConnector = new SocketConnectorView();
             

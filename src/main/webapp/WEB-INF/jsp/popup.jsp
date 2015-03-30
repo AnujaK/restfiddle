@@ -368,34 +368,23 @@
 				<h4 class="modal-title" id="copyNodeModalLabel">Copy Node</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
-				  <input type="hidden" id="copyNodeId">
-				  <div class="form-group">
-				    <label class="col-sm-3 control-label">Node Type</label>
-				    <div class="col-sm-4">
-				      <p class="form-control-static" id= "copyNodeType"></p>
-				    </div>
-				    <div class="col-sm-1">
-				      <input id = "nodeTypeCheckbox" type = "checkbox" checked>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-3 control-label">Node Title</label>
-				    <div class="col-sm-4">
-				      <p class="form-control-static" id="copyNodeTextField"></p>
-				    </div>
-				    <div class="col-sm-1">
-				      <input id = "nodeTitleCheckbox" type = "checkbox" checked>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-3 control-label">Node Description</label>
-				    <div class="col-sm-4">
-				      <p class="form-control-static" id="copyNodeTextArea"></p>
-				    </div>
-				    <div class="col-sm-1">
-				      <input id = "nodeDescCheckbox" type = "checkbox" checked>
-				    </div>
+				<form>
+				    <input type="hidden" id="copyNodeId">
+				    <input type="hidden" id="copyNodeType">
+					<input type="text" id="copyNodeTextField" class="form-control" placeholder="Enter Node Name" name = "copyNodeName" required> <br>
+					<textarea id="copyNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+				  <div class = "row">
+                    <div class = "col-lg-2">
+                    	Include
+                    </div>
+                    <div class = "col-lg-6">
+                    	<input type = "checkbox" checked id = "nodeUrl"><label for = "nodeUrl">&nbsp;&nbsp;URL</label><br>
+                    	<input type = "checkbox" checked id = "nodeMethodType"><label for = "nodeMethodType">&nbsp;&nbsp;Method Type</label><br>
+                    	<input type = "checkbox" checked id = "nodeBody"><label for = "nodeBody">&nbsp;&nbsp;Body</label><br>
+                    	<input type = "checkbox" checked id = "nodeHeaders"><label for = "nodeHeaders">&nbsp;&nbsp;Headers</label><br>
+                    	<input type = "checkbox" checked id = "nodeAuth"><label for = "nodeAuth">&nbsp;&nbsp;Auth</label><br>
+                    </div>
 				  </div>
                 </form>
 			</div>

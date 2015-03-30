@@ -15,6 +15,7 @@ define(function(require) {
 	var ProjectView = require('views/project-view');
 	var UserView = require('views/user-view');
 	var TagView = require('views/tag-view');
+	var TagsView = require('views/tags-view');
 	
 	//Initialize all tooltips.
 	$('[data-toggle="tooltip"]').tooltip();
@@ -103,6 +104,9 @@ define(function(require) {
 			
 			var tagView = new TagView();
 			tagView.showTags();
+
+			var tagsView = new TagsView();
+			tagsView.showTags();
 			
 			APP.workspaces.fetch({success : function(response){
 				console.log('fetched wokrspace');

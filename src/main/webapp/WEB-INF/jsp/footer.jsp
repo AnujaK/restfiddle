@@ -60,6 +60,9 @@
                 </ul>
             </div>
 	</script>
+    <script type="text/template" id="tpl-tags-list-item">
+        <input type = "checkbox" id = <@=tag.name@>>&nbsp;<@=tag.name@>&nbsp;&nbsp;
+    </script>
 	<script type="text/template" id="tpl-star-list-item">
 		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> ><span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@></a>
 	</script>

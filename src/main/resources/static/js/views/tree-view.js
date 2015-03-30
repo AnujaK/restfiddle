@@ -44,22 +44,26 @@ define(function(require) {
 		$("#editNodeTextArea").val(node.data.description);
 	}
 
+	$("#copyNodeModal").on('show.bs.modal',function(e){
+		$('#nodeUrl').attr('checked','checked');
+		$('#nodeMethodType').attr('checked','checked');
+		$('#nodeBody').attr('checked','checked');
+		$('#nodeHeaders').attr('checked','checked');
+		$('#nodeAuth').attr('checked','checked');
+
+	});
+
 	function copyNode(node){
 		if (node == null) {
 			alert("Please select a node to copy.");
 			return;
 		}
-
-		$("#copyNodeModal").modal("show");
 		
 		$("#copyNodeId").val(node.data.id);
-		$("#copyNodeTextField").text(node.data.name);
-		$("#copyNodeTextArea").text(node.data.description);
-		if(node.data.nodeType){
-			$("#copyNodeType").text(node.data.nodeType);
-		}else{
-		    $("#copyNodeType").text("REQUEST");
-		}
+		$("#copyNodeTextField").val("Copy of " + node.data.name);
+		$("#copyNodeType").val(node.data.nodeType);
+		$("#copyNodeTextArea").val(node.data.description);
+		$("#copyNodeModal").modal("show");
 		
 	}
 	
@@ -332,7 +336,44 @@ define(function(require) {
 	});
 
 	$("#copyNodeBtn").unbind("click").bind("click",function(event){
-		$("#copyNodeModal").modal("hide");
+		if(!$("#copyNodeType").val()){
+			var nodeId = $("#copyNodeId").val();
+		var node = treeObj.getNodeByKey(nodeId);
+		var node = new NodeModel({
+			id : node.data.id
+		});
+		node.fetch({
+		    success : function(response) {
+				var conversation = new ConversationModel(response.get("conversation"));
+				var rfRequestObj = conversation.get('rfRequest');
+				
+				var rfRequest = {
+				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
+				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
+				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : ''
+			    };
+			    var rfResponse = {};
+			    conversation = new ConversationModel({
+					id : null,
+					rfRequestDTO : rfRequest,
+					rfResponseDTO : rfResponse
+			    });
+
+                tree.createNewNode({
+					nodeName : $("#copyNodeTextField").val(),
+					nodeDesc : $("#copyNodeTextArea").val(),
+					conversation : conversation,
+					successCallBack : function() {
+						$("#copyNodeModal").modal("hide");
+						$("#copyNodeModal").find("#copyNodeTextField").val("");
+						$("#requestModal").find("#copyNodeTextArea").val("");
+					}
+				});
+		    }
+		});
+		
+		}
+		
 	})
 	
 	$("#editNodeBtn").unbind("click").bind("click", function(event) {
@@ -585,6 +626,7 @@ dragDrop : function(node, data) {
 								// var conversationView = new
 								// app.ConversationView({model : conversation});
 								APP.conversation.render(conversation);
+								APP.tagsLabel.display(response.get('tags'));
 								ConversationEvents.triggerChange(response
 									.get("conversation") ? response
 									.get("conversation").id : null);
