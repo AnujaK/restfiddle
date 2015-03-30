@@ -12,7 +12,7 @@
         <ul class="dropdown-menu pull-right">
             <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#folderModal">New Folder</a></li>
             <li class="divider"></li>
-            <li><a class="rf-font-12 socket-connector">New Socket</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" data-target="#socketModal">New Socket</a></li>
             <li class="divider"></li>
             <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#entityModal">New Entity</a></li>
         </ul>
