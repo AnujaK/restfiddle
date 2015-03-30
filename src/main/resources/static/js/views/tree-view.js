@@ -112,6 +112,53 @@ define(function(require) {
 		$("#tree").fancytree("getRootNode").visit(function(node){
 			node.setExpanded(false);
 		});
+	});
+
+
+	$('#newSocketForm').validate({
+		messages : {
+			socketName : "Socket name is empty"
+		}
+	});
+	
+	$("#newSocketForm").submit(function(e) {
+		e.preventDefault();
+	});
+
+	$("#socketModal").on('show.bs.modal',function(e){
+		$('#newSocketForm .error').text('');
+		$("#socketName").val("");
+		$("#socketTextArea").val("");
+	});
+
+	$("#createNewSocketBtn").bind("click", function() {
+	  if($('#newSocketForm').valid()){
+		var conversation = null;
+
+	    var rfRequest = {
+			apiUrl : $("#apiUrl").val(),
+			apiBody : APP.conversation.apiBodyCodeMirror.getValue(),
+			methodType : $(".apiRequestType").val()
+		};
+			
+		var rfResponse = {};
+		conversation = new ConversationModel({
+			id : null,
+			rfRequestDTO : rfRequest,
+			rfResponseDTO : rfResponse
+		});
+
+		tree.createNewNode({
+			nodeName : $("#socketName").val(),
+			nodeDesc : $("#socketTextArea").val(),
+			conversation : conversation,
+			successCallBack : function() {
+				$("#socketModal").modal("hide");
+				$("#socketModal").find("#socketName").val("");
+				$("#socketModal").find("#socketTextArea").val("");
+			}
+		});
+       }
 	});	
 
 	$('#newRequestForm').validate({

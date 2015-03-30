@@ -7,7 +7,7 @@ define(function(require) {
 	var APP = require('commons/ns');
     var TagEvents = {};
     TagEvents.FETCH = 'tag:fetch';
-    TagEvents.SAVE = 'star:save';
+    TagEvents.SAVE = 'tag:save';
     
 //   $("#managerTagsMenu").bind('click', function(){
 //		TagEvents.triggerFetch();

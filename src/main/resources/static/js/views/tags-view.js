@@ -43,24 +43,27 @@ define(function(require) {
            if (APP.appView.getCurrentRequestNodeId() != null) {
                 console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
 	            var tags = [];
-                APP.tags.fetch({
+	            APP.tags.fetch({
 			    success : function(response){
 					response.each(function(tag) {
 						if($("#" + tag.get('name')).attr("checked") == 'checked'){
-							tags.push(tag);
+							tags.push({"id" : tag.get("id")});
 						}
 					});
+				$.ajax({
+					url : APP.config.baseUrl + '/nodes/' + APP.appView.getCurrentRequestNodeId() + '/tags',
+					type : 'post',
+					dataType : 'json',
+                    contentType : "application/json",
+					data : JSON.stringify(tags),
+					success : function(response) {
+						console.log("Import file response : "+response);
+					}
+				});
 			       }
-			    });			
-	            var node = new NodeModel({
-	                id : APP.appView.getCurrentRequestNodeId(),
-	                tags : tags
-	            });
-	            node.save({
-	                success : function(response) {
-	                	console.log(response);
-	                }
-        		});
+			    });	
+	         
+                		
             }
     	},
 		showTags : function(event){
@@ -72,7 +75,8 @@ define(function(require) {
 							model : tag
 						});
 						$(".label-dropdown-menu").append(tagsListView.render().el);
-						$("#tagLabels").append('<span class="label label-default" id ="'+ tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;')
+						$("#tagLabels").append('<span class="label label-default" id ="'+ tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
+						$("#" + tag.get('name')+ "Label").hide();
 					});
 
 			    }

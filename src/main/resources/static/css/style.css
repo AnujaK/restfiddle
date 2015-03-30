@@ -237,7 +237,7 @@ ul.fancytree-container {
 	overflow-y: auto;
 }
 
-#apiRequestName, #socketName {
+#apiRequestName{
 	font-weight:bold;
 }
 
