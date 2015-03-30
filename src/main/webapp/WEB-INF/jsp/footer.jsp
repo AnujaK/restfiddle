@@ -15,7 +15,7 @@
                     <li class="divider"></li>
                     <li class="edit-project"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
                 </ul>
-            </div></h5>
+            </div></div>
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
