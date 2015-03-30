@@ -503,3 +503,6 @@ ul .dropdown-menu li{
   top: 7px;
   width: 7%;
 }
+#tagLabels{
+	display: inline;
+}

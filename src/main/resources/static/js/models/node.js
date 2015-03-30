@@ -16,8 +16,9 @@ define(function(require) {
 			description : '',
 			parentId : '',
 			projectId: '',
-			nodeType : '',
+			nodeType : '',	
 			conversationDTO : ConversationModel,
+			tags : '',
             genericEntityDTO : EntityModel
 		},
 		sync : function(method, model, options){

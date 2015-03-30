@@ -124,17 +124,15 @@
                 <div id="requestContainer">
                     <p id="apiRequestDescription"></p>
                     <div class="btn-group label-btn-group">
+                        <input type = "hidden" id= "tagReqId">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-tags"></span> &nbsp;Tags&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu label-dropdown-menu">
                             <li>Select Tags</li>
-                            <li><input type="checkbox"  value="important" name ="importLabel" id="important-label-opt" checked><label for = "important-label-opt">Important</label></li>
-
-                            <li><input type ="checkbox" value = "wishlist"  name ="wishlistLabel" id="wishlist-label-opt" checked><label for="wishlist-label-opt">Wishlist</label></li>
                         </ul>
                     </div>
-                    <span class="label label-default important-label-opt">Important</span>&nbsp;<span class="label label-default wishlist-label-opt">Wishlist</span>
+                    <div id = "tagLabels"></div>
 
                     <br>
                     <br>
