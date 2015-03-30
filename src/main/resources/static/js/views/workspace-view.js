@@ -51,8 +51,12 @@ define(function(require) {
 			var projectView = new ProjectView({model : projectList});
 			projectView.render();
 			
-			var workspaceNameView = new WorkspaceNameView({model : this.model});
-			workspaceNameView.render();
+            if(APP.workspaceNameView != undefined){
+                APP.workspaceNameView.undelegateEvents();
+            }
+            
+			APP.workspaceNameView = new WorkspaceNameView({model : this.model});
+			APP.workspaceNameView.render();
 			
 			$("#switchWorkspaceModal").modal('hide');
 			WorkspaceEvents.triggerChange(this.model.get('id'));
@@ -66,6 +70,7 @@ define(function(require) {
 		events : {
 			"click .hover-down-arrow" : "preventParentElmSelection"
 		},
+        
 		render : function(eventName) {
 			$(this.el).html(this.template({
 				workspace : this.model.toJSON()
@@ -120,8 +125,8 @@ define(function(require) {
 					var projectView = new ProjectView({model : projectList});
 					projectView.render();
 					
-					var workspaceNameView = new WorkspaceNameView({model : response.at(0)});
-					workspaceNameView.render();
+					APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
+					APP.workspaceNameView.render();
 				}
 			}});
 		},
