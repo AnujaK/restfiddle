@@ -32,10 +32,7 @@ define(function(require) {
 		},
 		
 		render : function(pageNumber) {
-			var start = 10 * (pageNumber-1);
-			var end = start + 9;
-			end = end > this.model.length-1 ? this.model.length-1 : end;
-			return this.renderActivityGroup(start, end);
+			return this.renderActivityGroup();
 		},
 
 		 getColorCode : function(method){
@@ -51,28 +48,25 @@ define(function(require) {
             }
         },
 
-		renderActivityGroup : function(start, end) {
+		renderActivityGroup : function() {
 			var that = this;
 			var currentDate = moment(new Date());
 			this.$el.html('');
-			var subset = _.filter(this.model, function(num, index){
-				return (index >= start) && (index <= end);
-			});
-			
-			_.each(subset, function (activity) {
-				if(activity.lastModifiedDate){
+
+            _.each(this.model, function (activity) {
+                if(activity.lastModifiedDate){
                    var requestDiff = currentDate.diff(activity.lastModifiedDate,'days');
                    if(requestDiff == 0){
-                   	activity.time = currentDate.diff(activity.lastModifiedDate,'hours') + "h ago";
+                    activity.time = currentDate.diff(activity.lastModifiedDate,'hours') + "h ago";
                    }else{
-                   	activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
+                    activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
-				}
-				activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
-				var activityTemplate = this.template({conversation : activity});
-				$(this.el).append(activityTemplate);
-			}, this); 
-
+                }
+                activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
+                var activityTemplate = that.template({conversation : activity});
+                $(that.el).append(activityTemplate);
+            }, this); 
+            
 			return this;
 		}
 	});
@@ -83,9 +77,15 @@ var HistoryView = Backbone.View.extend({
 		
 	},
 	
-	render : function(historyModel) {
+	render : function(response) {
 		this.$el.html('');
-		this.model = historyModel;
+        
+        var historyList = response.data;
+        var totalPages = response.totalPages;
+        var page = response.page;
+        var limit = response.limit;
+        
+		this.model = historyList;
 		
 		var historyListItemView = new HistoryListItemView({model: this.model});
 
@@ -93,12 +93,23 @@ var HistoryView = Backbone.View.extend({
 		$("#activity-pannel").html(historyListItemView.render(1).el);
 
 		$('.activity-paginator').bootpag({
-			total: Math.ceil(this.model.length/10),
+            total: totalPages,
 			page: 1,
 			maxVisible: 5
-		}).on("page", function(event, num){
-			$("#activity-pannel").html(historyListItemView.render(num).el);
-
+		}).on("page", function(event, pageNumber){
+            //fetch activity-log per page.
+             var zeroBasedPageNumber = pageNumber - 1;
+            $.ajax({
+                url : APP.config.baseUrl + '/conversations?page='+zeroBasedPageNumber+'&limit=10',
+                type : 'get',
+                dataType : 'json',
+                contentType : "application/json",
+                success : function(response) {
+                    var historyList = response.data;
+                    historyListItemView = new HistoryListItemView({model: historyList});
+                    $("#activity-pannel").html(historyListItemView.render(pageNumber).el);
+                }
+            });
 		});
 		return this;
 	}
