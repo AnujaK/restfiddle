@@ -18,7 +18,6 @@ define(function(require) {
 			projectId: '',
 			nodeType : '',	
 			conversationDTO : ConversationModel,
-			tags : '',
             genericEntityDTO : EntityModel
 		},
 		sync : function(method, model, options){
