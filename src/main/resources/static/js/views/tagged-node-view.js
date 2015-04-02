@@ -20,6 +20,7 @@ define(function(require) {
     var node = new NodeModel({
       id : this.model.id
     });
+    $("#tagReqId").val(this.model.id);
     node.fetch({
       success : function(response) {
         console.log(response.get("conversation"));
@@ -27,6 +28,7 @@ define(function(require) {
         conversation.set("name", response.get("name"));
         conversation.set("description",response.get("description"));
         APP.conversation.render(conversation);
+        APP.tagsLabel.display(response.get('tags'));
         ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
       }
     });
@@ -96,11 +98,14 @@ define(function(require) {
       return (index >= start) && (index <= end);
     });
     _.each(subset, function (activity) {
-     var methodType = activity.conversation.rfRequest.methodType;
-     if(methodType){
-      activity.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
-      activity.methodType = methodType;
-    }
+      if(activity.conversation){
+        var methodType = activity.conversation.rfRequest.methodType;
+        if(methodType){
+          activity.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
+          activity.methodType = methodType;
+        }
+      }
+     
     var taggedNodeListItemView = new TaggedNodeListItemView({
       model : activity
     });
