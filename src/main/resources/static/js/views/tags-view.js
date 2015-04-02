@@ -42,6 +42,12 @@ define(function(require) {
     	addTags : function(){
            if (APP.appView.getCurrentRequestNodeId() != null) {
                 console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
+                var nodeId;
+                if(!APP.appView.getCurrentRequestNodeId()){
+                	nodeId = $("#tagReqId").val();
+                }else{
+                	nodeId = APP.appView.getCurrentRequestNodeId();
+                }
 	            var tags = [];
 	            APP.tags.fetch({
 			    success : function(response){
@@ -51,7 +57,7 @@ define(function(require) {
 						}
 					});
 				$.ajax({
-					url : APP.config.baseUrl + '/nodes/' + APP.appView.getCurrentRequestNodeId() + '/tags',
+					url : APP.config.baseUrl + '/nodes/' + nodeId + '/tags',
 					type : 'post',
 					dataType : 'json',
                     contentType : "application/json",
