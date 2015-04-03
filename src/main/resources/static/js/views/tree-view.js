@@ -149,12 +149,13 @@ define(function(require) {
 		});
 
 		tree.createNewNode({
-			nodeName : $("#socketName").val(),
+			nodeName : $("#newSocketName").val(),
 			nodeDesc : $("#socketTextArea").val(),
 			conversation : conversation,
+			nodeType : "SOCKET",
 			successCallBack : function() {
 				$("#socketModal").modal("hide");
-				$("#socketModal").find("#socketName").val("");
+				$("#socketModal").find("#newSocketName").val("");
 				$("#socketModal").find("#socketTextArea").val("");
 			}
 		});
@@ -584,6 +585,8 @@ $("#tree").fancytree(
 		map : {
 			doc : "glyphicon glyphicon-file",
 			docOpen : "glyphicon glyphicon-file",
+			socket : "glyphicon glyphicon-flash",
+			socketOpen : "glyphicon glyphicon-flash",
 			checkbox : "glyphicon glyphicon-unchecked",
 			checkboxSelected : "glyphicon glyphicon-check",
 			checkboxUnknown : "glyphicon glyphicon-share",
@@ -652,7 +655,14 @@ dragDrop : function(node, data) {
 					},
 					click : function(event, data) {
 						if (!data.node.isFolder() && data.node.data.id) {
-							APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
+							if(data.node.data.nodeType == "SOCKET"){
+								$("#socketName").html(data.node.data.name);
+								$("#socketDescription").html(data.node.data.description);
+								APP.conversation.$el.hide();
+								APP.projectRunner.$el.hide();
+								APP.socketConnector.$el.show();
+							}else{
+								APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
 							var node = new NodeModel({
 								id : data.node.data.id
 							});
@@ -679,6 +689,8 @@ dragDrop : function(node, data) {
 									.get("conversation").id : null);
 							}
 						});
+							}
+							
 
 						} else if (data.node.isFolder()) {
 							var conversation = new ConversationModel({});
@@ -778,7 +790,16 @@ function nodeConverter(serverNode, uiNode) {
 	 	}
 	 	else if (params.conversation == null) {
 	 		createNode(params.nodeName, params.nodeDesc, 'FOLDER', null, null, params.successCallBack);
-	 	} else {
+	 	} else if(params.nodeType == "SOCKET"){
+	 		params.conversation.save(null, {
+	 			success : function(response) {
+	 				createNode(params.nodeName, params.nodeDesc, "SOCKET", new ConversationModel({
+	 					id : response.get("id")
+	 				}), null, params.successCallBack);
+	 			}
+	 		});
+
+	 	}else{
 	 		params.conversation.save(null, {
 	 			success : function(response) {
 	 				createNode(params.nodeName, params.nodeDesc, null, new ConversationModel({

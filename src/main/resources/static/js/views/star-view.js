@@ -31,6 +31,7 @@ define(function (require) {
             var node = new NodeModel({
                 id : $(event.currentTarget).data('starId')
             });
+            $("#tagReqId").val($(event.currentTarget).data('starId'));
             node.fetch({
                 success : function(response) {
                     console.log(response.get("conversation"));
@@ -38,6 +39,7 @@ define(function (require) {
                     conversation.set("name", response.get("name"));
                     conversation.set("description",response.get("description"));
                     APP.conversation.render(conversation);
+                    APP.tagsLabel.display(response.get('tags'));
                     ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
                 }
             });

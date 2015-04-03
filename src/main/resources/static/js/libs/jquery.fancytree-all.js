@@ -5330,6 +5330,8 @@ $.ui.fancytree.registerExtension({
 		map: {
 			doc: "icon-file-alt",
 			docOpen: "icon-file-alt",
+			socket : "icon-file-alt",
+			socketOpen : "icon-file-alt",
 			checkbox: "icon-check-empty",
 			checkboxSelected: "icon-check",
 			checkboxUnknown: "icon-check icon-muted",
@@ -5393,7 +5395,12 @@ $.ui.fancytree.registerExtension({
 			if( node.folder ){
 				icon = node.expanded ? _getIcon(opts, "folderOpen") : _getIcon(opts, "folder");
 			}else{
-				icon = node.expanded ? _getIcon(opts, "docOpen") : _getIcon(opts, "doc");
+				if(node.data.nodeType == "SOCKET"){
+					icon = node.expanded ? _getIcon(opts, "socketOpen") : _getIcon(opts, "socket");
+				}else{
+					icon = node.expanded ? _getIcon(opts, "docOpen") : _getIcon(opts, "doc");
+				}
+				
 			}
 			span.className = "fancytree-icon " + icon;
 		}

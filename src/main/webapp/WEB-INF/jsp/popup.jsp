@@ -105,7 +105,7 @@
 				<div class="modal-body">
 					<form id = "newSocketForm">
 						<div class="form-group">
-							<input class="form-control" id="socketName" placeholder="Enter Socket Name" name = "socketName" required> <br>
+							<input class="form-control" id="newSocketName" placeholder="Enter Socket Name" name = "newSocketName" required> <br>
 							<textarea class="form-control" id="socketTextArea" rows="3" placeholder="Enter Description"></textarea>
 						</div>
 					</form>
