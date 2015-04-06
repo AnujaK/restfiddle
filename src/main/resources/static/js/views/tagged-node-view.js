@@ -20,7 +20,7 @@ define(function(require) {
     var node = new NodeModel({
       id : this.model.id
     });
-    $("#tagReqId").val(this.model.id);
+    $("#currentStaredNode").val(this.model.id);
     node.fetch({
       success : function(response) {
         console.log(response.get("conversation"));

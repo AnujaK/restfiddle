@@ -24,17 +24,23 @@ define(function (require) {
             console.log("converstaion event clicked"+this.el);
             this.$el.parent('ul').find('li').each(function(){
                 $(this).removeClass('active');
-            })
+            });
             this.$el.addClass("active");
             console.log('Starred Node Id : ' + this.$el.find('a').data('data-star-id'));
 
             var node = new NodeModel({
                 id : $(event.currentTarget).data('starId')
             });
-            $("#tagReqId").val($(event.currentTarget).data('starId'));
+            $("#currentStaredNode").val($(event.currentTarget).data('starId'));
             node.fetch({
                 success : function(response) {
                     console.log(response.get("conversation"));
+                    if(response.get("starred")){
+                        $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+                    }
+                    else{
+                        $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+                    }
                     var conversation = new ConversationModel(response.get("conversation"));
                     conversation.set("name", response.get("name"));
                     conversation.set("description",response.get("description"));
@@ -103,19 +109,28 @@ var StarView = Backbone.View.extend({
     markAsStarred: function () {
         console.log("Event star a node was fired for node Id " + "");
         if (APP.appView.getCurrentRequestNodeId() != null) {
+            var nodeId;
+            if($('#tree').css('display') == "none"){
+               nodeId = $('#currentStaredNode').val();
+            }else{
+                nodeId = APP.appView.getCurrentRequestNodeId();
+            }
             console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
             var node = new NodeModel({
-                id : APP.appView.getCurrentRequestNodeId()
+                id : nodeId
             });
             node.fetch({
                 success : function(response) {
                  var starred = !response.get("starred");
                  var starModel = new StarModel();
-                 starModel.set('id', APP.appView.getCurrentRequestNodeId());
+                 starModel.set('id', nodeId);
                  starModel.set('starred', !response.get("starred"));
                  starModel.save(null, {
                     success: function () {
                         console.log("changes saves successfully");
+                        if($('#starred-items').css('display') == 'block'){
+                            $('.starred ').click();
+                        }
                         if(starred){
                          $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
                      }

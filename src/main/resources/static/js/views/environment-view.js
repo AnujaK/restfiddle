@@ -30,7 +30,8 @@ define(function(require) {
         
         environmentModel.save(null,{
             success: function(){
-                alert("Environment saved successfully.");
+                var manageEnvironmentView = new ManageEnvironmentView();
+                manageEnvironmentView.render();
                 $("#manageEnvironmentsModal").modal("hide");
             }
         });
@@ -85,15 +86,14 @@ define(function(require) {
 	});
 	
 	var EnvironmentView = Backbone.View.extend({
+        initialize : function() {
+        },
         template: _.template($('#tpl-environment').html()),
         
         events : {
             'click #addEnvFieldBtn': 'addEnvProperty',
         },
-        
-		initialize : function() {
-		},
-		
+
 		render : function() {
             this.$el.html(this.template());
             if(this.model != null){
@@ -134,13 +134,22 @@ define(function(require) {
             var environments = new Environments();
             this.$el.find(".existingEnvironments").html('<option value="-1" selected disabled>Update Existing</option>');
             var me = this;
-            environments.fetch({success : function(response){  
+           
+            environments.fetch({
+                success : function(response){
+                    $(".environmentsSelectBox").empty();
+                   if(response.models.length == 0){
+                    $(".environmentsSelectBox").append('<option>Select</option>');
+                   }  
                     $.each(response.models,function(key, value) {
                         console.log("environment "+value.get("name"));
                         me.$el.find(".existingEnvironments").append('<option value=' + value.get("id") + '>' + value.get("name") + '</option>');
+                        $(".environmentsSelectBox").append('<option value=' + value.get("id") + '>' + value.get("name") + '</option>');
                     });
+                    $(".environmentsSelectBox").append('<option value = "manage-env">Manage Environments</option>');
                 }
             });
+            
             this.model = environments;
             return this;
 		},

@@ -656,8 +656,9 @@ dragDrop : function(node, data) {
 					click : function(event, data) {
 						if (!data.node.isFolder() && data.node.data.id) {
 							if(data.node.data.nodeType == "SOCKET"){
-								$("#socketName").html(data.node.data.name);
+								$("#socketName").html(data.node.data.name + '<i class="fa fa-pencil edit-pencil" id="socketNameEdit"></i>');
 								$("#socketDescription").html(data.node.data.description);
+								$('#socketNodeId').val(data.node.data.id);
 								APP.conversation.$el.hide();
 								APP.projectRunner.$el.hide();
 								APP.socketConnector.$el.show();
@@ -865,6 +866,36 @@ function nodeConverter(serverNode, uiNode) {
         alert('Some unexpected error occured Please try later.');
       }
     });
+	};
+
+	tree.updateSocketTreeNode = function(){
+
+	    var nodeId = $("#socketNodeId").val();
+	    var node = treeObj.getNodeByKey(nodeId);
+	    
+	    var nodeModel = new NodeModel({
+	      id : node.data.id,
+	      name : $('#socketNameTextBox').val()
+	    });
+
+	    node.data.id = nodeModel.attributes.id;
+	    node.data.name = nodeModel.attributes.name;
+	    
+	    var treeNodeView = new TreeNodeView();
+	    node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+	    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+	    nodeModel.save(null, {
+	      success : function(response) {
+	       $('#socketNameTextBox').hide();
+	       $('#socketName').html($('#socketNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="socketNameEdit"></i>');
+	       $('#socketName').show();
+	      },
+	      error : function(e) {
+	        alert('Some unexpected error occured Please try later.');
+	      }
+	    });
 	};
 
 	 tree.appendChild = function(parent, child) {
