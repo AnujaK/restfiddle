@@ -345,6 +345,19 @@ ul .dropdown-menu li{
 	display: none;
 }
 
+#socketNameEdit{
+	visibility:hidden;
+	cursor: pointer;
+}
+
+#socketName:hover > #socketNameEdit{
+	visibility:visible;
+}
+
+#socketNameTextBox{
+	display: none;
+}
+
 .label-btn-group > button{ 
 	padding: 3px 10px !important;
 	font-size: 12px !important;
@@ -499,9 +512,9 @@ ul .dropdown-menu li{
 
 .env-selectbox{
   position: absolute;
-  left: 84%;
+  left: 82%;
   top: 7px;
-  width: 7%;
+  width: 12%;
 }
 #tagLabels{
 	display: inline;

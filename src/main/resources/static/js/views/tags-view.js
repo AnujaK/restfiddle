@@ -43,8 +43,8 @@ define(function(require) {
            if (APP.appView.getCurrentRequestNodeId() != null) {
                 console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
                 var nodeId;
-                if(!APP.appView.getCurrentRequestNodeId()){
-                	nodeId = $("#tagReqId").val();
+                if($('#tree').css('display') == "none"){
+                	nodeId = $("#currentStaredNode").val();
                 }else{
                 	nodeId = APP.appView.getCurrentRequestNodeId();
                 }

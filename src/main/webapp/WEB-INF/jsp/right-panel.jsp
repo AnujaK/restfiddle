@@ -13,8 +13,9 @@
     <div id="webSocketSection">
         <br>
         <div id="webSocketRequest">
+            <input type="hidden" id = "socketNodeId">
             <p>
-                <span id="socketName">Socket Name</span>
+                <span id="socketName">Socket Name</span><input id="socketNameTextBox">
             </p>
             <p>
                 <span id="socketDescription">Socket Description</span>
@@ -124,7 +125,7 @@
                 <div id="requestContainer">
                     <p id="apiRequestDescription"></p>
                     <div class="btn-group label-btn-group">
-                        <input type = "hidden" id= "tagReqId">
+                        <input type = "hidden" id= "currentStaredNode">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-tags"></span> &nbsp;Tags&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                         </button>

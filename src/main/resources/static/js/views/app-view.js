@@ -29,6 +29,7 @@ define(function(require) {
 	
 	var UserCollection = require('collections/users');
 	var TagCollection = require('collections/tags');
+	var EnvironmentCollection = require('collections/environments');
 	var WorkspaceCollection = require('collections/workspaces'); //TODO : REMOVE FROM HERE
 
     var AppView = Backbone.View.extend({
@@ -60,6 +61,7 @@ define(function(require) {
             APP.historyView = new HistoryView();
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
+			APP.environments = new EnvironmentCollection();
 		    var workspaceView = new WorkspaceView({
 		    	model : APP.workspaces
 		    });
@@ -124,7 +126,6 @@ define(function(require) {
 			return this.conversationId;
 		},
 		setRequestNodeId : function(id){
-			console.log('Request Id :'+ id);
 			this.requestId = id;
 		},
 		getCurrentRequestNodeId : function(){

@@ -28,12 +28,7 @@
             <a class="navbar-brand" href="#">RESTFiddle</a>
         </div>
         <div class="env-selectbox" >
-            <select class="environmentsSelectBox form-control">
-                <option>ENV-1</option>
-                <option>ENV-2</option>
-                <option>ENV-3</option>
-                <option>ENV-4</option>
-                <option value = "manage-env">Manage Environments</option>
+            <select class="environmentsSelectBox form-control" placeholder = "Seclect Environment">
             </select>
         </div>
     <div class="btn-group pull-right">

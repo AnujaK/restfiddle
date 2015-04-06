@@ -13,6 +13,7 @@ define(function(require) {
 	//var TagModel = require('models/tag');
 	
 	var ProjectView = require('views/project-view');
+	var ManageEnvironmentView = require('views/environment-view');
 	var UserView = require('views/user-view');
 	var TagView = require('views/tag-view');
 	var TagsView = require('views/tags-view');
@@ -112,6 +113,9 @@ define(function(require) {
 
 			var tagsView = new TagsView();
 			tagsView.showTags();
+
+			var environmentView   = new ManageEnvironmentView();
+			environmentView.render();
 			
 			APP.workspaces.fetch({success : function(response){
 				console.log('fetched wokrspace');

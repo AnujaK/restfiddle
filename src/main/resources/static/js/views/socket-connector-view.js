@@ -3,7 +3,7 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-
+    var TreeView = require('views/tree-view');
    
     var wsUri; 
     var webSocket;
@@ -42,6 +42,21 @@ define(function(require) {
     });
 	var SocketConnectorView = Backbone.View.extend({
         el: '#webSocketSection',
+        events : {
+            'click #socketNameEdit' : 'convertToTextBox',
+            "focusout #socketNameTextBox" : "converToLabel"
+
+        },
+
+        convertToTextBox : function(){
+            $("#socketName").hide();
+            $("#socketNameTextBox").show();
+            $("#socketNameTextBox").focus();
+            $("#socketNameTextBox").val($("#socketName").text());
+        },
+        converToLabel : function(){
+            TreeView.updateSocketTreeNode();
+        },
 		initialize : function() {
 			this.$el.hide();
 		},
