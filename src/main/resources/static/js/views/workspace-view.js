@@ -161,6 +161,11 @@ define(function(require) {
 				}
 			});
 
+		},
+		displayWorkspaceName : function(workspace){
+			APP.workspaceNameView = new WorkspaceNameView({model : workspace});
+			APP.workspaceNameView.render();
+			
 		}
 	});
 

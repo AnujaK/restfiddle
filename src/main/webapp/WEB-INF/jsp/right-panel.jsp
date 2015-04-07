@@ -130,7 +130,7 @@
                             <span class="glyphicon glyphicon-tags"></span> &nbsp;Tags&nbsp;<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu label-dropdown-menu">
-                            <li>Select Tags</li>
+                            
                         </ul>
                     </div>
                     <div id = "tagLabels"></div>

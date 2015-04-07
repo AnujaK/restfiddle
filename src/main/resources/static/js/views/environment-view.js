@@ -12,29 +12,58 @@ define(function(require) {
         $("#manageEnvironmentWrapper").append(manageEnvironmentView.render().el); 
 	}); 
     
-	$("#saveEnvironmentBtn").unbind("click").bind("click", function() {
-        var environmentName = $("#environmentName").val();
-        
-        var envProperties = getEnvProperties();
-        
-        var envId = $("#environmentName").data('environment-id');
-        if(envId == "-1"){
-            envId = null;
+    $("#manageEnvironmentsModal").on('show.bs.modal',function(e){
+        $("#environment-name-error").text("");
+    });
+
+    $('#environmentManagementForm').validate({
+        messages : {
+            tagName : "Environment name is empty"
         }
-        var environmentModel = new EnvironmentModel({
-            id : envId,
-            name : environmentName,
-            properties : envProperties
-            
-        });
+    });
+
+    $("#environmentManagementForm").submit(function(e) {
+        e.preventDefault();
+    });
+    
+	$("#saveEnvironmentBtn").unbind("click").bind("click", function() {
+      if($("#environmentManagementForm").valid()){
+        var environments = new Environments();
+        var that = this;
+        environments.fetch({
+            success :  function(response){
+                that.collection = response;
+                var environmentWithSameName = that.collection.findWhere({name : $("#environmentName").val()});
+                if(!environmentWithSameName){
+                    var environmentName = $("#environmentName").val();
         
-        environmentModel.save(null,{
-            success: function(){
-                var manageEnvironmentView = new ManageEnvironmentView();
-                manageEnvironmentView.render();
-                $("#manageEnvironmentsModal").modal("hide");
+                    var envProperties = getEnvProperties();
+                    
+                    var envId = $("#environmentName").data('environment-id');
+                    if(envId == "-1"){
+                        envId = null;
+                    }
+                    var environmentModel = new EnvironmentModel({
+                        id : envId,
+                        name : environmentName,
+                        properties : envProperties
+                        
+                    });
+                    
+                    environmentModel.save(null,{
+                        success: function(){
+                            var manageEnvironmentView = new ManageEnvironmentView();
+                            manageEnvironmentView.render();
+                            $("#manageEnvironmentsModal").modal("hide");
+                        }
+                    });
+
+                }else{
+                    $('#environmentName').after('<label class="text-danger" id="environment-name-error">Environment name already exists</label>');
+                }
             }
-        });
+          });
+       }
 	});
     
     var getEnvProperties = function(){
@@ -123,7 +152,9 @@ define(function(require) {
         
         events : {
             'click #addNewEnvironmentBtn': 'addEnvironment',
-            'change .existingEnvironments': 'editEnvironment'
+            'change .existingEnvironments': 'editEnvironment',
+            'click #deleteEnvironment'  : 'deleteEnvironment',
+            'keyup #environmentName'    : 'removeError'
         },
         
 		initialize : function() {
@@ -153,6 +184,12 @@ define(function(require) {
             this.model = environments;
             return this;
 		},
+
+        removeError : function() {
+            if($('#environmentName').val() == ''){
+                $('#environment-name-error').remove();
+            };
+        },
         
         addEnvironment : function(){
             var environmentView = new EnvironmentView();
@@ -169,7 +206,24 @@ define(function(require) {
             var environmentView = new EnvironmentView();
             environmentView.model = selectedEnvModel;
             this.$el.find("#environmentWrapper").html("");
-            this.$el.find("#environmentWrapper").append(environmentView.render().el);                 
+            this.$el.find("#environmentWrapper").append(environmentView.render().el);
+            this.$el.find("#deleteEnvironment").show();
+        },
+
+        deleteEnvironment : function(){
+            $.ajax({
+                url : APP.config.baseUrl + '/environments/' + $('#environmentName').data('environment-id'),
+                type : 'delete',
+                dataType : 'json',
+                contentType : "application/json",
+                success : function(data) {
+                    $('.existingEnvironments').val('-1').change();
+                    $(".existingEnvironments option[value='"+ $('#environmentName').data('environment-id')+"']").remove();
+                    var manageEnvironmentView = new ManageEnvironmentView();
+                    manageEnvironmentView.render();
+                    $('#addNewEnvironmentBtn').click();
+                }
+            });
         }
 	});
     

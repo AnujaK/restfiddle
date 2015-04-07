@@ -11,6 +11,10 @@ define(function(require) {
 	var NodeModel = require("models/node");
 	var ProjectView = require("views/project-view");
 	var StarView = require("views/star-view");
+	var TreeView = require("views/tree-view");
+	var TagView = require('views/tag-view');
+	var WorkspaceView = require('views/workspace-view');
+	var TagsView = require('views/tags-view');
 	var _ = require('underscore');
 
 	$(".run-project").unbind("click").bind("click", function() {
@@ -178,7 +182,6 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 							$('#tagModal').modal("hide");
 							$("#tagTextField").val("");
 							$("#tagTextArea").val("");
-							location.reload();
 						},
 						error : function(e) {
 							alert('Some unexpected error occured Please try later.');
@@ -231,7 +234,20 @@ $("#editProjectBtn").unbind("click").bind("click", function() {
 						success : function(response) {
 							$("#editProjectTextField").val("");
 							$("#editProjectTextArea").val("");
-							location.reload();
+							APP.workspaces.fetch({
+			                   success : function(response){
+									var currenctWorkspace = _.findWhere(response.models,{id : APP.appView.getCurrentWorkspaceId()});
+									var projects = currenctWorkspace.get('projects');
+									var projectList = [];
+									_.each(projects, function(p){
+										projectList.push(new ProjectModel(p));
+									});
+									var projectView = new ProjectView({model : projectList});
+									projectView.render();
+									TreeView.resetTree();
+								    $("#editProjectModal").modal('hide');
+								}
+						    });	
 						},
 						error : function(e) {
 							alert('Some unexpected error occured Please try later.');
@@ -290,9 +306,22 @@ $("#editTagBtn").unbind("click").bind("click", function() {
 					});
 					tag.save(null, {
 						success : function(response) {
-							$("#editTagTextField").val("");
-							$("#editTagTextArea").val("");
-							location.reload();
+							var tagView = new TagView();
+							tagView.showTags();
+							var tagsView = new TagsView();
+							tagsView.showTags();
+							var node = new NodeModel({
+								id : APP.appView.getCurrentRequestNodeId()
+							});
+							node.fetch({
+								success : function(response) {
+									APP.tagsLabel.display(response.get('tags'));
+									$('#editTagModal').modal("hide");
+									$("#editTagTextField").val("");
+									$("#editTagTextArea").val("");
+								}
+							});	
+							
 						},
 						error : function(e) {
 							alert('Some unexpected error occured Please try later.');
@@ -348,9 +377,9 @@ $("#editWorkspaceBtn").unbind("click").bind("click", function() {
 			});
 			newWorkspace.save(null, {
 				success : function(response) {
-					$("#editWorkspaceTextField").val("");
-					$("#editWorkspaceTextArea").val("");
-					location.reload();
+					var workSpaceView = new WorkspaceView();
+					workSpaceView.displayWorkspaceName(response);
+					$("#editWorkspaceModal").modal('hide');					
 				},
 				error : function(e) {
 					alert('Some unexpected error occured Please try later.');

@@ -73,6 +73,9 @@ define(function(require) {
             }
     	},
 		showTags : function(event){
+			$("#tagLabels").empty();
+			$(".label-dropdown-menu").empty();
+			$(".label-dropdown-menu").append('<li>Select Tags</li>');
 			APP.tags.fetch({
 			    success : function(response){
 				
