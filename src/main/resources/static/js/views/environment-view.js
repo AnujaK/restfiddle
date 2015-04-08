@@ -16,15 +16,18 @@ define(function(require) {
         $("#environment-name-error").text("");
     });
 
-    $('#environmentManagementForm').validate({
-        messages : {
-            tagName : "Environment name is empty"
-        }
-    });
+    if($('#environmentManagementForm').length){
+        $('#environmentManagementForm').validate({
+            messages : {
+                envName : "Environment name is empty"
+            }
+        });
 
-    $("#environmentManagementForm").submit(function(e) {
-        e.preventDefault();
-    });
+        $("#environmentManagementForm").submit(function(e) {
+            e.preventDefault();
+        });
+    }
+   
     
 	$("#saveEnvironmentBtn").unbind("click").bind("click", function() {
       if($("#environmentManagementForm").valid()){

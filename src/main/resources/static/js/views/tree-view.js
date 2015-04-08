@@ -12,6 +12,8 @@ define(function(require) {
 
 	var NodeModel = require('models/node');
 	var EntityModel = require('models/entity');
+	var TagView = require('views/tag-view');
+	var TagsView = require('views/tags-view');
 	var treeData;
 	var tree = {};
 
@@ -501,18 +503,6 @@ $("#deleteRequestBtn").bind("click", function() {
 	});
 });
 
-$("#deleteProjectBtn").bind("click", function() {
-	$.ajax({
-		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + $("#deleteProjectId").val(),
-		type : 'delete',
-		dataType : 'json',
-		contentType : "application/json",
-		success : function(data) {
-			location.reload();
-		}
-	});
-});
-
 $("#deleteWorkspaceBtn").bind("click", function() {
 	$.ajax({
 		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId(),
@@ -532,9 +522,23 @@ $("#deleteTagBtn").bind("click", function() {
 		dataType : 'json',
 		contentType : "application/json",
 		success : function(data) {
-			location.reload();
+			var tagView = new TagView();
+			tagView.showTags();
+			var tagsView = new TagsView();
+			tagsView.showTags();
+			var node = new NodeModel({
+				id : APP.appView.getCurrentRequestNodeId()
+			});
+		    node.fetch({
+				success : function(response) {
+					APP.tagsLabel.display(response.get('tags'));
+					$("#deleteTagModal").modal('hide');
+				}
+			});	
+			
+
 		}
-	});
+	});	
 });
 
 $('.col-1-toggle-btn').toggle(function() {

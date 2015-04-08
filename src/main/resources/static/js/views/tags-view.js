@@ -6,7 +6,6 @@ define(function(require) {
 	
 	var TagModel = require('models/tag');
 	var TagEvents = require('events/tag-event');
-	var TreeView = require('views/tree-view');
 	var NodeModel = require('models/node');
 	
 	var TagsListItemView = Backbone.View.extend({	
