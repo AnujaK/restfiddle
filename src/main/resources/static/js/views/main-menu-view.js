@@ -178,10 +178,14 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 						description : $("#tagTextArea").val()
 					});
 					tag.save(null, {
-						success : function(response) {
-							$('#tagModal').modal("hide");
+						success : function(response){
+							var tagView = new TagView();
+							tagView.showTags();
+							var tagsView = new TagsView();
+							tagsView.showTags();
 							$("#tagTextField").val("");
 							$("#tagTextArea").val("");
+							$('#tagModal').modal("hide");
 						},
 						error : function(e) {
 							alert('Some unexpected error occured Please try later.');
@@ -535,5 +539,29 @@ function saveWorkspace() {
 	}
 };
 
-
+$("#deleteProjectBtn").bind("click", function() {
+	$.ajax({
+		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + $("#deleteProjectId").val(),
+		type : 'delete',
+		dataType : 'json',
+		contentType : "application/json",
+		success : function(data) {
+		  APP.workspaces.fetch({
+		  	success : function(response){
+             	var currenctWorkspace = _.findWhere(response.models,{id : APP.appView.getCurrentWorkspaceId()});
+				var projects = currenctWorkspace.get('projects');
+				var projectList = [];
+				_.each(projects, function(p){
+					projectList.push(new ProjectModel(p));
+				});
+				var projectView = new ProjectView({model : projectList});
+				projectView.render();
+				TreeView.resetTree();
+				$("#deleteProjectModal").modal('hide');
+		  	}
+		  })
+			
+		}
+	});
+});
 });
