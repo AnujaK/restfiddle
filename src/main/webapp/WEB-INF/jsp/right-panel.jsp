@@ -75,7 +75,7 @@
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">View Previous Results</a></li>
+                    <li><a href="#" class="btn-sm" id = "showLastResponse">View Previous Results</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;
