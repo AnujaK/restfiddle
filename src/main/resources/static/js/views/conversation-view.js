@@ -279,6 +279,7 @@ define(function(require) {
 
       events : {
         'click .destroy': 'clear',
+        'change .urlDataName' : 'addQuery'
       },
 
       render : function() {
@@ -288,6 +289,9 @@ define(function(require) {
 
       clear : function(){
         this.remove();
+      },
+      addQuery : function(){
+
       }
     });
 
@@ -562,10 +566,34 @@ this.$el.find("#response-wrapper").html('');
 },
 saveOrUpdateConversation : function(){
  if(APP.appView.getCurrentConversationId() != null){
+  var urlDataNames = [];
+  this.$el.find(".urlDataName").each(function() {
+    var urlDataKey = {};
+    urlDataKey.key = $(this).val();
+    urlDataNames.push(urlDataKey);
+  });  
+
+  var urlDataValues = [];
+  this.$el.find(".urlDataValue").each(function() {
+    var urlDataVal = {};
+    urlDataVal.value = $(this).val();
+    urlDataValues.push(urlDataVal);
+  }); 
+
+  var urlDataArr = [];
+  var counter = 0;
+  $.each(urlDataNames, function() {
+    var urlData = {};
+    urlData.paramKey = urlDataNames[counter].key;
+    urlData.paramValue = urlDataValues[counter].value;
+    urlDataArr.push(urlData);
+    counter++;
+  });  
   var rfRequest = {
     apiUrl : this.$el.find("#apiUrl").val(),
     apiBody : this.apiBodyCodeMirror.getValue(),
-    methodType : this.$el.find(".apiRequestType").val()
+    methodType : this.$el.find(".apiRequestType").val(),
+    urlParams : urlDataArr
   }
   var rfResponse = {
 
