@@ -49,6 +49,7 @@ import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
+import com.restfiddle.entity.RfResponse;
 
 @RestController
 @EnableAutoConfiguration
@@ -119,7 +120,7 @@ public class ConversationController {
 	    numberOfRecords = limit;
 	}
 
-	Sort sort = new Sort(Direction.DESC , "lastModifiedDate");
+	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
 	Pageable topRecords = new PageRequest(pageNo, numberOfRecords, sort);
 	Page<Conversation> result = itemRepository.findAll(topRecords);
 
@@ -131,7 +132,7 @@ public class ConversationController {
 	response.setPage(pageNo);
 	response.setTotalElements(result.getTotalElements());
 	response.setTotalPages(result.getTotalPages());
-	
+
 	for (Conversation item : content) {
 	    RfRequest rfRequest = item.getRfRequest();
 	    logger.debug(rfRequest.getApiUrlString());
@@ -154,25 +155,38 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation update(@PathVariable("conversationId") String conversationId, @RequestBody ConversationDTO updated) {
-	logger.debug("Updating item with information: " + updated);
+    Conversation update(@PathVariable("conversationId") String conversationId, @RequestBody ConversationDTO conversationDTO) {
+	Conversation dbConversation = itemRepository.findOne(conversationDTO.getId());
+	
+	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
+	RfResponseDTO rfResponseDTO = new RfResponseDTO();
 
-	Conversation item = itemRepository.findOne(updated.getId());
+	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, rfResponseDTO);
+	conversation.setId(dbConversation.getId());
+	
+	conversation.setName(conversationDTO.getName());
+	conversation.setDescription(conversationDTO.getDescription());
+	conversation.setCreatedDate(new Date());
+	conversation.setLastModifiedDate(new Date());
 
-	item.setName(updated.getName());
-	item.setDescription(updated.getDescription());
-
-	RfRequestDTO rfRequestDTO = updated.getRfRequestDTO();
-	RfRequest rfRequest = item.getRfRequest();
-	if (null != rfRequestDTO) {
-	    rfRequest.setApiUrlString(rfRequestDTO.getApiUrl());
-	    if (rfRequestDTO.getApiBody() != null) {
-		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
-	    }
-	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
+	RfRequest rfRequest = conversation.getRfRequest();
+	RfRequest dbRfRequest = dbConversation.getRfRequest();
+	if (dbRfRequest != null) {
+	    rfRequest.setId(dbRfRequest.getId());
 	}
-	item.setRfRequest(rfRequest);
-	return item;
+	rfRequest.setConversationId(conversation.getId());
+	rfRequestRepository.save(rfRequest);
+	
+	RfResponse rfResponse = conversation.getRfResponse();
+	RfResponse dbRfResponse = dbConversation.getRfResponse();
+	if(dbRfResponse != null){
+	    rfResponse.setId(dbRfResponse.getId());
+	}
+	rfResponseRepository.save(rfResponse);
+
+	conversation = itemRepository.save(conversation);
+
+	return conversation;
     }
 
 }

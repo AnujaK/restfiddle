@@ -584,8 +584,8 @@ saveOrUpdateConversation : function(){
   var counter = 0;
   $.each(urlDataNames, function() {
     var urlData = {};
-    urlData.paramKey = urlDataNames[counter].key;
-    urlData.paramValue = urlDataValues[counter].value;
+    urlData.key = urlDataNames[counter].key;
+    urlData.value = urlDataValues[counter].value;
     urlDataArr.push(urlData);
     counter++;
   });  
