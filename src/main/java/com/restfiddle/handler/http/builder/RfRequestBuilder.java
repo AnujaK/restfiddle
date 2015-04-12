@@ -16,13 +16,16 @@
 package com.restfiddle.handler.http.builder;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpHeaders;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +118,7 @@ public class RfRequestBuilder {
 
     private void setRequestEntity(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
 	List<FormDataDTO> formParams = requestDTO.getFormParams();
-	if (requestDTO.getApiBody() != null) {
+	if (requestDTO.getApiBody() != null && !requestDTO.getApiBody().isEmpty()) {
 	    try {
 		requestBuilder.setEntity(new StringEntity(requestDTO.getApiBody()));
 
@@ -123,12 +126,16 @@ public class RfRequestBuilder {
 		logger.error(e.getMessage(), e);
 	    }
 	} else if (formParams != null && !formParams.isEmpty()) {
-	    requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE);// TODO
-	    MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
+	    // NOTE : http://stackoverflow.com/questions/12745710/apache-httpclient-4-2-1-post-request-to-fill-form-after-successful-login
+	    requestBuilder.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+	    List<NameValuePair> nvps2 = new ArrayList<NameValuePair>();
 	    for (FormDataDTO formDataDTO : formParams) {
-		multiPartBuilder.addTextBody(formDataDTO.getKey(), formDataDTO.getValue());
+		nvps2.add(new BasicNameValuePair(formDataDTO.getKey(), formDataDTO.getValue()));
 	    }
-	    requestBuilder.setEntity(multiPartBuilder.build());
+	    try {
+		requestBuilder.setEntity(new UrlEncodedFormEntity(nvps2));
+	    } catch (UnsupportedEncodingException e) {
+	    }
 	}
     }
 }
