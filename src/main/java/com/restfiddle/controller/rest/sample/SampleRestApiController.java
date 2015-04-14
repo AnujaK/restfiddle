@@ -15,12 +15,17 @@
  */
 package com.restfiddle.controller.rest.sample;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.restfiddle.dto.StatusResponse;
 
 @RestController
 @EnableAutoConfiguration
@@ -31,5 +36,18 @@ public class SampleRestApiController {
     @RequestMapping("/api/ping")
     String ping() {
 	return "Server is up and running!";
+    }
+
+    @RequestMapping(value = "/api/test/formparam", method = RequestMethod.POST)
+    public StatusResponse formParamTest(@RequestParam(value = "name", required = false) String name,
+	    @RequestParam(value = "data", required = false) String data) {
+	StatusResponse res = new StatusResponse();
+
+	JSONObject obj = new JSONObject();
+	obj.append("name", name);
+	obj.append("data", data);
+	res.setMessage(obj.toString());
+
+	return res;
     }
 }
