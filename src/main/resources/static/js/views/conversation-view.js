@@ -146,44 +146,28 @@ define(function(require) {
     });
 
     $("#copyResponse").unbind("click").bind("click",function(event){
-     event.stopPropagation();
-   })
+     if($("#response-wrapper").text()){
+        var data = $("#response-wrapper").text();
+        var myWindow = window.open("data:text/html," + encodeURIComponent(data),
+                             "_blank", "width=200,height=100");
+        myWindow.focus();
+     }else{
+      event.stopPropagation();
+      $("#copyResponse").attr('title', 'Response is Empty')
+          .tooltip('fixTitle')
+          .data('bs.tooltip')
+          .$tip.find('.tooltip-inner')
+          .text('Response is Empty');
+     } 
 
-    ZeroClipboard.config({
-      moviePath:"http://localhost:8080/js/libs/ZeroClipboard.swf",
-      hoverClass:"btn-clipboard-hover"});
-
-    var clip = new ZeroClipboard($("#copyResponse"));
-    var htmlBridge = $(".copyResponseList");
-
-    clip.on( 'ready', function(event) {
-      console.log( 'movie is loaded' );
-      htmlBridge.data("placement","top").attr("title","Copy to clipboard").tooltip()
-
-      clip.on('copy', function(event) {
-        event.clipboardData.setData('text/plain',$("#response-wrapper").text());
-      } );
-
-      clip.on('aftercopy', function(event) {
-        console.log('Copied text to clipboard: ' + event.data['text/plain']);
-     // show the tooltip
-     var tooltipText = "";
-     if ($("#response-wrapper").text()) {
-       tooltipText = 'Copied!';
-     } else {
-       tooltipText = 'Response is empty!';
-     }
-     htmlBridge.attr("title",tooltipText).tooltip("fixTitle").tooltip("show").attr("title","Copy to clipboard").tooltip("fixTitle");
-   } );
-    } );
-
-    clip.on('error', function(event) {
-      console.log( 'ZeroClipboard error of type "' + event.name + '": ' + event.message );
-      htmlBridge.attr("title","Flash required").tooltip("fixTitle").tooltip("show");
-      ZeroClipboard.destroy();
-
-    } );
-
+   });
+     $("#copyResponse").on('mouseleave',function(){
+       $("#copyResponse").attr('title', 'Copy the response content.')
+          .tooltip('fixTitle')
+          .data('bs.tooltip')
+          .$tip.find('.tooltip-inner')
+          .text('Copy the response content.');
+     })
 
     $("#showLastResponse").unbind("click").bind("click",function(){
       var response = JSON.parse(localStorage.getItem("lastResponse"));

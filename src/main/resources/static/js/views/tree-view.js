@@ -387,7 +387,7 @@ define(function(require) {
 
 	$("#copyNodeBtn").unbind("click").bind("click",function(event){
 		if(!$("#copyNodeType").val()){
-			var nodeId = $("#copyNodeId").val();
+		var nodeId = $("#copyNodeId").val();
 		var node = treeObj.getNodeByKey(nodeId);
 		var node = new NodeModel({
 			id : node.data.id
@@ -408,11 +408,14 @@ define(function(require) {
 					rfRequestDTO : rfRequest,
 					rfResponseDTO : rfResponse
 			    });
+			    var nodeId = $("#copyNodeId").val();
+			    var node = treeObj.getNodeByKey(nodeId);
 
                 tree.createNewNode({
 					nodeName : $("#copyNodeTextField").val(),
 					nodeDesc : $("#copyNodeTextArea").val(),
 					conversation : conversation,
+					parentNodeId : node.parent.data.id,
 					successCallBack : function() {
 						$("#copyNodeModal").modal("hide");
 						$("#copyNodeModal").find("#copyNodeTextField").val("");
@@ -809,15 +812,23 @@ function nodeConverter(serverNode, uiNode) {
 	 			success : function(response) {
 	 				createNode(params.nodeName, params.nodeDesc, null, new ConversationModel({
 	 					id : response.get("id")
-	 				}), null, params.successCallBack);
+	 				}), null, params.successCallBack,params.parentNodeId);
 	 			}
 	 		});
 	 	}
 	 };
 
-	 var createNode = function(nodeName, nodeDesc, nodeType, conversation, entity, successCallBack) {
-	 	var activeFolder = tree.getActiveFolder();
-	 	var parentNodeId = activeFolder.data.id;
+	 var createNode = function(nodeName, nodeDesc, nodeType, conversation, entity, successCallBack,parentId) {
+	 	var parentNodeId;
+	 	var activeFolder;
+	 	if(parentId){ 
+           parentNodeId = parentId;
+           activeFolder = treeObj.getNodeByKey(parentId);
+	 	}else{
+	 		activeFolder = tree.getActiveFolder();
+	 	    parentNodeId = activeFolder.data.id;
+	 	}
+	 	
 	 	var node = new NodeModel({
 	 		parentId : parentNodeId,
 	 		name : nodeName,

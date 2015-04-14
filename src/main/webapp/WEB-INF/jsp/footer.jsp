@@ -217,7 +217,24 @@
                 <input type="text" class="form-control assertPropertyName http-header" placeholder="Property Name or Expression">
             </div>
             <div class="col-xs-2">
-                <input type="text" class="form-control assertCompare" placeholder="Compare">
+                <select class="assertCompare form-control" placeholder="Select">
+                  <option>=</option>
+                  <option>!=</option>
+                  <option>= Empty</option>
+                  <option>!= Empty</option>
+                  <option>Contains</option>
+                  <option>! Contains</option>
+                  <option><</option>
+                  <option><=</option>
+                  <option>></option>
+                  <option>>=</option>
+                  <option>Contains Key</option>
+                  <option>! Contains Key</option>
+                  <option>Contains Value</option>
+                  <option>! Contains Value</option>
+                  <option>= Null</option>
+                  <option>!= Null</option>
+                </select>
             </div>
             <div class="col-xs-4">
                 <input type="text" class="form-control assertExpectedValue" placeholder="Expected Value">

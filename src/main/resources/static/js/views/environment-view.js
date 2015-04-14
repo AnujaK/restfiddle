@@ -54,7 +54,7 @@ define(function(require) {
             success :  function(response){
                 that.collection = response;
                 var environmentWithSameName = that.collection.findWhere({name : $("#environmentName").val()});
-                if(!environmentWithSameName){
+                var saveEnvironment = function(){
                     var environmentName = $("#environmentName").val();
         
                     var envProperties = getEnvProperties();
@@ -78,8 +78,15 @@ define(function(require) {
                         }
                     });
 
+                }
+                if(!environmentWithSameName){
+                    saveEnvironment();
                 }else{
-                    $('#environmentName').after('<label class="text-danger" id="environment-name-error">Environment name already exists</label>');
+                    if(environmentWithSameName.id == $('.existingEnvironments').val()){
+                        saveEnvironment();
+                    }else{
+                        $('#environmentName').after('<label class="text-danger" id="environment-name-error">Environment name already exists</label>');
+                    }
                 }
             }
           });
