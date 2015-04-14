@@ -3,6 +3,7 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
+    require("libs/jquery.validate");
 	var EnvironmentModel = require('models/environment');
     var Environments = require('collections/environments');
     
@@ -16,17 +17,33 @@ define(function(require) {
         $("#environment-name-error").text("");
     });
 
-    if($('#environmentManagementForm').length){
-        $('#environmentManagementForm').validate({
-            messages : {
-                envName : "Environment name is empty"
-            }
-        });
+    $("#deleteEnvBtn").unbind('click').bind('click',function(){
+       $.ajax({
+                url : APP.config.baseUrl + '/environments/' + $('#deleteEnvId').val(),
+                type : 'delete',
+                dataType : 'json',
+                contentType : "application/json",
+                success : function(data) {
+                    $('.existingEnvironments').val('-1').change();
+                    $(".existingEnvironments option[value='"+ $('#deleteEnvId').val()+"']").remove();
+                    var manageEnvironmentView = new ManageEnvironmentView();
+                    manageEnvironmentView.render();
+                    $('#addNewEnvironmentBtn').click();
+                    $('#deleteEnvModal').modal('hide');
+                }
+            });
+    })
 
-        $("#environmentManagementForm").submit(function(e) {
-            e.preventDefault();
-        });
-    }
+
+    $('#environmentManagementForm').validate({
+        messages : {
+            envName : "Environment name is empty"
+        }
+    });
+    $("#environmentManagementForm").submit(function(e) {
+        e.preventDefault();
+    });
+   
    
     
 	$("#saveEnvironmentBtn").unbind("click").bind("click", function() {
@@ -37,7 +54,7 @@ define(function(require) {
             success :  function(response){
                 that.collection = response;
                 var environmentWithSameName = that.collection.findWhere({name : $("#environmentName").val()});
-                if(!environmentWithSameName){
+                var saveEnvironment = function(){
                     var environmentName = $("#environmentName").val();
         
                     var envProperties = getEnvProperties();
@@ -61,8 +78,15 @@ define(function(require) {
                         }
                     });
 
+                }
+                if(!environmentWithSameName){
+                    saveEnvironment();
                 }else{
-                    $('#environmentName').after('<label class="text-danger" id="environment-name-error">Environment name already exists</label>');
+                    if(environmentWithSameName.id == $('.existingEnvironments').val()){
+                        saveEnvironment();
+                    }else{
+                        $('#environmentName').after('<label class="text-danger" id="environment-name-error">Environment name already exists</label>');
+                    }
                 }
             }
           });
@@ -214,19 +238,8 @@ define(function(require) {
         },
 
         deleteEnvironment : function(){
-            $.ajax({
-                url : APP.config.baseUrl + '/environments/' + $('#environmentName').data('environment-id'),
-                type : 'delete',
-                dataType : 'json',
-                contentType : "application/json",
-                success : function(data) {
-                    $('.existingEnvironments').val('-1').change();
-                    $(".existingEnvironments option[value='"+ $('#environmentName').data('environment-id')+"']").remove();
-                    var manageEnvironmentView = new ManageEnvironmentView();
-                    manageEnvironmentView.render();
-                    $('#addNewEnvironmentBtn').click();
-                }
-            });
+            $('#deleteEnvId').val($('#environmentName').data('environment-id'));
+            $('#deleteEnvModal').modal('show');
         }
 	});
     

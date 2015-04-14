@@ -93,6 +93,11 @@ define(function(require) {
 
 		display : function(tags){
 			var that  = this;
+			_.each(tags,function(item,index){
+				if(!item){
+					tags.splice(index,1);
+				}
+			})
 			APP.tags.fetch({
 			    success : function(response){
 			    	response.each(function(tag) {

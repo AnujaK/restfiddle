@@ -82,11 +82,14 @@ define(function (require) {
             });
 
             _.each(subset, function (starredRequest) {
-                var methodType = starredRequest.conversation.rfRequest.methodType;
-                if(methodType){
-                    starredRequest.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
-                    starredRequest.methodType = methodType;
+                if(starredRequest.conversation){
+                    var methodType = starredRequest.conversation.rfRequest.methodType;
+                    if(methodType){
+                        starredRequest.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
+                        starredRequest.methodType = methodType;
+                    }
                 }
+               
                 var starredTemplate = this.template({node : starredRequest});
                 $(this.el).append(starredTemplate);
             }, this); 

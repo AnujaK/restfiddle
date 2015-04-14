@@ -553,6 +553,24 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="deleteEnvModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Delete Environment</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="deleteEnvId">
+				Are You Sure You Want To Delete Selected Environment?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary" id="deleteEnvBtn">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="globalSettingsModal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">

@@ -75,7 +75,7 @@
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="btn-sm" data-toggle="modal" data-target="#comingSoon">View Previous Results</a></li>
+                    <li><a href="#" class="btn-sm" id = "showLastResponse">View Previous Results</a></li>
                 </ul>
             </div>
             &nbsp;&nbsp;
@@ -97,7 +97,7 @@
                     More&nbsp;&nbsp;<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li class="copyResponseList"><a href="#" class="btn-sm" id = "copyResponse">Copy Response</a></li>
+                    <li class="copyResponseList"><a href="#" class="btn-sm" id = "copyResponse" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="Copy the response content.">Copy Response</a></li>
                     <li><a href="#" class="btn-sm" id="showLastResponse">Show Last Response</a></li>
                 </ul>
             </div>
