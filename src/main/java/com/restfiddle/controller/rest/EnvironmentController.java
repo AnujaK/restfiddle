@@ -103,7 +103,7 @@ public class EnvironmentController {
 
     @RequestMapping(value = "/api/environments/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Environment update(@PathVariable("id") Long id, @RequestBody EnvironmentDTO updated) {
+    Environment update(@PathVariable("id") String id, @RequestBody EnvironmentDTO updated) {
 	logger.debug("Updating environment with information: " + updated);
 
 	Environment environment = environmentRepository.findOne(updated.getId());
