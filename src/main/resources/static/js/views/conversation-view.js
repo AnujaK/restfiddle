@@ -306,7 +306,7 @@ define(function(require) {
          _.each(urlDataArr,function(item,index){
               queryString += item.key + '=' + item.value;
               if(index != urlDataArr.length-1){
-                queryString += ',';
+                queryString += '&';
               }
          })
 
@@ -581,7 +581,7 @@ var queryString = '';
   _.each(request.urlParams,function(item,index){
     queryString += item.paramKey +'=' + item.paramValue;
     if(index != request.urlParams.length-1){
-      queryString += ',';
+      queryString += '&';
     }
     var queryParamListItemView = new QueryParamListItemView();
     $("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
