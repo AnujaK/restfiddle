@@ -306,7 +306,7 @@ define(function(require) {
          _.each(urlDataArr,function(item,index){
               queryString += item.key + '=' + item.value;
               if(index != urlDataArr.length-1){
-                queryString += ',';
+                queryString += '&';
               }
          })
 
@@ -575,20 +575,14 @@ render : function(conversation) {
 
 
  this.$el.find(".apiRequestType").val(request.methodType).change();
-var queryString = '';
  if(request.urlParams){
-  queryString += '?';
   _.each(request.urlParams,function(item,index){
-    queryString += item.paramKey +'=' + item.paramValue;
-    if(index != request.urlParams.length-1){
-      queryString += ',';
-    }
     var queryParamListItemView = new QueryParamListItemView();
     $("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
   })
  }
 
-this.$el.find("#apiUrl").val(request.apiUrlString + queryString);
+this.$el.find("#apiUrl").val(request.apiUrlString);
  if(request.apiBody != null){
   this.apiBodyCodeMirror.setValue(request.apiBodyString);
 }
