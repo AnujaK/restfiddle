@@ -102,6 +102,21 @@
         </div>
     </p>    
     </script>
+    <script type="text/template" id="tpl-query-param-item">
+    <p>
+        <div class="row">
+            <div class="col-xs-5">
+                <input type="text" class="form-control urlDataName" placeholder="Enter Key" value = <@=query.paramKey@>>
+            </div>
+            <div class="col-xs-5">
+                <input type="text" class="form-control urlDataValue" placeholder="Enter Value" value = <@=query.paramValue@>>
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-default destroy"><span class="glyphicon glyphicon-remove"></span>                   </button>
+            </div>
+        </div>
+    </p>    
+    </script>
     <script type="text/template" id="tpl-query-param-list-item">
     <p>
         <div class="row">
