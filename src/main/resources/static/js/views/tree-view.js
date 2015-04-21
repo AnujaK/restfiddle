@@ -671,32 +671,32 @@ dragDrop : function(node, data) {
 								APP.socketConnector.$el.show();
 							}else{
 								APP.Events.trigger(StarEvent.CLICK,data.node.data.id);
-							var node = new NodeModel({
-								id : data.node.data.id
+								var node = new NodeModel({
+									id : data.node.data.id
+								});
+								node.fetch({
+									success : function(response) {
+										console.log(response.get("conversation"));
+										if(response.get("starred")){
+											$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+										}
+										else{
+											$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+										}
+										var conversation = new ConversationModel(response.get("conversation"));
+										$("#apiReqNodeId").html(data.node.data.id);
+										conversation.set("id", conversation.get("id"));
+										conversation.set("name", response.get("name"));
+										conversation.set("description",response.get("description"));
+									// var conversationView = new
+									// app.ConversationView({model : conversation});
+									APP.conversation.render(conversation);
+									APP.tagsLabel.display(response.get('tags'));
+									ConversationEvents.triggerChange(response
+										.get("conversation") ? response
+										.get("conversation").id : null);
+								}
 							});
-							node.fetch({
-								success : function(response) {
-									console.log(response.get("conversation"));
-									if(response.get("starred")){
-										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
-									}
-									else{
-										$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
-									}
-									var conversation = new ConversationModel(response.get("conversation"));
-									$("#apiReqNodeId").html(data.node.data.id);
-									conversation.set("id", conversation.get("id"));
-									conversation.set("name", response.get("name"));
-									conversation.set("description",response.get("description"));
-								// var conversationView = new
-								// app.ConversationView({model : conversation});
-								APP.conversation.render(conversation);
-								APP.tagsLabel.display(response.get('tags'));
-								ConversationEvents.triggerChange(response
-									.get("conversation") ? response
-									.get("conversation").id : null);
-							}
-						});
 							}
 							
 

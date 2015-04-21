@@ -260,10 +260,13 @@ define(function(require) {
 
     var QueryParamListItemView = Backbone.View.extend({	
       template: _.template($('#tpl-query-param-list-item').html()),
+      queryTemplate: _.template($('#tpl-query-param-item').html()),
 
       events : {
         'click .destroy': 'clear',
-        'change .urlDataName' : 'addQuery'
+        'change .urlDataName,.urlDataValue' : 'addQuery',
+        'textInput .urlDataName,.urlDataValue' : 'addQuery',
+        'input .urlDataName,.urlDataValue' : 'addQuery'
       },
 
       render : function() {
@@ -271,11 +274,44 @@ define(function(require) {
         return this;
       },
 
+      displayQueryParams : function(data){
+        this.$el.html(this.queryTemplate({query : data}));
+        return this;
+      },
+
       clear : function(){
         this.remove();
       },
       addQuery : function(){
+         var queryString = '';
+          var urlDataNames = [];
+          $('.urlDataName').each(function(){
+            urlDataNames.push($(this).val());
+          }) 
 
+          var urlDataValues = [];
+          $(".urlDataValue").each(function() {
+            urlDataValues.push($(this).val());
+          }); 
+
+          var urlDataArr = [];
+          var counter = 0;
+          $.each(urlDataNames, function() {
+            var urlData = {};
+            urlData.key = urlDataNames[counter];
+            urlData.value = urlDataValues[counter];
+            urlDataArr.push(urlData);
+            counter++;
+          });  
+         _.each(urlDataArr,function(item,index){
+              queryString += item.key + '=' + item.value;
+              if(index != urlDataArr.length-1){
+                queryString += ',';
+              }
+         })
+
+         var apiUrlData = $("#apiUrl").val().split('?');
+         $("#apiUrl").val(apiUrlData[0] + '?' + queryString);
       }
     });
 
@@ -528,6 +564,7 @@ render : function(conversation) {
  APP.projectRunner.$el.hide();
  APP.socketConnector.$el.hide();
  APP.socketConnector.$el.hide();
+ $("#queryParamsWrapper").html('');
  this.$el.show();
 
  var request = conversation.get('rfRequest');
@@ -536,8 +573,22 @@ render : function(conversation) {
  this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
  this.$el.find("#apiRequestDescription").html(conversation.get('description'));	
 
- this.$el.find("#apiUrl").val(request.apiUrlString);
+
  this.$el.find(".apiRequestType").val(request.methodType).change();
+var queryString = '';
+ if(request.urlParams){
+  queryString += '?';
+  _.each(request.urlParams,function(item,index){
+    queryString += item.paramKey +'=' + item.paramValue;
+    if(index != request.urlParams.length-1){
+      queryString += ',';
+    }
+    var queryParamListItemView = new QueryParamListItemView();
+    $("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
+  })
+ }
+
+this.$el.find("#apiUrl").val(request.apiUrlString + queryString);
  if(request.apiBody != null){
   this.apiBodyCodeMirror.setValue(request.apiBodyString);
 }
@@ -550,34 +601,12 @@ this.$el.find("#response-wrapper").html('');
 },
 saveOrUpdateConversation : function(){
  if(APP.appView.getCurrentConversationId() != null){
-  var urlDataNames = [];
-  this.$el.find(".urlDataName").each(function() {
-    var urlDataKey = {};
-    urlDataKey.key = $(this).val();
-    urlDataNames.push(urlDataKey);
-  });  
 
-  var urlDataValues = [];
-  this.$el.find(".urlDataValue").each(function() {
-    var urlDataVal = {};
-    urlDataVal.value = $(this).val();
-    urlDataValues.push(urlDataVal);
-  }); 
-
-  var urlDataArr = [];
-  var counter = 0;
-  $.each(urlDataNames, function() {
-    var urlData = {};
-    urlData.key = urlDataNames[counter].key;
-    urlData.value = urlDataValues[counter].value;
-    urlDataArr.push(urlData);
-    counter++;
-  });  
   var rfRequest = {
     apiUrl : this.$el.find("#apiUrl").val(),
     apiBody : this.apiBodyCodeMirror.getValue(),
     methodType : this.$el.find(".apiRequestType").val(),
-    urlParams : urlDataArr
+    urlParams : this.getUrlParams()
   }
   var rfResponse = {
 
