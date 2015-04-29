@@ -113,40 +113,43 @@ var StarView = Backbone.View.extend({
         console.log("Event star a node was fired for node Id " + "");
         if (APP.appView.getCurrentRequestNodeId() != null) {
             var nodeId;
-            if($('#tree').css('display') == "none"){
+            if($('#tree').css('display') == "none" && $('#currentStaredNode').val() != null){
                nodeId = $('#currentStaredNode').val();
             }else{
                 nodeId = APP.appView.getCurrentRequestNodeId();
             }
             console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
-            var node = new NodeModel({
-                id : nodeId
-            });
-            node.fetch({
-                success : function(response) {
-                 var starred = !response.get("starred");
-                 var starModel = new StarModel();
-                 starModel.set('id', nodeId);
-                 starModel.set('starred', !response.get("starred"));
-                 starModel.save(null, {
-                    success: function () {
-                        console.log("changes saves successfully");
-                        if($('#starred-items').css('display') == 'block'){
-                            $('.starred ').click();
-                        }
-                        if(starred){
-                         $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
-                     }
-                     else{
-                         $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
-                     }
-                 },
-                 error: function () {
-                    alert('some error occured while saving the request');
-                }
-            });
-             }
-         });
+            if(nodeId){
+                var node = new NodeModel({
+                    id : nodeId
+                });
+                node.fetch({
+                    success : function(response) {
+                     var starred = !response.get("starred");
+                     var starModel = new StarModel();
+                     starModel.set('id', nodeId);
+                     starModel.set('starred', !response.get("starred"));
+                     starModel.save(null, {
+                        success: function () {
+                            console.log("changes saves successfully");
+                            if($('#starred-items').css('display') == 'block'){
+                                $('.starred ').click();
+                            }
+                            if(starred){
+                             $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+                         }
+                         else{
+                             $('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+                         }
+                     },
+                     error: function () {
+                        alert('some error occured while saving the request');
+                    }
+                });
+                 }
+             });
+            }
+    
         }
     },
 
