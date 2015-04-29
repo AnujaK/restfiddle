@@ -9,6 +9,7 @@ define(function(require) {
   var AssertView = require('views/assert-view');
   var TreeView = require('views/tree-view');
   var ManageEnvironmentView = require('views/environment-view');
+  var Environments = require('collections/environments');
   
   require('libs/prettify/prettify');
   require('typeahead');
@@ -393,6 +394,29 @@ define(function(require) {
               if(event.keyCode == 13){
                 $("#run").click();
               }
+            });
+            $("#apiUrl").change(function(event){
+                var evaluationExp = /(\{{)(.+)(\}})/
+                var apiUrlValue = event.currentTarget.value;
+                var matchedData = apiUrlValue.match(evaluationExp);
+                if(matchedData.length && matchedData[2]){
+                  var environments = new Environments();
+                  environments.fetch({
+                    success : function(response){
+                       var currenctEnv = _.findWhere(response.models,{id : $(".environmentsSelectBox").val()});
+                       var currenctEnvProperties = currenctEnv.get('properties');
+                       _.each(currenctEnvProperties,function(property,index){
+                          if(matchedData[2] == property.propertyName){
+                            var evaluatedValue  = apiUrlValue.replace('{{'+property.propertyName +'}}',property.propertyValue);
+                            $('#apiUrl').typeahead('val', evaluatedValue);
+                          }
+                       })
+                    }
+                  })
+                }
+          
+
+
             });
             
             $("#run").unbind('click').bind("click", function(view){
