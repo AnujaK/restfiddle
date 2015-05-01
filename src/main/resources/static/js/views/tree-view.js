@@ -400,7 +400,8 @@ define(function(require) {
 				var rfRequest = {
 				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
 				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
-				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : ''
+				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : '',
+				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null
 			    };
 			    var rfResponse = {};
 			    conversation = new ConversationModel({

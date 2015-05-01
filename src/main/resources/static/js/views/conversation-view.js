@@ -619,12 +619,12 @@ this.$el.find("#response-wrapper").html('');
 },
 saveOrUpdateConversation : function(){
  if(APP.appView.getCurrentConversationId() != null){
-
   var rfRequest = {
     apiUrl : this.$el.find("#apiUrl").val(),
     apiBody : this.apiBodyCodeMirror.getValue(),
     methodType : this.$el.find(".apiRequestType").val(),
-    urlParams : this.getUrlParams()
+    urlParams : this.getUrlParams(),
+    headers : this.getHeaderParams()
   }
   var rfResponse = {
 
