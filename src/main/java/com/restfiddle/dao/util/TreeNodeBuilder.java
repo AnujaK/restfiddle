@@ -19,10 +19,11 @@ import com.restfiddle.util.TreeNode;
 
 public class TreeNodeBuilder {
 
-    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeType, Boolean starred,String method) {
+    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String nodeType,Boolean starred, String method) {
 	TreeNode treeNode = new TreeNode();
 	treeNode.setId(nodeId);
 	treeNode.setName(nodeName);
+	treeNode.setDescription(nodeDesc);
 	treeNode.setNodeType(nodeType);
 	treeNode.setStarred(starred);
 	treeNode.setMethod(method);

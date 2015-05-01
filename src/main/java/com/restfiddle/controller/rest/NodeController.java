@@ -232,7 +232,7 @@ public class NodeController {
 	    if (baseNode.getConversation() != null) {
 		methodType = baseNode.getConversation().getRfRequest().getMethodType();
 	    }
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getNodeType(), baseNode.getStarred(), methodType);
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getDescription(), baseNode.getNodeType(), baseNode.getStarred(), methodType);
 	    treeNodeMap.put(nodeId, treeNode);
 	}
 

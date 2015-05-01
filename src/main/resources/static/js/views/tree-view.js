@@ -926,7 +926,8 @@ function nodeConverter(serverNode, uiNode) {
 			return {
 				title : nodeModel.get('name'),
 				id : nodeModel.get('id'),
-				folder : nodeModel.get('nodeType') == 'FOLDER' ? true : false
+				folder : nodeModel.get('nodeType') == 'FOLDER' ? true : false,
+				data : { "description" : nodeModel.get('description')}
 			};
 		};
 		tree.resetTree = function() {
