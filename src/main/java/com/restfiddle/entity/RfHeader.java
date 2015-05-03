@@ -18,10 +18,6 @@ package com.restfiddle.entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-/**
- * Since headers will not be saved separately, we are using AbstractEntity and not BaseEntity.
- * 
- */
 public class RfHeader extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

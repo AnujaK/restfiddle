@@ -15,6 +15,7 @@
  */
 package com.restfiddle.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Lob;
@@ -37,7 +38,7 @@ public class RfRequest extends NamedEntity {
     @Transient
     private String apiBodyString;
 
-    private List<RfHeader> rfHeaders;
+    private List<RfHeader> rfHeaders = new ArrayList<RfHeader>();
 
     private List<RfCookie> rfCookies;
 
