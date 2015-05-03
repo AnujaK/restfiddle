@@ -282,6 +282,7 @@ define(function(require) {
 
       clear : function(){
         this.remove();
+        this.addQuery();
       },
       addQuery : function(){
          var queryString = '';
@@ -312,7 +313,13 @@ define(function(require) {
          })
 
          var apiUrlData = $("#apiUrl").val().split('?');
-         $("#apiUrl").val(apiUrlData[0] + '?' + queryString);
+         if(queryString != ""){
+         	$("#apiUrl").val(apiUrlData[0] + '?' + queryString);
+         }
+         else{
+         	$("#apiUrl").val(apiUrlData[0]);
+         }
+         
       }
     });
 
@@ -399,7 +406,7 @@ define(function(require) {
                 var evaluationExp = /(\{{)(.+)(\}})/
                 var apiUrlValue = event.currentTarget.value;
                 var matchedData = apiUrlValue.match(evaluationExp);
-                if(matchedData.length && matchedData[2]){
+                if(matchedData != null && matchedData.length > 2 && matchedData[2]){
                   var environments = new Environments();
                   environments.fetch({
                     success : function(response){
