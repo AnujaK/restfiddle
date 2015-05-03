@@ -361,7 +361,7 @@ define(function(require) {
         this.$el.html(this.template());
         return this;
       },
-
+      
       clear : function(){
         this.remove();
       }
@@ -605,6 +605,21 @@ render : function(conversation) {
     $("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
   })
  }
+
+ if(request.rfHeaders){
+  _.each(request.rfHeaders,function(item,index){
+    var headerListItemView = new HeaderListItemView();
+    $("#headersWrapper").append(headerListItemView.render().el); 
+    headerListItemView.$el.find('.http-header').typeahead(null, {
+      name: 'httpHeaders',
+      displayKey: 'name',
+      source: httpHeaders.ttAdapter()
+    });
+    headerListItemView.$el.find('.headerName').val(item.headerName);
+    headerListItemView.$el.find('.headerValue').val(item.headerValueString);
+  })
+ }
+
 
 this.$el.find("#apiUrl").val(request.apiUrlString);
  if(request.apiBody != null){
