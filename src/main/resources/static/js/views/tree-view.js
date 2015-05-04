@@ -445,7 +445,7 @@ define(function(require) {
 		node.data.description = nodeModel.attributes.description;
 		
 		var treeNodeView = new TreeNodeView();
-		node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+		node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
@@ -757,7 +757,7 @@ function nodeConverter(serverNode, uiNode) {
 
 			if(serverNode.children[i].method){
 				colorCode = getColorCode(serverNode.children[i].method);
-				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + serverNode.children[i].name + treeNodeView.template()
+				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template()
 			}else{
 				title = serverNode.children[i].name + treeNodeView.template()
 			}
@@ -868,7 +868,7 @@ function nodeConverter(serverNode, uiNode) {
     node.data.name = nodeModel.attributes.name;
     
     var treeNodeView = new TreeNodeView();
-    node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
     node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
     node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
     node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
@@ -898,7 +898,7 @@ function nodeConverter(serverNode, uiNode) {
 	    node.data.name = nodeModel.attributes.name;
 	    
 	    var treeNodeView = new TreeNodeView();
-	    node.setTitle(nodeModel.attributes.name+ treeNodeView.template());
+	    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
 	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 	    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);

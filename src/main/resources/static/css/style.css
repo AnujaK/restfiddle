@@ -435,7 +435,7 @@ ul .dropdown-menu li{
 }
 
 .lozenge.left {
-	margin-right: 1.5em;
+	margin-right: 1em;
 }
 
 .lozenge.orange{
@@ -522,4 +522,13 @@ ul .dropdown-menu li{
 
 #deleteEnvironment{
 	display: none;
+}
+
+.large-text {
+  max-width: 146px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }

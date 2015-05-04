@@ -27,11 +27,12 @@
             </div>
             <a class="navbar-brand" href="#">RESTFiddle</a>
         </div>
+       <div class = "pull-right">
         <div class="env-selectbox" >
             <select class="environmentsSelectBox form-control" placeholder = "Seclect Environment">
             </select>
         </div>
-    <div class="btn-group pull-right">
+        <div class="btn-group">
          <button type="button" class="username dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             Me<span class="caret"></span>
         </button>
@@ -50,6 +51,7 @@
                     </form>
                 </li>
           </ul>
-    </div>
+      </div>
+  </div>
     </div>
 </div>
