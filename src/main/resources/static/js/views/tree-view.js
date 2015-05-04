@@ -52,6 +52,7 @@ define(function(require) {
 		$('#nodeBody').attr('checked','checked');
 		$('#nodeHeaders').attr('checked','checked');
 		$('#nodeAuth').attr('checked','checked');
+        $('#nodeTags').attr('checked','checked');
 
 	});
 
@@ -401,7 +402,8 @@ define(function(require) {
 				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
 				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
 				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : '',
-				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null
+				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null,
+                    tags : $('#nodeTags').attr('checked') == 'checked' ? rfRequestObj['rfTags'] : '',
 			    };
 			    var rfResponse = {};
 			    conversation = new ConversationModel({
