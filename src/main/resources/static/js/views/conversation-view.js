@@ -265,9 +265,7 @@ define(function(require) {
 
       events : {
         'click .destroy': 'clear',
-        'change .urlDataName,.urlDataValue' : 'addQuery',
-        'textInput .urlDataName,.urlDataValue' : 'addQuery',
-        'input .urlDataName,.urlDataValue' : 'addQuery'
+        'blur .urlDataName,.urlDataValue' : 'addQuery'
       },
 
       render : function() {
