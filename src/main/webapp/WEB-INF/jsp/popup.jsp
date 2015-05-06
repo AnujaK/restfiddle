@@ -388,6 +388,7 @@
                     	<input type = "checkbox" checked id = "nodeBody"><label for = "nodeBody">&nbsp;&nbsp;Body</label><br>
                     	<input type = "checkbox" checked id = "nodeHeaders"><label for = "nodeHeaders">&nbsp;&nbsp;Headers</label><br>
                     	<input type = "checkbox" checked id = "nodeAuth"><label for = "nodeAuth">&nbsp;&nbsp;Auth</label><br>
+                    	<input type = "checkbox" checked id = "nodeTags"><label for = "nodeTags">&nbsp;&nbsp;Tags</label><br>
                     </div>
 				  </div>
                 </form>
