@@ -397,13 +397,13 @@ define(function(require) {
 		    success : function(response) {
 				var conversation = new ConversationModel(response.get("conversation"));
 				var rfRequestObj = conversation.get('rfRequest');
+                var tagsArray = response.get('tags');
 				
 				var rfRequest = {
 				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
 				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
 				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : '',
-				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null,
-                    tags : $('#nodeTags').attr('checked') == 'checked' ? rfRequestObj['rfTags'] : '',
+				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null
 			    };
 			    var rfResponse = {};
 			    conversation = new ConversationModel({
@@ -413,11 +413,14 @@ define(function(require) {
 			    });
 			    var nodeId = $("#copyNodeId").val();
 			    var node = treeObj.getNodeByKey(nodeId);
-
-                tree.createNewNode({
+                var tags=[];
+                tags = $('#nodeTags').attr('checked') == 'checked' ? tagsArray : null;
+                
+                tree.createNewNode({   
 					nodeName : $("#copyNodeTextField").val(),
 					nodeDesc : $("#copyNodeTextArea").val(),
 					conversation : conversation,
+                    tags : tags,
 					parentNodeId : node.parent.data.id,
 					successCallBack : function() {
 						$("#copyNodeModal").modal("hide");
@@ -815,13 +818,14 @@ function nodeConverter(serverNode, uiNode) {
 	 			success : function(response) {
 	 				createNode(params.nodeName, params.nodeDesc, null, new ConversationModel({
 	 					id : response.get("id")
-	 				}), null, params.successCallBack,params.parentNodeId);
+	 				}), null, params.successCallBack, params.parentNodeId, params.tags);
 	 			}
 	 		});
 	 	}
 	 };
 
-	 var createNode = function(nodeName, nodeDesc, nodeType, conversation, entity, successCallBack,parentId) {
+
+	 var createNode = function(nodeName, nodeDesc, nodeType, conversation, entity, successCallBack, parentId, tags) {
 	 	var parentNodeId;
 	 	var activeFolder;
 	 	if(parentId){ 
@@ -831,6 +835,10 @@ function nodeConverter(serverNode, uiNode) {
 	 		activeFolder = tree.getActiveFolder();
 	 	    parentNodeId = activeFolder.data.id;
 	 	}
+        
+        if(typeof tags == "undefined"){
+            tags = [];
+        }
 	 	
 	 	var node = new NodeModel({
 	 		parentId : parentNodeId,
@@ -839,7 +847,8 @@ function nodeConverter(serverNode, uiNode) {
 	 		projectId : APP.appView.getCurrentProjectId(),
 	 		conversationDTO : conversation,
 	 		genericEntityDTO : entity,
-	 		nodeType : nodeType
+	 		nodeType : nodeType,
+            tags : tags
 	 	});
 	 	node.save(null, {
 	 		success : function(response) {
