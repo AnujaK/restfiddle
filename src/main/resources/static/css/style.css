@@ -235,6 +235,7 @@ ul.fancytree-container {
 
 .rf-col-1:hover, .rf-col-2:hover, .rf-col-3:hover{
 	overflow-y: auto;
+	padding-right: 1px;
 }
 
 #apiRequestName{
@@ -435,7 +436,7 @@ ul .dropdown-menu li{
 }
 
 .lozenge.left {
-	margin-right: 1.5em;
+	margin-right: 1em;
 }
 
 .lozenge.orange{
@@ -511,10 +512,13 @@ ul .dropdown-menu li{
 }
 
 .env-selectbox{
-  position: absolute;
-  left: 82%;
   top: 7px;
-  width: 12%;
+  width: 69%;
+}
+
+.username-container{
+   float: right !important;
+  padding-right: 5%;
 }
 #tagLabels{
 	display: inline;
@@ -522,4 +526,13 @@ ul .dropdown-menu li{
 
 #deleteEnvironment{
 	display: none;
+}
+
+.large-text {
+  max-width: 146px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }

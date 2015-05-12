@@ -403,6 +403,7 @@ define(function(require) {
             $("#apiUrl").change(function(event){
                 var evaluationExp = /(\{{)(.+)(\}})/
                 var apiUrlValue = event.currentTarget.value;
+                $('#evaluatedApiUrl').val(apiUrlValue);
                 var matchedData = apiUrlValue.match(evaluationExp);
                 if(matchedData != null && matchedData.length > 2 && matchedData[2]){
                   var environments = new Environments();
@@ -413,15 +414,12 @@ define(function(require) {
                        _.each(currenctEnvProperties,function(property,index){
                           if(matchedData[2] == property.propertyName){
                             var evaluatedValue  = apiUrlValue.replace('{{'+property.propertyName +'}}',property.propertyValue);
-                            $('#apiUrl').typeahead('val', evaluatedValue);
+                            $('#evaluatedApiUrl').val(evaluatedValue);
                           }
                        })
                     }
                   })
                 }
-          
-
-
             });
             
             $("#run").unbind('click').bind("click", function(view){
@@ -466,7 +464,7 @@ define(function(require) {
 },
 getProcessRequest : function(){
   var item = {
-   apiUrl : encodeURI(this.$el.find("#apiUrl").val()),
+   apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()),
    methodType : this.$el.find(".apiRequestType").val(),
    apiBody : this.apiBodyCodeMirror.getValue(),
    headers : this.getHeaderParams(),
@@ -627,6 +625,25 @@ render : function(conversation) {
 
 
 this.$el.find("#apiUrl").val(request.apiUrlString);
+    var evaluationExp = /(\{{)(.+)(\}})/
+    var apiUrlValue = this.$el.find("#apiUrl").val();
+      $('#evaluatedApiUrl').val(apiUrlValue);
+        var matchedData = apiUrlValue.match(evaluationExp);
+          if(matchedData != null && matchedData.length > 2 && matchedData[2]){
+            var environments = new Environments();
+              environments.fetch({
+                success : function(response){
+                  var currenctEnv = _.findWhere(response.models,{id : $(".environmentsSelectBox").val()});
+                  var currenctEnvProperties = currenctEnv.get('properties');
+                    _.each(currenctEnvProperties,function(property,index){
+                      if(matchedData[2] == property.propertyName){
+                        var evaluatedValue  = apiUrlValue.replace('{{'+property.propertyName +'}}',property.propertyValue);
+                        $('#evaluatedApiUrl').val(evaluatedValue);
+                      }
+                    })
+                }
+              })
+          }
  if(request.apiBody != null){
   this.apiBodyCodeMirror.setValue(request.apiBodyString);
 }
