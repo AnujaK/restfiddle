@@ -610,8 +610,8 @@ render : function(conversation) {
  }
     
  if(request.basicAuth){
-    $("bAuthUsername").append(request.basicAuth.username);
-    $("bAuthPassword").append(request.basicAuth.password);
+    $("#bAuthUsername").val(request.basicAuth.username);
+    $("#bAuthPassword").val(request.basicAuth.password);
  }
  if(request.rfHeaders){
   _.each(request.rfHeaders,function(item,index){
