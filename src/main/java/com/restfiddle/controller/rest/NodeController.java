@@ -104,12 +104,26 @@ public class NodeController {
 	    GenericEntity genericEntity = genericEntityRepository.findOne(nodeDTO.getGenericEntityDTO().getId());
 	    node.setGenericEntity(genericEntity);
 	}
-
+	
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
 	node.setProjectId(project.getId());
 
 	BaseNode savedNode = nodeRepository.save(node);
-
+	
+	//set tags
+	List<Tag> tags = new ArrayList<Tag>();
+	
+	List<TagDTO> tagDTOs = nodeDTO.getTags();
+	if (tagDTOs != null && !tagDTOs.isEmpty()) {
+	    List<String> tagIds = new ArrayList<String>();
+	    for (TagDTO tagDTO : tagDTOs) {
+	    	tagIds.add(tagDTO.getId());
+	    }
+	    tags = (List<Tag>) tagRepository.findAll(tagIds);
+	}
+	savedNode.setTags(tags);
+	savedNode = nodeRepository.save(savedNode);
+	
 	// Generate APIs for Entity
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
 	    generateApiController.generateApi(savedNode);
