@@ -9,6 +9,7 @@ import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.dto.UrlParamDTO;
+import com.restfiddle.entity.BasicAuth;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.FormParam;
 import com.restfiddle.entity.RfHeader;
@@ -29,6 +30,13 @@ public class ConversationConverter {
 
 	    List<FormDataDTO> formDataDTOs = rfRequestDTO.getFormParams();
 	    List<FormParam> formParams = new ArrayList<FormParam>();
+	    
+	    if(rfRequestDTO.getBasicAuthDTO() != null){
+	    	BasicAuth basicAuth = new BasicAuth();
+	    	basicAuth.setUsername(rfRequestDTO.getBasicAuthDTO().getUsername());
+	    	basicAuth.setPassword(rfRequestDTO.getBasicAuthDTO().getPassword());
+	    	rfRequest.setBasicAuth(basicAuth);
+	    }
 
 	    if (rfRequestDTO.getApiBody() != null) {
 		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());

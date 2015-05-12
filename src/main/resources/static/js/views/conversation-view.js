@@ -608,7 +608,11 @@ render : function(conversation) {
     $("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
   })
  }
-
+    
+ if(request.basicAuth){
+    $("bAuthUsername").append(request.basicAuth.username);
+    $("bAuthPassword").append(request.basicAuth.password);
+ }
  if(request.rfHeaders){
   _.each(request.rfHeaders,function(item,index){
     var headerListItemView = new HeaderListItemView();
@@ -622,7 +626,6 @@ render : function(conversation) {
     headerListItemView.$el.find('.headerValue').val(item.headerValueString);
   })
  }
-
 
 this.$el.find("#apiUrl").val(request.apiUrlString);
     var evaluationExp = /(\{{)(.+)(\}})/
@@ -661,7 +664,10 @@ saveOrUpdateConversation : function(){
     apiBody : this.apiBodyCodeMirror.getValue(),
     methodType : this.$el.find(".apiRequestType").val(),
     urlParams : this.getUrlParams(),
-    headers : this.getHeaderParams()
+    headers : this.getHeaderParams(),
+    formParams : this.getFormParams(),
+    basicAuthDTO : this.getBasicAuthDTO(),
+    digestAuthDTO : this.getDigestAuthDTO()
   }
   var rfResponse = {
 
