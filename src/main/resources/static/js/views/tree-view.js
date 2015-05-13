@@ -75,6 +75,29 @@ define(function(require) {
 			alert("Please select a node to run.");
 			return;
 		}
+        $("#apiReqNodeId").html(node.data.id);
+		APP.Events.trigger(StarEvent.CLICK,node.data.id);
+				var node = new NodeModel({
+					id : node.data.id
+		});
+	    node.fetch({
+			success : function(response) {
+			  if(response.get("starred")){
+				$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+			  }else{
+				$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+			  }
+			  var conversation = new ConversationModel(response.get("conversation"));
+			  conversation.set("id", conversation.get("id"));
+			  conversation.set("name", response.get("name"));
+			  conversation.set("description",response.get("description"));
+									
+              APP.conversation.render(conversation);
+			  APP.tagsLabel.display(response.get('tags'));
+			  ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
+			  $("#run").click();
+			}
+		});
 		
 	}
 	
@@ -663,9 +686,11 @@ dragDrop : function(node, data) {
 					createNode: function(event, data) {
 						var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
 						var copyNodeBtn = data.node.li.getElementsByClassName("copy-node");
+						var runNodeBtn = data.node.li.getElementsByClassName("run-node");
 						if(editNodeBtn && editNodeBtn.length > 0){
 							editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
 							copyNodeBtn[0].addEventListener("click", function(){copyNode(data.node);});
+							runNodeBtn[0].addEventListener("click", function(){runNode(data.node);});
 						}
 						var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 						if(deleteNodeBtn && deleteNodeBtn.length > 0){
