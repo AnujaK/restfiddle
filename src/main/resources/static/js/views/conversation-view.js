@@ -593,6 +593,8 @@ render : function(conversation) {
  APP.socketConnector.$el.hide();
  $("#queryParamsWrapper").html('');
  $("#headersWrapper").html('');
+ $("#bAuthUsername").val('');
+ $("#bAuthPassword").val('');
  this.$el.show();
 
  var request = conversation.get('rfRequest');
