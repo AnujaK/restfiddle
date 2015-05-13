@@ -235,6 +235,9 @@ ul.fancytree-container {
 
 .rf-col-1:hover, .rf-col-2:hover, .rf-col-3:hover{
 	overflow-y: auto;
+}
+
+.rf-col-1:hover{
 	padding-right: 1px;
 }
 
@@ -493,6 +496,7 @@ ul .dropdown-menu li{
   border: none;
   padding-bottom: 5px;
   outline: none;
+  color: #999;
 }
 
 .circle{
@@ -513,13 +517,8 @@ ul .dropdown-menu li{
 
 .env-selectbox{
   top: 7px;
-  width: 69%;
 }
 
-.username-container{
-   float: right !important;
-  padding-right: 5%;
-}
 #tagLabels{
 	display: inline;
 }
@@ -529,10 +528,17 @@ ul .dropdown-menu li{
 }
 
 .large-text {
-  max-width: 146px;
+  max-width: 193px;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   vertical-align: middle;
+}
+
+@media (max-width:767px) {
+  .env-selectbox{
+  	margin-right: 1%;
+  	margin-left: 1%;
+  }
 }

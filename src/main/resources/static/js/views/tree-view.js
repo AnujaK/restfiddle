@@ -69,6 +69,37 @@ define(function(require) {
 		$("#copyNodeModal").modal("show");
 		
 	}
+
+	function runNode(node,event){
+		if (node == null) {
+			alert("Please select a node to run.");
+			return;
+		}
+        $("#apiReqNodeId").html(node.data.id);
+		APP.Events.trigger(StarEvent.CLICK,node.data.id);
+				var node = new NodeModel({
+					id : node.data.id
+		});
+	    node.fetch({
+			success : function(response) {
+			  if(response.get("starred")){
+				$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
+			  }else{
+				$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
+			  }
+			  var conversation = new ConversationModel(response.get("conversation"));
+			  conversation.set("id", conversation.get("id"));
+			  conversation.set("name", response.get("name"));
+			  conversation.set("description",response.get("description"));
+									
+              APP.conversation.render(conversation);
+			  APP.tagsLabel.display(response.get('tags'));
+			  ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
+			  $("#run").click();
+			}
+		});
+		
+	}
 	
 	function deleteNode(node){
 		$("#deleteNodeId").val(node.data.id);
@@ -453,6 +484,7 @@ define(function(require) {
 		node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
@@ -657,9 +689,11 @@ dragDrop : function(node, data) {
 					createNode: function(event, data) {
 						var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
 						var copyNodeBtn = data.node.li.getElementsByClassName("copy-node");
+						var runNodeBtn = data.node.li.getElementsByClassName("run-node");
 						if(editNodeBtn && editNodeBtn.length > 0){
 							editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
 							copyNodeBtn[0].addEventListener("click", function(){copyNode(data.node);});
+							runNodeBtn[0].addEventListener("click", function(){runNode(data.node);});
 						}
 						var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 						if(deleteNodeBtn && deleteNodeBtn.length > 0){
@@ -882,6 +916,7 @@ function nodeConverter(serverNode, uiNode) {
     node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
     node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
     node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
     node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
     nodeModel.save(null, {
       success : function(response) {
@@ -912,6 +947,7 @@ function nodeConverter(serverNode, uiNode) {
 	    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
 	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+	    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
 	    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 	    nodeModel.save(null, {
 	      success : function(response) {
