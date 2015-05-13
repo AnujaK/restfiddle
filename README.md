@@ -118,9 +118,9 @@ mongodb.password=
 
 ```
 Sometimes MongoDB doesn't start and shows message:
-        old lock file: C:\Users\Ranjan\Documents\restfiddledata\data\mongod.lock. probably means unclean shutdown
+        old lock file: C:\Users\ANUJA\Documents\restfiddledata\data\mongod.lock. probably means unclean shutdown
 Run repair operation to recover your database
-	"C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\Ranjan\Documents\restfiddledata\data --repair
+	"C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddledata\data --repair
 Most likely, your data will be repaired with the --repair option. In case it doesn't, delete the mongod.lock file and then run the above --repair command.
 ```
 
