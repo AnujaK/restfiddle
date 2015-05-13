@@ -1,9 +1,9 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-      <!--       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-            </button> -->
+            </button>
             <div class="dropdown rf-dropdown">
                 <button class="btn btn-default" type="button" data-toggle="dropdown">
                     <span class='glyphicon glyphicon-align-justify'></span>
@@ -27,11 +27,12 @@
             </div>
             <a class="navbar-brand" href="#">RESTFiddle</a>
         </div>
-         <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-collapse collapse collapse" aria-expanded="false">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="env-selectbox"> 
                       <select class="environmentsSelectBox form-control" placeholder = "Seclect Environment"></select>
                 </li>
-                <li class="btn-group username-container">
+                <li class="btn-group">
                    <button type="button" class="username dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                        Me<span class="caret"></span>
                    </button>
@@ -52,5 +53,7 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+
     </div>
 </div>

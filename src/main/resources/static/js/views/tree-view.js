@@ -69,6 +69,14 @@ define(function(require) {
 		$("#copyNodeModal").modal("show");
 		
 	}
+
+	function runNode(node,event){
+		if (node == null) {
+			alert("Please select a node to run.");
+			return;
+		}
+		
+	}
 	
 	function deleteNode(node){
 		$("#deleteNodeId").val(node.data.id);
@@ -450,6 +458,7 @@ define(function(require) {
 		node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
@@ -873,6 +882,7 @@ function nodeConverter(serverNode, uiNode) {
     node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
     node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
     node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
     node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
     nodeModel.save(null, {
       success : function(response) {
@@ -903,6 +913,7 @@ function nodeConverter(serverNode, uiNode) {
 	    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
 	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+	    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
 	    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 	    nodeModel.save(null, {
 	      success : function(response) {
