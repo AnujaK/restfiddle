@@ -592,6 +592,7 @@ render : function(conversation) {
  APP.socketConnector.$el.hide();
  APP.socketConnector.$el.hide();
  $("#queryParamsWrapper").html('');
+ $("#headersWrapper").html('');
  this.$el.show();
 
  var request = conversation.get('rfRequest');
