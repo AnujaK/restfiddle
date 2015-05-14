@@ -47,6 +47,8 @@ public class RfRequest extends NamedEntity {
     private List<FormParam> formParams;
     
     private BasicAuth basicAuth;
+    
+    private DigestAuth digestAuth;
 
     private String conversationId;
 
@@ -117,6 +119,14 @@ public class RfRequest extends NamedEntity {
 
 	public void setBasicAuth(BasicAuth basicAuth) {
 		this.basicAuth = basicAuth;
+	}
+
+	public DigestAuth getDigestAuth() {
+		return digestAuth;
+	}
+
+	public void setDigestAuth(DigestAuth digestAuth) {
+		this.digestAuth = digestAuth;
 	}
 
 	public byte[] getApiUrl() {

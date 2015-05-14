@@ -11,6 +11,7 @@ import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.dto.UrlParamDTO;
 import com.restfiddle.entity.BasicAuth;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.DigestAuth;
 import com.restfiddle.entity.FormParam;
 import com.restfiddle.entity.RfHeader;
 import com.restfiddle.entity.RfRequest;
@@ -36,6 +37,13 @@ public class ConversationConverter {
 	    	basicAuth.setUsername(rfRequestDTO.getBasicAuthDTO().getUsername());
 	    	basicAuth.setPassword(rfRequestDTO.getBasicAuthDTO().getPassword());
 	    	rfRequest.setBasicAuth(basicAuth);
+	    }
+	    
+	    if(rfRequestDTO.getDigestAuthDTO() != null){
+	    	DigestAuth digestAuth = new DigestAuth();
+	    	digestAuth.setUsername(rfRequestDTO.getDigestAuthDTO().getUsername());
+	    	digestAuth.setPassword(rfRequestDTO.getDigestAuthDTO().getPassword());
+	    	rfRequest.setDigestAuth(digestAuth);
 	    }
 
 	    if (rfRequestDTO.getApiBody() != null) {

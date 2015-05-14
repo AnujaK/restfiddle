@@ -619,6 +619,12 @@ render : function(conversation) {
     $("#bAuthUsername").val(request.basicAuth.username);
     $("#bAuthPassword").val(request.basicAuth.password);
  }
+    
+ if(request.digestAuth){
+    $("#digestUsername").val(request.digestAuth.username);
+    $("#digestPassword").val(request.digestAuth.password);
+ }
+    
  if(request.rfHeaders){
   _.each(request.rfHeaders,function(item,index){
     var headerListItemView = new HeaderListItemView();
