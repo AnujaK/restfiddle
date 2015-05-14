@@ -29,6 +29,20 @@ define(function(require) {
 			return this;
 		}
 	});
+
+	var getColorCode = function(method){
+		switch (method){
+			case "GET" : return "blue";
+			break;
+			case "POST" : return "green";
+			break;
+			case "DELETE" : return "red";
+			break;
+			case "PUT" : return "orange";
+			break;
+		}
+	};
+
 	
 	function editNode(node){
 		if (node == null) {
@@ -473,15 +487,16 @@ define(function(require) {
 		var nodeModel = new NodeModel({
 			id : node.data.id,
 			name : $("#editNodeTextField").val(),
-			description : $("#editNodeTextArea").val()
+			description : $("#editNodeTextArea").val(),
+			method : node.data.method
 		});
 
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
 		node.data.description = nodeModel.attributes.description;
-		
+		var colorCode = getColorCode(nodeModel.attributes.method);
 		var treeNodeView = new TreeNodeView();
-		node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
@@ -759,6 +774,7 @@ function nodeConverter(serverNode, uiNode) {
 		uiNode.id = serverNode.id;
 		uiNode.key = serverNode.id;
 		uiNode.name = serverNode.name;
+		uiNode.method = serverNode.method;
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
 		
@@ -773,19 +789,6 @@ function nodeConverter(serverNode, uiNode) {
 	if (serverNode.children == undefined || serverNode.children.length == 0) {
 		return;
 	}
-
-	var getColorCode = function(method){
-		switch (method){
-			case "GET" : return "blue";
-			break;
-			case "POST" : return "green";
-			break;
-			case "DELETE" : return "red";
-			break;
-			case "PUT" : return "orange";
-			break;
-		}
-	};
 
 	uiNode.children = new Array();
 	for (var i = 0; i < serverNode.children.length; i++) {
@@ -805,6 +808,7 @@ function nodeConverter(serverNode, uiNode) {
 				id : serverNode.children[i].id,
 				key : serverNode.children[i].id,
 				name : serverNode.children[i].name,
+				method : serverNode.children[i].method,
 				description : serverNode.children[i].description,
 				nodeType : serverNode.children[i].nodeType
 			});
@@ -900,34 +904,39 @@ function nodeConverter(serverNode, uiNode) {
 	 };
 
 	tree.updateTreeNode = function(){
-
-    var nodeId = $("#apiReqNodeId").text();
-    var node = treeObj.getNodeByKey(nodeId);
+      if($('#apiRequestNameTextBox').val()){
+      	var nodeId = $("#apiReqNodeId").text();
+    	var node = treeObj.getNodeByKey(nodeId);
     
-    var nodeModel = new NodeModel({
-      id : node.data.id,
-      name : $('#apiRequestNameTextBox').val()
-    });
+    	var nodeModel = new NodeModel({
+      		id : node.data.id,
+      		name : $('#apiRequestNameTextBox').val(),
+      		method : node.data.method
+    	});
 
-    node.data.id = nodeModel.attributes.id;
-    node.data.name = nodeModel.attributes.name;
-    
-    var treeNodeView = new TreeNodeView();
-    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
-    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
-    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
-    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
-    node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
-    nodeModel.save(null, {
-      success : function(response) {
-       $('#apiRequestNameTextBox').hide();
-       $('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
-       $('#apiRequestName').show();
-      },
-      error : function(e) {
-        alert('Some unexpected error occured Please try later.');
+    	node.data.id = nodeModel.attributes.id;
+    	node.data.name = nodeModel.attributes.name;
+        var colorCode = getColorCode(nodeModel.attributes.method);
+    	var treeNodeView = new TreeNodeView();
+    	node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
+    	node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+    	node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+    	node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
+    	node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+    	nodeModel.save(null, {
+      		success : function(response) {
+       			$('#apiRequestNameTextBox').hide();
+       			$('#apiRequestName').html($('#apiRequestNameTextBox').val() + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
+       			$('#apiRequestName').show();
+     		},
+      		error : function(e) {
+        		alert('Some unexpected error occured Please try later.');
+      		}
+    	});
+      }else{
+      	$('#apiRequestNameTextBox').hide();
+       	$('#apiRequestName').show();
       }
-    });
 	};
 
 	tree.updateSocketTreeNode = function(){
@@ -937,14 +946,15 @@ function nodeConverter(serverNode, uiNode) {
 	    
 	    var nodeModel = new NodeModel({
 	      id : node.data.id,
-	      name : $('#socketNameTextBox').val()
+	      name : $('#socketNameTextBox').val(),
+	      method : node.data.method
 	    });
 
 	    node.data.id = nodeModel.attributes.id;
 	    node.data.name = nodeModel.attributes.name;
-	    
+	    var colorCode = getColorCode(nodeModel.attributes.method);
 	    var treeNodeView = new TreeNodeView();
-	    node.setTitle('<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
+	    node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
 	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 	    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
