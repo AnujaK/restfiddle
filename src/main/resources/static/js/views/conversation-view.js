@@ -595,6 +595,9 @@ render : function(conversation) {
  $("#headersWrapper").html('');
  $("#bAuthUsername").val('');
  $("#bAuthPassword").val('');
+ $("#tab-digest-auth input:text").val(''); 
+ $("#tab-oauth2 input:text").val(''); 
+    
  this.$el.show();
 
  var request = conversation.get('rfRequest');
