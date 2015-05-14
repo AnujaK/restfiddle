@@ -432,6 +432,7 @@ ul .dropdown-menu li{
 	font-size: 12px;
 	border-radius: 3px;
 	color:#fff;
+	float: left;
 }
 
 .lozenge.green {
@@ -476,10 +477,6 @@ ul .dropdown-menu li{
 	font-size: 14px !important;
 	/*margin-top: 7px;*/
 	padding-left: 6px;
-}
-
-.date-time{
-	margin-left: 62px;
 }
 
 .username{
@@ -541,4 +538,8 @@ ul .dropdown-menu li{
   	margin-right: 1%;
   	margin-left: 1%;
   }
+}
+
+.activity{
+	overflow: hidden;
 }

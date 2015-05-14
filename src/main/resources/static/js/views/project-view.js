@@ -4,7 +4,7 @@ define(function(require) {
 	
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	
+	var APP = require('commons/ns');
 	var tree = require('views/tree-view');
 	var ProjectEvents = require('events/project-event');
 	
@@ -34,7 +34,8 @@ define(function(require) {
 			"click a" : "showProjectTree",
 			"click .hover-down-arrow" : "preventParentElmSelection",
             "click .edit-project" : "editProject",
-            "click .delete-project" : "deleteProject"
+            "click .delete-project" : "deleteProject",
+            "click .export-project" : "exportProject"
 		},
 		template : _.template($('#tpl-project-list-item').html()),
 		
@@ -70,7 +71,9 @@ define(function(require) {
             $("#deleteProjectId").val(this.model.get('id'));
             $("#deleteProjectModal").modal("show");
         },
-        
+        exportProject : function(){
+           window.open('http://localhost:8080/api/workspaces/'+ APP.appView.getCurrentWorkspaceId() +'/projects/'+ this.model.get('id'));
+        },        
 		showProjectTree : function(){
 			//this.$el.parent('ul').find('li').each(function(){
 				//$(this).removeClass('active');

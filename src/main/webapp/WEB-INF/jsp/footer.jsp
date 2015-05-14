@@ -13,7 +13,7 @@
                     <li class="edit-project"><i class="fa fa-pencil fa-fw"></i> Edit Workspace</li>
                     <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Workspace</li>
                     <li class="divider"></li>
-                    <li class="edit-project"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
+                    <li class="export-workspace"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
                 </ul>
             </div></div>
 		</div>
@@ -30,7 +30,7 @@
                     <li class="edit-project"><i class="fa fa-pencil fa-fw"></i> Edit Project</li>
                     <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Project</li>
                     <li class="divider"></li>
-                    <li class="edit-project"><i class="fa fa-download fa-fw"></i> Export Project</li>
+                    <li class="export-project"><i class="fa fa-download fa-fw"></i> Export Project</li>
                 </ul>
             </div>
         </a>
@@ -78,8 +78,9 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<span class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></span><@=conversation.rfRequest.apiUrlString@><br>
-             <span class= "date-time"><@=conversation.time@></span>
+			<div class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></div>
+            <div class = "activity"><@=conversation.rfRequest.apiUrlString@></div>
+             <span><@=conversation.time@></span>
         </a>
 	</script>
     <script type="text/template" id="tpl-entity-field">

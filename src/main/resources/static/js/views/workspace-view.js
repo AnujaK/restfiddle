@@ -69,7 +69,8 @@ define(function(require) {
 		el : '#dd-workspace-wrapper',
 		template : _.template($('#tpl-workspace-list-item').html()),
 		events : {
-			"click .hover-down-arrow" : "preventParentElmSelection"
+			"click .hover-down-arrow" : "preventParentElmSelection",
+			"click .export-workspace" : "exportWorkspace"
 		},
         
 		render : function(eventName) {
@@ -92,6 +93,9 @@ define(function(require) {
 
 			}
 			
+		},
+		exportWorkspace : function(){
+			window.open('http://localhost:8080/api/workspaces/' + this.model.get('id'));
 		}
 	});
 	

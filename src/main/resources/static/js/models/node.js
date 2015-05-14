@@ -16,7 +16,8 @@ define(function(require) {
 			description : '',
 			parentId : '',
 			projectId: '',
-			nodeType : '',	
+			nodeType : '',
+			method : '',	
 			conversationDTO : ConversationModel,
             genericEntityDTO : EntityModel,
             tags : {}
