@@ -236,8 +236,6 @@
                 <select class="assertCompare form-control" placeholder="Select">
                   <option>=</option>
                   <option>!=</option>
-                  <option>= Empty</option>
-                  <option>!= Empty</option>
                   <option>Contains</option>
                   <option>! Contains</option>
                   <option><</option>
@@ -248,8 +246,6 @@
                   <option>! Contains Key</option>
                   <option>Contains Value</option>
                   <option>! Contains Value</option>
-                  <option>= Null</option>
-                  <option>!= Null</option>
                 </select>
             </div>
             <div class="col-xs-4">

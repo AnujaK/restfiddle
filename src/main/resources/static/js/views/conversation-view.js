@@ -194,7 +194,9 @@ define(function(require) {
     
     $("#clearAuth").unbind("click").bind("click", function() {
       $("#bAuthUsername").val('');
-      $("#bAuthPassword").val('');
+      $("#bAuthPassword").val(''); 
+      $("#digestUsername").val('');
+      $("#digestPassword").val('');
     });  
     
     $("#clearRequest").unbind("click").bind("click", function() {
