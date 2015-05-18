@@ -228,7 +228,7 @@
     </script>
     <script type="text/template" id="tpl-assert">
     <p>
-        <div class="row">
+        <div class="row assertRow">
             <div class="col-xs-4">
                 <input type="text" class="form-control assertPropertyName http-header" placeholder="Property Name or Expression">
             </div>

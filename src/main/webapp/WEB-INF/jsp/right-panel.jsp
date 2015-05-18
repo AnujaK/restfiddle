@@ -119,6 +119,7 @@
                 <div>
                     <p class="apiRequestContainer">
                         <input type = "hidden" id = "apiReqNodeId">
+                        <input type = "hidden" id = "rfRequestId">
                         <span id="requestToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<input id="apiRequestNameTextBox"></input><span id="apiRequestName"></span>
                     </p>
                 </div>

@@ -740,7 +740,8 @@ dragDrop : function(node, data) {
 										}
 										var conversation = new ConversationModel(response.get("conversation"));
 										$("#apiReqNodeId").html(data.node.data.id);
-										conversation.set("id", conversation.get("id"));
+										$("#rfRequestId").html(conversation.get("rfRequest").id);
+                                        conversation.set("id", conversation.get("id"));
 										conversation.set("name", response.get("name"));
 										conversation.set("description",response.get("description"));
 									// var conversationView = new
@@ -911,7 +912,8 @@ function nodeConverter(serverNode, uiNode) {
     	var nodeModel = new NodeModel({
       		id : node.data.id,
       		name : $('#apiRequestNameTextBox').val(),
-      		method : node.data.method
+      		method : node.data.method,
+            tags : []
     	});
 
     	node.data.id = nodeModel.attributes.id;

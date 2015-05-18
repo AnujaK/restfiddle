@@ -11,7 +11,7 @@ define(function(require) {
 			name : '',
 			description : '',
 			rfRequest : '',
-			rfResponse : '', 
+			rfResponse : '' 
 		},
 		sync : function(method, model, options){
 			if(method == 'create' || method == 'update'){
