@@ -488,7 +488,8 @@ define(function(require) {
 			id : node.data.id,
 			name : $("#editNodeTextField").val(),
 			description : $("#editNodeTextArea").val(),
-			method : node.data.method
+			method : node.data.method,
+			tags : []
 		});
 
 		node.data.id = nodeModel.attributes.id;
@@ -949,7 +950,8 @@ function nodeConverter(serverNode, uiNode) {
 	    var nodeModel = new NodeModel({
 	      id : node.data.id,
 	      name : $('#socketNameTextBox').val(),
-	      method : node.data.method
+	      method : node.data.method,
+	      tags : []
 	    });
 
 	    node.data.id = nodeModel.attributes.id;
