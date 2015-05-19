@@ -192,7 +192,37 @@ define(function(require) {
       APP.conversation.apiBodyCodeMirror.setValue('');
     });
     
+    $("[name='authOptions']").change(function() {
+      $('#authOptionsSelected').val($(this).val());
+      if($(this).val() == 'basic'){
+        $('#tab-basic-auth').show();  
+        $('#tab-digest-auth').hide();
+        $('#tab-oauth2').hide();
+      }
+      if($(this).val() == 'digest'){
+        $('#tab-basic-auth').hide();  
+        $('#tab-digest-auth').show();
+        $('#tab-oauth2').hide();
+      }
+      if($(this).val() == 'oauth2'){
+        $('#tab-basic-auth').hide();  
+        $('#tab-digest-auth').hide();
+        $('#tab-oauth2').show();
+      }
+    });
+    
+    /*$("#noAuth").on("click",function(){
+        $("input:radio[name='authOptions']").parent().removeClass("active");
+        $('#tab-basic-auth').hide();  
+        $('#tab-digest-auth').hide();
+        $('#tab-oauth2').hide();
+    });*/
+    
     $("#clearAuth").unbind("click").bind("click", function() {
+      $("input:radio[name='authOptions']").parent().removeClass("active");
+      $('#tab-basic-auth').hide();  
+      $('#tab-digest-auth').hide();
+      $('#tab-oauth2').hide();
       $("#bAuthUsername").val('');
       $("#bAuthPassword").val(''); 
       $("#digestUsername").val('');
@@ -490,6 +520,8 @@ converToLabel : function(){
 },
 
 getBasicAuthDTO : function(){
+  if($('#authOptionsSelected').val() != 'basic' )
+      return {};
   var basicAuthDTO = {};
   basicAuthDTO.username = $("#bAuthUsername").val();
   basicAuthDTO.password = $("#bAuthPassword").val();
@@ -497,7 +529,9 @@ getBasicAuthDTO : function(){
 },
 
 getDigestAuthDTO : function(){
-  var digestAuthDTO = {};
+  if($('#authOptionsSelected').val() != 'digest' )
+      return {};
+    var digestAuthDTO = {};
   digestAuthDTO.username = $("#digestUsername").val();
   digestAuthDTO.password = $("#digestPassword").val();
   return digestAuthDTO;
