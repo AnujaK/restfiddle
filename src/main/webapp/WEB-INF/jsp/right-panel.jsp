@@ -164,27 +164,7 @@
                         <li><a href="#tab-query" data-toggle="tab">Query</a></li>
                         <li><a href="#tab-header" data-toggle="tab">Header</a></li>
                         <!-- <li><a href="#tab-cookie" data-toggle="tab">Cookie</a></li> -->
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Auth <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-basic-auth" data-toggle="tab">Basic</a>
-                                </li>
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-digest-auth" data-toggle="tab">Digest</a>
-                                </li>
-                                <!--
-                                <li role="presentation">
-                                    <a class="btn-sm" href="#tab-oauth1" data-toggle="tab">OAuth 1</a>
-                                </li>
-                            -->
-                            <li role="presentation">
-                                <a class="btn-sm" href="#tab-oauth2" data-toggle="tab">OAuth 2</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li><a href="#tab-auth" data-toggle="tab">Auth</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content reponse-pannel">
@@ -240,6 +220,26 @@
                             <p></p>
                         </div>
                     -->
+                    <div class="tab-pane" id="tab-auth">
+                            <br>
+                            <p>
+                            <input type="hidden" name="authOptionsSelected" id="authOptionsSelected" />
+							<div class="btn-group" data-toggle="buttons" id="radioopt">
+								  <label class="btn btn-primary">
+								      <input type="radio" name="authOptions" id="option1" value="basic" /> Basic
+								  </label>
+								  <label class="btn btn-primary">
+								      <input type="radio" name="authOptions" id="option2" value="digest" /> Digest
+								  </label>
+								  <label class="btn btn-primary">
+								      <input type="radio" name="authOptions" id="option3" value="oauth2" /> OAuth 2
+								  </label>
+							</div>
+							 	<!--<button class="btn btn-primary" id="noAuth">No Auth</button>   -->                               
+                            </p>
+                            <div id="authWrapper">
+                            </div>
+                    </div>
                     <div class="tab-pane" id="tab-basic-auth">
                         <br>
                         <div class="row">
