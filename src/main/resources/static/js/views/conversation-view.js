@@ -205,12 +205,29 @@ define(function(require) {
         $('#tab-oauth2').hide();
       }
       if($(this).val() == 'oauth2'){
+        $.ajax({
+            url : APP.config.baseUrl + '/oauth2',
+            type : 'get',
+            dataType : 'json',
+            contentType : "application/json",
+            success : function(res) {
+            if(res != undefined && res.length > 0 ){
+                for(var i=0; i<res.length; i++){
+                    $(".existingOAuth").append('<option value=' + res[i].id + '>' + res[i].name + '</option>');
+                 }
+                }
+            }
+            });
+          //  }
+        var oAuth2View = new OAuth2View();
+        $("#oauth2Wrapper").html("");
+        $("#oauth2Wrapper").append(oAuth2View.render().el);
         $('#tab-basic-auth').hide();  
         $('#tab-digest-auth').hide();
         $('#tab-oauth2').show();
       }
     });
-    
+
     /*$("#noAuth").on("click",function(){
         $("input:radio[name='authOptions']").parent().removeClass("active");
         $('#tab-basic-auth').hide();  
@@ -403,6 +420,39 @@ define(function(require) {
         this.remove();
       }
     });
+    
+	var OAuth2View = Backbone.View.extend({	
+        template: _.template($('#tpl-oauth2').html()),
+        
+        events : {
+            'change .existingOAuth': 'populateOAuth2',
+        },
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		},
+        
+        populateOAuth2 : function(){
+            console.log("Changed the selected option" + $('.existingOAuth').val() );
+            var selectedValue = $('.existingOAuth').val();
+            $.ajax({
+            url : APP.config.baseUrl + '/oauth2/' + selectedValue,
+            type : 'get',
+            dataType : 'json',
+            contentType : "application/json",
+            success : function(res) {
+            if(res != undefined){
+                console.log(res.authorizationUrl);
+                $('#authorizationUrl').val(res.authorizationUrl);
+                $('#accessTokenUrl').val(res.accessTokenUrl);
+                $('#authScopes').val(res.authScopes);
+                $('#accessTokenLocation').val(res.accessTokenLocation);
+            }
+            }
+            });
+        }
+	});
 
     var treeObj = $("#tree").fancytree("getTree");
 

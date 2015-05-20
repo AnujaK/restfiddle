@@ -276,5 +276,16 @@
     <script type="text/template" id = "tpl-environment-list-item">
        <span><@=conversation.rfRequest.methodType@></span>
     </script>
+<script type="text/template" id="tpl-oauth2">
+                        <div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                            <select class="form-control existingOAuth">
+                                <option value="-1" selected disabled>Select Existing</option>
+                            </select>
+                            </div>
+                        </div>
+                        </div>
+                        </script>
 	<!-- JavaScript -->
 	<script data-main="js/main" src="js/libs/require/require.js"></script>

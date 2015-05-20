@@ -225,13 +225,13 @@
                             <p>
                             <input type="hidden" name="authOptionsSelected" id="authOptionsSelected" />
 							<div class="btn-group" data-toggle="buttons" id="radioopt">
-								  <label class="btn btn-primary">
+								  <label class="btn btn-primary btn-sm">
 								      <input type="radio" name="authOptions" id="option1" value="basic" /> Basic
 								  </label>
-								  <label class="btn btn-primary">
+								  <label class="btn btn-primary btn-sm">
 								      <input type="radio" name="authOptions" id="option2" value="digest" /> Digest
 								  </label>
-								  <label class="btn btn-primary">
+								  <label class="btn btn-primary btn-sm">
 								      <input type="radio" name="authOptions" id="option3" value="oauth2" /> OAuth 2
 								  </label>
 							</div>
@@ -269,12 +269,25 @@
                         <p></p>
                     </div>
                     <div class="tab-pane" id="tab-oauth2">
-                        <br>
                         <span id="fetchedAccessToken"></span>
+                        <br>
+                        <!--<script type="text/template" id="tpl-oauth2">
+                        <div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                            <select class="form-control existingOAuth">
+                                <option value="-1" selected disabled>Select Existing</option>
+                            </select>
+                            </div>
+                        </div>
+                        </div>
+                        </script>-->
+                        <div id="oauth2Wrapper">
+				        </div>
                         <br>
                         <div><input type="text" class="form-control" id="authorizationUrl" placeholder="Enter Authorization Endpoint">                                 </div>
                         <br>
-                        <div><input type="text" class="form-control" placeholder="Enter Access Token Endpoint">                                   </div>
+                        <div><input type="text" class="form-control" id="accessTokenUrl" placeholder="Enter Access Token Endpoint">                                   </div>
                         <br>
                         <div><input type="text" class="form-control" id="clientId" placeholder="Enter Client ID">                                               </div>
                         <br>
@@ -284,7 +297,7 @@
                         <br>
                         <div class="row">
                             <div class="col-xs-6">
-                                <select class="form-control">
+                                <select class="form-control" id="accessTokenLocation">
                                     <option>Select Access Token Location</option>
                                     <option>Auth Header With Bearer Prefix</option>
                                     <option>Auth Header With OAuth Prefix</option>
