@@ -240,6 +240,9 @@ define(function(require) {
       $('#tab-basic-auth').hide();  
       $('#tab-digest-auth').hide();
       $('#tab-oauth2').hide();
+      $("#authorizationUrl").val(''); 
+      $("#accessTokenUrl").val(''); 
+      $("#accessTokenBtn").prop('disabled',false); 
       $("#bAuthUsername").val('');
       $("#bAuthPassword").val(''); 
       $("#digestUsername").val('');
@@ -448,6 +451,7 @@ define(function(require) {
                 $('#accessTokenUrl').val(res.accessTokenUrl);
                 $('#authScopes').val(res.authScopes);
                 $('#accessTokenLocation').val(res.accessTokenLocation);
+                $('#accessTokenBtn').prop( "disabled", true );
             }
             }
             });
