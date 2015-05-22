@@ -308,7 +308,7 @@ ul.fancytree-container {
 	color: gray;
 }
 
-.destroy{
+.destroy, .authFields{
 	display: none;
 }
 #headersWrapper .row:hover .destroy, 

@@ -193,7 +193,7 @@ define(function(require) {
     });
     
     $("[name='authOptions']").change(function() {
-      $('#authOptionsSelected').val($(this).val());
+      $('#authOptionSelected').val($(this).val());
       if($(this).val() == 'basic'){
         $('#tab-basic-auth').show();  
         $('#tab-digest-auth').hide();
@@ -574,7 +574,7 @@ converToLabel : function(){
 },
 
 getBasicAuthDTO : function(){
-  if($('#authOptionsSelected').val() != 'basic' )
+  if($('#authOptionSelected').val() != 'basic' )
       return {};
   var basicAuthDTO = {};
   basicAuthDTO.username = $("#bAuthUsername").val();
@@ -583,7 +583,7 @@ getBasicAuthDTO : function(){
 },
 
 getDigestAuthDTO : function(){
-  if($('#authOptionsSelected').val() != 'digest' )
+  if($('#authOptionSelected').val() != 'digest' )
       return {};
     var digestAuthDTO = {};
   digestAuthDTO.username = $("#digestUsername").val();

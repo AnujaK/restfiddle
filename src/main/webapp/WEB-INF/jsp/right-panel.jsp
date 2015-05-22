@@ -223,8 +223,8 @@
                     <div class="tab-pane" id="tab-auth">
                             <br>
                             <p>
-                            <input type="hidden" name="authOptionsSelected" id="authOptionsSelected" />
-							<div class="btn-group" data-toggle="buttons" id="radioopt">
+                            <input type="hidden" name="authOptionSelected" id="authOptionSelected" />
+							<div class="btn-group" data-toggle="buttons" id="authRadioOptions">
 								  <label class="btn btn-primary btn-sm">
 								      <input type="radio" name="authOptions" id="option1" value="basic" /> Basic
 								  </label>
@@ -239,8 +239,8 @@
                             </p>
                             <div id="authWrapper">
                             </div>
-                    </div>
-                    <div class="tab-pane" id="tab-basic-auth">
+                    
+                    <div class="tab-pane authFields" id="tab-basic-auth">
                         <br>
                         <div class="row">
                             <div class="col-xs-6">
@@ -251,7 +251,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab-digest-auth">
+                    <div class="tab-pane authFields" id="tab-digest-auth">
                         <br>
                         <div class="row">
                             <div class="col-xs-6">
@@ -262,26 +262,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab-oauth1">
+                   <!-- <div class="tab-pane" id="tab-oauth1">
                         <br>
                         <br>
                         <br>
                         <p></p>
-                    </div>
-                    <div class="tab-pane" id="tab-oauth2">
+                    </div>-->
+                    <div class="tab-pane authFields" id="tab-oauth2">
                         <span id="fetchedAccessToken"></span>
                         <br>
-                        <!--<script type="text/template" id="tpl-oauth2">
-                        <div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                            <select class="form-control existingOAuth">
-                                <option value="-1" selected disabled>Select Existing</option>
-                            </select>
-                            </div>
-                        </div>
-                        </div>
-                        </script>-->
                         <div id="oauth2Wrapper">
 				        </div>
                         <br>
@@ -312,6 +301,7 @@
 
                         <br>
                         <p></p>
+                    </div>
                     </div>
                 </div>
             </div>
