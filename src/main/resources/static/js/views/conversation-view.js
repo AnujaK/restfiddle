@@ -240,6 +240,7 @@ define(function(require) {
       $('#tab-basic-auth').hide();  
       $('#tab-digest-auth').hide();
       $('#tab-oauth2').hide();
+      $("#oauthName").val(''); 
       $("#authorizationUrl").val(''); 
       $("#accessTokenUrl").val(''); 
       $("#accessTokenBtn").prop('disabled',false); 
@@ -290,6 +291,7 @@ define(function(require) {
         };
         
         openWindowWithPost('POST', '/api/oauth/form', args, 'OAUTHWINDOW');
+        $("#saveAuth").show();
       }); 
     
     //Note : http://stackoverflow.com/questions/17793183/how-to-replace-window-open-with-a-post
@@ -310,6 +312,30 @@ define(function(require) {
       document.body.appendChild(form);
       form.submit();
     };
+    
+    $("#saveOAuthBtn").unbind("click").bind("click", function() {
+        var scope = [];
+        scope.push($("#authScopes").val());
+        var oauth2DTO = {
+            name : $("#oauthName").val(),
+            authorizationUrl : $("#authorizationUrl").val(),
+            accessTokenUrl : $("#accessTokenUrl").val(),
+            clientId : $("#clientId").val(),
+           // clientSecret : $("#oauthName").val(),
+            accessTokenLocation : $("#accessTokenLocation").val(),
+            scopes : scope
+        };
+        $.ajax({
+            url : APP.config.baseUrl + '/oauth2',
+            type : 'post',
+            dataType : 'json',
+            contentType : "application/json",
+            data : JSON.stringify(oauth2DTO),
+            success : function(response) {
+              alert("Saved "+$("#oauthName").val()+" successfully!");
+             }
+        }); 
+    });
 
     var QueryParamListItemView = Backbone.View.extend({	
       template: _.template($('#tpl-query-param-list-item').html()),
@@ -446,7 +472,7 @@ define(function(require) {
             contentType : "application/json",
             success : function(res) {
             if(res != undefined){
-                console.log(res.authorizationUrl);
+                $('#oauthName').val($(".existingOAuth option:selected").text());
                 $('#authorizationUrl').val(res.authorizationUrl);
                 $('#accessTokenUrl').val(res.accessTokenUrl);
                 $('#authScopes').val(res.authScopes);
