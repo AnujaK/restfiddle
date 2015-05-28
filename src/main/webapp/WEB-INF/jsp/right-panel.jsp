@@ -274,6 +274,8 @@
                         <div id="oauth2Wrapper">
 				        </div>
                         <br>
+                        <div><input type="text" class="form-control" id="oauthName" placeholder="Enter Name">                                 </div>
+                        <br>
                         <div><input type="text" class="form-control" id="authorizationUrl" placeholder="Enter Authorization Endpoint">                                 </div>
                         <br>
                         <div><input type="text" class="form-control" id="accessTokenUrl" placeholder="Enter Access Token Endpoint">                                   </div>
@@ -293,8 +295,11 @@
                                     <option>URL Parameter with access_token</option>
                                 </select>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-3">
                                 <button id="accessTokenBtn" class="btn btn-default">Get Access Token</button>
+                            </div>
+                            <div class="col-xs-3" id="saveAuth">
+                                <button id="saveOAuthBtn" class="btn btn-default">Save</button>
                             </div>
                         </div>
                         <br>
