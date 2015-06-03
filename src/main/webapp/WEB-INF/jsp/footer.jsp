@@ -91,10 +91,13 @@
             </div>
             <div class="col-xs-5">
                 <select class="form-control entityFieldType">
-                    <option>STRING</option>
-                    <option>INTEGER</option>
-                    <option>LONG</option>
-                    <option>DATE</option>
+                    <option>String</option>
+                    <option>Number</option>
+                    <option>Boolean</option>
+                    <option>Date</option>
+                    <option>Object</option>
+                    <option>Array</option>
+                    <option>Geographic point</option>
                 </select>
             </div>
             <div class="col-xs-2">

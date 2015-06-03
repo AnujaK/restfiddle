@@ -533,7 +533,7 @@ ul .dropdown-menu li{
 }
 
 .large-text {
-  max-width: 193px;
+  max-width: 140px;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
