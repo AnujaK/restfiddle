@@ -62,8 +62,8 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
     }
     repositories {
+        mavenCentral()
         maven { url "http://oss.jfrog.org/artifactory/oss-release-local" }
-        maven { url "http://repo.maven.apache.org/maven2" }
     }
 }
 
