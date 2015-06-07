@@ -50,6 +50,8 @@ Building From Source
 
 * Maven 3.0+
 
+* Gradle 2.4 (Optional)
+
 * MongoDB
 
 ##### Build
@@ -122,6 +124,33 @@ Sometimes MongoDB doesn't start and shows message:
 Run repair operation to recover your database
 	"C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddledata\data --repair
 Most likely, your data will be repaired with the --repair option. In case it doesn't, delete the mongod.lock file and then run the above --repair command.
+```
+
+##### For Gradle Users:
+
+*Build war*
+
+Unix  : 
+```
+./gradlew clean war
+```
+
+Windows  : 
+```
+gradlew.bat clean war
+```
+
+*Run*
+
+
+Unix  : 
+```
+./gradlew bootRun
+```
+
+Windows  : 
+```
+gradlew.bat bootRun
 ```
 
 Deployment
