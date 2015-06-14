@@ -16,6 +16,8 @@ define(function(require) {
   var lastResponse;
   var CodeMirror = require('codemirror/lib/codemirror');
   var cmjs = require('codemirror/mode/javascript/javascript');
+  var imageTypes = ['image/png','image/gif','image/jpeg','image/bmp','image/tiff','image/svg+xml','image/webp'];
+
 
     //API URLS
     var apiUrls = new Bloodhound({
@@ -182,7 +184,6 @@ define(function(require) {
         	 contentType = response.headers[i].headerValue;
          }
        }
-       var imageTypes = ['image/png','image/gif','image/jpeg','image/bmp','image/tiff','image/svg+xml','image/webp'];
        if(imageTypes.indexOf(contentType) > -1){
            $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
        }else{
@@ -577,7 +578,6 @@ define(function(require) {
               	   contentType = response.headers[i].headerValue;
                  }
                }
-               var imageTypes = ['image/png','image/gif','image/jpeg','image/bmp','image/tiff','image/svg+xml','image/webp'];
 		       if(imageTypes.indexOf(contentType) > -1){
 		           $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
 		       }else{
