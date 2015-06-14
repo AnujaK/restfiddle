@@ -443,12 +443,16 @@ define(function(require) {
 				var conversation = new ConversationModel(response.get("conversation"));
 				var rfRequestObj = conversation.get('rfRequest');
                 var tagsArray = response.get('tags');
-				
+                    
 				var rfRequest = {
 				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
 				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
 				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : '',
-				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null
+				    headers : $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null,
+                    basicAuthDTO : $('#nodeAuth').attr('checked') == 'checked' ? rfRequestObj['basicAuth'] : null,
+                    digestAuthDTO : $('#nodeAuth').attr('checked') == 'checked' ? rfRequestObj['digestAuth'] : null
+                    //ToDo: add auth
+                    
 			    };
 			    var rfResponse = {};
 			    conversation = new ConversationModel({
