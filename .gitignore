@@ -30,3 +30,8 @@
 
 #netbeans specific
 nb-configuration.xml
+*.class
+*.original
+
+build/*
+.gradle/*
