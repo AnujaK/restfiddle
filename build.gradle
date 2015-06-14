@@ -20,7 +20,7 @@ repositories {
     mavenCentral()
     maven { url "http://oss.jfrog.org/artifactory/oss-release-local" }
     maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo/" }
-    }
+}
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:springBootVersion
@@ -73,3 +73,11 @@ def getPomVersion(){
     def xmlSlurper = new XmlSlurper().parse(file);
     return xmlSlurper.version
 }
+
+compileJava {
+    //options.fork = true
+    options.incremental = true
+}
+
+distTar.enabled = false;
+distZip.enabled = false;
