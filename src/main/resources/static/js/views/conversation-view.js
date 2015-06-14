@@ -16,6 +16,8 @@ define(function(require) {
   var lastResponse;
   var CodeMirror = require('codemirror/lib/codemirror');
   var cmjs = require('codemirror/mode/javascript/javascript');
+  var imageTypes = ['image/png','image/gif','image/jpeg','image/bmp','image/tiff','image/svg+xml','image/webp'];
+
 
     //API URLS
     var apiUrls = new Bloodhound({
@@ -173,11 +175,19 @@ define(function(require) {
     $("#showLastResponse").unbind("click").bind("click",function(){
       var response = JSON.parse(localStorage.getItem("lastResponse"));
       $('#responseData').val(JSON.stringify(response));
-      $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
       if(response.headers && response.headers.length > 0){
         $("#res-header-wrapper").html('');
+        var contentType;
         for(var i = 0 ; i < response.headers.length; i++){
          $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
+         if(response.headers[i].headerName === 'Content-Type'){
+        	 contentType = response.headers[i].headerValue;
+         }
+       }
+       if(imageTypes.indexOf(contentType) > -1){
+           $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
+       }else{
+           $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>'); 
        }
        $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
      }
@@ -559,12 +569,20 @@ define(function(require) {
                $('#content-size').html(length);
                lastResponse = JSON.stringify(response);
                $('#responseData').val(JSON.stringify(response));
-               $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>');
                if(response.headers && response.headers.length > 0){
                 $("#res-header-wrapper").html('');
+                var contentType;
                 for(var i = 0 ; i < response.headers.length; i++){
                  $("#res-header-wrapper").append('<tr><td>'+response.headers[i].headerName+'</td><td>'+response.headers[i].headerValue+'</td></tr>');
+                 if(response.headers[i].headerName === 'Content-Type'){
+              	   contentType = response.headers[i].headerValue;
+                 }
                }
+	       if(imageTypes.indexOf(contentType) > -1){
+	           $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
+	       }else{
+	           $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>'); 
+	       } 
                $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
              }
              prettyPrint();
