@@ -578,11 +578,11 @@ define(function(require) {
               	   contentType = response.headers[i].headerValue;
                  }
                }
-		       if(imageTypes.indexOf(contentType) > -1){
-		           $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
-		       }else{
-		           $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>'); 
-		       } 
+	       if(imageTypes.indexOf(contentType) > -1){
+	           $("#response-wrapper").html('<br><pre class="prettyprint">'+ '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
+	       }else{
+	           $("#response-wrapper").html('<br><pre class="prettyprint">'+ response.body+ '</pre>'); 
+	       } 
                $("body,html").animate({scrollTop: $('#responseContainer').offset().top}, "slow");
              }
              prettyPrint();
