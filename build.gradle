@@ -11,7 +11,7 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 ext{
-    springBootVersion = '1.2.2.RELEASE'
+    springBootVersion = getSpringBootVersion()
     httpComponentsVersion = '4.4'
 }
 
@@ -20,7 +20,7 @@ repositories {
     mavenCentral()
     maven { url "http://oss.jfrog.org/artifactory/oss-release-local" }
     maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo/" }
-    }
+}
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:springBootVersion
@@ -70,6 +70,20 @@ buildscript {
 def getPomVersion(){
     //instead of hardcoding version, getting version from pom.xml
     def file = file('pom.xml')
-    def xmlSlurper = new XmlSlurper().parse(file);
+    def xmlSlurper = new XmlSlurper().parse(file)
     return xmlSlurper.version
 }
+
+def getSpringBootVersion(){
+    def file = file('pom.xml')
+    def xmlSlurper = new XmlSlurper().parse(file)
+    return xmlSlurper.parent.version
+}
+
+compileJava {
+    //options.fork = true
+    options.incremental = true
+}
+
+distTar.enabled = false;
+distZip.enabled = false;
