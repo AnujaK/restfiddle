@@ -226,7 +226,7 @@ ul.fancytree-container {
 	border-right: 1px solid lightgray; 
 	height: 95%;
 	position: fixed; 
-	overflow-y: visible;
+	overflow-y: hidden;
 	width:33%;
 	z-index: 100;
 }
@@ -242,7 +242,7 @@ ul.fancytree-container {
 	position: fixed;
 }
 
-.rf-col-1:hover, .rf-col-3:hover{
+.rf-col-1:hover,.rf-col-2:hover ,.rf-col-3:hover{
 	overflow-y: auto;
 }
 
