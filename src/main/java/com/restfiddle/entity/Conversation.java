@@ -26,6 +26,8 @@ public class Conversation extends NamedEntity {
 
     @DBRef
     private RfResponse rfResponse;
+    
+    private String runBy;
 
     private Long duration;
 
@@ -51,5 +53,13 @@ public class Conversation extends NamedEntity {
 
     public void setDuration(Long duration) {
 	this.duration = duration;
+    }
+
+    public String getRunBy() {
+	return runBy;
+    }
+
+    public void setRunBy(String runBy) {
+	this.runBy = runBy;
     }
 }

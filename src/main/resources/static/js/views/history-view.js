@@ -62,6 +62,9 @@ define(function(require) {
                     activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
                 }
+                if(activity.runBy !== null){
+                    activity.runBy = 'by '+ activity.runBy;
+                }
                 activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
                 var activityTemplate = that.template({conversation : activity});
                 $(that.el).append(activityTemplate);

@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +54,7 @@ import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
+import com.restfiddle.entity.User;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.http.GenericHandler;
 
@@ -105,6 +107,9 @@ public class ApiController {
 	rfResponseRepository.save(conversationForLogging.getRfResponse());
 
 	conversationForLogging.setDuration(duration);
+	
+	User loggedInUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	conversationForLogging.setRunBy(loggedInUser.getUsername());
 	
 	conversationForLogging.setCreatedDate(new Date());
 	conversationForLogging.setLastModifiedDate(new Date());
