@@ -55,9 +55,11 @@ define(function(require) {
 
             _.each(this.model, function (activity) {
                 if(activity.lastModifiedDate){
-                   var requestDiff = currentDate.diff(activity.lastModifiedDate,'days');
+                   var requestDiff = currentDate.diff(activity.lastModifiedDate,'hours');
                    if(requestDiff == 0){
-                    activity.time = currentDate.diff(activity.lastModifiedDate,'hours') + "h ago";
+                    activity.time = currentDate.diff(activity.lastModifiedDate,'minutes') + " min ago";
+                   }else if(requestDiff < 24){
+                    activity.time = requestDiff + ' hr ago';
                    }else{
                     activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
