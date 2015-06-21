@@ -3,6 +3,7 @@ package com.restfiddle.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import com.restfiddle.dto.BaseDTO;
 import com.restfiddle.dto.BasicAuthDTO;
 import com.restfiddle.dto.ConversationDTO;
@@ -88,7 +89,7 @@ public class EntityToDTO {
 
 	dto.setApiUrl(entity.getApiUrlString());
 	dto.setMethodType(entity.getMethodType());
-	dto.setApiBody(entity.getApiBody() != null ? new String(entity.getApiBody()) : null);
+	dto.setApiBody(entity.getApiBodyString());
 	dto.setHeaders(toListOfRfHeaderDTO(entity.getRfHeaders()));
 	dto.setUrlParams(toListOfUrlParamDTO(entity.getUrlParams()));
 	dto.setFormParams(toListOfFormDataDTO(entity.getFormParams()));
@@ -107,7 +108,7 @@ public class EntityToDTO {
 
 	copyBaseData(dto, entity);
 
-	dto.setBody(entity.getBody() != null ? new String(entity.getBody()) : null);
+	dto.setBody(Base64.encodeBase64String(entity.getBody()));
 	dto.setHeaders(toListOfRfHeaderDTO(entity.getRfHeaders()));
 
 	return dto;
@@ -169,7 +170,7 @@ public class EntityToDTO {
 
 	FormDataDTO dto = new FormDataDTO();
 	dto.setKey(entity.getParamKey());
-	dto.setValue(entity.getParamValue() != null ? new String(entity.getParamValue()) : null);
+	dto.setValue(entity.getValueString());
 
 	return dto;
     }
@@ -180,7 +181,7 @@ public class EntityToDTO {
 
 	UrlParamDTO dto = new UrlParamDTO();
 	dto.setKey(entity.getParamKey());
-	dto.setValue(entity.getParamValue() != null ? new String(entity.getParamValue()) : null);
+	dto.setValue(entity.getParamValue());
 
 	return dto;
     }
@@ -205,7 +206,7 @@ public class EntityToDTO {
 
 	RfHeaderDTO dto = new RfHeaderDTO();
 	dto.setHeaderName(entity.getHeaderName());
-	dto.setHeaderValue(entity.getHeaderValue() != null ? new String(entity.getHeaderValue()) : null);
+	dto.setHeaderValue(entity.getHeaderValueString());
 
 	return dto;
     }

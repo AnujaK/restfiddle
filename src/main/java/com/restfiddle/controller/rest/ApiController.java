@@ -108,9 +108,9 @@ public class ApiController {
 
 	conversationForLogging.setDuration(duration);
 	
-	Object loggedInUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	if(loggedInUser instanceof User){
-	    conversationForLogging.setLastModifiedBy((User) loggedInUser);
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	if(principal instanceof User){
+	    conversationForLogging.setLastModifiedBy((User) principal);
 	}
 	
 	conversationForLogging.setCreatedDate(new Date());
