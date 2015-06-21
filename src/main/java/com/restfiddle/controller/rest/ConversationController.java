@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,7 @@ import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.RfResponse;
+import com.restfiddle.util.EntityToDTO;
 
 @RestController
 @EnableAutoConfiguration
@@ -106,7 +108,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
-    PaginatedResponse<Conversation> findAll(@RequestParam(value = "page", required = false) Integer page,
+    PaginatedResponse<ConversationDTO> findAll(@RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding all items");
 
@@ -125,9 +127,14 @@ public class ConversationController {
 	Page<Conversation> result = itemRepository.findAll(topRecords);
 
 	List<Conversation> content = result.getContent();
+	
+	List<ConversationDTO> responseContent = new ArrayList<ConversationDTO>();
+	for(Conversation item : content){
+	    responseContent.add(EntityToDTO.toDTO(item));
+	}
 
-	PaginatedResponse<Conversation> response = new PaginatedResponse<Conversation>();
-	response.setData(content);
+	PaginatedResponse<ConversationDTO> response = new PaginatedResponse<ConversationDTO>();
+	response.setData(responseContent);
 	response.setLimit(numberOfRecords);
 	response.setPage(pageNo);
 	response.setTotalElements(result.getTotalElements());
@@ -188,5 +195,4 @@ public class ConversationController {
 
 	return conversation;
     }
-
 }

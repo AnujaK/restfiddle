@@ -78,9 +78,9 @@
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
 		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
-			<div class="<@=conversation.className@>"><@=conversation.rfRequest.methodType@></div>
-            <div class = "activity"><@=conversation.rfRequest.apiUrlString@></div>
-             <span><@=conversation.time@></span>
+			<div class="<@=conversation.className@>"><@=conversation.rfRequestDTO.methodType@></div>
+            <div class = "activity"><@=conversation.rfRequestDTO.apiUrl@></div>
+             <span><@=conversation.time@></span><span>&nbsp; <@=conversation.runBy@></span>
         </a>
 	</script>
     <script type="text/template" id="tpl-entity-field">

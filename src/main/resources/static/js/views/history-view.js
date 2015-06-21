@@ -62,7 +62,10 @@ define(function(require) {
                     activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
                 }
-                activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
+                if(activity.lastModifiedBy !== null){
+                    activity.runBy = 'by '+ activity.lastModifiedBy.name;
+                }
+                activity.className = "lozenge left " + that.getColorCode(activity.rfRequestDTO.methodType) + " auth_required";
                 var activityTemplate = that.template({conversation : activity});
                 $(that.el).append(activityTemplate);
             }, this); 
