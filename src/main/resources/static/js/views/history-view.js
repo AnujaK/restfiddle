@@ -57,10 +57,22 @@ define(function(require) {
                 if(activity.lastModifiedDate){
                    var requestDiff = currentDate.diff(activity.lastModifiedDate,'hours');
                    if(requestDiff == 0){
-                    activity.time = currentDate.diff(activity.lastModifiedDate,'minutes') + " min ago";
-                   }else if(requestDiff < 24){
-                    activity.time = requestDiff + ' hr ago';
-                   }else{
+                       var min = currentDate.diff(activity.lastModifiedDate,'minutes')
+                       if(min > 1){
+                            activity.time = min + " minutes ago";
+                       }
+                       else{
+                            activity.time = min + " minute ago";
+                       }
+                    
+                   }
+                   else if(requestDiff <= 1){
+                    activity.time = requestDiff + ' hour ago';
+                   } 
+                   else if(requestDiff < 24){
+                    activity.time = requestDiff + ' hours ago';
+                   }
+                   else{
                     activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
                 }
