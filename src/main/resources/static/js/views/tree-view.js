@@ -136,6 +136,9 @@ define(function(require) {
 			
 			$('.btn-group').removeClass('open');
 			currentElm.addClass('open');
+			
+			var rect = event.currentTarget.getBoundingClientRect();
+			currentElm.children("ul").css({"position": "fixed", "left":rect.right , "top": rect.bottom});
 		}
 	}
 

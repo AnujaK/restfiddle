@@ -152,7 +152,12 @@ Windows  :
 ```
 gradlew.bat bootRun
 ```
-
+Debugging in Windows : Add the following to build.gradle file and then run the above command
+```
+applicationDefaultJvmArgs = [
+    "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+]
+```
 Deployment
 ==========
 

@@ -55,14 +55,31 @@ define(function(require) {
 
             _.each(this.model, function (activity) {
                 if(activity.lastModifiedDate){
-                   var requestDiff = currentDate.diff(activity.lastModifiedDate,'days');
+                   var requestDiff = currentDate.diff(activity.lastModifiedDate,'hours');
                    if(requestDiff == 0){
-                    activity.time = currentDate.diff(activity.lastModifiedDate,'hours') + "h ago";
-                   }else{
+                       var min = currentDate.diff(activity.lastModifiedDate,'minutes')
+                       if(min > 1){
+                            activity.time = min + " minutes ago";
+                       }
+                       else{
+                            activity.time = min + " minute ago";
+                       }
+                    
+                   }
+                   else if(requestDiff <= 1){
+                    activity.time = requestDiff + ' hour ago';
+                   } 
+                   else if(requestDiff < 24){
+                    activity.time = requestDiff + ' hours ago';
+                   }
+                   else{
                     activity.time = moment(activity.lastModifiedDate).format('MMM DD hh:mma');
                    }
                 }
-                activity.className = "lozenge left " + that.getColorCode(activity.rfRequest.methodType) + " auth_required";
+                if(activity.lastModifiedBy !== null){
+                    activity.runBy = 'by '+ activity.lastModifiedBy.name;
+                }
+                activity.className = "lozenge left " + that.getColorCode(activity.rfRequestDTO.methodType) + " auth_required";
                 var activityTemplate = that.template({conversation : activity});
                 $(that.el).append(activityTemplate);
             }, this); 
