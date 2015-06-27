@@ -11,6 +11,7 @@ require.config({
 		mCustomScrollbar : 'libs/jquery.mCustomScrollbar.concat.min',
 		text : 'libs/require/text',
 		typeahead : 'libs/typeahead.bundle.min',
+		bloodhound : 'libs/typeahead.bundle.min',
 		zeroClipboard : 'libs/zeroClipboard',
 		bootpag : 'libs/bootpag.min',
 		moment : 'libs/moment'
@@ -36,6 +37,9 @@ require.config({
 		},
 		'views/app-view/' :{
 			deps : ['jquery']
+		},
+		'typeahead' : {
+			deps : ['jquery','bloodhound']
 		}
 		
 	}
