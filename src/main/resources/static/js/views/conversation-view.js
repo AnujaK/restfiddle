@@ -23,7 +23,6 @@ define(function(require) {
     var apiUrls = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      limit: 10,
       prefetch: {
         url: '/api/requests/api-urls',
         // the json file contains an array of strings, but the Bloodhound
@@ -40,6 +39,7 @@ define(function(require) {
     $('#apiUrl').typeahead(null, {
       name: 'apiUrls',
       displayKey: 'name',
+      limit: 10,
       source: apiUrls.ttAdapter()
     });
 
@@ -47,7 +47,6 @@ define(function(require) {
     var httpHeaders = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      limit: 10,
       prefetch: {
         url: '/api/requests/http-headers',
         filter: function(list) {
@@ -60,6 +59,7 @@ define(function(require) {
     $('.http-header').typeahead(null, {
       name: 'httpHeaders',
       displayKey: 'name',
+      limit: 10,
       source: httpHeaders.ttAdapter()
     });
     
