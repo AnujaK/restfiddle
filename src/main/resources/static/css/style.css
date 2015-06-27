@@ -288,9 +288,11 @@ ul.fancytree-container {
 	outline: none;
 }
 
-.tt-dropdown-menu {
+.tt-menu {
 	width: 100%;
 	padding: 8px 0;
+	overflow:hidden;
+	border-radius: 3px;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	-webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
@@ -298,13 +300,19 @@ ul.fancytree-container {
 	box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
 .tt-suggestion {
-	padding: 3px 20px;
+	padding: 8px 20px;
 }
 
 .tt-suggestion.tt-cursor {
 	color: #fff;
 	background-color: #0097cf;
 }
+
+.tt-suggestion:hover {
+	color: #fff;
+	background-color: #0097cf;
+}
+
 .color-gray{
 	color: gray;
 }
