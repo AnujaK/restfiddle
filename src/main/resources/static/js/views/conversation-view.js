@@ -122,10 +122,6 @@ define(function(require) {
 
         });
     
-    $("#addQueryParamBtn").unbind("click").bind("click", function() {
-      var queryParamListItemView = new QueryParamListItemView();
-      $("#queryParamsWrapper").append(queryParamListItemView.render().el);
-    });
     
     $("#addFormDataBtn").unbind("click").bind("click", function() {
       var formListItemView = new FormListItemView();
@@ -388,24 +384,24 @@ define(function(require) {
             var urlData = {};
             urlData.key = urlDataNames[counter];
             urlData.value = urlDataValues[counter];
-            urlDataArr.push(urlData);
+            if(urlData.key)
+            	urlDataArr.push(urlData);
             counter++;
           });  
          _.each(urlDataArr,function(item,index){
-              queryString += item.key + '=' + item.value;
-              if(index != urlDataArr.length-1){
-                queryString += '&';
-              }
-         })
+             queryString += item.key + '=' + item.value;
+             if(index != urlDataArr.length-1){
+        	 queryString += '&'; 
+             }
+         });
 
          var apiUrlData = $("#apiUrl").val().split('?');
          if(queryString != ""){
-         	$("#apiUrl").val(apiUrlData[0] + '?' + queryString);
+             $("#apiUrl").typeahead('val', apiUrlData[0] + '?' + queryString);
          }
          else{
-         	$("#apiUrl").val(apiUrlData[0]);
+             $("#apiUrl").typeahead('val', apiUrlData[0]);
          }
-         
       }
     });
 
@@ -500,8 +496,9 @@ define(function(require) {
       el : '#conversationSection',
       events : {
        "click #apiRequestNameEdit" : "convertToTextBox",
-       "focusout #apiRequestNameTextBox" : "converToLabel"
-
+       "focusout #apiRequestNameTextBox" : "converToLabel",
+       "typeahead:change #apiUrl" : "updateParams",
+       "click #addQueryParamBtn" : "addParams"
      },
 
      initialize : function(){
@@ -773,7 +770,7 @@ render : function(conversation) {
   })
  }
 
-this.$el.find("#apiUrl").val(request.apiUrlString);
+this.$el.find("#apiUrl").typeahead('val', request.apiUrlString).trigger('typeahead:change');
     var evaluationExp = /(\{{)(.+)(\}})/
     var apiUrlValue = this.$el.find("#apiUrl").val();
       $('#evaluatedApiUrl').val(apiUrlValue);
@@ -876,8 +873,36 @@ handleOauthResult : function handleOauthResult(result) {
             headerListItemView.$el.find('.headerName').val("Authorization");
             headerListItemView.$el.find('.headerValue').val("Bearer "+result);
             
-          }
+          },
+          
+	updateParams : function() {
+	    var url = $("#apiUrl").val();
+	    var queryString = url.split('?')[1];
+	    if (queryString) {
+		var params = queryString.replace(/\+/g, ' ').split('&');
+		var paramInputRows = $("#queryParamsWrapper .row");
+		if (params.length > paramInputRows.length) {
+		    for (var i = 0; i < (params.length - paramInputRows.length); i++) {
+			this.addParams();
+		    }    
+		}
+		
+		var i = 0;
+		$('.urlDataName').each(function() {
+		    $(this).val(params[i] ? params[i++].split('=')[0] : '');    
+		});
+		
+		i = 0;
+		$(".urlDataValue").each(function() {
+		    $(this).val(params[i] ? params[i++].split('=')[1] : '');    
+		});
+	    }
+	},
+	addParams : function() {
+	    var queryParamListItemView = new QueryParamListItemView();
+	    $("#queryParamsWrapper").append(queryParamListItemView.render().el);
+	}
 
-        });
+    });
 return ConversationView;
 });

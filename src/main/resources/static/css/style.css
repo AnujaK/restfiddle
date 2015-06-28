@@ -288,6 +288,10 @@ ul.fancytree-container {
 	outline: none;
 }
 
+.tt-hint {
+	color: LightGrey;
+}
+
 .tt-menu {
 	width: 100%;
 	padding: 8px 0;
