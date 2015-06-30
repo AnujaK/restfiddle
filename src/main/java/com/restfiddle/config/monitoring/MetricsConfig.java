@@ -16,6 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class MetricsConfig extends MetricsConfigurerAdapter {
     @Override
     public void configureReporters(MetricRegistry metricRegistry) {
-	ConsoleReporter.forRegistry(metricRegistry).build().start(1, TimeUnit.MINUTES);
+	ConsoleReporter.forRegistry(metricRegistry).build().start(1, TimeUnit.HOURS);
     }
 }
