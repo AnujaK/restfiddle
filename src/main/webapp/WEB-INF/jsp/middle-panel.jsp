@@ -4,7 +4,7 @@
         <i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
     </button>
     &nbsp;
-    <div class="btn-group">
+    <div class="btn-group" id="newRequestDropdown">
         <button class="btn btn-default btn-sm" data-toggle="modal" id="requestBtn">New Request</button>
         <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
             <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>

@@ -138,10 +138,15 @@ define(function(require) {
 			currentElm.addClass('open');
 			
 			var rect = event.currentTarget.getBoundingClientRect();
-			currentElm.children("ul").css({"position": "fixed", "left":rect.right , "top": rect.bottom});
+			currentElm.children("ul").css({"position": "fixed", "left":rect.left , "top": rect.bottom});
 		}
 	}
 
+	$("#newRequestDropdown").click(function(event){
+	    var rect = event.currentTarget.getBoundingClientRect();
+	    $(event.currentTarget).children("ul").css({"position": "fixed", "right":window.innerWidth-rect.right , "top": rect.bottom});
+	});
+	
 	
 	$("#requestBtn").bind("click", function() {
 		$("#requestModal").find("#source").val("request");
