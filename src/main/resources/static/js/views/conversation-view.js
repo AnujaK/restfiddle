@@ -497,7 +497,8 @@ define(function(require) {
       events : {
        "click #apiRequestNameEdit" : "convertToTextBox",
        "focusout #apiRequestNameTextBox" : "converToLabel",
-       "typeahead:change #apiUrl" : "updateParams",
+       "typeahead:change #apiUrl" : "evaluateApiUrl",
+       "typeahead:select #apiUrl" : "evaluateApiUrl",
        "click #addQueryParamBtn" : "addParams"
      },
 
@@ -518,27 +519,6 @@ define(function(require) {
               if(event.keyCode == 13){
                 $("#run").click();
               }
-            });
-            $("#apiUrl").change(function(event){
-                var evaluationExp = /(\{{)(.+)(\}})/
-                var apiUrlValue = event.currentTarget.value;
-                $('#evaluatedApiUrl').val(apiUrlValue);
-                var matchedData = apiUrlValue.match(evaluationExp);
-                if(matchedData != null && matchedData.length > 2 && matchedData[2]){
-                  var environments = new Environments();
-                  environments.fetch({
-                    success : function(response){
-                       var currenctEnv = _.findWhere(response.models,{id : $(".environmentsSelectBox").val()});
-                       var currenctEnvProperties = currenctEnv.get('properties');
-                       _.each(currenctEnvProperties,function(property,index){
-                          if(matchedData[2] == property.propertyName){
-                            var evaluatedValue  = apiUrlValue.replace('{{'+property.propertyName +'}}',property.propertyValue);
-                            $('#evaluatedApiUrl').val(evaluatedValue);
-                          }
-                       })
-                    }
-                  })
-                }
             });
             
             $("#run").unbind('click').bind("click", function(view){
@@ -875,8 +855,7 @@ handleOauthResult : function handleOauthResult(result) {
             
           },
           
-	updateParams : function() {
-	    var url = $("#apiUrl").val();
+	updateParams : function(url) {
 	    var queryString = url.split('?')[1];
 	    if (queryString) {
 		var params = queryString.replace(/\+/g, ' ').split('&');
@@ -901,7 +880,29 @@ handleOauthResult : function handleOauthResult(result) {
 	addParams : function() {
 	    var queryParamListItemView = new QueryParamListItemView();
 	    $("#queryParamsWrapper").append(queryParamListItemView.render().el);
-	}
+	},
+	evaluateApiUrl : function(event){
+            var evaluationExp = /(\{{)(.+)(\}})/
+            var apiUrlValue = event.currentTarget.value;
+            $('#evaluatedApiUrl').val(apiUrlValue);
+            this.updateParams(apiUrlValue);
+            var matchedData = apiUrlValue.match(evaluationExp);
+            if(matchedData != null && matchedData.length > 2 && matchedData[2]){
+              var environments = new Environments();
+              environments.fetch({
+                success : function(response){
+                   var currenctEnv = _.findWhere(response.models,{id : $(".environmentsSelectBox").val()});
+                   var currenctEnvProperties = currenctEnv.get('properties');
+                   _.each(currenctEnvProperties,function(property,index){
+                      if(matchedData[2] == property.propertyName){
+                        var evaluatedValue  = apiUrlValue.replace('{{'+property.propertyName +'}}',property.propertyValue);
+                        $('#evaluatedApiUrl').val(evaluatedValue);
+                      }
+                   })
+                }
+              })
+            }
+        }
 
     });
 return ConversationView;
