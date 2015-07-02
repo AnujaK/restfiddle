@@ -18,6 +18,8 @@ define(function(require) {
 	var TagView = require('views/tag-view');
 	var TagsView = require('views/tags-view');
 	
+	$(".rf-col-1").mCustomScrollbar({theme:"minimal-dark"});
+	
 	//Initialize all tooltips.
 	$('[data-toggle="tooltip"]').tooltip();
 	

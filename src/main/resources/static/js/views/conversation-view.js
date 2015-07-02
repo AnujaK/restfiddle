@@ -18,7 +18,8 @@ define(function(require) {
   var cmjs = require('codemirror/mode/javascript/javascript');
   var imageTypes = ['image/png','image/gif','image/jpeg','image/bmp','image/tiff','image/svg+xml','image/webp'];
 
-
+  $(".rf-col-3").mCustomScrollbar({theme:"minimal-dark"});
+  
     //API URLS
     var apiUrls = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

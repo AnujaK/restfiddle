@@ -564,3 +564,7 @@ ul .dropdown-menu li{
 .activity{
 	overflow: hidden;
 }
+
+.mCS-minimal-dark.mCSB_scrollTools{
+	width:5px;
+}
