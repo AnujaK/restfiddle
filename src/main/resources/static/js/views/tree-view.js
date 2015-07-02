@@ -16,6 +16,8 @@ define(function(require) {
 	var TagsView = require('views/tags-view');
 	var treeData;
 	var tree = {};
+	
+	$(".rf-col-2").mCustomScrollbar({theme:"minimal-dark"});
 
 	var TreeNodeView = Backbone.View.extend({	
 		template: _.template($('#tpl-tree-node').html()),
