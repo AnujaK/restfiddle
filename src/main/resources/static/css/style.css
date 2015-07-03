@@ -568,3 +568,6 @@ ul .dropdown-menu li{
 .mCS-minimal-dark.mCSB_scrollTools{
 	width:5px;
 }
+.mCS-minimal-dark .mCSB_container{
+	overflow: visible;
+}
