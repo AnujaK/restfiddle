@@ -403,6 +403,10 @@ define(function(require) {
          else{
              $("#apiUrl").typeahead('val', apiUrlData[0]);
          }
+         
+         //workaround to remove un-wanted typeahead hint
+         $('#apiUrl').typeahead('open');
+         $("#apiUrl").typeahead('close');
       }
     });
 
@@ -752,6 +756,11 @@ render : function(conversation) {
  }
 
 this.$el.find("#apiUrl").typeahead('val', request.apiUrlString).trigger('typeahead:change');
+
+//workaround to remove un-wanted typeahead hint
+$('#apiUrl').typeahead('open');
+$("#apiUrl").typeahead('close');
+
     var evaluationExp = /(\{{)(.+)(\}})/
     var apiUrlValue = this.$el.find("#apiUrl").val();
       $('#evaluatedApiUrl').val(apiUrlValue);
