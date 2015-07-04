@@ -694,7 +694,8 @@ getUrlParams : function(){
     var urlData = {};
     urlData.key = urlDataNames[counter].key;
     urlData.value = urlDataValues[counter].value;
-    urlDataArr.push(urlData);
+    if(urlData.key)
+	urlDataArr.push(urlData);
     counter++;
   });  
   return urlDataArr;
