@@ -88,17 +88,13 @@ ul.fancytree-container {
 	display: block;
 }
 
-#starred-items .list-group-item:first-child {
+#starred-items .list-group-item:first-child, #tagged-items .list-group-item:first-child, #history-items .list-group-item:first-child {
 	border-top-right-radius: 0px;
 	border-top-left-radius: 0px;
 }
-#starred-items .list-group-item:last-child {
+#starred-items .list-group-item:last-child, #tagged-items .list-group-item:last-child, #history-items .list-group-item:last-child {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
-}
-
-.list-group-item{
-	margin-bottom:3px;	
 }
 
 /* CSS for login page */
@@ -229,6 +225,8 @@ ul.fancytree-container {
 	overflow-y: hidden;
 	width:33%;
 	z-index: 100;
+	padding-left:0px;
+	padding-right:0px;
 }
 
 #starred-items {
