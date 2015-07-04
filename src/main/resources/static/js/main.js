@@ -6,7 +6,7 @@ require.config({
 		underscore : 'libs/underscore-min',
 		backbone : 'libs/backbone-min',
 		bootstarp : 'libs/bootstrap.min',
-		fancytree : 'libs/jquery.fancytree-all',
+		fancytree : 'libs/jquery.fancytree-all.min',
 		selectize : 'libs/selectize.min',
 		mCustomScrollbar : 'libs/jquery.mCustomScrollbar.concat.min',
 		text : 'libs/require/text',
