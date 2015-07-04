@@ -762,7 +762,7 @@ $('#apiUrl').typeahead('open');
 $("#apiUrl").typeahead('close');
 
     var evaluationExp = /(\{{)(.+)(\}})/
-    var apiUrlValue = this.$el.find("#apiUrl").val();
+    var apiUrlValue = this.$el.find("#apiUrl").val().split('?')[0];
       $('#evaluatedApiUrl').val(apiUrlValue);
         var matchedData = apiUrlValue.match(evaluationExp);
           if(matchedData != null && matchedData.length > 2 && matchedData[2]){
@@ -867,25 +867,25 @@ handleOauthResult : function handleOauthResult(result) {
           
 	updateParams : function(url) {
 	    var queryString = url.split('?')[1];
+	    var params = [];
 	    if (queryString) {
-		var params = queryString.replace(/\+/g, ' ').split('&');
+		params = queryString.replace(/\+/g, ' ').split('&');
 		var paramInputRows = $("#queryParamsWrapper .row");
 		if (params.length > paramInputRows.length) {
 		    for (var i = 0; i < (params.length - paramInputRows.length); i++) {
 			this.addParams();
 		    }    
 		}
-		
-		var i = 0;
-		$('.urlDataName').each(function() {
-		    $(this).val(params[i] ? params[i++].split('=')[0] : '');    
-		});
-		
-		i = 0;
-		$(".urlDataValue").each(function() {
-		    $(this).val(params[i] ? params[i++].split('=')[1] : '');    
-		});
 	    }
+	    var i = 0;
+	    $('.urlDataName').each(function() {
+		$(this).val(params[i] ? params[i++].split('=')[0] : '');    
+	    });
+		
+	    i = 0;
+	    $(".urlDataValue").each(function() {
+		$(this).val(params[i] ? params[i++].split('=')[1] : '');    
+	    });
 	},
 	addParams : function() {
 	    var queryParamListItemView = new QueryParamListItemView();
@@ -893,9 +893,9 @@ handleOauthResult : function handleOauthResult(result) {
 	},
 	evaluateApiUrl : function(event){
             var evaluationExp = /(\{{)(.+)(\}})/
-            var apiUrlValue = event.currentTarget.value;
+            var apiUrlValue = event.currentTarget.value.split('?')[0];
             $('#evaluatedApiUrl').val(apiUrlValue);
-            this.updateParams(apiUrlValue);
+            this.updateParams(event.currentTarget.value);
             var matchedData = apiUrlValue.match(evaluationExp);
             if(matchedData != null && matchedData.length > 2 && matchedData[2]){
               var environments = new Environments();
