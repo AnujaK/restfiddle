@@ -23,12 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.restfiddle.entity.User;
 
 @Controller
 public class AppController {
@@ -41,6 +41,8 @@ public class AppController {
     public String home(Map<String, Object> model) {
 	model.put("time", new Date());
 	model.put("message", this.message);
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	model.put("currentUser", (authentication == null) ? null : (UserDetails) authentication.getPrincipal());
 	return "home";
     }
 

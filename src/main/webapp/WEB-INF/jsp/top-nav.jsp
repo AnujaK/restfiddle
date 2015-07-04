@@ -34,7 +34,7 @@
                 </li>
                 <li class="btn-group">
                    <button type="button" class="username dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                       Me<span class="caret"></span>
+                       ${currentUser.username}<span class="caret"></span>
                    </button>
                    <ul class="dropdown-menu" role="menu">
                         <li><a href="http://www.restfiddle.com/" target="_blank">About</a></li>
