@@ -142,7 +142,7 @@
                         <div class="row">
                             <div class="col-xs-2 rf-col-xs-2-padding" >
                                 <select class="apiRequestType form-control">
-                                    <option>GET</option>
+                                    <option selected>GET</option>
                                     <option>POST</option>
                                     <option>PUT</option>
                                     <option>DELETE</option>
