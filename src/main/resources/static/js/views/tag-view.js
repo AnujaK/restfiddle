@@ -55,6 +55,7 @@ define(function(require) {
 
 		showTaggedNodes : function(){
 			console.log("Inside showTaggedNodes");
+            window.history.pushState("", "tag", APP.config.root+"tags/"+this.model.get('id'));
 			$('#rf-col-1-body').find('li').each(function(){
 				$(this).removeClass('active');
 			});

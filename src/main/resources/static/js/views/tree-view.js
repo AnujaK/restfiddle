@@ -1057,9 +1057,8 @@ function nodeConverter(serverNode, uiNode) {
 				console.log(uiSideTreeData);
 				uiTree.push(uiSideTreeData);
 				treeObj.reload(uiTree);
-				//Make the tree expanded once it is loaded
-                var displayName = treeData.name.replace(/\s+/g, '');
-                window.history.pushState(treeData, treeData.name, APP.config.root+"project/"+displayName);
+                window.history.pushState(treeData, treeData.name, APP.config.root+"projects/"+treeData.id);
+                //Make the tree expanded once it is loaded
 				$("#tree").fancytree("getRootNode").visit(function(node){
 					node.setExpanded(true);
 				});
