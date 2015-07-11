@@ -77,13 +77,39 @@ define(function (require) {
         renderStarredGroup : function(start, end) {
             var that = this;
             this.$el.html('');
+            var currentDate = moment(new Date());
             var subset = _.filter(this.model, function(num, index){
                 return (index >= start) && (index <= end);
             });
 
             _.each(subset, function (starredRequest) {
                 if(starredRequest.conversation){
-                    var methodType = starredRequest.conversation.rfRequest.methodType;
+                	var conversation = starredRequest.conversation;
+                	if(conversation.lastModifiedDate){
+                        var requestDiff = currentDate.diff(conversation.lastModifiedDate,'hours');
+                        if(requestDiff == 0){
+                            var min = currentDate.diff(conversation.lastModifiedDate,'minutes')
+                            if(min > 1){
+                            	starredRequest.time = min + " minutes ago";
+                            }
+                            else{
+                            	starredRequest.time = min + " minute ago";
+                            }
+                        }
+                        else if(requestDiff <= 1){
+                        	starredRequest.time = requestDiff + ' hour ago';
+						} else if (requestDiff < 24) {
+							starredRequest.time = requestDiff + ' hours ago';
+						} else {
+							starredRequest.time = moment(conversation.lastModifiedDate).format('MMM DD hh:mma');
+						}
+                	}
+                	
+                	if(conversation.lastModifiedBy){
+                		starredRequest.runBy = 'by '+ conversation.lastModifiedBy.name;
+                    }
+                	
+                    var methodType = starredRequest.conversation.rfRequestDTO.methodType;
                     if(methodType){
                         starredRequest.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
                         starredRequest.methodType = methodType;

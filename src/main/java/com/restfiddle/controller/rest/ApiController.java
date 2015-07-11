@@ -126,6 +126,14 @@ public class ApiController {
 		existingConversation.setRfRequest(conversationForLogging.getRfRequest());
 		existingConversation.setRfResponse(conversationForLogging.getRfResponse());
 		existingConversation.setDuration(duration);
+		if(principal instanceof User){
+		    existingConversation.setLastModifiedBy((User) principal);
+		}
+		existingConversation.setLastModifiedDate(new Date());
+		Date d1 = existingConversation.getLastModifiedDate();
+		Conversation c = conversationRepository.save(existingConversation);
+		Date d = c.getLastModifiedDate();
+		System.out.println(c);
 	    }
 
 	} catch (InvalidDataAccessResourceUsageException e) {

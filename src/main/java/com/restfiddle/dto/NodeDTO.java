@@ -29,6 +29,9 @@ public class NodeDTO extends BaseDTO {
 
     private Boolean starred;
 
+  //API method type - GET/POST/PUT/DELETE etc.
+    private String method;
+    
     private ConversationDTO conversationDTO;
 
     private GenericEntityDTO genericEntityDTO;
@@ -97,6 +100,14 @@ public class NodeDTO extends BaseDTO {
 
     public void setGenericEntityDTO(GenericEntityDTO genericEntityDTO) {
 	this.genericEntityDTO = genericEntityDTO;
+    }
+
+    public String getMethod() {
+	return method;
+    }
+
+    public void setMethod(String method) {
+	this.method = method;
     }
 
 }

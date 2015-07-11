@@ -51,6 +51,7 @@ import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
+import com.restfiddle.util.EntityToDTO;
 import com.restfiddle.util.TreeNode;
 
 @RestController
@@ -275,7 +276,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
+    List<NodeDTO> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding starred nodes.");
 
@@ -296,8 +297,13 @@ public class NodeController {
 	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
 	long totalElements = paginatedStarredNodes.getTotalElements();
 	
+	List<NodeDTO> response = new ArrayList<NodeDTO>();
+	for(BaseNode item : starredNodes){
+	    response.add(EntityToDTO.toDTO(item));
+	}
+	
 	System.out.println("totalElements : "+totalElements);
-	return starredNodes;
+	return response;
     }
 
     @RequestMapping(value = "/api/nodes/{id}/tags", method = RequestMethod.POST, headers = "Accept=application/json")
