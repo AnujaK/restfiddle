@@ -23,7 +23,7 @@ define(function(require) {
 		},
 		displayLabel : function(event){
 			var $elm = $(event.currentTarget);
-			if($elm.attr("checked")){
+			if($elm.is(":checked")){
 				$("#" + $elm.attr('id') + "Label").show();
 			}else{
 				$("#" + $elm.attr('id') + "Label").hide();
@@ -51,20 +51,20 @@ define(function(require) {
 	            APP.tags.fetch({
 			    success : function(response){
 					response.each(function(tag) {
-						if($("#" + tag.get('name')).attr("checked") == 'checked'){
+						if($("#" + tag.get('name')).is(':checked')){
 							tags.push({"id" : tag.get("id")});
 						}
 					});
-				$.ajax({
-					url : APP.config.baseUrl + '/nodes/' + nodeId + '/tags',
-					type : 'post',
-					dataType : 'json',
-                    contentType : "application/json",
-					data : JSON.stringify(tags),
-					success : function(response) {
-						console.log("Import file response : "+response);
-					}
-				});
+                    $.ajax({
+                        url : APP.config.baseUrl + '/nodes/' + nodeId + '/tags',
+                        type : 'post',
+                        dataType : 'json',
+                        contentType : "application/json",
+                        data : JSON.stringify(tags),
+                        success : function(response) {
+                            console.log("Import file response : "+response);
+                        }
+                    });
 			       }
 			    });	
 	         
@@ -101,13 +101,13 @@ define(function(require) {
 			APP.tags.fetch({
 			    success : function(response){
 			    	response.each(function(tag) {
-                           $("#" + tag.get('name')).attr("checked",false);
+                           $("#" + tag.get('name')).prop("checked",false);
                            $("#" + tag.get('name') + "Label").hide();
 					});
 					response.each(function(tag) {
 						var selectedTag = _.findWhere(tags, {name: tag.get('name')});
 						if(selectedTag){
-                           $("#" + selectedTag.name).attr("checked",true);
+                           $("#" + selectedTag.name).prop("checked",true);
                            $("#" + selectedTag.name + "Label").show();
 					    }
 					});
