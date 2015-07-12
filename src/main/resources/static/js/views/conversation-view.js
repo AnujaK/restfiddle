@@ -586,7 +586,7 @@ define(function(require) {
 		},
 		getProcessRequest : function() {
 			var item = {	
-				id : this.nodeRfRequest.id,
+				id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
 				apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()),
 				methodType : this.$el.find(".apiRequestType").val(),
 				apiBody : this.apiBodyCodeMirror.getValue(),
@@ -805,7 +805,7 @@ define(function(require) {
 		saveOrUpdateConversation : function() {
 			if (APP.appView.getCurrentConversationId() != null) {
 				var rfRequest = {
-					id : this.nodeRfRequest.id,
+					id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
 					apiUrl : this.$el.find("#apiUrl").val(),
 					apiBody : this.apiBodyCodeMirror.getValue(),
 					methodType : this.$el.find(".apiRequestType").val(),

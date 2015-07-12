@@ -102,6 +102,7 @@ public class NodeController {
 	    Conversation conversation = conversationRepository.findOne(nodeDTO.getConversationDTO().getId());
 	    node.setConversation(conversation);
 	    conversation.setNodeId(node.getId());
+	    conversationRepository.save(conversation);
 	}
 
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
