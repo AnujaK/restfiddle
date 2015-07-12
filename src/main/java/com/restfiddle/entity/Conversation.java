@@ -29,7 +29,7 @@ public class Conversation extends NamedEntity {
 
     private Long duration;
     
-    private String baseNodeId;
+    private String nodeId;
 
     public RfRequest getRfRequest() {
 	return rfRequest;
@@ -55,11 +55,11 @@ public class Conversation extends NamedEntity {
 	this.duration = duration;
     }
 
-    public String getBaseNodeId() {
-	return baseNodeId;
+    public String getNodeId() {
+	return nodeId;
     }
 
-    public void setBaseNodeId(String baseNodeId) {
-	this.baseNodeId = baseNodeId;
+    public void setNodeId(String nodeId) {
+	this.nodeId = nodeId;
     }
 }

@@ -83,8 +83,8 @@ define(function (require) {
             });
 
             _.each(subset, function (starredRequest) {
-                if(starredRequest.conversation){
-                	var conversation = starredRequest.conversation;
+                if(starredRequest.conversationDTO){
+                	var conversation = starredRequest.conversationDTO;
                 	if(conversation.lastModifiedDate){
                         var requestDiff = currentDate.diff(conversation.lastModifiedDate,'hours');
                         if(requestDiff == 0){
@@ -109,7 +109,7 @@ define(function (require) {
                 		starredRequest.runBy = 'by '+ conversation.lastModifiedBy.name;
                     }
                 	
-                    var methodType = starredRequest.conversation.rfRequestDTO.methodType;
+                    var methodType = conversation.rfRequestDTO.methodType;
                     if(methodType){
                         starredRequest.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
                         starredRequest.methodType = methodType;

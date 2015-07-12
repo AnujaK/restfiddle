@@ -71,7 +71,7 @@ public class ConversationController {
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Conversation create(@RequestBody ConversationDTO conversationDTO) {
+    ConversationDTO create(@RequestBody ConversationDTO conversationDTO) {
 	logger.debug("Creating a new item with information: " + conversationDTO);
 
 	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
@@ -82,6 +82,8 @@ public class ConversationController {
 	conversation.setDescription(conversationDTO.getDescription());
 	conversation.setCreatedDate(new Date());
 	conversation.setLastModifiedDate(new Date());
+	if(conversationDTO.getNodeDTO() != null )
+	    conversation.setNodeId(conversationDTO.getNodeDTO().getId());
 
 	rfRequestRepository.save(conversation.getRfRequest());
 	rfResponseRepository.save(conversation.getRfResponse());
@@ -91,7 +93,7 @@ public class ConversationController {
 	conversation.getRfRequest().setConversationId(conversation.getId());
 	rfRequestRepository.save(conversation.getRfRequest());
 
-	return conversation;
+	return EntityToDTO.toDTO(conversation);
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.DELETE, headers = "Accept=application/json")
@@ -175,6 +177,8 @@ public class ConversationController {
 	conversation.setDescription(conversationDTO.getDescription());
 	conversation.setCreatedDate(new Date());
 	conversation.setLastModifiedDate(new Date());
+	if(conversationDTO.getNodeDTO() != null )
+	    conversation.setNodeId(conversationDTO.getNodeDTO().getId());
 
 	RfRequest rfRequest = conversation.getRfRequest();
 	RfRequest dbRfRequest = dbConversation.getRfRequest();
