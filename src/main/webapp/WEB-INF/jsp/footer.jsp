@@ -14,6 +14,7 @@
                     <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Workspace</li>
                     <li class="divider"></li>
                     <li class="export-workspace"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
+                    <li class="export-workspace"><i class="fa fa-download fa-fw"></i> Export (Swagger)</li>
                 </ul>
             </div></div>
 		</div>
@@ -31,6 +32,7 @@
                     <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Project</li>
                     <li class="divider"></li>
                     <li class="export-project"><i class="fa fa-download fa-fw"></i> Export Project</li>
+                    <li class="export-project"><i class="fa fa-download fa-fw"></i> Export (Swagger)</li>
                 </ul>
             </div>
         </a>
