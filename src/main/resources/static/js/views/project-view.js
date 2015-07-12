@@ -55,7 +55,8 @@ define(function(require) {
 			}else{
 				$('.btn-group').removeClass('open');
 				currentElm.addClass('open');
-
+                var rect = event.currentTarget.getBoundingClientRect();
+			    currentElm.children("ul").css({"position": "fixed", "left":rect.left , "top": rect.bottom});
 			}
 			
 		},

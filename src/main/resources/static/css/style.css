@@ -224,7 +224,7 @@ ul.fancytree-container {
 	position: fixed; 
 	overflow-y: hidden;
 	width:33%;
-	z-index: 100;
+	z-index: -1;
 	padding-left:0px;
 	padding-right:0px;
 }
@@ -512,7 +512,7 @@ ul .dropdown-menu li{
   border: none;
   padding-bottom: 5px;
   outline: none;
-  color: #999;
+  color: #333;
 }
 
 .circle{
