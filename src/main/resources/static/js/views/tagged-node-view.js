@@ -94,12 +94,37 @@ define(function(require) {
   renderActivityGroup : function(start, end,data) {
     $("#tagged-pannel").html('');
     var that = this;
+    var currentDate = moment(new Date());
     var subset = _.filter(data, function(num, index){
       return (index >= start) && (index <= end);
     });
     _.each(subset, function (activity) {
-      if(activity.conversation){
-        var methodType = activity.conversation.rfRequest.methodType;
+      if(activity.conversationDTO){
+    	var conversation = activity.conversationDTO;
+      	if(conversation.lastModifiedDate){
+          var requestDiff = currentDate.diff(conversation.lastModifiedDate,'hours');
+          if(requestDiff == 0){
+              var min = currentDate.diff(conversation.lastModifiedDate,'minutes')
+              if(min > 1){
+            	  activity.time = min + " minutes ago";
+              }
+              else{
+            	  activity.time = min + " minute ago";
+              }
+          }
+          else if(requestDiff <= 1){
+        	  activity.time = requestDiff + ' hour ago';
+			} else if (requestDiff < 24) {
+				activity.time = requestDiff + ' hours ago';
+			} else {
+				activity.time = moment(conversation.lastModifiedDate).format('MMM DD hh:mma');
+			}
+      	}
+      	
+      	if(conversation.lastModifiedBy){
+      		activity.runBy = 'by '+ conversation.lastModifiedBy.name;
+          }
+        var methodType = conversation.rfRequestDTO.methodType;
         if(methodType){
           activity.className = "lozenge left " + that.getColorCode(methodType) + " auth_required";
           activity.methodType = methodType;
