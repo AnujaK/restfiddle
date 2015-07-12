@@ -92,8 +92,8 @@ public class ApiController {
 	    return null;
 	} else if (rfRequestDTO.getId() != null && !rfRequestDTO.getId().isEmpty()) {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
-	    String conversationId = rfRequest.getConversationId();
-	    existingConversation = conversationRepository.findOne(conversationId);
+	    String conversationId = rfRequest != null ? rfRequest.getConversationId() : null;
+	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
 	}
 
 	long startTime = System.currentTimeMillis();
@@ -122,7 +122,7 @@ public class ApiController {
 	    rfRequestRepository.save(currentConversation.getRfRequest());
 
 	    // Note : existingConversation will be null if the request was not saved previously.
-	    if (existingConversation != null) {
+	    if (existingConversation != null && existingConversation.getNodeId() != null) {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		node.setConversation(currentConversation);
 		currentConversation.setNodeId(node.getId());

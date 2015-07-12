@@ -805,6 +805,7 @@ define(function(require) {
 		saveOrUpdateConversation : function() {
 			if (APP.appView.getCurrentConversationId() != null) {
 				var rfRequest = {
+					id : this.nodeRfRequest.id,
 					apiUrl : this.$el.find("#apiUrl").val(),
 					apiBody : this.apiBodyCodeMirror.getValue(),
 					methodType : this.$el.find(".apiRequestType").val(),
@@ -819,6 +820,7 @@ define(function(require) {
 				}
 				var conversation = new ConversationModel({
 					id : APP.appView.getCurrentConversationId(),
+					nodeDTO : {id:APP.appView.getCurrentRequestNodeId()}, 
 					rfRequestDTO : rfRequest,
 					rfResponseDTO : rfResponse
 
