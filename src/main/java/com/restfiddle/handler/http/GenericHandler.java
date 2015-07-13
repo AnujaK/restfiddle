@@ -96,6 +96,7 @@ public class GenericHandler {
 	List<RfHeaderDTO> headers = new ArrayList<RfHeaderDTO>();
 	try {
 	    logger.info("response status : " + httpResponse.getStatusLine());
+	    responseDTO.setStatus(httpResponse.getStatusLine().getStatusCode() + " " + httpResponse.getStatusLine().getReasonPhrase());
 	    HttpEntity responseEntity = httpResponse.getEntity();
 	    Header[] responseHeaders = httpResponse.getAllHeaders();
 

@@ -81,7 +81,7 @@ public class ApiController {
     private RfResponseRepository rfResponseRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
+    ConversationDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
 	Conversation existingConversation = null;
 	Conversation currentConversation = null;
 
@@ -136,8 +136,9 @@ public class ApiController {
 	}
 	ConversationDTO conversationDTO = new ConversationDTO();
 	conversationDTO.setDuration(duration);
+	conversationDTO.setRfResponseDTO(result);
 	result.setItemDTO(conversationDTO);
-	return result;
+	return conversationDTO;
     }
 
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
@@ -180,7 +181,7 @@ public class ApiController {
 			rfRequestDTO.setApiUrl(apiUrl);
 			rfRequestDTO.setApiBody(apiBody);
 
-			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO);
+			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO).getRfResponseDTO();
 			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
 			ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
 
