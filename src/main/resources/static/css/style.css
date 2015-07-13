@@ -353,6 +353,7 @@ ul.fancytree-container {
 ul .dropdown-menu li{
 	color: #333 !important;
 	padding-left: 7px;
+    cursor: pointer;
 }
 
 #apiRequestNameEdit{

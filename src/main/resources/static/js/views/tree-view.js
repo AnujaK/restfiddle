@@ -146,7 +146,7 @@ define(function(require) {
 
 	$("#newRequestDropdown").click(function(event){
 	    var rect = event.currentTarget.getBoundingClientRect();
-	    $(event.currentTarget).children("ul").css({"position": "fixed", "right":window.innerWidth-rect.right , "top": rect.bottom});
+        $(event.currentTarget).children("ul").css({"position": "fixed", "left":rect.left , "right":window.innerWidth-rect.right, "top": rect.bottom});
 	});
 	
 	
@@ -166,6 +166,11 @@ define(function(require) {
 		});
 	});
 	
+    $("#moreOptionsDropdown").click(function(event){
+	    var rect = event.currentTarget.getBoundingClientRect();
+        $(event.currentTarget).children("ul").css({"position": "fixed", "left":rect.left , "right":window.innerWidth-rect.right, "top": rect.bottom});
+	});
+    
 	$("#collapseAllNodes").bind("click", function() {
 		$("#tree").fancytree("getRootNode").visit(function(node){
 			node.setExpanded(false);
