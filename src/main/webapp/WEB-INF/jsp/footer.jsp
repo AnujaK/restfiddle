@@ -10,8 +10,8 @@
                     <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li class="edit-project"><i class="fa fa-pencil fa-fw"></i> Edit Workspace</li>
-                    <li class="delete-project"><i class="fa fa-trash-o fa-fw"></i> Delete Workspace</li>
+                    <li class="edit-workspace"><i class="fa fa-pencil fa-fw"></i> Edit Workspace</li>
+                    <li class="delete-workspace"><i class="fa fa-trash-o fa-fw"></i> Delete Workspace</li>
                     <li class="divider"></li>
                     <li class="export-workspace"><i class="fa fa-download fa-fw"></i> Export Workspace</li>
                     <li class="export-workspace"><i class="fa fa-download fa-fw"></i> Export (Swagger)</li>
