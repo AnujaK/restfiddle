@@ -51,6 +51,7 @@ import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
+import com.restfiddle.util.EntityToDTO;
 import com.restfiddle.util.TreeNode;
 
 @RestController
@@ -81,7 +82,7 @@ public class NodeController {
     // Note : Creating a node requires parentId. Project-node is the root node and it is created during project creation.
     @RequestMapping(value = "/api/nodes/{parentId}/children", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    BaseNode create(@PathVariable("parentId") String parentId, @RequestBody NodeDTO nodeDTO) {
+    NodeDTO create(@PathVariable("parentId") String parentId, @RequestBody NodeDTO nodeDTO) {
 	logger.debug("Creating a new node with information: " + nodeDTO);
 
 	BaseNode node = new BaseNode();
@@ -94,10 +95,14 @@ public class NodeController {
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
 	node.setPosition(0L);
+	
+	node = nodeRepository.save(node);
 
 	if (nodeDTO.getConversationDTO() != null && nodeDTO.getConversationDTO().getId() != null) {
 	    Conversation conversation = conversationRepository.findOne(nodeDTO.getConversationDTO().getId());
 	    node.setConversation(conversation);
+	    conversation.setNodeId(node.getId());
+	    conversationRepository.save(conversation);
 	}
 
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
@@ -128,7 +133,7 @@ public class NodeController {
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
 	    generateApiController.generateApi(savedNode);
 	}
-	return savedNode;
+	return EntityToDTO.toDTO(savedNode);
     }
 
     @RequestMapping(value = "/api/nodes/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
@@ -275,7 +280,7 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
+    List<NodeDTO> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding starred nodes.");
 
@@ -296,8 +301,13 @@ public class NodeController {
 	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
 	long totalElements = paginatedStarredNodes.getTotalElements();
 	
+	List<NodeDTO> response = new ArrayList<NodeDTO>();
+	for(BaseNode item : starredNodes){
+	    response.add(EntityToDTO.toDTO(item));
+	}
+	
 	System.out.println("totalElements : "+totalElements);
-	return starredNodes;
+	return response;
     }
 
     @RequestMapping(value = "/api/nodes/{id}/tags", method = RequestMethod.POST, headers = "Accept=application/json")

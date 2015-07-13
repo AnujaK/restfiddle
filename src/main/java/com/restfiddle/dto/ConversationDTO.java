@@ -15,6 +15,7 @@
  */
 package com.restfiddle.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 public class ConversationDTO extends BaseDTO {
@@ -26,6 +27,9 @@ public class ConversationDTO extends BaseDTO {
     private RfResponseDTO rfResponseDTO;
 
     private Long duration;
+    
+    @JsonBackReference
+    private NodeDTO nodeDTO;
 
     public RfRequestDTO getRfRequestDTO() {
 	return rfRequestDTO;
@@ -49,5 +53,14 @@ public class ConversationDTO extends BaseDTO {
 
     public void setDuration(Long duration) {
 	this.duration = duration;
+    }
+    
+
+    public NodeDTO getNodeDTO() {
+        return nodeDTO;
+    }
+
+    public void setNodeDTO(NodeDTO nodeDTO) {
+        this.nodeDTO = nodeDTO;
     }
 }

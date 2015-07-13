@@ -15,18 +15,27 @@
  */
 package com.restfiddle.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
-public class ProjectDTO extends BaseDTO {
+public class ColorDTO {
+    // Color code which can be rendered on the UI
+    private String colorCode;
+    // Display Name
+    private String displayName;
 
-    @JsonBackReference
-    private NodeDTO projectRef;
-
-    public NodeDTO getProjectRef() {
-	return projectRef;
+    public String getColorCode() {
+	return colorCode;
     }
 
-    public void setProjectRef(NodeDTO projectRef) {
-	this.projectRef = projectRef;
+    public void setColorCode(String colorCode) {
+	this.colorCode = colorCode;
     }
+
+    public String getDisplayName() {
+	return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+	this.displayName = displayName;
+    }
+
 }

@@ -83,11 +83,11 @@ public class GenerateApiController {
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
-	Conversation createdConversation = conversationController.create(conversationDTO);
+	ConversationDTO createdConversation = conversationController.create(conversationDTO);
 	conversationDTO.setId(createdConversation.getId());
 
 	String nodeName = "Get List of " + entityNode.getName();
-	BaseNode createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
+	NodeDTO createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
 
 	// API to GENERATE >> Get Entity Data By Id
 	conversationDTO = new ConversationDTO();
@@ -154,12 +154,12 @@ public class GenerateApiController {
 	return null;
     }
 
-    private BaseNode createNode(String nodeName, String parentId, String projectId, ConversationDTO conversationDTO) {
+    private NodeDTO createNode(String nodeName, String parentId, String projectId, ConversationDTO conversationDTO) {
 	NodeDTO childNode = new NodeDTO();
 	childNode.setName(nodeName);
 	childNode.setProjectId(projectId);
 	childNode.setConversationDTO(conversationDTO);
-	BaseNode createdNode = nodeController.create(parentId, childNode);
+	NodeDTO createdNode = nodeController.create(parentId, childNode);
 	return createdNode;
     }
 

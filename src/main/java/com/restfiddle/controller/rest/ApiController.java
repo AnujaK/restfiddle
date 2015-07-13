@@ -83,7 +83,7 @@ public class ApiController {
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     RfResponseDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
 	Conversation existingConversation = null;
-	Conversation conversationForLogging = null;
+	Conversation currentConversation = null;
 
 	// TODO : Get RfRequest Id if present as part of this request and update the existing conversation entity.
 	// Note : New conversation entity which is getting created below is still required for logging purpose.
@@ -92,8 +92,8 @@ public class ApiController {
 	    return null;
 	} else if (rfRequestDTO.getId() != null && !rfRequestDTO.getId().isEmpty()) {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
-	    String conversationId = rfRequest.getConversationId();
-	    existingConversation = conversationRepository.findOne(conversationId);
+	    String conversationId = rfRequest != null ? rfRequest.getConversationId() : null;
+	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
 	}
 
 	long startTime = System.currentTimeMillis();
@@ -101,32 +101,35 @@ public class ApiController {
 	long endTime = System.currentTimeMillis();
 	long duration = endTime - startTime;
 
-	conversationForLogging = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
 
-	rfRequestRepository.save(conversationForLogging.getRfRequest());
-	rfResponseRepository.save(conversationForLogging.getRfResponse());
+	rfRequestRepository.save(currentConversation.getRfRequest());
+	rfResponseRepository.save(currentConversation.getRfResponse());
 
-	conversationForLogging.setDuration(duration);
+	currentConversation.setDuration(duration);
 	
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	if(principal instanceof User){
-	    conversationForLogging.setLastModifiedBy((User) principal);
+	    currentConversation.setLastModifiedBy((User) principal);
 	}
 	
-	conversationForLogging.setCreatedDate(new Date());
-	conversationForLogging.setLastModifiedDate(new Date());
+	currentConversation.setCreatedDate(new Date());
+	currentConversation.setLastModifiedDate(new Date());
 	try {
-	    conversationForLogging = conversationRepository.save(conversationForLogging);
+	    currentConversation = conversationRepository.save(currentConversation);
 
-	    conversationForLogging.getRfRequest().setConversationId(conversationForLogging.getId());
-	    rfRequestRepository.save(conversationForLogging.getRfRequest());
+	    currentConversation.getRfRequest().setConversationId(currentConversation.getId());
+	    rfRequestRepository.save(currentConversation.getRfRequest());
 
 	    // Note : existingConversation will be null if the request was not saved previously.
-	    if (existingConversation != null) {
-		existingConversation.setRfRequest(conversationForLogging.getRfRequest());
-		existingConversation.setRfResponse(conversationForLogging.getRfResponse());
-		existingConversation.setDuration(duration);
+	    if (existingConversation != null && existingConversation.getNodeId() != null) {
+		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
+		node.setConversation(currentConversation);
+		currentConversation.setNodeId(node.getId());
+		nodeRepository.save(node);
 	    }
+	    
+	    conversationRepository.save(currentConversation);
 
 	} catch (InvalidDataAccessResourceUsageException e) {
 	    throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);

@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -37,9 +38,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.TagRepository;
+import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.TagDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Tag;
+import com.restfiddle.util.EntityToDTO;
 
 @RestController
 @EnableAutoConfiguration
@@ -109,7 +112,7 @@ public class TagController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{tagId}/nodes", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId,
+    List<NodeDTO> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding nodes by tag id: " + tagId);
 	
@@ -128,8 +131,13 @@ public class TagController {
 	Page<BaseNode> paginatedTaggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
 	
 	List<BaseNode> taggedNodes = paginatedTaggedNodes.getContent();
+	
+	List<NodeDTO> response = new ArrayList<NodeDTO>();
+	for(BaseNode item : taggedNodes){
+	    response.add(EntityToDTO.toDTO(item));
+	}
 
-	return taggedNodes;
+	return response;
     }
 
 }

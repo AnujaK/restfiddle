@@ -68,7 +68,7 @@ public class FileUploadController {
 		collectionNodeDTO.setName(collectionName);
 		collectionNodeDTO.setNodeType(NodeType.FOLDER.name());
 		collectionNodeDTO.setProjectId(projectId);
-		BaseNode collectionNode = nodeController.create(projectId, collectionNodeDTO);
+		NodeDTO collectionNode = nodeController.create(projectId, collectionNodeDTO);
 
 		JSONArray requests = pmCollection.getJSONArray("requests");
 		int len = requests.length();
@@ -123,7 +123,7 @@ public class FileUploadController {
 		    }
 
 		    conversationDTO.setRfRequestDTO(rfRequestDTO);
-		    Conversation createdConversation = conversationController.create(conversationDTO);
+		    ConversationDTO createdConversation = conversationController.create(conversationDTO);
 		    conversationDTO.setId(createdConversation.getId());
 
 		    // Request Node
@@ -132,7 +132,7 @@ public class FileUploadController {
 		    childNode.setDescription(requestDescription);
 		    childNode.setProjectId(projectId);
 		    childNode.setConversationDTO(conversationDTO);
-		    BaseNode createdChildNode = nodeController.create(collectionNode.getId(), childNode);
+		    NodeDTO createdChildNode = nodeController.create(collectionNode.getId(), childNode);
 		    System.out.println("created node : " + createdChildNode.getName());
 		}
 	    } catch (Exception e) {
