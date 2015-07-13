@@ -550,11 +550,11 @@ define(function(require) {
 				type : 'post',
 				dataType : 'json',
 				contentType : "application/json",
-				success : function(response, statusText, xhr) {
-					var request_time = new Date().getTime() - start_time;
-					$('#req-time').html(request_time);
-					var length = response.toString().length;
-					$('#status-code').html(xhr.status + ' ' + xhr.statusText);
+				success : function(conversation, statusText, xhr) {
+					var response = conversation.rfResponseDTO;
+					$('#req-time').html(conversation.duration);
+					var length = response.body.length;
+					$('#status-code').html(response.status);
 					$('#content-size').html(length);
 					lastResponse = JSON.stringify(response);
 					$('#responseData').val(JSON.stringify(response));

@@ -318,7 +318,7 @@
             <div>
                 <p>
                     <span id="responseToggle" class='glyphicon glyphicon glyphicon-chevron-down'></span>&nbsp;&nbsp;<b>Response</b>
-                <div class="pull-right">&nbsp;&nbsp;<span>Status : </span><span id="status-code"></span>&nbsp;&nbsp;<span>Time : <span id="req-time"></span> ms</span>&nbsp;&nbsp;<span>Size : <span id="content-size"></span> KB</span></div>
+                <div class="pull-right">&nbsp;&nbsp;<span>Status : </span><span id="status-code"></span>&nbsp;&nbsp;<span>Time : <span id="req-time"></span> ms</span>&nbsp;&nbsp;<span>Size : <span id="content-size"></span> Bytes</span></div>
                 </p>
             </div>
 
