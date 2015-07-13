@@ -72,6 +72,8 @@ define(function(require) {
 		template : _.template($('#tpl-workspace-list-item').html()),
 		events : {
 			"click .hover-down-arrow" : "preventParentElmSelection",
+            "click .edit-workspace" : "editWorkspace",
+            "click .delete-workspace" : "deleteWorkspace",
 			"click .export-workspace" : "exportWorkspace"
 		},
         
@@ -92,10 +94,22 @@ define(function(require) {
 			}else{
 				$('.btn-group').removeClass('open');
 				currentElm.addClass('open');
-
+                var rect = event.currentTarget.getBoundingClientRect();
+			    currentElm.children("ul").css({"position": "fixed", "left":rect.left , "top": rect.bottom});
 			}
 			
 		},
+        editWorkspace : function(){
+            $("#editWorkspaceId").val(this.model.get('id'));
+            $("#editWorkspaceTextField").val(this.model.get('name'));
+            $("#editWorkspaceTextArea").val(this.model.get('description'));
+            $("#editWorkspaceModal").modal("show");
+        },
+        
+        deleteWorkspace : function(){
+            $("#deleteWorkspaceId").val(this.model.get('id'));
+            $("#deleteWorkspaceModal").modal("show");
+        },
 		exportWorkspace : function(){
 			window.open('http://localhost:8080/api/workspaces/' + this.model.get('id'));
 		}

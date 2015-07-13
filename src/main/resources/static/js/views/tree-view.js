@@ -63,12 +63,12 @@ define(function(require) {
 	}
 
 	$("#copyNodeModal").on('show.bs.modal',function(e){
-		$('#nodeUrl').attr('checked','checked');
-		$('#nodeMethodType').attr('checked','checked');
-		$('#nodeBody').attr('checked','checked');
-		$('#nodeHeaders').attr('checked','checked');
-		$('#nodeAuth').attr('checked','checked');
-        $('#nodeTags').attr('checked','checked');
+		$('#nodeUrl').prop('checked', true);
+		$('#nodeMethodType').prop('checked', true);
+		$('#nodeBody').prop('checked', true);
+		$('#nodeHeaders').prop('checked', true);
+		$('#nodeAuth').prop('checked', true);
+        $('#nodeTags').prop('checked', true);
 
 	});
 
@@ -146,7 +146,7 @@ define(function(require) {
 
 	$("#newRequestDropdown").click(function(event){
 	    var rect = event.currentTarget.getBoundingClientRect();
-	    $(event.currentTarget).children("ul").css({"position": "fixed", "right":window.innerWidth-rect.right , "top": rect.bottom});
+        $(event.currentTarget).children("ul").css({"position": "fixed", "left":rect.left , "right":window.innerWidth-rect.right, "top": rect.bottom});
 	});
 	
 	
@@ -166,6 +166,11 @@ define(function(require) {
 		});
 	});
 	
+    $("#moreOptionsDropdown").click(function(event){
+	    var rect = event.currentTarget.getBoundingClientRect();
+        $(event.currentTarget).children("ul").css({"position": "fixed", "left":rect.left , "right":window.innerWidth-rect.right, "top": rect.bottom});
+	});
+    
 	$("#collapseAllNodes").bind("click", function() {
 		$("#tree").fancytree("getRootNode").visit(function(node){
 			node.setExpanded(false);
@@ -453,19 +458,19 @@ define(function(require) {
 				var conversation = new ConversationModel(response.get("conversation"));
 				var rfRequestObj = conversation.get('rfRequest');
                 var tagsArray = response.get('tags');
-                var headers = $('#nodeHeaders').attr('checked') == 'checked' ? rfRequestObj['rfHeaders'] : null;
+                var headers = $('#nodeHeaders').prop('checked') == true ? rfRequestObj['rfHeaders'] : null;
                 if(headers != null && headers.length >0) {
                     for(var i = 0; i < headers.length; i++){
                         headers[i].headerValue = headers[i].headerValueString;
                     }
                 }
 				var rfRequest = {
-				    apiUrl : $('#nodeUrl').attr('checked') == 'checked' ? rfRequestObj['apiUrlString'] : '',
-				    apiBody : $('#nodeBody').attr('checked') == 'checked' ? rfRequestObj['apiBodyString'] : '',
-				    methodType : $('#nodeMethodType').attr('checked') == 'checked' ? rfRequestObj['methodType'] : '',
+				    apiUrl : $('#nodeUrl').prop('checked') == true ? rfRequestObj['apiUrlString'] : '',
+				    apiBody : $('#nodeBody').prop('checked') == true ? rfRequestObj['apiBodyString'] : '',
+				    methodType : $('#nodeMethodType').prop('checked') == true ? rfRequestObj['methodType'] : '',
 				    headers : headers,
-                    basicAuthDTO : $('#nodeAuth').attr('checked') == 'checked' ? rfRequestObj['basicAuth'] : null,
-                    digestAuthDTO : $('#nodeAuth').attr('checked') == 'checked' ? rfRequestObj['digestAuth'] : null
+                    basicAuthDTO : $('#nodeAuth').prop('checked') == true ? rfRequestObj['basicAuth'] : null,
+                    digestAuthDTO : $('#nodeAuth').prop('checked') == true ? rfRequestObj['digestAuth'] : null
                     //ToDo: add auth
                     
 			    };
@@ -478,7 +483,7 @@ define(function(require) {
 			    var nodeId = $("#copyNodeId").val();
 			    var node = treeObj.getNodeByKey(nodeId);
                 var tags=[];
-                tags = $('#nodeTags').attr('checked') == 'checked' ? tagsArray : null;
+                tags = $('#nodeTags').prop('checked') == true ? tagsArray : null;
                 
                 tree.createNewNode({   
 					nodeName : $("#copyNodeTextField").val(),
@@ -569,7 +574,7 @@ $("#deleteRequestBtn").bind("click", function() {
 	}
 
 	$.ajax({
-		url : APP.config.baseUrl + '/nodes/' + node.data.id,
+		url : APP.config.baseUrl + '/nodes/' + nodeId,
 		type : 'delete',
 		dataType : 'json',
 		contentType : "application/json",

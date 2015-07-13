@@ -22,7 +22,7 @@
         <button class="btn btn-default btn-sm run-project"  data-toggle="tooltip" data-placement="bottom" data-container="body" title="Run project lets you run requests together.">Run Project</button>
     </div>
     &nbsp;&nbsp;
-    <div class="btn-group">
+    <div class="btn-group" id="moreOptionsDropdown">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
             More&nbsp;&nbsp;<span class="caret"></span>
         </button>
