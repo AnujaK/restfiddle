@@ -70,7 +70,7 @@
             </div>
             &nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts <span class="badge">0</span></button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts <span id="assertCount" class="badge">0</span></button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>

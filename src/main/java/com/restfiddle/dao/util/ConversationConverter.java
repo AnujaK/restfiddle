@@ -3,13 +3,17 @@ package com.restfiddle.dao.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.restfiddle.dto.AssertionDTO;
+import com.restfiddle.dto.BodyAssertDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.dto.UrlParamDTO;
+import com.restfiddle.entity.Assertion;
 import com.restfiddle.entity.BasicAuth;
+import com.restfiddle.entity.BodyAssert;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.DigestAuth;
 import com.restfiddle.entity.FormParam;
@@ -84,6 +88,19 @@ public class ConversationConverter {
 		    headers.add(header);
 		}
 		rfRequest.setRfHeaders(headers);
+	    }
+	    
+	    AssertionDTO assertionDTO = rfRequestDTO.getAssertionDTO();
+	    if(assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null){
+		List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
+		List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
+		for(BodyAssertDTO bodyAssertDTO : bodyAssertDTOs){
+		    BodyAssert bodyAssert = new BodyAssert();
+		    bodyAssert.setComparator(bodyAssertDTO.getComparator());
+		    bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
+		    bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
+		    bodyAsserts.add(bodyAssert);
+		}
 	    }
 	}
 	conversation.setRfRequest(rfRequest);

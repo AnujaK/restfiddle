@@ -594,7 +594,8 @@ define(function(require) {
 				urlParams : this.getUrlParams(),
 				formParams : this.getFormParams(),
 				basicAuthDTO : this.getBasicAuthDTO(),
-				digestAuthDTO : this.getDigestAuthDTO()
+				digestAuthDTO : this.getDigestAuthDTO(),
+				assertionDTO : this.nodeRfRequest ? this.nodeRfRequest.assertion : null
 			};
 			return item;
 		},
@@ -799,6 +800,8 @@ define(function(require) {
 			} else {
 				this.apiBodyCodeMirror.setValue('');
 			}
+			
+			this.$el.find('#assertCount').html(request.assertion ? request.assertion.bodyAsserts.length : 0);
 
 			this.$el.find("#response-wrapper").html('');
 		},
@@ -813,7 +816,8 @@ define(function(require) {
 					headers : this.getHeaderParams(),
 					formParams : this.getFormParams(),
 					basicAuthDTO : this.getBasicAuthDTO(),
-					digestAuthDTO : this.getDigestAuthDTO()
+					digestAuthDTO : this.getDigestAuthDTO(),
+					assertionDTO : this.nodeRfRequest ? this.nodeRfRequest.assertion : null
 				}
 				var rfResponse = {
 

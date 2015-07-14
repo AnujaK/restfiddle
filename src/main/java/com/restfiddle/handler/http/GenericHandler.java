@@ -125,4 +125,6 @@ public class GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	return null;
     }
+    
+    
 }
