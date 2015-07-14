@@ -543,8 +543,9 @@ function saveWorkspace() {
 };
 
 $("#deleteProjectBtn").bind("click", function() {
+    var projId = $("#deleteProjectId").val();
 	$.ajax({
-		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + $("#deleteProjectId").val(),
+		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + projId,
 		type : 'delete',
 		dataType : 'json',
 		contentType : "application/json",
@@ -558,6 +559,8 @@ $("#deleteProjectBtn").bind("click", function() {
 					projectList.push(new ProjectModel(p));
 				});
 				var projectView = new ProjectView({model : projectList});
+                var projParent = $('a[data-project-id="' + projId + '"]').parent();
+                projParent.empty();
 				projectView.render();
 				TreeView.resetTree();
 		  	}
