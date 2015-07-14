@@ -594,6 +594,7 @@ $("#deleteWorkspaceBtn").bind("click", function() {
 			location.reload();
 		}
 	});
+    $("#deleteWorkspaceModal").modal("hide");
 });
 
 $("#deleteTagBtn").bind("click", function() {

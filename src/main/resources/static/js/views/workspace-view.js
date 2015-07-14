@@ -47,7 +47,7 @@ define(function(require) {
 		},
 		showProjects : function() {
 		
-			var projectList = []
+			var projectList = [];
 			_.each(this.model.get('projects'), function(p){
 				projectList.push(new ProjectModel(p));
 			});

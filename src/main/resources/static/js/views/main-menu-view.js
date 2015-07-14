@@ -373,6 +373,9 @@ $("#editWorkspaceBtn").unbind("click").bind("click", function() {
 	if($("#workspaceEditForm").valid()){
 		var that = this;
 
+        $('#dd-workspace-wrapper').off('click');
+        $('#dd-workspace-wrapper').empty();
+        
 		var saveWorkspace = function(){
 			var newWorkspace = new Workspace({
 				id : APP.appView.getCurrentWorkspaceId(),
@@ -557,11 +560,10 @@ $("#deleteProjectBtn").bind("click", function() {
 				var projectView = new ProjectView({model : projectList});
 				projectView.render();
 				TreeView.resetTree();
-				$("#deleteProjectModal").modal('hide');
 		  	}
 		  })
-			
 		}
 	});
+    $("#deleteProjectModal").modal('hide');
 });
 });
