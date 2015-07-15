@@ -590,12 +590,7 @@ $("#deleteWorkspaceBtn").bind("click", function() {
 		contentType : "application/json",
 		success : function(data) {
             console.log("location.host "+location.host);
-            //location.assign("");
-			//location.assign(window.location.protocol+location.host);
-            window.location = ""+ location.host;
-            //window.location.href = ""+ location.host;
-            //window.location.assign(location.host);
-            //location.reload();
+            window.location = window.location.protocol+"//"+location.host;
 		}
 	});
     $("#deleteWorkspaceModal").modal("hide");
