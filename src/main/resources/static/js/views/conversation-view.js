@@ -725,6 +725,9 @@ define(function(require) {
 			$("#bAuthPassword").val('');
 			$("#tab-digest-auth input:text").val('');
 			$("#tab-oauth2 input:text").val('');
+			$('#req-time').html('');
+			$('#status-code').html('');
+			$('#content-size').html('');
 
 			this.$el.show();
 
