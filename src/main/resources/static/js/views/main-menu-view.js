@@ -547,7 +547,6 @@ $("#deleteProjectBtn").bind("click", function() {
 	$.ajax({
 		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + projId,
 		type : 'delete',
-		dataType : 'json',
 		contentType : "application/json",
 		success : function(data) {
 		  APP.workspaces.fetch({
@@ -561,6 +560,7 @@ $("#deleteProjectBtn").bind("click", function() {
 				var projectView = new ProjectView({model : projectList});
                 var projParent = $('a[data-project-id="' + projId + '"]').parent();
                 projParent.empty();
+                console.log("Calling render :"+projectList);
 				projectView.render();
 				TreeView.resetTree();
 		  	}

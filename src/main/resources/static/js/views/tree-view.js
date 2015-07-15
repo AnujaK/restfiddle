@@ -576,7 +576,6 @@ $("#deleteRequestBtn").bind("click", function() {
 	$.ajax({
 		url : APP.config.baseUrl + '/nodes/' + nodeId,
 		type : 'delete',
-		dataType : 'json',
 		contentType : "application/json",
 		success : function() {
 			node.remove();
@@ -588,10 +587,15 @@ $("#deleteWorkspaceBtn").bind("click", function() {
 	$.ajax({
 		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId(),
 		type : 'delete',
-		dataType : 'json',
 		contentType : "application/json",
 		success : function(data) {
-			location.reload();
+            console.log("location.host "+location.host);
+            //location.assign("");
+			//location.assign(window.location.protocol+location.host);
+            window.location = ""+ location.host;
+            //window.location.href = ""+ location.host;
+            //window.location.assign(location.host);
+            //location.reload();
 		}
 	});
     $("#deleteWorkspaceModal").modal("hide");
