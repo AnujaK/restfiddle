@@ -4,7 +4,6 @@ define(function(require) {
 
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	var ZeroClipboard = require('zeroClipboard');
 	var ConversationModel = require("models/conversation");
 	var AssertView = require('views/assert-view');
 	var TreeView = require('views/tree-view');
