@@ -157,6 +157,7 @@ define(function(require) {
 		if ($("#response-wrapper").text()) {
 			var data = $("#response-wrapper").text();
 			var myWindow = window.open("data:text/html," + encodeURIComponent(data), "_blank", "width=200,height=100");
+            myWindow.location.href = $("#apiUrl").val();
 			myWindow.focus();
 		} else {
 			event.stopPropagation();
