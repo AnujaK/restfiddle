@@ -37,8 +37,7 @@ import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
-import com.restfiddle.entity.BaseNode;
-import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.Project;
 
 @RestController
 @Transactional
@@ -51,6 +50,9 @@ public class FileUploadController {
     @Autowired
     private ConversationController conversationController;
 
+    @Autowired
+    private ProjectController projectController;
+    
     @RequestMapping(value = "/api/import", method = RequestMethod.POST)
     public @ResponseBody
     void upload(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
@@ -64,11 +66,14 @@ public class FileUploadController {
 		String collectionName = pmCollection.getString("name");
 		System.out.println(collectionName);
 		//
+		Project project = projectController.findById(null, projectId);
+		
 		NodeDTO collectionNodeDTO = new NodeDTO();
 		collectionNodeDTO.setName(collectionName);
 		collectionNodeDTO.setNodeType(NodeType.FOLDER.name());
 		collectionNodeDTO.setProjectId(projectId);
-		NodeDTO collectionNode = nodeController.create(projectId, collectionNodeDTO);
+		
+		NodeDTO collectionNode = nodeController.create(project.getProjectRef().getId(), collectionNodeDTO);
 
 		JSONArray requests = pmCollection.getJSONArray("requests");
 		int len = requests.length();
