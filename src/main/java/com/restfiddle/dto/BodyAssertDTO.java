@@ -22,6 +22,10 @@ public class BodyAssertDTO {
     private String comparator;
 
     private String expectedValue;
+    
+    private String actualValue;
+    
+    private boolean success;
 
     public String getPropertyName() {
 	return propertyName;
@@ -45,6 +49,22 @@ public class BodyAssertDTO {
 
     public void setExpectedValue(String expectedValue) {
 	this.expectedValue = expectedValue;
+    }
+
+    public boolean isSuccess() {
+	return success;
+    }
+
+    public void setSuccess(boolean success) {
+	this.success = success;
+    }
+
+    public String getActualValue() {
+	return actualValue;
+    }
+
+    public void setActualValue(String actualValue) {
+	this.actualValue = actualValue;
     }
 
 }

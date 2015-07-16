@@ -56,7 +56,9 @@ import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.User;
 import com.restfiddle.exceptions.ApiException;
+import com.restfiddle.handler.AssertHandler;
 import com.restfiddle.handler.http.GenericHandler;
+import com.restfiddle.util.EntityToDTO;
 
 @RestController
 @EnableAutoConfiguration
@@ -79,6 +81,9 @@ public class ApiController {
 
     @Autowired
     private RfResponseRepository rfResponseRepository;
+    
+    @Autowired
+    private AssertHandler assertHandler; 
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     ConversationDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
@@ -94,15 +99,23 @@ public class ApiController {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
 	    String conversationId = rfRequest != null ? rfRequest.getConversationId() : null;
 	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
+	    rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 	}
 
 	long startTime = System.currentTimeMillis();
 	RfResponseDTO result = genericHandler.processHttpRequest(rfRequestDTO);
 	long endTime = System.currentTimeMillis();
 	long duration = endTime - startTime;
+	
+	assertHandler.runAssert(result);
 
 	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
+	
+	if (existingConversation != null) {
+	    currentConversation.getRfRequest().setAssertion(existingConversation.getRfRequest().getAssertion());
+	}
 
+	
 	rfRequestRepository.save(currentConversation.getRfRequest());
 	rfResponseRepository.save(currentConversation.getRfResponse());
 
@@ -124,8 +137,8 @@ public class ApiController {
 	    // Note : existingConversation will be null if the request was not saved previously.
 	    if (existingConversation != null && existingConversation.getNodeId() != null) {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
-		node.setConversation(currentConversation);
 		currentConversation.setNodeId(node.getId());
+		node.setConversation(currentConversation);
 		nodeRepository.save(node);
 	    }
 	    

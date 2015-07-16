@@ -150,6 +150,12 @@
 			<artifactId>google-oauth-client</artifactId>
 			<version>1.19.0</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.jayway.jsonpath</groupId>
+		    <artifactId>json-path</artifactId>
+		    <version>2.0.0</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>

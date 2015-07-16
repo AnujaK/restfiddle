@@ -53,6 +53,7 @@ define(function(require) {
             data : JSON.stringify(assertPayload),
             success : function(res) {
                 alert('Assert added!'+res);
+    			$('#assertCount').html(bodyAssertDTOs.length);
             }
         });
 	});    

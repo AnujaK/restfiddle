@@ -89,27 +89,48 @@ public class ConversationConverter {
 		}
 		rfRequest.setRfHeaders(headers);
 	    }
-	    
-	    AssertionDTO assertionDTO = rfRequestDTO.getAssertionDTO();
-	    if(assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null){
-		List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
-		List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
-		for(BodyAssertDTO bodyAssertDTO : bodyAssertDTOs){
-		    BodyAssert bodyAssert = new BodyAssert();
-		    bodyAssert.setComparator(bodyAssertDTO.getComparator());
-		    bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
-		    bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
-		    bodyAsserts.add(bodyAssert);
-		}
-	    }
 	}
 	conversation.setRfRequest(rfRequest);
 
 	// TODO : We should have the option to configure whether to save response or not.
 	RfResponse response = new RfResponse();
 	conversation.setRfResponse(response);
-	if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
-	    response.setBody(responseDTO.getBody().getBytes());
+	
+	if (responseDTO != null) {
+	    if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
+		response.setBody(responseDTO.getBody().getBytes());
+	    }
+	    AssertionDTO assertionDTO = rfRequestDTO.getAssertionDTO();
+	    if (assertionDTO != null) {
+
+		if (assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null) {
+		    List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
+		    List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
+		    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
+			BodyAssert bodyAssert = new BodyAssert();
+			bodyAssert.setComparator(bodyAssertDTO.getComparator());
+			bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
+			bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
+			bodyAssert.setActualValue(bodyAssertDTO.getActualValue());
+			bodyAssert.setSuccess(bodyAssertDTO.isSuccess());
+			bodyAsserts.add(bodyAssert);
+		    }
+		    Assertion assertion = new Assertion();
+		    response.setAssertion(assertion);
+		}
+	    }
+	    List<RfHeaderDTO> headerDTOs = responseDTO.getHeaders();
+	    List<RfHeader> headers = new ArrayList<RfHeader>();
+	    RfHeader header = null;
+	    if (headerDTOs != null && !headerDTOs.isEmpty()) {
+		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
+		    header = new RfHeader();
+		    header.setHeaderName(rfHeaderDTO.getHeaderName());
+		    header.setHeaderValueString(rfHeaderDTO.getHeaderValue());
+		    headers.add(header);
+		}
+		response.setRfHeaders(headers);
+	    }
 	}
 
 	return conversation;

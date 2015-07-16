@@ -595,7 +595,6 @@ define(function(require) {
 				formParams : this.getFormParams(),
 				basicAuthDTO : this.getBasicAuthDTO(),
 				digestAuthDTO : this.getDigestAuthDTO(),
-				assertionDTO : this.nodeRfRequest ? this.nodeRfRequest.assertion : null
 			};
 			return item;
 		},
@@ -817,7 +816,6 @@ define(function(require) {
 					formParams : this.getFormParams(),
 					basicAuthDTO : this.getBasicAuthDTO(),
 					digestAuthDTO : this.getDigestAuthDTO(),
-					assertionDTO : this.nodeRfRequest ? this.nodeRfRequest.assertion : null
 				}
 				var rfResponse = {
 

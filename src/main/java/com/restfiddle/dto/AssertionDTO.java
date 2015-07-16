@@ -18,6 +18,14 @@ package com.restfiddle.dto;
 import java.util.List;
 
 public class AssertionDTO {
+    
+    private int statusCode;
+
+    private int responseTime;
+
+    private int responseSize;
+
+    private String bodyContentType;
 
     private List<BodyAssertDTO> bodyAssertDTOs;
 
@@ -27,5 +35,37 @@ public class AssertionDTO {
 
     public void setBodyAssertDTOs(List<BodyAssertDTO> bodyAssertDTOs) {
 	this.bodyAssertDTOs = bodyAssertDTOs;
+    }
+
+    public int getStatusCode() {
+	return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+	this.statusCode = statusCode;
+    }
+
+    public int getResponseTime() {
+	return responseTime;
+    }
+
+    public void setResponseTime(int responseTime) {
+	this.responseTime = responseTime;
+    }
+
+    public int getResponseSize() {
+	return responseSize;
+    }
+
+    public void setResponseSize(int responseSize) {
+	this.responseSize = responseSize;
+    }
+
+    public String getBodyContentType() {
+	return bodyContentType;
+    }
+
+    public void setBodyContentType(String bodyContentType) {
+	this.bodyContentType = bodyContentType;
     }
 }

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.AssertionRepository;
 import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.BodyAssertDTO;
@@ -48,6 +49,9 @@ public class AssertionController {
 
     @Resource
     private RfRequestRepository rfRequestRepository;
+    
+    @Resource
+    private AssertionRepository assertionRepository;
 
     @RequestMapping(value = "/api/requests/{requestId}/asserts", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
@@ -73,6 +77,8 @@ public class AssertionController {
 	    assertion.setBodyAsserts(bodyAsserts);
 	    rfRequest.setAssertion(assertion);
 	}
+	
+	assertion = assertionRepository.save(assertion);
 
 	RfRequest savedRFRequest = rfRequestRepository.save(rfRequest);
 	return savedRFRequest.getAssertion();

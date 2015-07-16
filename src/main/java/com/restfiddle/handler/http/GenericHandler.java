@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
@@ -58,8 +59,11 @@ public class GenericHandler {
 
 	RfResponseDTO responseDTO = null;
 	try {
+	    long startTime = System.currentTimeMillis();
 	    CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequest);
-	    responseDTO = buildRfResponse(httpResponse);
+	    long endTime = System.currentTimeMillis();
+	    long duration = endTime - startTime;
+	    responseDTO = buildRfResponse(httpResponse, duration, rfRequestDTO);
 	} catch (ClientProtocolException e) {
 	    logger.error(e.getMessage(), e);
 	} catch (IOException e) {
@@ -73,6 +77,20 @@ public class GenericHandler {
 		logger.error(e.getMessage(), e);
 	    }
 	}
+	return responseDTO;
+    }
+
+    private RfResponseDTO buildRfResponse(CloseableHttpResponse httpResponse, long duration, RfRequestDTO rfRequestDTO) throws IOException {
+	RfResponseDTO responseDTO = buildRfResponse(httpResponse);
+
+	AssertionDTO assertionDTO = rfRequestDTO.getAssertionDTO() != null ? rfRequestDTO.getAssertionDTO() : new AssertionDTO();
+
+	assertionDTO.setResponseTime((int) duration);
+	HttpEntity entity = httpResponse.getEntity();
+	assertionDTO.setBodyContentType(entity.getContentType() != null ? entity.getContentType().getValue() : null);
+	assertionDTO.setResponseSize(responseDTO.getBody().length());
+	assertionDTO.setStatusCode(httpResponse.getStatusLine().getStatusCode());
+	responseDTO.setAssertionDTO(assertionDTO);
 	return responseDTO;
     }
 
@@ -125,6 +143,5 @@ public class GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	return null;
     }
-    
-    
+
 }

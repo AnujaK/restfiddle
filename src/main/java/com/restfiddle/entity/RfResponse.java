@@ -21,6 +21,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class RfResponse extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +36,8 @@ public class RfResponse extends NamedEntity {
     private List<RfHeader> rfHeaders;
 
     private Conversation item;
+    
+    private Assertion assertion;
 
     public byte[] getBody() {
 	return body;
@@ -65,6 +69,14 @@ public class RfResponse extends NamedEntity {
 
     public void setBodyString(String bodyString) {
 	this.bodyString = bodyString;
+    }
+
+    public Assertion getAssertion() {
+	return assertion;
+    }
+
+    public void setAssertion(Assertion assertion) {
+	this.assertion = assertion;
     }
 
 }
