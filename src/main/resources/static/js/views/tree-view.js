@@ -622,20 +622,24 @@ $("#deleteTagBtn").bind("click", function() {
 	});	
 });
 
-$('.col-1-toggle-btn').toggle(function() {
-	$('.rf-col-1').hide();
-	$('.rf-col-2').css('left', '0%');
-	$('.rf-col-3').css('left', '33%');
-	$('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-8");
-	$('#col1-toggle-icon').removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+$('.col-1-toggle-btn').bind('click',function(){
+	if($('#col1-toggle-icon').hasClass('fa-angle-double-left')){
+		$('.rf-col-1').hide();
+		$('.rf-col-2').css('left', '0%');
+		$('.rf-col-3').css('left', '33%');
+		$('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-8");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-left').addClass("fa-angle-double-right");
+	}else{
+		$('.rf-col-1').show();
+		$('.rf-col-2').css('left', '17%');
+		$('.rf-col-3').css('left', '50%');
+		$('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
+		$('#col1-toggle-icon').removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
+	}
 
-}, function() {
-	$('.rf-col-1').show();
-	$('.rf-col-2').css('left', '17%');
-	$('.rf-col-3').css('left', '50%');
-	$('.rf-col-3').removeClass('col-xs-8').addClass("col-xs-6");
-	$('#col1-toggle-icon').removeClass('fa-angle-double-right').addClass("fa-angle-double-left");
+
 });
+
 $('.header-toggle-btn').toggle(function() {
 	$('.navbar-fixed-top').hide();
 	$('body').css('padding-top', '0px');
@@ -647,20 +651,22 @@ $('.header-toggle-btn').toggle(function() {
 	$('#header-toggle-icon').removeClass('fa-angle-double-down').addClass("fa-angle-double-up");
 });
 
-$('.right-pannel-toggle-btn').toggle(function() {
+$('.right-pannel-toggle-btn').bind('click',function() {
+  if($('#full-screen-icon').hasClass('fa fa-arrows-alt')){
 	$('.rf-col-1').hide();
 	$('.rf-col-2').hide();
 	$('.rf-col-3').css('left', '0%');
 	$('.rf-col-3').removeClass('col-xs-6').addClass("col-xs-12");
 	$('#full-screen-icon').removeClass('fa fa-arrows-alt').addClass("fa fa-angle-double-right");
 
-}, function() {
+}else {
 	$('.rf-col-1').show();
 	$('.rf-col-2').show();
 	$('.rf-col-2').css('left', '17%');
 	$('.rf-col-3').css('left', '50%');
 	$('.rf-col-3').removeClass('col-xs-12').addClass("col-xs-6");
 	$('#full-screen-icon').removeClass('fa fa-angle-double-right').addClass("fa fa-arrows-alt");
+}
 });
 
 $("#tree").fancytree(
