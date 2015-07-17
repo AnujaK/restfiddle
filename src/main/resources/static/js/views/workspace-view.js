@@ -138,19 +138,17 @@ define(function(require) {
 			environmentView.render();
 			
 			APP.workspaces.fetch({success : function(response){
-				console.log('fetched wokrspace');
 				if(response.at(0)){
 					var projects = response.at(0).get('projects');
 					var projectList = [];
 					_.each(projects, function(p){
 						projectList.push(new ProjectModel(p));
 					});
+                    APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
+					APP.workspaceNameView.render();
 					WorkspaceEvents.triggerChange(response.at(0).get('id'));
 					var projectView = new ProjectView({model : projectList});
 					projectView.render();
-					
-					APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
-					APP.workspaceNameView.render();
 				}
 			}});
 		},
@@ -161,7 +159,6 @@ define(function(require) {
 		},
 
 		render : function(eventName) {
-			
 			$(this.el).html(this.template({
 				workspace : this.model.toJSON()[0]
 			}));
