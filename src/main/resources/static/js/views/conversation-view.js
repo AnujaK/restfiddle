@@ -4,7 +4,6 @@ define(function(require) {
 
 	var Backbone = require('backbone');
 	var _ = require('underscore');
-	var ZeroClipboard = require('zeroClipboard');
 	var ConversationModel = require("models/conversation");
 	var AssertView = require('views/assert-view');
 	var TreeView = require('views/tree-view');
@@ -157,6 +156,7 @@ define(function(require) {
 		if ($("#response-wrapper").text()) {
 			var data = $("#response-wrapper").text();
 			var myWindow = window.open("data:text/html," + encodeURIComponent(data), "_blank", "width=200,height=100");
+            myWindow.location.href = $("#apiUrl").val();
 			myWindow.focus();
 		} else {
 			event.stopPropagation();
@@ -725,6 +725,9 @@ define(function(require) {
 			$("#bAuthPassword").val('');
 			$("#tab-digest-auth input:text").val('');
 			$("#tab-oauth2 input:text").val('');
+			$('#req-time').html('');
+			$('#status-code').html('');
+			$('#content-size').html('');
 
 			this.$el.show();
 

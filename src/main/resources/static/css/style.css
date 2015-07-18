@@ -88,6 +88,11 @@ ul.fancytree-container {
 	display: block;
 }
 
+#starred-items .list-group-item, #tagged-items .list-group-item, #history-items .list-group-item {
+	border-left: 0px;
+	border-right: 0px;
+}
+
 #starred-items .list-group-item:first-child, #tagged-items .list-group-item:first-child, #history-items .list-group-item:first-child {
 	border-top-right-radius: 0px;
 	border-top-left-radius: 0px;

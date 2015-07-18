@@ -373,6 +373,9 @@ $("#editWorkspaceBtn").unbind("click").bind("click", function() {
 	if($("#workspaceEditForm").valid()){
 		var that = this;
 
+        $('#dd-workspace-wrapper').off('click');
+        $('#dd-workspace-wrapper').empty();
+        
 		var saveWorkspace = function(){
 			var newWorkspace = new Workspace({
 				id : APP.appView.getCurrentWorkspaceId(),
@@ -540,10 +543,10 @@ function saveWorkspace() {
 };
 
 $("#deleteProjectBtn").bind("click", function() {
+    var projId = $("#deleteProjectId").val();
 	$.ajax({
-		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + $("#deleteProjectId").val(),
+		url : APP.config.baseUrl + '/workspaces/' + APP.appView.getCurrentWorkspaceId() + "/projects/" + projId,
 		type : 'delete',
-		dataType : 'json',
 		contentType : "application/json",
 		success : function(data) {
 		  APP.workspaces.fetch({
@@ -555,13 +558,15 @@ $("#deleteProjectBtn").bind("click", function() {
 					projectList.push(new ProjectModel(p));
 				});
 				var projectView = new ProjectView({model : projectList});
+                var projParent = $('a[data-project-id="' + projId + '"]').parent();
+                projParent.empty();
+                console.log("Calling render :"+projectList);
 				projectView.render();
 				TreeView.resetTree();
-				$("#deleteProjectModal").modal('hide');
 		  	}
 		  })
-			
 		}
 	});
+    $("#deleteProjectModal").modal('hide');
 });
 });
