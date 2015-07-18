@@ -24,8 +24,8 @@ import com.mangofactory.swagger.models.dto.ApiInfo;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 
-//@Configuration
-//@EnableSwagger
+@Configuration
+@EnableSwagger
 public class SwaggerConfig {
     private SpringSwaggerConfig springSwaggerConfig;
 

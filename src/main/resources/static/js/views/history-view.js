@@ -23,7 +23,6 @@ define(function(require) {
             var historyId;
 			conversation.fetch({
 				success : function(response) {
-                    //TODO : Name is always null for sampledata.
                     historyId = response.get('nodeId');
                     $.ajax({
                         url : APP.config.baseUrl + '/nodes/'+historyId,

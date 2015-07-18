@@ -91,7 +91,10 @@ public class ConversationConverter {
 	// TODO : We should have the option to configure whether to save response or not.
 	RfResponse response = new RfResponse();
 	conversation.setRfResponse(response);
-	if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
+	if(responseDTO == null && !rfRequestDTO.getApiUrl().isEmpty()){
+		response.setBodyString("Could not connect to "+rfRequestDTO.getApiUrl());
+	}
+	else if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
 	    response.setBody(responseDTO.getBody().getBytes());
 	}
 
