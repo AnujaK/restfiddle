@@ -99,7 +99,9 @@ public class ApiController {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
 	    String conversationId = rfRequest != null ? rfRequest.getConversationId() : null;
 	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
-	    rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
+	    //finding updated existing conversation 
+	    existingConversation = existingConversation != null ? nodeRepository.findOne(existingConversation.getNodeId()).getConversation() : null;
+	    rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(existingConversation.getRfRequest().getAssertion()));
 	}
 
 	long startTime = System.currentTimeMillis();

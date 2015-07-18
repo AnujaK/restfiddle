@@ -497,6 +497,38 @@ define(function(require) {
 			});
 		}
 	});
+	
+	var BodyAssertResultView = Backbone.View.extend({
+		template : _.template($('#assert-result-list-item').html()),
+		
+		tagName: 'tbody',
+
+		render : function() {
+			return this.renderAssertResult();
+		},
+
+		renderAssertResult : function(){
+			this.successCount = 0;
+			
+			 _.each(this.model, function (assert) {
+				assert.status = assert.success ? "Success" : "Failure";
+				assert.iconClass = assert.success ? "success-icon" : "failure-icon";
+				var templ = this.template({result : assert});
+                this.$el.append(templ);
+                if(assert.success)
+                	this.successCount++;
+			 }, this);
+			 
+			 
+			 return this;
+		},
+		
+		getSuccessCount : function(){
+			return this.successCount;
+		}
+		
+		
+	});
 
 	var treeObj = $("#tree").fancytree("getTree");
 
@@ -576,6 +608,20 @@ define(function(require) {
 							scrollTop : $('#responseContainer').offset().top
 						}, "slow");
 					}
+					
+					var assertResults = response.assertionDTO.bodyAssertDTOs;
+					if(assertResults){
+						var assertView = new BodyAssertResultView({model : assertResults});
+						$('#res-assert-wrapper tbody').remove();
+						$('#res-assert-wrapper').append(assertView.render().el);
+						var successCount = assertView.getSuccessCount();
+						$('#assertResultCount').html(successCount+'/'+assertResults.length);
+						var spans = $('#res-tab-assert').find('span');
+						$(spans[0]).html(successCount);
+						$(spans[1]).html(assertResults.length - successCount);
+					}
+					
+					
 					prettyPrint();
 					// TODO : Disable toggleRequestSection for now. Codemirror
 					// update issue.
@@ -728,6 +774,11 @@ define(function(require) {
 			$('#req-time').html('');
 			$('#status-code').html('');
 			$('#content-size').html('');
+			$('#res-assert-wrapper tbody').remove();
+			$('#assertResultCount').html('0/0');
+			var spans = $('#res-tab-assert').find('span');
+			$(spans[0]).html(0);
+			$(spans[1]).html(0);
 
 			this.$el.show();
 

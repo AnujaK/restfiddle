@@ -65,6 +65,11 @@
     <script type="text/template" id="tpl-tags-list-item">
         <input type = "checkbox" id = <@=tag.name@>>&nbsp;<@=tag.name@>&nbsp;&nbsp;
     </script>
+    
+     <script type="text/template" id="assert-result-list-item">
+         <tr><td><span class="<@=result.iconClass@> circle"></span><@=result.status@></td><td><@=result.propertyName@></td><td><@=result.comparator@></td><td><@=result.expectedValue@></td><td><@=result.actualValue@></td><tr>                   
+    </script>
+    
 	<script type="text/template" id="tpl-star-list-item">
 		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> >
 			<span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@>

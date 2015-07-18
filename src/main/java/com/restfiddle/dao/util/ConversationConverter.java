@@ -98,30 +98,27 @@ public class ConversationConverter {
 
 	if(responseDTO == null && !rfRequestDTO.getApiUrl().isEmpty()){
 		response.setBodyString("Could not connect to "+rfRequestDTO.getApiUrl());
-	}
-	else {
+	} else {
 	    if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
 		response.setBody(responseDTO.getBody().getBytes());
 	    }
-	    AssertionDTO assertionDTO = rfRequestDTO.getAssertionDTO();
-	    if (assertionDTO != null) {
-
-		if (assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null) {
-		    List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
-		    List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
-		    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
-			BodyAssert bodyAssert = new BodyAssert();
-			bodyAssert.setComparator(bodyAssertDTO.getComparator());
-			bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
-			bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
-			bodyAssert.setActualValue(bodyAssertDTO.getActualValue());
-			bodyAssert.setSuccess(bodyAssertDTO.isSuccess());
-			bodyAsserts.add(bodyAssert);
-		    }
-		    Assertion assertion = new Assertion();
-		    response.setAssertion(assertion);
+	    AssertionDTO assertionDTO = rfRequestDTO != null ? rfRequestDTO.getAssertionDTO() : null;
+	    if (assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null) {
+		List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
+		List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
+		for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
+		    BodyAssert bodyAssert = new BodyAssert();
+		    bodyAssert.setComparator(bodyAssertDTO.getComparator());
+		    bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
+		    bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
+		    bodyAssert.setActualValue(bodyAssertDTO.getActualValue());
+		    bodyAssert.setSuccess(bodyAssertDTO.isSuccess());
+		    bodyAsserts.add(bodyAssert);
 		}
+		Assertion assertion = new Assertion();
+		response.setAssertion(assertion);
 	    }
+	    
 	    List<RfHeaderDTO> headerDTOs = responseDTO.getHeaders();
 	    List<RfHeader> headers = new ArrayList<RfHeader>();
 	    RfHeader header = null;
