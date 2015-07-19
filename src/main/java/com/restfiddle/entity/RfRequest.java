@@ -21,6 +21,8 @@ import java.util.List;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
@@ -54,6 +56,7 @@ public class RfRequest extends NamedEntity {
 
     private String conversationId;
 
+    @DBRef
     private Assertion assertion;
 
     public String getMethodType() {

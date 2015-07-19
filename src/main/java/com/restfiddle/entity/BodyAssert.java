@@ -23,6 +23,10 @@ public class BodyAssert extends AbstractEntity {
     private String comparator;
 
     private String expectedValue;
+    
+    private String actualValue;
+    
+    private boolean success;
 
     public String getPropertyName() {
 	return propertyName;
@@ -46,6 +50,22 @@ public class BodyAssert extends AbstractEntity {
 
     public void setExpectedValue(String expectedValue) {
 	this.expectedValue = expectedValue;
+    }
+
+    public String getActualValue() {
+	return actualValue;
+    }
+
+    public void setActualValue(String actualValue) {
+	this.actualValue = actualValue;
+    }
+
+    public boolean isSuccess() {
+	return success;
+    }
+
+    public void setSuccess(boolean success) {
+	this.success = success;
     }
 
 }

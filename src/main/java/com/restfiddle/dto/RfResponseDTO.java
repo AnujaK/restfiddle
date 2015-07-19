@@ -27,6 +27,8 @@ public class RfResponseDTO extends BaseDTO {
     @JsonBackReference
     private ConversationDTO itemDTO;
 
+    private AssertionDTO assertionDTO;
+    
     public String getBody() {
 	return body;
     }
@@ -49,6 +51,14 @@ public class RfResponseDTO extends BaseDTO {
 
     public void setHeaders(List<RfHeaderDTO> headers) {
         this.headers = headers;
+    }
+
+    public AssertionDTO getAssertionDTO() {
+	return assertionDTO;
+    }
+
+    public void setAssertionDTO(AssertionDTO assertionDTO) {
+	this.assertionDTO = assertionDTO;
     }
 
 }

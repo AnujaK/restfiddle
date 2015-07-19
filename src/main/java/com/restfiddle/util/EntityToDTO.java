@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.BaseDTO;
 import com.restfiddle.dto.BasicAuthDTO;
+import com.restfiddle.dto.BodyAssertDTO;
 import com.restfiddle.dto.ColorDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.DigestAuthDTO;
@@ -23,9 +25,11 @@ import com.restfiddle.dto.TagDTO;
 import com.restfiddle.dto.UrlParamDTO;
 import com.restfiddle.dto.UserDTO;
 import com.restfiddle.dto.WorkspaceDTO;
+import com.restfiddle.entity.Assertion;
 import com.restfiddle.entity.BaseEntity;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.BasicAuth;
+import com.restfiddle.entity.BodyAssert;
 import com.restfiddle.entity.Color;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.DigestAuth;
@@ -112,7 +116,40 @@ public class EntityToDTO {
 	dto.setFormParams(toListOfFormDataDTO(entity.getFormParams()));
 	dto.setBasicAuthDTO(toDTO(entity.getBasicAuth()));
 	dto.setDigestAuthDTO(toDTO(entity.getDigestAuth()));
+	dto.setAssertionDTO(toDTO(entity.getAssertion()));
 
+	return dto;
+    }
+
+    public static AssertionDTO toDTO(Assertion entity) {
+	
+	if (entity == null)
+	    return null;
+
+	AssertionDTO dto = new AssertionDTO();
+	
+	dto.setStatusCode(entity.getStatusCode());
+	dto.setResponseSize(entity.getResponseSize());
+	dto.setResponseTime(entity.getResponseSize());
+	dto.setBodyContentType(entity.getBodyContentType());
+	dto.setBodyAssertDTOs(toListOfBodyAssertDTO(entity.getBodyAsserts()));
+	
+	return dto;
+    }
+    
+    public static BodyAssertDTO toDTO(BodyAssert entity) {
+	
+	if (entity == null)
+	    return null;
+
+	BodyAssertDTO dto = new BodyAssertDTO();
+	
+	dto.setPropertyName(entity.getPropertyName());
+	dto.setComparator(entity.getComparator());
+	dto.setExpectedValue(entity.getExpectedValue());
+	dto.setActualValue(entity.getActualValue());
+	dto.setSuccess(entity.isSuccess());
+	
 	return dto;
     }
 
@@ -305,6 +342,19 @@ public class EntityToDTO {
 
 	ProjectDTO dto = new ProjectDTO();
 	dto.setProjectRef(toDTO(entity.getProjectRef()));
+
+	return dto;
+    }
+    
+    public static List<BodyAssertDTO> toListOfBodyAssertDTO(List<BodyAssert> entity) {
+
+	if (entity == null)
+	    return null;
+
+	List<BodyAssertDTO> dto = new ArrayList<BodyAssertDTO>();
+	for (BodyAssert item : entity) {
+	    dto.add(toDTO(item));
+	}
 
 	return dto;
     }

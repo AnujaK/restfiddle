@@ -70,7 +70,7 @@
             </div>
             &nbsp;&nbsp;
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts <span class="badge">0</span></button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#assertsModal" id="manageAsserts">Asserts <span id="assertCount" class="badge">0</span></button>
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
                 </button>
@@ -326,7 +326,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
                     <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
-                    <li><a href="#res-tab-assert" data-toggle="tab">Asserts <span class="badge">2/6</span></a></li>
+                    <li><a href="#res-tab-assert" data-toggle="tab">Asserts <span id="assertResultCount" class="badge">0/0</span></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="res-tab-body">
@@ -347,9 +347,12 @@
                     </div>
                      <div class="tab-pane" id="res-tab-assert">
                         <div><br>
+                        	<p><div class="success-icon circle"></div><span>0</span> Success</p>
+                            <p><div class="failure-icon circle"></div><span>0</span> Failures</p>
                             <table id="res-assert-wrapper" class="table">
-                              <p><div class= "success-icon circle"></div>2 Success</p>
-                              <p><div class="failure-icon circle"></div>4 Failures</p>
+                              <thead>
+                              	<tr><th><span class="success-icon circle"></span>Status</th><th>Expression</th><th>Comparator</th><th>Expected</th><th>Actual</th><tr>
+                              </thead>
                             </table>
                         </div>
                         <br><br>

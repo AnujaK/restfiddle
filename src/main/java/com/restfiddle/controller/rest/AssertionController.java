@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.AssertionRepository;
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.BodyAssertDTO;
 import com.restfiddle.entity.Assertion;
+import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.BodyAssert;
 import com.restfiddle.entity.RfRequest;
 
@@ -45,14 +49,26 @@ import com.restfiddle.entity.RfRequest;
 @Transactional
 public class AssertionController {
     Logger logger = LoggerFactory.getLogger(AssertionController.class);
+    
+    @Autowired
+    private NodeRepository nodeRepository;
 
     @Resource
     private RfRequestRepository rfRequestRepository;
+    
+    @Resource
+    private AssertionRepository assertionRepository;
 
-    @RequestMapping(value = "/api/requests/{requestId}/asserts", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/requests/{nodeId}/asserts", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    Assertion save(@PathVariable("requestId") String requestId, @RequestBody AssertionDTO assertionDTO) {
-	RfRequest rfRequest = rfRequestRepository.findOne(requestId);
+    Assertion save(@PathVariable("nodeId") String nodeId, @RequestBody AssertionDTO assertionDTO) {
+	
+	BaseNode node = nodeRepository.findOne(nodeId);
+	if(node == null || node.getConversation() == null){
+	    return null;
+	}
+	
+	RfRequest rfRequest = node.getConversation().getRfRequest();
 	if (rfRequest == null) {
 	    return null;
 	}
@@ -73,18 +89,26 @@ public class AssertionController {
 	    assertion.setBodyAsserts(bodyAsserts);
 	    rfRequest.setAssertion(assertion);
 	}
+	
+	assertion = assertionRepository.save(assertion);
 
 	RfRequest savedRFRequest = rfRequestRepository.save(rfRequest);
 	return savedRFRequest.getAssertion();
     }
 
-    @RequestMapping(value = "/api/requests/{requestId}/asserts", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/requests/{nodeId}/asserts", method = RequestMethod.GET)
     public @ResponseBody
-    Assertion findAsserts(@PathVariable("requestId") String requestId) {
-	RfRequest rfRequest = rfRequestRepository.findOne(requestId);
+    Assertion findAsserts(@PathVariable("nodeId") String nodeId) {
+	BaseNode node = nodeRepository.findOne(nodeId);
+	if(node == null || node.getConversation() == null){
+	    return null;
+	}
+	
+	RfRequest rfRequest = node.getConversation().getRfRequest();
 	if (rfRequest == null) {
 	    return null;
 	}
+	
 	Assertion assertion = rfRequest.getAssertion();
 	return assertion;
     }

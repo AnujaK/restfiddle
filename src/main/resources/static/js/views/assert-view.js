@@ -8,10 +8,10 @@ define(function(require) {
         var assertListView = new AssertListView();
         $("#manageAssertsWrapper").html("");
         $("#manageAssertsWrapper").append(assertListView.render().el); 
-        var requestId = $("#rfRequestId").text();
-        if(requestId != undefined && requestId != ""){
+        var nodeId = APP.appView.getCurrentRequestNodeId();
+        if(nodeId != undefined && nodeId != ""){
             $.ajax({
-                url : APP.config.baseUrl + '/requests/'+requestId+'/asserts',
+                url : APP.config.baseUrl + '/requests/'+nodeId+'/asserts',
                 type : 'get',
                 dataType : 'json',
                 contentType : "application/json",
@@ -31,7 +31,7 @@ define(function(require) {
 	});
     
     $("#saveAssertsBtn").unbind("click").bind("click", function() {
-        var requestId = $("#rfRequestId").text();
+        var nodeId = APP.appView.getCurrentRequestNodeId();
         var assertPayload = {};
         var bodyAssertDTOs = [];
         var bodyAssertDTO = {};
@@ -46,13 +46,14 @@ define(function(require) {
         }
         assertPayload.bodyAssertDTOs = bodyAssertDTOs;
         $.ajax({
-            url : APP.config.baseUrl + '/requests/'+requestId+'/asserts',
+            url : APP.config.baseUrl + '/requests/'+nodeId+'/asserts',
             type : 'post',
             dataType : 'json',
             contentType : "application/json",
             data : JSON.stringify(assertPayload),
             success : function(res) {
                 alert('Assert added!'+res);
+    			$('#assertCount').html(bodyAssertDTOs.length);
             }
         });
 	});    
