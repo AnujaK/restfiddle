@@ -50,6 +50,7 @@ exclude(module: 'jackson-annotations')
     compile group: 'com.mangofactory', name: 'swagger-springmvc', version:'0.9.4'
     compile group: 'org.ajar', name: 'swagger-spring-mvc-ui', version:'0.4'
     compile group: 'com.google.oauth-client', name: 'google-oauth-client', version:'1.19.0'
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.0.0'
     testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:springBootVersion) {
 exclude(module: 'commons-logging')
     }
