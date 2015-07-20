@@ -18,6 +18,7 @@ package com.restfiddle.controller.rest;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,12 +172,20 @@ public class GenerateApiController {
 	    String type = genericEntityField.getType();
 	    if ("STRING".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), "");
-	    } else if ("LONG".equalsIgnoreCase(type)) {
+	    } else if ("NUMBER".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), Long.valueOf(1));
-	    } else if ("INTEGER".equalsIgnoreCase(type)) {
-		jsonObject.put(genericEntityField.getName(), Integer.valueOf(1));
+	    } else if ("BOOLEAN".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), false);
 	    } else if ("DATE".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), new Date());
+	    } else if ("NUMBER".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), Long.valueOf(1));
+	    } else if ("OBJECT".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), new JSONObject());
+	    } else if ("ARRAY".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), new JSONArray());
+	    } else if ("Geographic point".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"lat\" : 18.5204303,\"lng\" : 73.8567437}"));
 	    }
 	}
 	return jsonObject;
