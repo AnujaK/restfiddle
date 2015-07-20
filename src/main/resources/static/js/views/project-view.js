@@ -73,7 +73,9 @@ define(function(require) {
             $("#deleteProjectModal").modal("show");
         },
         exportProject : function(){
-           window.open('http://localhost:8080/api/workspaces/'+ APP.appView.getCurrentWorkspaceId() +'/projects/'+ this.model.get('id'));
+           var projectRefId = this.model.get('projectRef').id;
+           var url = window.location.protocol+"//"+location.host + APP.config.baseUrl + '/nodes/' + projectRefId + '/tree';  
+           window.open(url);
         },        
 		showProjectTree : function(){
 			//this.$el.parent('ul').find('li').each(function(){
