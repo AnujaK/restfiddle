@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,6 +37,7 @@ import com.restfiddle.dao.WorkspaceRepository;
 import com.restfiddle.dto.WorkspaceDTO;
 import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Workspace;
+import com.restfiddle.util.TreeNode;
 
 @RestController
 @EnableAutoConfiguration
@@ -46,7 +48,10 @@ public class WorkspaceController {
 
     @Resource
     private ProjectController projectController;
-
+    
+    @Resource
+    private NodeController nodeController;
+    
     @Resource
     private WorkspaceRepository workspaceRepository;
 
@@ -111,6 +116,22 @@ public class WorkspaceController {
 	workspaceRepository.save(workspace);
 	
 	return workspace;
+    }
+    
+    @RequestMapping(value = "/api/workspaces/{id}/export", method = RequestMethod.GET)
+    public @ResponseBody
+    List<TreeNode> export(@PathVariable("id") String id) {
+	Workspace workspace = workspaceRepository.findOne(id);
+	List<Project> projects = workspace.getProjects();
+	
+	List<TreeNode> projectTreeList = new ArrayList<TreeNode>();
+	TreeNode projectTree = null;
+	for (Project project : projects) {
+	    projectTree = nodeController.getProjectTree(project.getProjectRef().getId());
+	    projectTreeList.add(projectTree);
+	}
+	
+	return projectTreeList;
     }
 
 }

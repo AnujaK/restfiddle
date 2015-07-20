@@ -111,7 +111,8 @@ define(function(require) {
             $("#deleteWorkspaceModal").modal("show");
         },
 		exportWorkspace : function(){
-			window.open('http://localhost:8080/api/workspaces/' + this.model.get('id'));
+           var url = window.location.protocol+"//"+location.host + APP.config.baseUrl + '/workspaces/' + this.model.get('id') + '/export';  
+           window.open(url);
 		}
 	});
 	
