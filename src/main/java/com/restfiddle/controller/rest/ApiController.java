@@ -140,6 +140,7 @@ public class ApiController {
 	    if (existingConversation != null && existingConversation.getNodeId() != null) {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		currentConversation.setNodeId(node.getId());
+		currentConversation.setName(node.getName());
 		node.setConversation(currentConversation);
 		nodeRepository.save(node);
 	    }
