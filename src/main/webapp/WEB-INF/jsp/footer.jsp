@@ -90,7 +90,7 @@
         </div>
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
-		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
+		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> data-toggle="tooltip" data-placement="bottom" title=<@=conversation.rfRequestDTO.apiUrl@> >
 			<div class="<@=conversation.className@>"><@=conversation.rfRequestDTO.methodType@></div>
 			<@ if (conversation.name == null || conversation.name == "" ) { @>
    			 	<div class="activity"><@=conversation.rfRequestDTO.apiUrl@></div>
