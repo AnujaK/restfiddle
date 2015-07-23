@@ -115,6 +115,7 @@
                     <option>Date</option>
                     <option>Object</option>
                     <option>Array</option>
+					<option>Relation</option>
                     <option>Geographic point</option>
                 </select>
             </div>

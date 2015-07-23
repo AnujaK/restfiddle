@@ -40,6 +40,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.DBRef;
 import com.mongodb.util.JSON;
 import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.GenericEntityData;
@@ -59,7 +60,7 @@ public class EntityDataController {
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
 	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	DBCursor cursor = null;
 	if (query != null && !query.isEmpty()) {
 	    Object queryObject = JSON.parse(query);
@@ -80,6 +81,9 @@ public class EntityDataController {
 	    cursor.limit(limit);
 	}
 	List<DBObject> array = cursor.toArray();
+	for(DBObject dbObject : array){
+	    resolveDBRef(dbObject);
+	}
 	String json = JSON.serialize(array);
 
 	// Indentation
@@ -91,12 +95,13 @@ public class EntityDataController {
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("id") String entityDataId) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(entityDataId));
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
+	resolveDBRef(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -121,10 +126,22 @@ public class EntityDataController {
 	    data = jsonObj.toString();
 	}
 	// Create a new document for the entity.
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
-	Object dbObject = JSON.parse(data);
-	dbCollection.save((BasicDBObject) dbObject);
+	DBObject dbObject = (DBObject) JSON.parse(data);
+	for(String key : dbObject.keySet()){
+	    Object obj = dbObject.get(key);
+	    if(obj instanceof DBObject) {
+		DBObject doc = (DBObject)obj;
+		if(doc.containsField("_relation")){
+		    DBObject relation = (DBObject) doc.get("_relation");
+		    dbObject.put(key,new DBRef(mongoTemplate.getDb(),projectId+"_"+(String)relation.get("entity") ,new ObjectId((String)relation.get("_id"))));
+		}
+	    }
+	}
+	
+	dbCollection.save(dbObject);
+	resolveDBRef(dbObject);
 	String json = dbObject.toString();
 
 	// Indentation
@@ -145,19 +162,31 @@ public class EntityDataController {
 	    }
 	    JSONObject uiJson = createJsonFromMap(map);
 	    // ID is stored separately (in a different column).
-	    uiJson.remove("id");
+	    uiJson.remove("_id");
 
-	    DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	    DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	    BasicDBObject queryObject = new BasicDBObject();
 	    queryObject.append("_id", new ObjectId(uuid));
 	    resultObject = dbCollection.findOne(queryObject);
 
 	    Set<String> keySet = uiJson.keySet();
 	    for (String key : keySet) {
-		resultObject.put(key, uiJson.get(key));
+		Object obj = uiJson.get(key);
+		if (obj instanceof Map) {
+		    Map doc = (Map) obj;
+		    if (doc.containsKey("_relation")) {
+			Map relation = (Map) doc.get("_relation");
+			resultObject.put(key, new DBRef(mongoTemplate.getDb(), projectId + "_" + (String) relation.get("entity"), new ObjectId((String) relation.get("_id"))));
+		    } else {
+			resultObject.put(key, uiJson.get(key));
+		    }
+		} else {
+		    resultObject.put(key, uiJson.get(key));
+		}
 	    }
 	    dbCollection.save(resultObject);
 	}
+	resolveDBRef(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -169,7 +198,7 @@ public class EntityDataController {
     public @ResponseBody
     StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("uuid") String uuid) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(uuid));
 	dbCollection.remove(queryObject);
@@ -197,5 +226,21 @@ public class EntityDataController {
 	jsonObject.put("createdDate", entityData.getCreatedDate());
 	jsonObject.put("lastModifiedDate", entityData.getLastModifiedDate());
 	return jsonObject;
+    }
+    
+    private DBObject resolveDBRef(DBObject dbObject){
+	if(dbObject == null){
+	    return null;
+	}
+	dbObject.put("_id", ((ObjectId)dbObject.get("_id")).toHexString());
+	    for(String key : dbObject.keySet()){
+		Object data = dbObject.get(key);
+		if(data instanceof DBRef){
+		   DBRef obj = (DBRef)data;
+		   dbObject.put(key, resolveDBRef(obj.fetch()));
+		   
+		}
+	    } 
+	return dbObject;
     }
 }
