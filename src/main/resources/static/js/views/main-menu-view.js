@@ -130,7 +130,7 @@ define(function(require) {
 								$("#projectTextArea").val("");
 							},
 							error : function(e) {
-								alert('Some unexpected error occured Please try later.');
+								alert('Some unexpected error occurred Please try later.');
 							}
 						});
 					}else{
@@ -186,9 +186,17 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 							$("#tagTextField").val("");
 							$("#tagTextArea").val("");
 							$('#tagModal').modal("hide");
+							var node = new NodeModel({
+								id : APP.appView.getCurrentRequestNodeId()
+							});
+							node.fetch({
+								success : function(response) {
+									APP.tagsLabel.display(response.get('tags'));
+								}
+							});	
 						},
 						error : function(e) {
-							alert('Some unexpected error occured Please try later.');
+							alert('Some unexpected error occurred Please try later.');
 						}
 					});
 				}
@@ -254,7 +262,7 @@ $("#editProjectBtn").unbind("click").bind("click", function() {
 						    });	
 						},
 						error : function(e) {
-							alert('Some unexpected error occured Please try later.');
+							alert('Some unexpected error occurred Please try later.');
 						}
 					});
 				};
@@ -328,7 +336,7 @@ $("#editTagBtn").unbind("click").bind("click", function() {
 							
 						},
 						error : function(e) {
-							alert('Some unexpected error occured Please try later.');
+							alert('Some unexpected error occurred Please try later.');
 						}
 					});
 				}
@@ -389,7 +397,7 @@ $("#editWorkspaceBtn").unbind("click").bind("click", function() {
 					$("#editWorkspaceModal").modal('hide');					
 				},
 				error : function(e) {
-					alert('Some unexpected error occured Please try later.');
+					alert('Some unexpected error occurred Please try later.');
 				}
 			});
 		};
@@ -530,7 +538,7 @@ function saveWorkspace() {
 						},
 						error : function(e) {
 							$("#workspaceModal").modal("hide");
-							alert('Some unexpected error occured Please try later.');
+							alert('Some unexpected error occurred Please try later.');
 						}
 					});
 				}else{
