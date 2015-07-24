@@ -438,6 +438,15 @@ $("#createNewCollaboratorBtn").bind("click", function() {
 
 		success : function() {
 			alert('New collaborator added successfully!');
+			$("#profileName").val("");
+			$("#profileEmail").val("");
+			$("#profilePassword").val("");
+			APP.users.fetch({success : function(response){
+                    $("#rfUsers").html('');
+				    response.each(function(user) {
+					$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+				    });				
+			}});
 		}
 	});
 });
