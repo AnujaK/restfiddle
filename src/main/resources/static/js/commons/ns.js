@@ -9,7 +9,6 @@ define(function(require){
 			return match === null ? "/" : match[0];
 		})(window.location.pathname);
 		this.baseUrl = this.root + "api";
-		console.log("base url is : " + this.baseUr);
 	}
 	APP.config = new Config();
 	

@@ -26,11 +26,16 @@ define(function(require) {
 			$.ajax({
 				url : APP.config.baseUrl + '/users/' + this.model.get('id'),
 				type : 'delete',
-				dataType : 'json',
 				contentType : "application/json",
 				success : function(data) {
 					$("#manageCollaboratorsModal").modal("hide");
-					alert('User deleted successfully!');
+                    APP.users.fetch({success : function(response){
+                    $("#rfUsers").html('');
+				    response.each(function(user) {
+					$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+				    });				
+			         }});
+                    alert('User deleted successfully!');
 				}
 			});
 		}

@@ -46,7 +46,11 @@
 				<h5 class="dummyUserName"><@=user.name@></h5>
 			</div>
 			<div class="col-xs-6">
+			<@ var name = $(".username").text(); if ( $.trim(name) != user.name ) { @>
 				<a href="#" data-user-id=<@=user.id@> class="deleteUser">Delete</a>
+			<@ } else{ @>
+				<span>Logged in</span>
+			<@ }  @>
 			</div>
 		</div>
 	</script>
