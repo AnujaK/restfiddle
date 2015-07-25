@@ -15,18 +15,21 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Lob;
-import javax.persistence.Transient;
 
 public class RfHeader extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     private String headerName;
-    @Lob
-    private byte[] headerValue;
 
-    @Transient
-    private String headerValueString;
+    private String headerValue;
+
+    public String getHeaderValue() {
+        return headerValue;
+    }
+
+    public void setHeaderValue(String headerValue) {
+        this.headerValue = headerValue;
+    }
 
     public String getHeaderName() {
 	return headerName;
@@ -34,31 +37,6 @@ public class RfHeader extends AbstractEntity {
 
     public void setHeaderName(String headerName) {
 	this.headerName = headerName;
-    }
-
-    public byte[] getHeaderValue() {
-	return headerValue;
-    }
-
-    public void setHeaderValue(byte[] headerValue) {
-	this.headerValue = headerValue;
-    }
-
-    public String getHeaderValueString() {
-	if (headerValue == null) {
-	    return null;
-	} else {
-	    return new String(headerValue);
-	}
-    }
-
-    public void setHeaderValueString(String headerValueString) {
-	this.headerValueString = headerValueString;
-	if (headerValueString != null) {
-	    this.setHeaderValue(headerValueString.getBytes());
-	} else {
-	    this.setHeaderValue(null);
-	}
     }
 
 }

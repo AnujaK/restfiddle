@@ -21,6 +21,6 @@ import com.restfiddle.entity.RfRequest;
 
 public interface RfRequestRepository extends RfRepository<RfRequest, String> {
     
-    public List<RfRequest> findDistinctRfRequestByApiUrlString();
+    public List<RfRequest> findDistinctRfRequestByApiUrl();
 
 }

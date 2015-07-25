@@ -15,7 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Deprecated

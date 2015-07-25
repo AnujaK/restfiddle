@@ -461,12 +461,12 @@ define(function(require) {
                 var headers = $('#nodeHeaders').prop('checked') == true ? rfRequestObj['rfHeaders'] : null;
                 if(headers != null && headers.length >0) {
                     for(var i = 0; i < headers.length; i++){
-                        headers[i].headerValue = headers[i].headerValueString;
+                        headers[i].headerValue = headers[i].headerValue;
                     }
                 }
 				var rfRequest = {
-				    apiUrl : $('#nodeUrl').prop('checked') == true ? rfRequestObj['apiUrlString'] : '',
-				    apiBody : $('#nodeBody').prop('checked') == true ? rfRequestObj['apiBodyString'] : '',
+				    apiUrl : $('#nodeUrl').prop('checked') == true ? rfRequestObj['apiUrl'] : '',
+				    apiBody : $('#nodeBody').prop('checked') == true ? rfRequestObj['apiBody'] : '',
 				    methodType : $('#nodeMethodType').prop('checked') == true ? rfRequestObj['methodType'] : '',
 				    headers : headers,
                     basicAuthDTO : $('#nodeAuth').prop('checked') == true ? rfRequestObj['basicAuth'] : null,

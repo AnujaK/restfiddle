@@ -15,8 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-
 public class ProjectRunnerLogItem extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
