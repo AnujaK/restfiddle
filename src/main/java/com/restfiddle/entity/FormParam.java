@@ -15,35 +15,20 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Lob;
-import javax.persistence.Transient;
 
 public class FormParam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     private String paramKey;
 
-    @Lob
-    private byte[] paramValue;
+    private String paramValue;
 
-    @Transient
-    private String valueString;
-
-    public String getValueString() {
-	if (paramValue == null) {
-	    return null;
-	} else {
-	    return new String(paramValue);
-	}
+    public String getParamValue() {
+        return paramValue;
     }
 
-    public void setValueString(String valueString) {
-	this.valueString = valueString;
-	if (valueString != null) {
-	    this.setParamValue(valueString.getBytes());
-	} else {
-	    this.setParamValue(null);
-	}
+    public void setParamValue(String paramValue) {
+        this.paramValue = paramValue;
     }
 
     public String getParamKey() {
@@ -53,13 +38,4 @@ public class FormParam extends AbstractEntity {
     public void setParamKey(String paramKey) {
 	this.paramKey = paramKey;
     }
-
-    public byte[] getParamValue() {
-	return paramValue;
-    }
-
-    public void setParamValue(byte[] paramValue) {
-	this.paramValue = paramValue;
-    }
-
 }

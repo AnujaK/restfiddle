@@ -15,9 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 public class AclEntry extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 

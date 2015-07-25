@@ -30,7 +30,7 @@ public class ConversationConverter {
 
 	RfRequest rfRequest = new RfRequest();
 	if (rfRequestDTO != null) {
-	    rfRequest.setApiUrlString(rfRequestDTO.getApiUrl());
+	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
 	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 
 	    List<FormDataDTO> formDataDTOs = rfRequestDTO.getFormParams();
@@ -51,13 +51,13 @@ public class ConversationConverter {
 	    }
 
 	    if (rfRequestDTO.getApiBody() != null) {
-		rfRequest.setApiBody(rfRequestDTO.getApiBody().getBytes());
+		rfRequest.setApiBody(rfRequestDTO.getApiBody());
 	    } else if (formDataDTOs != null && !formDataDTOs.isEmpty()) {
 		FormParam formParam = null;
 		for (FormDataDTO formDataDTO : formDataDTOs) {
 		    formParam = new FormParam();
 		    formParam.setParamKey(formDataDTO.getKey());
-		    formParam.setValueString(formDataDTO.getValue());
+		    formParam.setParamValue(formDataDTO.getValue());
 		    formParams.add(formParam);
 		}
 		rfRequest.setFormParams(formParams);
@@ -84,7 +84,7 @@ public class ConversationConverter {
 		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
 		    header = new RfHeader();
 		    header.setHeaderName(rfHeaderDTO.getHeaderName());
-		    header.setHeaderValueString(rfHeaderDTO.getHeaderValue());
+		    header.setHeaderValue(rfHeaderDTO.getHeaderValue());
 		    headers.add(header);
 		}
 		rfRequest.setRfHeaders(headers);
@@ -97,10 +97,10 @@ public class ConversationConverter {
 	conversation.setRfResponse(response);
 
 	if(responseDTO == null && !rfRequestDTO.getApiUrl().isEmpty()){
-		response.setBodyString("Could not connect to "+rfRequestDTO.getApiUrl());
+		response.setBody("Could not connect to "+rfRequestDTO.getApiUrl());
 	} else {
 	    if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
-		response.setBody(responseDTO.getBody().getBytes());
+		response.setBody(responseDTO.getBody());
 	    }
 	    AssertionDTO assertionDTO = rfRequestDTO != null ? rfRequestDTO.getAssertionDTO() : null;
 	    if (assertionDTO != null && assertionDTO.getBodyAssertDTOs() != null) {
@@ -126,7 +126,7 @@ public class ConversationConverter {
 		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
 		    header = new RfHeader();
 		    header.setHeaderName(rfHeaderDTO.getHeaderName());
-		    header.setHeaderValueString(rfHeaderDTO.getHeaderValue());
+		    header.setHeaderValue(rfHeaderDTO.getHeaderValue());
 		    headers.add(header);
 		}
 		response.setRfHeaders(headers);
@@ -143,9 +143,9 @@ public class ConversationConverter {
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
 	RfRequest rfRequest = item.getRfRequest();
 
-	rfRequestDTO.setApiBody(rfRequest.getApiBodyString());
+	rfRequestDTO.setApiBody(rfRequest.getApiBody());
 
-	rfRequestDTO.setApiUrl(rfRequest.getApiUrlString());
+	rfRequestDTO.setApiUrl(rfRequest.getApiUrl());
 	rfRequestDTO.setMethodType(rfRequest.getMethodType());
 
 	return itemDTO;

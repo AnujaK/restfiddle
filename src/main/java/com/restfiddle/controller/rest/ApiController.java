@@ -189,8 +189,8 @@ public class ApiController {
 		if (conversation != null && conversation.getRfRequest() != null) {
 		    RfRequest rfRequest = conversation.getRfRequest();
 		    String methodType = rfRequest.getMethodType();
-		    String apiUrl = rfRequest.getApiUrlString();
-		    String apiBody = rfRequest.getApiBodyString();
+		    String apiUrl = rfRequest.getApiUrl();
+		    String apiBody = rfRequest.getApiBody();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);

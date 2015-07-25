@@ -817,11 +817,11 @@ define(function(require) {
 						source : httpHeaders.ttAdapter()
 					});
 					headerListItemView.$el.find('.headerName').val(item.headerName);
-					headerListItemView.$el.find('.headerValue').val(item.headerValueString);
+					headerListItemView.$el.find('.headerValue').val(item.headerValue);
 				})
 			}
 
-			this.$el.find("#apiUrl").typeahead('val', request.apiUrlString).trigger('typeahead:change');
+			this.$el.find("#apiUrl").typeahead('val', request.apiUrl).trigger('typeahead:change');
 
 			// workaround to remove un-wanted typeahead hint
 			$('#apiUrl').typeahead('open');
@@ -849,7 +849,7 @@ define(function(require) {
 				})
 			}
 			if (request.apiBody != null) {
-				this.apiBodyCodeMirror.setValue(request.apiBodyString);
+				this.apiBodyCodeMirror.setValue(request.apiBody);
 			} else {
 				this.apiBodyCodeMirror.setValue('');
 			}

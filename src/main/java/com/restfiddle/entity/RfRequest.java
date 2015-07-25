@@ -18,27 +18,16 @@ package com.restfiddle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Lob;
-import javax.persistence.Transient;
-
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class RfRequest extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @Lob
-    private byte[] apiUrl;
-
-    @Transient
-    private String apiUrlString;
+    private String apiUrl;
 
     private String methodType;
 
-    @Lob
-    private byte[] apiBody;
-
-    @Transient
-    private String apiBodyString;
+    private String apiBody;
 
     private List<RfHeader> rfHeaders = new ArrayList<RfHeader>();
 
@@ -47,11 +36,11 @@ public class RfRequest extends NamedEntity {
     private List<UrlParam> urlParams;
 
     private List<FormParam> formParams;
-    
+
     private BasicAuth basicAuth;
-    
+
     private DigestAuth digestAuth;
-    
+
     private OAuth2 oAuth2;
 
     private String conversationId;
@@ -83,25 +72,6 @@ public class RfRequest extends NamedEntity {
 	this.rfCookies = rfCookies;
     }
 
-    public byte[] getApiBody() {
-	return apiBody;
-    }
-
-    public void setApiBody(byte[] apiBody) {
-	this.apiBody = apiBody;
-    }
-
-    public String getApiBodyString() {
-	if (apiBody == null) {
-	    return "";
-	}
-	return new String(apiBody);
-    }
-
-    public void setApiBodyString(String apiBodyString) {
-	this.apiBodyString = apiBodyString;
-    }
-
     public List<UrlParam> getUrlParams() {
 	return urlParams;
     }
@@ -119,52 +89,27 @@ public class RfRequest extends NamedEntity {
     }
 
     public BasicAuth getBasicAuth() {
-		return basicAuth;
-	}
-
-	public void setBasicAuth(BasicAuth basicAuth) {
-		this.basicAuth = basicAuth;
-	}
-
-	public DigestAuth getDigestAuth() {
-		return digestAuth;
-	}
-
-	public void setDigestAuth(DigestAuth digestAuth) {
-		this.digestAuth = digestAuth;
-	}
-
-	public OAuth2 getoAuth2() {
-		return oAuth2;
-	}
-
-	public void setoAuth2(OAuth2 oAuth2) {
-		this.oAuth2 = oAuth2;
-	}
-
-	public byte[] getApiUrl() {
-	return apiUrl;
+	return basicAuth;
     }
 
-    public void setApiUrl(byte[] apiUrl) {
-	this.apiUrl = apiUrl;
+    public void setBasicAuth(BasicAuth basicAuth) {
+	this.basicAuth = basicAuth;
     }
 
-    public String getApiUrlString() {
-	if (apiUrl == null) {
-	    return null;
-	} else {
-	    return new String(apiUrl);
-	}
+    public DigestAuth getDigestAuth() {
+	return digestAuth;
     }
 
-    public void setApiUrlString(String apiUrlString) {
-	this.apiUrlString = apiUrlString;
-	if (apiUrlString != null) {
-	    this.setApiUrl(apiUrlString.getBytes());
-	} else {
-	    this.setApiUrl(null);
-	}
+    public void setDigestAuth(DigestAuth digestAuth) {
+	this.digestAuth = digestAuth;
+    }
+
+    public OAuth2 getoAuth2() {
+	return oAuth2;
+    }
+
+    public void setoAuth2(OAuth2 oAuth2) {
+	this.oAuth2 = oAuth2;
     }
 
     public Assertion getAssertion() {
@@ -176,10 +121,26 @@ public class RfRequest extends NamedEntity {
     }
 
     public String getConversationId() {
-        return conversationId;
+	return conversationId;
     }
 
     public void setConversationId(String conversationId) {
-        this.conversationId = conversationId;
+	this.conversationId = conversationId;
+    }
+    
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
+    }
+
+    public String getApiBody() {
+        return apiBody;
+    }
+
+    public void setApiBody(String apiBody) {
+        this.apiBody = apiBody;
     }
 }
