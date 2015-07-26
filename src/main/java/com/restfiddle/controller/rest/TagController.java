@@ -27,6 +27,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -125,8 +127,8 @@ public class TagController {
 	if (limit != null && limit > 0) {
 	    numberOfRecords = limit;
 	}
-	
-	Pageable pageable = new PageRequest(pageNo, numberOfRecords);
+	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
+	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 	
 	Page<BaseNode> paginatedTaggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
 	

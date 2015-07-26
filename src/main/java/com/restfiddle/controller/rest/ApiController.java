@@ -128,8 +128,9 @@ public class ApiController {
 	    currentConversation.setLastModifiedBy((User) principal);
 	}
 	
-	currentConversation.setCreatedDate(new Date());
-	currentConversation.setLastModifiedDate(new Date());
+	Date currentDate = new Date();
+	currentConversation.setCreatedDate(currentDate);
+	currentConversation.setLastModifiedDate(currentDate);
 	try {
 	    currentConversation = conversationRepository.save(currentConversation);
 
@@ -141,7 +142,12 @@ public class ApiController {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		currentConversation.setNodeId(node.getId());
 		currentConversation.setName(node.getName());
+		
 		node.setConversation(currentConversation);
+		node.setLastModifiedDate(currentDate);
+		if(principal instanceof User){
+		    currentConversation.setLastModifiedBy((User) principal);
+		}
 		nodeRepository.save(node);
 	    }
 	    
