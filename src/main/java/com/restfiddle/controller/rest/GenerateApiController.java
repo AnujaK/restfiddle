@@ -37,7 +37,6 @@ import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.BaseNode;
-import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.GenericEntity;
 import com.restfiddle.entity.GenericEntityField;
 
@@ -141,7 +140,7 @@ public class GenerateApiController {
 
 	jsonObject = getFieldJson(genericEntity);
 	// id is required in case of update.
-	jsonObject.put("id", "{uuid}");
+	jsonObject.put("_id", "{uuid}");
 
 	rfRequestDTO.setApiBody(jsonObject.toString(4));
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
@@ -186,6 +185,8 @@ public class GenerateApiController {
 		jsonObject.put(genericEntityField.getName(), new JSONArray());
 	    } else if ("Geographic point".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"lat\" : 18.5204303,\"lng\" : 73.8567437}"));
+	    } else if ("relation".equalsIgnoreCase(type)) {
+		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"_rel\":{\"entity\" : \"{Entity Name}\",\"_id\" : \"{Entity _id}\"}}"));
 	    }
 	}
 	return jsonObject;

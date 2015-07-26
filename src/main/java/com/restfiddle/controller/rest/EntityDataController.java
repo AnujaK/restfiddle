@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bson.BSONObject;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +41,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.DBRef;
 import com.mongodb.util.JSON;
 import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.GenericEntityData;
@@ -59,7 +61,7 @@ public class EntityDataController {
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
 	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	DBCursor cursor = null;
 	if (query != null && !query.isEmpty()) {
 	    Object queryObject = JSON.parse(query);
@@ -80,6 +82,9 @@ public class EntityDataController {
 	    cursor.limit(limit);
 	}
 	List<DBObject> array = cursor.toArray();
+	for(DBObject dbObject : array){
+	    dbRefToRelation(dbObject);
+	}
 	String json = JSON.serialize(array);
 
 	// Indentation
@@ -91,12 +96,13 @@ public class EntityDataController {
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("id") String entityDataId) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(entityDataId));
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
+	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -121,10 +127,14 @@ public class EntityDataController {
 	    data = jsonObj.toString();
 	}
 	// Create a new document for the entity.
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
-	Object dbObject = JSON.parse(data);
-	dbCollection.save((BasicDBObject) dbObject);
+	DBObject dbObject = (DBObject) JSON.parse(data);
+	
+	relationToDBRef(dbObject, projectId);
+	
+	dbCollection.save(dbObject);
+	dbRefToRelation(dbObject);
 	String json = dbObject.toString();
 
 	// Indentation
@@ -143,21 +153,24 @@ public class EntityDataController {
 		String entityDataId = (String) map.get("id");
 		logger.debug("Updating Entity Data with Id " + entityDataId);
 	    }
-	    JSONObject uiJson = createJsonFromMap(map);
+	    JSONObject uiJson = new JSONObject(map);
 	    // ID is stored separately (in a different column).
-	    uiJson.remove("id");
+	    DBObject obj = (DBObject) JSON.parse(uiJson.toString());
+	    obj.removeField("_id");
 
-	    DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	    DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	    BasicDBObject queryObject = new BasicDBObject();
 	    queryObject.append("_id", new ObjectId(uuid));
 	    resultObject = dbCollection.findOne(queryObject);
 
-	    Set<String> keySet = uiJson.keySet();
+	    Set<String> keySet = obj.keySet();
 	    for (String key : keySet) {
-		resultObject.put(key, uiJson.get(key));
+		resultObject.put(key, obj.get(key));
 	    }
+	    relationToDBRef(resultObject, projectId);
 	    dbCollection.save(resultObject);
 	}
+	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -169,7 +182,7 @@ public class EntityDataController {
     public @ResponseBody
     StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("uuid") String uuid) {
-	DBCollection dbCollection = mongoTemplate.getCollection(entityName);
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(uuid));
 	dbCollection.remove(queryObject);
@@ -197,5 +210,42 @@ public class EntityDataController {
 	jsonObject.put("createdDate", entityData.getCreatedDate());
 	jsonObject.put("lastModifiedDate", entityData.getLastModifiedDate());
 	return jsonObject;
+    }
+    
+    private void dbRefToRelation(DBObject dbObject) {
+	if (dbObject == null) {
+	    return;
+	}
+	if (dbObject.containsField("_id")) 
+	    dbObject.put("_id", ((ObjectId) dbObject.get("_id")).toHexString());
+	for (String key : dbObject.keySet()) {
+	    Object obj = dbObject.get(key);
+	    if (obj instanceof DBRef) {
+		DBRef ref = (DBRef) obj;
+		dbObject.put(key, dbRefToRel(ref));
+	    } else if (obj instanceof DBObject) {
+		dbRefToRelation((DBObject) obj);
+	    }
+	}
+
+    }
+    
+    private DBObject dbRefToRel(DBRef obj){
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", obj.getRef().split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+    }
+    
+    private void relationToDBRef(DBObject dbObject, String projectId) {
+	for (String key : dbObject.keySet()) {
+	    Object obj = dbObject.get(key);
+	    if (obj instanceof DBObject) {
+		DBObject doc = (DBObject) obj;
+		if (doc.containsField("_rel")) {
+		    DBObject relation = (DBObject) doc.get("_rel");
+		    dbObject.put(key, new DBRef(mongoTemplate.getDb(), projectId + "_" + (String) relation.get("entity"), (new ObjectId((String) relation.get("_id")))));
+		} else {
+		    relationToDBRef(doc, projectId);
+		}
+	    }
+	}
     }
 }
