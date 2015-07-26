@@ -51,6 +51,6 @@
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="history-items">
     </ul>
 
-    <div id="tree"></div>
+    <div id="tree" class="fancytree-colorize-hover"></div>
     <br><br>
 </div>
