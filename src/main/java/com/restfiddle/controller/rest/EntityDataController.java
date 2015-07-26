@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.bson.BSONObject;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -82,7 +83,7 @@ public class EntityDataController {
 	}
 	List<DBObject> array = cursor.toArray();
 	for(DBObject dbObject : array){
-	    resolveDBRef(dbObject);
+	    dbRefToRelation(dbObject);
 	}
 	String json = JSON.serialize(array);
 
@@ -101,7 +102,7 @@ public class EntityDataController {
 	queryObject.append("_id", new ObjectId(entityDataId));
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
-	resolveDBRef(resultObject);
+	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -129,19 +130,11 @@ public class EntityDataController {
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
 	DBObject dbObject = (DBObject) JSON.parse(data);
-	for(String key : dbObject.keySet()){
-	    Object obj = dbObject.get(key);
-	    if(obj instanceof DBObject) {
-		DBObject doc = (DBObject)obj;
-		if(doc.containsField("_relation")){
-		    DBObject relation = (DBObject) doc.get("_relation");
-		    dbObject.put(key,new DBRef(mongoTemplate.getDb(),projectId+"_"+(String)relation.get("entity") ,new ObjectId((String)relation.get("_id"))));
-		}
-	    }
-	}
+	
+	relationToDBRef(dbObject, projectId);
 	
 	dbCollection.save(dbObject);
-	resolveDBRef(dbObject);
+	dbRefToRelation(dbObject);
 	String json = dbObject.toString();
 
 	// Indentation
@@ -160,33 +153,24 @@ public class EntityDataController {
 		String entityDataId = (String) map.get("id");
 		logger.debug("Updating Entity Data with Id " + entityDataId);
 	    }
-	    JSONObject uiJson = createJsonFromMap(map);
+	    JSONObject uiJson = new JSONObject(map);
 	    // ID is stored separately (in a different column).
-	    uiJson.remove("_id");
+	    DBObject obj = (DBObject) JSON.parse(uiJson.toString());
+	    obj.removeField("_id");
 
 	    DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	    BasicDBObject queryObject = new BasicDBObject();
 	    queryObject.append("_id", new ObjectId(uuid));
 	    resultObject = dbCollection.findOne(queryObject);
 
-	    Set<String> keySet = uiJson.keySet();
+	    Set<String> keySet = obj.keySet();
 	    for (String key : keySet) {
-		Object obj = uiJson.get(key);
-		if (obj instanceof Map) {
-		    Map doc = (Map) obj;
-		    if (doc.containsKey("_relation")) {
-			Map relation = (Map) doc.get("_relation");
-			resultObject.put(key, new DBRef(mongoTemplate.getDb(), projectId + "_" + (String) relation.get("entity"), new ObjectId((String) relation.get("_id"))));
-		    } else {
-			resultObject.put(key, uiJson.get(key));
-		    }
-		} else {
-		    resultObject.put(key, uiJson.get(key));
-		}
+		resultObject.put(key, obj.get(key));
 	    }
+	    relationToDBRef(resultObject, projectId);
 	    dbCollection.save(resultObject);
 	}
-	resolveDBRef(resultObject);
+	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 
 	// Indentation
@@ -228,19 +212,40 @@ public class EntityDataController {
 	return jsonObject;
     }
     
-    private DBObject resolveDBRef(DBObject dbObject){
-	if(dbObject == null){
-	    return null;
+    private void dbRefToRelation(DBObject dbObject) {
+	if (dbObject == null) {
+	    return;
 	}
-	dbObject.put("_id", ((ObjectId)dbObject.get("_id")).toHexString());
-	    for(String key : dbObject.keySet()){
-		Object data = dbObject.get(key);
-		if(data instanceof DBRef){
-		   DBRef obj = (DBRef)data;
-		   dbObject.put(key, resolveDBRef(obj.fetch()));
-		   
+	if (dbObject.containsField("_id")) 
+	    dbObject.put("_id", ((ObjectId) dbObject.get("_id")).toHexString());
+	for (String key : dbObject.keySet()) {
+	    Object obj = dbObject.get(key);
+	    if (obj instanceof DBRef) {
+		DBRef ref = (DBRef) obj;
+		dbObject.put(key, dbRefToRel(ref));
+	    } else if (obj instanceof DBObject) {
+		dbRefToRelation((DBObject) obj);
+	    }
+	}
+
+    }
+    
+    private DBObject dbRefToRel(DBRef obj){
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", obj.getRef().split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+    }
+    
+    private void relationToDBRef(DBObject dbObject, String projectId) {
+	for (String key : dbObject.keySet()) {
+	    Object obj = dbObject.get(key);
+	    if (obj instanceof DBObject) {
+		DBObject doc = (DBObject) obj;
+		if (doc.containsField("_rel")) {
+		    DBObject relation = (DBObject) doc.get("_rel");
+		    dbObject.put(key, new DBRef(mongoTemplate.getDb(), projectId + "_" + (String) relation.get("entity"), (new ObjectId((String) relation.get("_id")))));
+		} else {
+		    relationToDBRef(doc, projectId);
 		}
-	    } 
-	return dbObject;
+	    }
+	}
     }
 }

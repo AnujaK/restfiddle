@@ -186,7 +186,7 @@ public class GenerateApiController {
 	    } else if ("Geographic point".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"lat\" : 18.5204303,\"lng\" : 73.8567437}"));
 	    } else if ("relation".equalsIgnoreCase(type)) {
-		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"_relation\":{\"entity\" : \"{Entity Name}\",\"_id\" : \"{Entity _id}\"}}"));
+		jsonObject.put(genericEntityField.getName(), new JSONObject("{\"_rel\":{\"entity\" : \"{Entity Name}\",\"_id\" : \"{Entity _id}\"}}"));
 	    }
 	}
 	return jsonObject;
