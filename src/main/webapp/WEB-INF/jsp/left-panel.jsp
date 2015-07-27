@@ -39,6 +39,9 @@
         <br>
         <div>
             <h6 class="rf-h6 members-width">Members</h6>
+            <button class="btn btn-default btn-xs pull-right rf-btn-margin-2" data-toggle="modal" data-target="#colaboratorModal" >
+                <span class="glyphicon glyphicon-plus rf-plus-font"></span>
+            </button>
         </div>
         <ul class="nav nav-sidebar" id="rfUsers">
             <li>

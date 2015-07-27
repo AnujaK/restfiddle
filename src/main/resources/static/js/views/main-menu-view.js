@@ -569,4 +569,23 @@ $("#deleteProjectBtn").bind("click", function() {
 	});
     $("#deleteProjectModal").modal('hide');
 });
+
+		$("#colaboratorModal").on('show.bs.modal',function(e){
+			APP.users.fetch({
+				success : function(response){
+				$('#collaborators').html('');
+				response.each(function(user) {
+					$("#collaborators").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");					
+					$('#colaboratorModal').modal('show');
+				});				
+			});
+            $('#addCollaboratorForm').hide();
+		});
+
+		$('#addCollaborator').bind('click',function(){
+			$('#addCollaboratorForm').show();
+			$("#collaboratorName").val("");
+			$("#collaboratorEmailId").val("");
+			$("#collaboratorPassword").val("");
+		})
 });
