@@ -143,6 +143,21 @@ define(function(require) {
 			currentElm.children("ul").css({"position": "fixed", "left":rect.left , "top": rect.bottom});
 		}
 	}
+	
+	var handleMenuzIndex = function(event){
+		var currentElm = $(event.currentTarget);
+		var treeTitle = $(currentElm.closest('.fancytree-title'));
+		var treeIcon = treeTitle.parent().children('.glyphicon');
+		var zIndexTitle = {zIndex : 'auto'};
+		var zIndexIcons = {zIndex : 2};
+		if(event.type === 'focus'){
+			zIndexTitle = {zIndex : 4};
+			zIndexIcons = {zIndex : 6};
+		} 
+		treeTitle.css(zIndexTitle);
+		treeIcon.css(zIndexIcons);
+		
+	};
 
 	$("#newRequestDropdown").click(function(event){
 	    var rect = event.currentTarget.getBoundingClientRect();
@@ -1082,6 +1097,7 @@ function nodeConverter(serverNode, uiNode) {
 				});
 
 				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
+				$('.dropdown-toggle').on('focus blur',handleMenuzIndex);
 			}
 		});
 	};
