@@ -144,12 +144,7 @@ public class ConversationController {
 
 	for (Conversation item : content) {
 	    RfRequest rfRequest = item.getRfRequest();
-	    logger.debug(rfRequest.getApiUrlString());
-	    // byte[] body = item.getRfResponse().getBody();
-	    // if (body != null) {
-	    // String strBody = new String(body);
-	    // System.out.println(strBody);
-	    // }
+	    logger.debug(rfRequest.getApiUrl());
 	}
 	return response;
     }

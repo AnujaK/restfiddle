@@ -46,7 +46,11 @@
 				<h5 class="dummyUserName"><@=user.name@></h5>
 			</div>
 			<div class="col-xs-6">
+			<@ var name = $(".username").text(); if ( $.trim(name) != user.name ) { @>
 				<a href="#" data-user-id=<@=user.id@> class="deleteUser">Delete</a>
+			<@ } else{ @>
+				<span>Logged in</span>
+			<@ }  @>
 			</div>
 		</div>
 	</script>
@@ -90,9 +94,14 @@
         </div>
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
-		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> >
+		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> data-toggle="tooltip" data-placement="bottom" title=<@=conversation.rfRequestDTO.apiUrl@> >
 			<div class="<@=conversation.className@>"><@=conversation.rfRequestDTO.methodType@></div>
-            <div class = "activity"><@=conversation.rfRequestDTO.apiUrl@></div>
+			<@ if (conversation.name == null || conversation.name == "" ) { @>
+   			 	<div class="activity"><@=conversation.rfRequestDTO.apiUrl@></div>
+			<@ }  else { @>
+				<div class = "activity"><@=conversation.name@></div>
+			<@ } @>
+            
              <span><@=conversation.time@></span><span>&nbsp;<@=conversation.runBy@></span>
         </a>
 	</script>
@@ -110,6 +119,7 @@
                     <option>Date</option>
                     <option>Object</option>
                     <option>Array</option>
+					<option>Relation</option>
                     <option>Geographic point</option>
                 </select>
             </div>

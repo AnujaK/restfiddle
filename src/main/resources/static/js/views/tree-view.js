@@ -461,12 +461,12 @@ define(function(require) {
                 var headers = $('#nodeHeaders').prop('checked') == true ? rfRequestObj['rfHeaders'] : null;
                 if(headers != null && headers.length >0) {
                     for(var i = 0; i < headers.length; i++){
-                        headers[i].headerValue = headers[i].headerValueString;
+                        headers[i].headerValue = headers[i].headerValue;
                     }
                 }
 				var rfRequest = {
-				    apiUrl : $('#nodeUrl').prop('checked') == true ? rfRequestObj['apiUrlString'] : '',
-				    apiBody : $('#nodeBody').prop('checked') == true ? rfRequestObj['apiBodyString'] : '',
+				    apiUrl : $('#nodeUrl').prop('checked') == true ? rfRequestObj['apiUrl'] : '',
+				    apiBody : $('#nodeBody').prop('checked') == true ? rfRequestObj['apiBody'] : '',
 				    methodType : $('#nodeMethodType').prop('checked') == true ? rfRequestObj['methodType'] : '',
 				    headers : headers,
                     basicAuthDTO : $('#nodeAuth').prop('checked') == true ? rfRequestObj['basicAuth'] : null,
@@ -671,7 +671,7 @@ $('.right-pannel-toggle-btn').bind('click',function() {
 
 $("#tree").fancytree(
 {
-	extensions : [ "glyph" ],
+	extensions : [ "glyph", "wide" ],
 	glyph : {
 		map : {
 			doc : "glyphicon glyphicon-file",
@@ -690,6 +690,13 @@ $("#tree").fancytree(
 			loading : "glyphicon glyphicon-refresh"
 		}
 	},
+      selectMode: 2,
+      wide: {
+        iconWidth: "1em",     // Adjust this if @fancy-icon-width != "16px"
+        iconSpacing: "0.5em", // Adjust this if @fancy-icon-spacing != "3px"
+        levelOfs: "1.5em"     // Adjust this if ul padding != "16px"
+      },
+    
 	dnd : {
 		autoExpandMS : 400,
 		focusOnClick : true,

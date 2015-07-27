@@ -347,11 +347,11 @@
                     </div>
                      <div class="tab-pane" id="res-tab-assert">
                         <div><br>
-                        	<p><div class="success-icon circle"></div><span>0</span> Success</p>
-                            <p><div class="failure-icon circle"></div><span>0</span> Failures</p>
+                        	<p><div class="success-icon circle"></div><span>0</span> Success&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="failure-icon circle"></div><span>0</span> Failures</p>
                             <table id="res-assert-wrapper" class="table">
                               <thead>
-                              	<tr><th><span class="success-icon circle"></span>Status</th><th>Expression</th><th>Comparator</th><th>Expected</th><th>Actual</th><tr>
+                              	<tr><th>Status</th><th>Expression</th><th>Comparator</th><th>Expected</th><th>Actual</th><tr>
                               </thead>
                             </table>
                         </div>

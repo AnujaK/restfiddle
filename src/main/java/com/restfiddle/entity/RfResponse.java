@@ -17,35 +17,16 @@ package com.restfiddle.entity;
 
 import java.util.List;
 
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 public class RfResponse extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
-    @Lob
-    private byte[] body;
+    private String body;
 
-    @Transient
-    private String bodyString;
-
-    @OneToMany
     private List<RfHeader> rfHeaders;
 
     private Conversation item;
     
     private Assertion assertion;
-
-    public byte[] getBody() {
-	return body;
-    }
-
-    public void setBody(byte[] body) {
-	this.body = body;
-    }
 
     public Conversation getItem() {
 	return item;
@@ -63,20 +44,20 @@ public class RfResponse extends NamedEntity {
 	this.rfHeaders = rfHeaders;
     }
 
-    public String getBodyString() {
-	return bodyString;
-    }
-
-    public void setBodyString(String bodyString) {
-	this.bodyString = bodyString;
-    }
-
     public Assertion getAssertion() {
 	return assertion;
     }
 
     public void setAssertion(Assertion assertion) {
 	this.assertion = assertion;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
 }

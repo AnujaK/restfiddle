@@ -128,8 +128,9 @@ public class ApiController {
 	    currentConversation.setLastModifiedBy((User) principal);
 	}
 	
-	currentConversation.setCreatedDate(new Date());
-	currentConversation.setLastModifiedDate(new Date());
+	Date currentDate = new Date();
+	currentConversation.setCreatedDate(currentDate);
+	currentConversation.setLastModifiedDate(currentDate);
 	try {
 	    currentConversation = conversationRepository.save(currentConversation);
 
@@ -140,7 +141,13 @@ public class ApiController {
 	    if (existingConversation != null && existingConversation.getNodeId() != null) {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		currentConversation.setNodeId(node.getId());
+		currentConversation.setName(node.getName());
+		
 		node.setConversation(currentConversation);
+		node.setLastModifiedDate(currentDate);
+		if(principal instanceof User){
+		    currentConversation.setLastModifiedBy((User) principal);
+		}
 		nodeRepository.save(node);
 	    }
 	    
@@ -188,8 +195,8 @@ public class ApiController {
 		if (conversation != null && conversation.getRfRequest() != null) {
 		    RfRequest rfRequest = conversation.getRfRequest();
 		    String methodType = rfRequest.getMethodType();
-		    String apiUrl = rfRequest.getApiUrlString();
-		    String apiBody = rfRequest.getApiBodyString();
+		    String apiUrl = rfRequest.getApiUrl();
+		    String apiBody = rfRequest.getApiBody();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);

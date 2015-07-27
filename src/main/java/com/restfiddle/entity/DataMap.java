@@ -15,8 +15,6 @@
  */
 package com.restfiddle.entity;
 
-import javax.persistence.Entity;
-
 public class DataMap extends BaseEntity {
     private static final long serialVersionUID = 1L;
 

@@ -108,9 +108,9 @@ public class EntityToDTO {
 
 	copyBaseData(dto, entity);
 
-	dto.setApiUrl(entity.getApiUrlString());
+	dto.setApiUrl(entity.getApiUrl());
 	dto.setMethodType(entity.getMethodType());
-	dto.setApiBody(entity.getApiBodyString());
+	dto.setApiBody(entity.getApiBody());
 	dto.setHeaders(toListOfRfHeaderDTO(entity.getRfHeaders()));
 	dto.setUrlParams(toListOfUrlParamDTO(entity.getUrlParams()));
 	dto.setFormParams(toListOfFormDataDTO(entity.getFormParams()));
@@ -162,7 +162,7 @@ public class EntityToDTO {
 
 	copyBaseData(dto, entity);
 
-	dto.setBody(Base64.encodeBase64String(entity.getBody()));
+	dto.setBody(entity.getBody());
 	dto.setHeaders(toListOfRfHeaderDTO(entity.getRfHeaders()));
 
 	return dto;
@@ -198,7 +198,7 @@ public class EntityToDTO {
 
 	FormDataDTO dto = new FormDataDTO();
 	dto.setKey(entity.getParamKey());
-	dto.setValue(entity.getValueString());
+	dto.setValue(entity.getParamValue());
 
 	return dto;
     }
@@ -221,7 +221,7 @@ public class EntityToDTO {
 
 	RfHeaderDTO dto = new RfHeaderDTO();
 	dto.setHeaderName(entity.getHeaderName());
-	dto.setHeaderValue(entity.getHeaderValueString());
+	dto.setHeaderValue(entity.getHeaderValue());
 
 	return dto;
     }
