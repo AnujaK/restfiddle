@@ -37,6 +37,8 @@ public class NodeDTO extends BaseDTO {
     private GenericEntityDTO genericEntityDTO;
 
     private List<TagDTO> tags;
+    
+    private String apiURL;
 
     public String getProjectId() {
 	return projectId;
@@ -108,6 +110,14 @@ public class NodeDTO extends BaseDTO {
 
     public void setMethod(String method) {
 	this.method = method;
+    }
+
+    public String getApiURL() {
+        return apiURL;
+    }
+
+    public void setApiURL(String apiURL) {
+        this.apiURL = apiURL;
     }
 
 }

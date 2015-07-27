@@ -838,7 +838,7 @@ function nodeConverter(serverNode, uiNode) {
 
 			if(serverNode.children[i].method){
 				colorCode = getColorCode(serverNode.children[i].method);
-				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template()
+				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template();
 			}else{
 				title = serverNode.children[i].name + treeNodeView.template()
 			}
