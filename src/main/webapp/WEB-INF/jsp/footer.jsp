@@ -75,13 +75,13 @@
     </script>
     
 	<script type="text/template" id="tpl-star-list-item">
-		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> >
+		<a href="#" class="list-group-item" data-star-id=<@=node.id@> data-star-ref-id=<@=node.id@> data-toggle="tooltip" data-placement="bottom" title=<@=node.apiURL@>>
 			<span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@>
              <div><span>&nbsp;&nbsp;<@=node.time@></span><span>&nbsp;<@=node.runBy@><span></div>
 		</a>
 	</script>
     <script type="text/template" id="tpl-tagged-node-list-item">
-		<a href="#" class="list-group-item" data-node-id=<@=node.id@> data-tag-node-id=<@=node.id@> >
+		<a href="#" class="list-group-item" data-node-id=<@=node.id@> data-tag-node-id=<@=node.id@> data-toggle="tooltip" data-placement="bottom" title=<@=node.apiURL@>>
 			<span class="<@=node.className@>"><@=node.methodType@></span>&nbsp;&nbsp;<@=node.name@>
              <div><span>&nbsp;&nbsp;<@=node.time@></span><span>&nbsp;<@=node.runBy@><span></div>
 		</a>

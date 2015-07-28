@@ -144,6 +144,21 @@ define(function(require) {
 			currentElm.children("ul").css({"position": "fixed", "left":rect.left , "top": rect.bottom});
 		}
 	}
+	
+	var handleMenuzIndex = function(event){
+		var currentElm = $(event.currentTarget);
+		var treeTitle = $(currentElm.closest('.fancytree-title'));
+		var treeIcon = treeTitle.parent().children('.glyphicon');
+		var zIndexTitle = {zIndex : 'auto'};
+		var zIndexIcons = {zIndex : 2};
+		if(event.type === 'focus'){
+			zIndexTitle = {zIndex : 4};
+			zIndexIcons = {zIndex : 6};
+		} 
+		treeTitle.css(zIndexTitle);
+		treeIcon.css(zIndexIcons);
+		
+	};
 
 	$("#newRequestDropdown").click(function(event){
 	    var rect = event.currentTarget.getBoundingClientRect();
@@ -839,7 +854,7 @@ function nodeConverter(serverNode, uiNode) {
 
 			if(serverNode.children[i].method){
 				colorCode = getColorCode(serverNode.children[i].method);
-				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template()
+				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template();
 			}else{
 				title = serverNode.children[i].name + treeNodeView.template()
 			}
@@ -1083,6 +1098,7 @@ function nodeConverter(serverNode, uiNode) {
 				});
 
 				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
+				$('.dropdown-toggle').on('focus blur',handleMenuzIndex);
 			}
 		});
 	};
