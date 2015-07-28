@@ -616,7 +616,7 @@
 			</div>
 			<div class="modal-body">
 				<div id= "collaborators"></div>
-				<a id = "addCollaborator">Add Collaborator</a>
+				<a id = "addCollaborator">Add Collaborators</a>
 				<form id = "addCollaboratorForm">
 					<div class = "row">
 						<div class = "col-lg-8 col-md-8 col-sm-10">

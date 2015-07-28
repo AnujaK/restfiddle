@@ -633,18 +633,36 @@ $("#deleteProjectBtn").bind("click", function() {
 		});
 
 		$("#saveCollaborator").bind("click",function(){
-			    $.ajax({
-					url : APP.config.baseUrl + '/users',
-					type : 'post',
-					data : {
-						username : $("#collaboratorName").val(),
-						password : $("#collaboratorPassword").val(),
-						email : $("#collaboratorEmailId").val()
-					},
-					contentType : "application/json",
-					success : function(data) {
-		               console.log(data);
-					}
-	        	});
-		});
+			$.ajax({
+				url : APP.config.baseUrl + '/users',
+				type : 'post',
+				dataType : 'json',
+				contentType : "application/json",
+				data : JSON.stringify({
+					name : $("#collaboratorName").val(),
+					password : $("#collaboratorPassword").val(),
+					email : $("#collaboratorEmailId").val()
+				}),
+
+				success : function() {
+					$("#collaboratorName").val("");
+					$("#collaboratorPassword").val("");
+					$("#collaboratorEmailId").val("");
+					$('#addCollaboratorForm').hide();
+					
+					APP.users.fetch({
+						success : function(response){
+		                    $("#rfUsers").html('');
+                        	$('#collaborators').html('');
+						    response.each(function(user) {
+								$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+						    });	
+						    response.each(function(user) {
+								$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+							});					
+					    }
+					});
+		        }
+		    });    
+	});
 });
