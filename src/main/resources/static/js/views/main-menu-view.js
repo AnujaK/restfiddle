@@ -586,4 +586,83 @@ $("#deleteProjectBtn").bind("click", function() {
 	});
     $("#deleteProjectModal").modal('hide');
 });
+
+		$("#colaboratorModal").on('show.bs.modal',function(e){
+			APP.users.fetch({
+			    success : function(response){
+			    	console.log(response)
+					$('#collaborators').html('');
+					console.log(response);
+					response.each(function(user) {
+						$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+					});
+
+					$(".deleteCollabotator").each(function(i, element){
+				        $(element).click(function(event){
+				           	$.ajax({
+								url : APP.config.baseUrl + '/users/' + event.currentTarget.dataset.id,
+								type : 'delete',
+								contentType : "application/json",
+								success : function(data) {
+				                    APP.users.fetch({
+				                        success : function(response){
+				                        	$("#rfUsers").html('');
+				                        	$('#collaborators').html('');
+										    response.each(function(user) {
+												$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+										    });	
+										    response.each(function(user) {
+												$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+											});			
+							         	}
+							    	 });
+								}
+			            	});
+				        });
+    				});	
+			    }	
+			});
+            $('#addCollaboratorForm').hide();
+		});
+
+		$('#addCollaborator').bind('click',function(){
+			$('#addCollaboratorForm').show();
+			$("#collaboratorName").val("");
+			$("#collaboratorEmailId").val("");
+			$("#collaboratorPassword").val("");
+		});
+
+		$("#saveCollaborator").bind("click",function(){
+			$.ajax({
+				url : APP.config.baseUrl + '/users',
+				type : 'post',
+				dataType : 'json',
+				contentType : "application/json",
+				data : JSON.stringify({
+					name : $("#collaboratorName").val(),
+					password : $("#collaboratorPassword").val(),
+					email : $("#collaboratorEmailId").val()
+				}),
+
+				success : function() {
+					$("#collaboratorName").val("");
+					$("#collaboratorPassword").val("");
+					$("#collaboratorEmailId").val("");
+					$('#addCollaboratorForm').hide();
+					
+					APP.users.fetch({
+						success : function(response){
+		                    $("#rfUsers").html('');
+                        	$('#collaborators').html('');
+						    response.each(function(user) {
+								$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
+						    });	
+						    response.each(function(user) {
+								$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+							});					
+					    }
+					});
+		        }
+		    });    
+	});
 });

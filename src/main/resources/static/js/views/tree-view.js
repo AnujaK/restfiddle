@@ -6,6 +6,7 @@ define(function(require) {
 	require('fancytree');
 	require('bootstarp');
 	require("libs/jquery.validate");
+	require('mCustomScrollbar');
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var StarEvent = require('events/star-event');

@@ -12,7 +12,8 @@ define(function(require) {
 		template : _.template($('#tpl-user-list-item').html()),
 		
 		events : {
-			"click .deleteUser" : "deleteUser"
+			"click .deleteUser" : "deleteUser",
+			"click #deleteCollabotator" : "deleteCollabotator"
 		},
 
 		render : function(eventName) {
@@ -38,6 +39,10 @@ define(function(require) {
                     alert('User deleted successfully!');
 				}
 			});
+		},
+
+		deleteCollabotator : function(event){
+			console.log(event);
 		}
 	});
 	
