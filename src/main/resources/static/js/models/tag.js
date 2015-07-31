@@ -13,7 +13,7 @@ define(function(require) {
 	},
 	sync : function(method, model, options) {
 	    if (method == 'create' || method == 'update') {
-		model.urlRoot = APP.config.baseUrl + "/tags/";
+		model.urlRoot = APP.config.baseUrl + "/workspaces/" + APP.appView.getCurrentWorkspaceId() + "/tags";
 		return Backbone.sync(method, model, options);
 	    }
 	    return Backbone.sync(method, model, options);

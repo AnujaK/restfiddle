@@ -346,12 +346,12 @@ public class SampleDataGenerator {
     private void loadTagData() {
 	TagDTO tagDTO = new TagDTO();
 	tagDTO.setName("Important");
-	Tag impTag = tagController.create(tagDTO);
+	Tag impTag = tagController.create(demoWorkspaceId, tagDTO);
 	impTagId = impTag.getId();
 
 	TagDTO secondTag = new TagDTO();
 	secondTag.setName("Wishlist");
-	Tag wlTag = tagController.create(secondTag);
+	Tag wlTag = tagController.create(socialWorkspaceId, secondTag);
 	wlTagId = wlTag.getId();
     }
 

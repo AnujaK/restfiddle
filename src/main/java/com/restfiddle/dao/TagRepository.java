@@ -15,8 +15,16 @@
  */
 package com.restfiddle.dao;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.restfiddle.entity.Tag;
 
 public interface TagRepository extends RfRepository<Tag, String> {
+
+    @Query("{ 'workspaceId' : '' }")
+    public List<Tag> findTagsFromAWorkspace(@Param("workspaceId") Long workspaceId);
 
 }

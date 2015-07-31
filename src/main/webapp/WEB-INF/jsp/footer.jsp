@@ -299,6 +299,9 @@
     <script type="text/template" id="tpl-tree-node">
     &nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li class="edit-node"><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li class="delete-node"><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li class="copy-node"><i class="fa fa-copy fa-fw"></i> Copy Node</li><li class="run-node"><i class="fa fa-play fa-fw"></i> Run Node</li></ul></div>
     </script>
+<script type="text/template" id="tpl-tree-folder">
+    &nbsp;<div class="btn-group menu-arrow"><button type="button" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-angle-down" data-toggle="dropdown"></span></button><ul class="dropdown-menu"><li class="edit-node"><i class="fa fa-pencil fa-fw"></i> Edit Node</li><li class="delete-node"><i class="fa fa-trash-o fa-fw"></i> Delete Node</li><li class="copy-node"><i class="fa fa-copy fa-fw"></i> Copy Node</li><li class="run-folder"><i class="fa fa-play fa-fw"></i> Run Folder</li></ul></div>
+    </script>
     <script type="text/template" id = "tpl-environment-list-item">
        <span><@=conversation.rfRequest.methodType@></span>
     </script>

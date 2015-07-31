@@ -25,6 +25,9 @@ public class Workspace extends NamedEntity {
 
     @DBRef
     private List<Project> projects = new ArrayList<Project>();
+    
+    @DBRef
+    private List<Tag> tags = new ArrayList<Tag>();
 
     public List<Project> getProjects() {
 	return projects;
@@ -32,5 +35,13 @@ public class Workspace extends NamedEntity {
 
     public void setProjects(List<Project> projects) {
 	this.projects = projects;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

@@ -244,7 +244,9 @@ public class EntityToDTO {
 	dto.setTags(toListOfTagDTO(entity.getTags()));
 	dto.setConversationDTO(toDTO(entity.getConversation()));
 	dto.setGenericEntityDTO(toDTO(entity.getGenericEntity()));
-	dto.setApiURL(entity.getConversation().getRfRequest().getApiUrl());
+	if(entity.getConversation()!=null && entity.getConversation().getRfRequest()!=null){
+	    dto.setApiURL(entity.getConversation().getRfRequest().getApiUrl());
+	}
 
 	return dto;
 

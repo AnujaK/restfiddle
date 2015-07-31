@@ -10,7 +10,7 @@ define(function(require) {
 	var WorkspaceEvents = require('events/workspace-event');
 	
 	var ProjectModel = require('models/project');
-	//var TagModel = require('models/tag');
+	var TagModel = require('models/tag');
 	
 	var ProjectView = require('views/project-view');
 	var ManageEnvironmentView = require('views/environment-view');
@@ -129,11 +129,11 @@ define(function(require) {
 			var userView = new UserView();
 			userView.showUsers();
 			
-			var tagView = new TagView();
-			tagView.showTags();
+			/*var tagView = new TagView();
+			tagView.showTags();*/
 
-			var tagsView = new TagsView();
-			tagsView.showTags();
+			/*var tagsView = new TagsView();
+			tagsView.showTags();*/
 
 			var environmentView   = new ManageEnvironmentView();
 			environmentView.render();
@@ -150,6 +150,21 @@ define(function(require) {
 					WorkspaceEvents.triggerChange(response.at(0).get('id'));
 					var projectView = new ProjectView({model : projectList});
 					projectView.render();
+                    
+                    var tags = response.at(0).get('tags');
+                    console.log("********* Tags **************"+ tags);
+					var tagList = [];
+					_.each(tags, function(p){
+						tagList.push(new TagModel(p));
+					});
+                    console.log("********* Tags **************"+ tagList.length);
+                    /*APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
+					APP.workspaceNameView.render();
+					WorkspaceEvents.triggerChange(response.at(0).get('id'));*/
+					var tagView = new TagView({model : tagList});
+					tagView.render();
+                    var tagsView = new TagsView({model : tagList});
+					tagsView.render();
 				}
 			}});
 		},

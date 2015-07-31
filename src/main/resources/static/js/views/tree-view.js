@@ -32,6 +32,19 @@ define(function(require) {
 			return this;
 		}
 	});
+	
+	var TreeFolderView = Backbone.View.extend({	
+		template: _.template($('#tpl-tree-folder').html()),
+		
+		initialize : function() {
+			this.render();
+		},
+		
+		render : function() {
+			this.$el.html(this.template());
+			return this;
+		}
+	});
 
 	var getColorCode = function(method){
 		switch (method){
@@ -758,12 +771,19 @@ dragDrop : function(node, data) {
 					createNode: function(event, data) {
 						var editNodeBtn = data.node.li.getElementsByClassName("edit-node");
 						var copyNodeBtn = data.node.li.getElementsByClassName("copy-node");
-						var runNodeBtn = data.node.li.getElementsByClassName("run-node");
 						if(editNodeBtn && editNodeBtn.length > 0){
 							editNodeBtn[0].addEventListener("click", function(){editNode(data.node);});
 							copyNodeBtn[0].addEventListener("click", function(){copyNode(data.node);});
-							runNodeBtn[0].addEventListener("click", function(){runNode(data.node);});
 						}
+                        var runNodeBtn = data.node.li.getElementsByClassName("run-node");
+                        if(runNodeBtn && runNodeBtn.length > 0){
+                            runNodeBtn[0].addEventListener("click", function(){runNode(data.node);});
+                        }
+                        else{
+                            //var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
+                            //runFolderBtn[0].addEventListener("click", function(){runNode(data.node);});
+                            console.log("Run folder yet to be implemented");
+                        }
 						var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 						if(deleteNodeBtn && deleteNodeBtn.length > 0){
 							deleteNodeBtn[0].addEventListener("click", function(){deleteNode(data.node);});
@@ -833,7 +853,13 @@ function nodeConverter(serverNode, uiNode) {
 		uiNode.description = serverNode.description;
 		uiNode.nodeType = serverNode.nodeType;
 		
-		var treeNodeView = new TreeNodeView();
+		var treeNodeView;
+		if(serverNode.nodeType == 'FOLDER'){
+		 	treeNodeView = new TreeFolderView();
+		}
+		else{
+			treeNodeView = new TreeNodeView();
+		}
 		if(serverNode.nodeType == 'ENTITY'){
 			uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + treeNodeView.template();
 		}

@@ -40,10 +40,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.TagRepository;
+import com.restfiddle.dao.WorkspaceRepository;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.TagDTO;
 import com.restfiddle.entity.BaseNode;
+import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
+import com.restfiddle.entity.Workspace;
 import com.restfiddle.util.EntityToDTO;
 
 @RestController
@@ -54,12 +57,33 @@ public class TagController {
     Logger logger = LoggerFactory.getLogger(TagController.class);
 
     @Resource
+    private WorkspaceRepository workspaceRepository;
+    
+    @Resource
     private TagRepository tagRepository;
 
     @Resource
     private NodeRepository nodeRepository;
 
-    @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/tags", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    Tag create(@PathVariable("workspaceId") String workspaceId, @RequestBody TagDTO tagDTO) {
+	logger.debug("Creating a new tag with information: " + tagDTO);
+
+	Tag tag = new Tag();
+	tag.setName(tagDTO.getName());
+	tag.setDescription(tagDTO.getDescription());
+	Tag savedTag = tagRepository.save(tag);
+	
+	// Update workspace
+	Workspace workspace = workspaceRepository.findOne(workspaceId);
+	workspace.getTags().add(savedTag);
+	workspaceRepository.save(workspace);
+	
+	return savedTag;
+    }
+    
+/*    @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Tag create(@RequestBody TagDTO tagDTO) {
 	logger.debug("Creating a new tag with information: " + tagDTO);
@@ -69,7 +93,7 @@ public class TagController {
 	tag.setDescription(tagDTO.getDescription());
 	return tagRepository.save(tag);
     }
-
+*/
     @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
     Tag delete(@PathVariable("id") String id) {
@@ -82,6 +106,14 @@ public class TagController {
 	return deleted;
     }
 
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/tags", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Tag> findTagsFromAWorkspace(@PathVariable("workspaceId") Long workspaceId) {
+	logger.debug("Finding all tags from workspace with id " + workspaceId);
+
+	return tagRepository.findTagsFromAWorkspace(workspaceId);
+    }
+    
     @RequestMapping(value = "/api/tags", method = RequestMethod.GET)
     public @ResponseBody
     List<Tag> findAll() {

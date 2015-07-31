@@ -19,10 +19,11 @@ define(function(require) {
             "click .delete-tag" : "deleteTag"
 		},
 		
-		render : function(eventName) {
+		render : function() {
 			$(this.el).html(this.template({
 				tag : this.model.toJSON()
 			}));
+            console.log("In render of tag-view&&&&&&&&&&&&&&& "+ this.model.toJSON());
 			return this;
 		},
 
@@ -71,21 +72,32 @@ define(function(require) {
 	});
 
 var TagView = Backbone.View.extend({
+    el : '#rfTags',
+    addOne : function(model){
+			var tagListView = new TagListItemView({model: model});
+			this.$el.append(tagListView.render().el);
+			tagListView.$el.find('a').trigger('click');
+			return this;
+		},
 	initialize : function() {
 		this.listenTo(APP.Events, TagEvents.FETCH, this.handleTags);
 	},
 
 	showTags : function(event){
-		APP.tags.fetch({success : function(response){
-			$("#rfTags").html('');
-			response.each(function(tag) {
+        $.ajax({
+            url : APP.config.baseUrl + '/workspaces/'+APP.appView.getCurrentWorkspaceId()+'/tags',
+            type : 'get',
+            contentType : "application/json",
+            success : function(res) {
+    			$("#rfTags").html('');
+			    response.each(function(tag) {
 				var tagListView = new TagListItemView({
 					model : tag
 				});
 				$("#rfTags").append(tagListView.render().el);
 			});
-
-		}});			
+            }
+        });			
 	},
 		//TODO : Remove me!
 		handleTags : function(event){
@@ -98,9 +110,13 @@ var TagView = Backbone.View.extend({
 			}});
 		},
 		
-		render : function(eventName) {
+		render : function(isDefautlView) {
+            this.$el.html('');
+			_.each(this.model,function(p, index){
+				var tagListView = new TagListItemView({model: p});
+				this.$el.append(tagListView.render().el);
+			},this);
 			console.log("TagView#render");
-			return this;
 		}
 	});
 

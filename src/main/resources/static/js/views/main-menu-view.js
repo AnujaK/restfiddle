@@ -168,7 +168,7 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 
 	if($("#tagForm").valid()){
 		var that = this;
-		APP.tags.fetch({
+		/*APP.tags.fetch({
 			success : function(response){
 				that.collection = response;
 				var tagWithSameName = that.collection.findWhere({name : $("#tagTextField").val()});
@@ -180,6 +180,7 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 					tag.save(null, {
 						success : function(response){
 							var tagView = new TagView();
+							tagView.addOne(tag);
 							tagView.showTags();
 							var tagsView = new TagsView();
 							tagsView.showTags();
@@ -204,7 +205,45 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 					$('#tagTextField').after('<label class="text-danger" id="tag-name-error">Tag name already exists</label>');
 				}
 			}
-		})
+		})*/
+        APP.workspaces.fetch({
+				success : function(response){
+					var currentWorkspace = _.findWhere(response.models,{id : APP.appView.getCurrentWorkspaceId()});
+					var tags = currentWorkspace.get('tags');
+					var tagWithSameName = _.findWhere(tags,{name : $("#tagTextField").val()});
+					if(!tagWithSameName){
+						var tag = new TagModel({
+							name : $("#tagTextField").val(),
+							description : $("#tagTextArea").val()
+						});
+						tag.save(null, {
+							success : function(response) {
+								var tagView = new TagView();
+								tagView.addOne(tag);
+                                tagView.showTags();
+							    var tagsView = new TagsView();
+							    tagsView.showTags();
+								$("#tagTextField").val("");
+							    $("#tagTextArea").val("");
+							    $('#tagModal').modal("hide");
+                                var node = new NodeModel({
+								id : APP.appView.getCurrentRequestNodeId()
+							});
+							node.fetch({
+								success : function(response) {
+									APP.tagsLabel.display(response.get('tags'));
+								}
+							});	
+							},
+							error : function(e) {
+								alert('Some unexpected error occurred Please try later.');
+							}
+						});
+					}else{
+						$('#tagTextField').after('<label class="text-danger" id="tag-name-error">Tag name already exists</label>');
+					}
+				}
+			})
 	}
 });	
 
