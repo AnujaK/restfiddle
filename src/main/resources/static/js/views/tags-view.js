@@ -116,9 +116,19 @@ define(function(require) {
 			
 			
 		},
-		render : function(eventName) {
-			console.log("TagsView#render");
-			return this;
+		render : function(isDefaultView) {
+            this.$el.html('');
+            $("#tagLabels").empty();
+			$(".label-dropdown-menu").empty();
+			$(".label-dropdown-menu").append('<li>Select Tags</li>');
+			_.each(this.model,function(tag, index){
+				var tagsListView = new TagsListItemView({model: tag});
+				this.$el.append(tagsListView.render().el);
+                $(".label-dropdown-menu").append(tagsListView.render().el);
+				$("#tagLabels").append('<span class="label label-default" id ="' +tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
+				$("#" + tag.get('name')+ "Label").hide();
+			},this);
+			console.log("TagsView render)))");
 		}
 	});
 

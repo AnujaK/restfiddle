@@ -23,7 +23,6 @@ define(function(require) {
 			$(this.el).html(this.template({
 				tag : this.model.toJSON()
 			}));
-            console.log("In render of tag-view&&&&&&&&&&&&&&& "+ this.model.toJSON());
 			return this;
 		},
 
@@ -84,20 +83,20 @@ var TagView = Backbone.View.extend({
 	},
 
 	showTags : function(event){
-        $.ajax({
+        /*$.ajax({
             url : APP.config.baseUrl + '/workspaces/'+APP.appView.getCurrentWorkspaceId()+'/tags',
             type : 'get',
             contentType : "application/json",
-            success : function(res) {
+            success : function(response) {
     			$("#rfTags").html('');
-			    response.each(function(tag) {
-				var tagListView = new TagListItemView({
-					model : tag
-				});
-				$("#rfTags").append(tagListView.render().el);
-			});
+              
+            //TagsView showTags() here:
+            $("#tagLabels").empty();
+			$(".label-dropdown-menu").empty();
+			$(".label-dropdown-menu").append('<li>Select Tags</li>');
+            console.log("-----Response -------------- "+response);
             }
-        });			
+        });	*/		
 	},
 		//TODO : Remove me!
 		handleTags : function(event){

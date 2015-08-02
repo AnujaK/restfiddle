@@ -44,7 +44,6 @@ import com.restfiddle.dao.WorkspaceRepository;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.TagDTO;
 import com.restfiddle.entity.BaseNode;
-import com.restfiddle.entity.Project;
 import com.restfiddle.entity.Tag;
 import com.restfiddle.entity.Workspace;
 import com.restfiddle.util.EntityToDTO;
@@ -108,7 +107,7 @@ public class TagController {
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/tags", method = RequestMethod.GET)
     public @ResponseBody
-    List<Tag> findTagsFromAWorkspace(@PathVariable("workspaceId") Long workspaceId) {
+    List<Tag> findTagsFromAWorkspace(@PathVariable("workspaceId") String workspaceId) {
 	logger.debug("Finding all tags from workspace with id " + workspaceId);
 
 	return tagRepository.findTagsFromAWorkspace(workspaceId);

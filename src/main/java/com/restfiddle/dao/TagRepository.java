@@ -25,6 +25,6 @@ import com.restfiddle.entity.Tag;
 public interface TagRepository extends RfRepository<Tag, String> {
 
     @Query("{ 'workspaceId' : '' }")
-    public List<Tag> findTagsFromAWorkspace(@Param("workspaceId") Long workspaceId);
+    public List<Tag> findTagsFromAWorkspace(@Param("workspaceId") String workspaceId);
 
 }

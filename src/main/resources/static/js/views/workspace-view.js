@@ -54,6 +54,16 @@ define(function(require) {
 			var projectView = new ProjectView({model : projectList});
 			projectView.render();
 			
+            var tagList = [];
+			_.each(this.model.get('tags'), function(p){
+				tagList.push(new TagModel(p));
+			});
+            
+            var tagView = new TagView({model : tagList});
+			tagView.render();
+			var tagsView = new TagsView({model : tagList});
+			tagsView.render();
+            
             if(APP.workspaceNameView != undefined){
                 APP.workspaceNameView.undelegateEvents();
             }
@@ -152,15 +162,10 @@ define(function(require) {
 					projectView.render();
                     
                     var tags = response.at(0).get('tags');
-                    console.log("********* Tags **************"+ tags);
 					var tagList = [];
 					_.each(tags, function(p){
 						tagList.push(new TagModel(p));
 					});
-                    console.log("********* Tags **************"+ tagList.length);
-                    /*APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
-					APP.workspaceNameView.render();
-					WorkspaceEvents.triggerChange(response.at(0).get('id'));*/
 					var tagView = new TagView({model : tagList});
 					tagView.render();
                     var tagsView = new TagsView({model : tagList});
