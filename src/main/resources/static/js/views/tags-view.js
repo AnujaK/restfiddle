@@ -128,7 +128,6 @@ define(function(require) {
 				$("#tagLabels").append('<span class="label label-default" id ="' +tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
 				$("#" + tag.get('name')+ "Label").hide();
 			},this);
-			console.log("TagsView render)))");
 		}
 	});
 
