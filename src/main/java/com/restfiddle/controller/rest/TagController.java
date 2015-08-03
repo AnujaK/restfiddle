@@ -101,7 +101,13 @@ public class TagController {
 	Tag deleted = tagRepository.findOne(id);
 
 	tagRepository.delete(deleted);
-
+	List<Workspace> workspaces = workspaceRepository.findByTags(id);
+	//The list has to contain exactly 1 workspace. if is just an extra check
+	if (workspaces.size()>0){
+	    Workspace workspace = workspaces.get(0);
+	    workspace.getTags().remove(id);
+	    workspaceRepository.save(workspace);
+	}
 	return deleted;
     }
 
@@ -129,9 +135,9 @@ public class TagController {
 	return tagRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    Tag update(@PathVariable("id") String id, @RequestBody TagDTO updated) {
+    Tag update(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id, @RequestBody TagDTO updated) {
 	logger.debug("Updating tag with information: " + updated);
 
 	Tag tag = tagRepository.findOne(updated.getId());

@@ -27,4 +27,7 @@ public interface WorkspaceRepository extends RfRepository<Workspace, String> {
 
     @Query(value = "?0")
     List<Workspace> findByQuery(String query);
+    
+    @Query("{ 'tags' : ?0 }")
+    List<Workspace> findByTags(String tags);
 }

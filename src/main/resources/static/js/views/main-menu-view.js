@@ -305,13 +305,13 @@ $("#tagEditForm").submit(function(e) {
 });
 
 $("#editTagBtn").unbind("click").bind("click", function() {
-
 	if($("#tagEditForm").valid()){
 		var that = this;
-		APP.tags.fetch({
+		APP.workspaces.fetch({
 			success : function(response){
-				that.collection = response;
-				var tagWithSameName = that.collection.findWhere({name : $("#editTagTextField").val()});
+                var currentWorkspace = _.findWhere(response.models,{id : APP.appView.getCurrentWorkspaceId()});
+				var tags = currentWorkspace.get('tags');
+				var tagWithSameName = _.findWhere(tags,{name : $("#editTagTextField").val()});
 				var saveTag = function(){
 					var tag = new TagModel({
 						id : $("#editTagId").val(),
