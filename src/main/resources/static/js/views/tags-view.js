@@ -37,7 +37,13 @@ define(function(require) {
         initialize: function () {
           this.listenTo(APP.Events, TagEvents.SAVE, this.addTags);
     	},
-
+        addOne : function(tag){
+			var tagsListView = new TagsListItemView({model: tag});    
+            $(".label-dropdown-menu").append(tagsListView.render().el);
+            $("#tagLabels").append('<span class="label label-default" id ="'+ tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
+            $("#" + tag.get('name')+ "Label").hide();
+			return this;
+		},
     	addTags : function(){
            if (APP.appView.getCurrentRequestNodeId() != null) {
                 console.log("conversation id is ..." + APP.appView.getCurrentRequestNodeId());
@@ -72,7 +78,7 @@ define(function(require) {
             }
     	},
 		showTags : function(event){
-			$("#tagLabels").empty();
+			/*$("#tagLabels").empty();
 			$(".label-dropdown-menu").empty();
 			$(".label-dropdown-menu").append('<li>Select Tags</li>');
 			APP.tags.fetch({
@@ -88,7 +94,7 @@ define(function(require) {
 					});
 
 			    }
-			});			
+			});*/			
 		},
 
 		display : function(tags){

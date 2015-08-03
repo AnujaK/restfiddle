@@ -54,7 +54,7 @@ define(function(require) {
       this.$el.append('<div id="tagged-pannel"></div><div class= "tag-paginator"></div>');
 
       $.ajax({
-        url : APP.config.baseUrl + '/workspaces/1/tags/'+tagId+'/nodes',
+        url : APP.config.baseUrl +'/workspaces/' + APP.appView.getCurrentWorkspaceId() + '/tags/'+tagId+'/nodes',
         type : 'get',
         dataType : 'json',
         contentType : "application/json",

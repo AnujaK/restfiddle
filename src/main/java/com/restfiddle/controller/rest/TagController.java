@@ -82,7 +82,7 @@ public class TagController {
 	return savedTag;
     }
     
-/*    @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/api/tags", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
     Tag create(@RequestBody TagDTO tagDTO) {
 	logger.debug("Creating a new tag with information: " + tagDTO);
@@ -92,7 +92,7 @@ public class TagController {
 	tag.setDescription(tagDTO.getDescription());
 	return tagRepository.save(tag);
     }
-*/
+
     @RequestMapping(value = "/api/tags/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
     Tag delete(@PathVariable("id") String id) {

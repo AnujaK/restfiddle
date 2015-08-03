@@ -183,10 +183,12 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 								tagView.addOne(tag);
                                 tagView.showTags();
 							    var tagsView = new TagsView();
+                                tagsView.addOne(tag);
 							    tagsView.showTags();
 								$("#tagTextField").val("");
 							    $("#tagTextArea").val("");
 							    $('#tagModal').modal("hide");
+                                $('#tree').show();
                                 var node = new NodeModel({
 								id : APP.appView.getCurrentRequestNodeId()
 							});
