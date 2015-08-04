@@ -116,7 +116,12 @@ public class TagController {
     List<Tag> findTagsFromAWorkspace(@PathVariable("workspaceId") String workspaceId) {
 	logger.debug("Finding all tags from workspace with id " + workspaceId);
 
-	return tagRepository.findTagsFromAWorkspace(workspaceId);
+	// TODO: Reverse mapping is required for this
+	// return tagRepository.findTagsFromAWorkspace(workspaceId);
+	
+	Workspace workspace = workspaceRepository.findOne(workspaceId);
+	return workspace == null ? null : workspace.getTags();
+	
     }
     
     @RequestMapping(value = "/api/tags", method = RequestMethod.GET)

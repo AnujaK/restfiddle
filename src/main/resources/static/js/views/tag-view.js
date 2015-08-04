@@ -70,48 +70,21 @@ define(function(require) {
 		}
 	});
 
-var TagView = Backbone.View.extend({
-    el : '#rfTags',
-    addOne : function(model){
-			var tagListView = new TagListItemView({model: model});
-			this.$el.append(tagListView.render().el);
-			tagListView.$el.find('a').trigger('click');
-			return this;
+	var TagView = Backbone.View.extend({
+	    el : '#rfTags',
+	    addOne : function(model){
+				var tagListView = new TagListItemView({model: model});
+				this.$el.append(tagListView.render().el);
+				tagListView.$el.find('a').trigger('click');
+				return this;
+			},
+		initialize : function() {
+		 	this.listenTo(this.collection, 'sync', this.render);
 		},
-	initialize : function() {
-		this.listenTo(APP.Events, TagEvents.FETCH, this.handleTags);
-	},
-
-	showTags : function(event){
-        /*$.ajax({
-            url : APP.config.baseUrl + '/workspaces/'+APP.appView.getCurrentWorkspaceId()+'/tags',
-            type : 'get',
-            contentType : "application/json",
-            success : function(response) {
-    			$("#rfTags").html('');
-              
-            //TagsView showTags() here:
-            $("#tagLabels").empty();
-			$(".label-dropdown-menu").empty();
-			$(".label-dropdown-menu").append('<li>Select Tags</li>');
-            console.log("-----Response -------------- "+response);
-            }
-        });	*/		
-	},
-		//TODO : Remove me!
-		handleTags : function(event){
-			APP.tags.fetch({success : function(response){
-				response.each(function(tag) {
-					var tagListView = new TagListItemView({
-						model : tag
-					});
-				});
-			}});
-		},
-		
+			
 		render : function(isDefautlView) {
-            this.$el.html('');
-			_.each(this.model,function(p, index){
+	        this.$el.html('');
+			_.each(this.collection.models,function(p, index){
 				var tagListView = new TagListItemView({model: p});
 				this.$el.append(tagListView.render().el);
 			},this);

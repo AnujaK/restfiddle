@@ -179,9 +179,6 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 						});
 						tag.save(null, {
 							success : function(response) {
-								var tagView = new TagView();
-								tagView.addOne(tag);
-                                tagView.showTags();
 							    var tagsView = new TagsView();
                                 tagsView.addOne(tag);
 							    tagsView.showTags();
@@ -320,10 +317,9 @@ $("#editTagBtn").unbind("click").bind("click", function() {
 					});
 					tag.save(null, {
 						success : function(response) {
-							var tagView = new TagView();
-							tagView.showTags();
-							var tagsView = new TagsView();
-							tagsView.showTags();
+							
+							APP.tags.fetch();
+							
 							var node = new NodeModel({
 								id : APP.appView.getCurrentRequestNodeId()
 							});
