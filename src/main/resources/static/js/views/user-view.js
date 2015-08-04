@@ -13,7 +13,7 @@ define(function(require) {
 		
 		events : {
 			"click .deleteUser" : "deleteUser",
-			"click #deleteCollabotator" : "deleteCollabotator"
+			"click #deleteCollaborator" : "deleteCollaborator"
 		},
 
 		render : function(eventName) {
@@ -41,7 +41,7 @@ define(function(require) {
 			});
 		},
 
-		deleteCollabotator : function(event){
+		deleteCollaborator : function(event){
 			console.log(event);
 		}
 	});
