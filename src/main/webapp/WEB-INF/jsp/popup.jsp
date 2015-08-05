@@ -180,32 +180,22 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Manage Collaborators</h4>
 				</div>
-				<div class="modal-body">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>RF Admin</td>
-								<td>rf-admin@example.com</td>
-								<td style="color:lightgray;">Delete</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>RF User</td>
-								<td>rf-user@example.com</td>
-								<td>Delete</td>
-							</tr>
-						</tbody>
-					</table>			
-				</div>
+                <div class="modal-body">
+				<div id= "collaborators"></div>
+				<a id = "addCollaborator">Add Collaborators</a>
+				<form id = "addCollaboratorForm">
+					<div class = "row">
+						<div class = "col-lg-8 col-md-8 col-sm-10">
+							<br>
+							<input type="text" id="collaboratorName" class="form-control" name = "collaboratorName" placeholder="Name" required> <br>
+							<input type="email" id="collaboratorEmailId" class="form-control" name = "collaboratorEmailId" placeholder="Email Id" required><br>
+							<input type="password" id="collaboratorPassword" class="form-control" name = "collaboratorPassword" placeholder="Password" required>
+							<br>
+							<button type="button" class="btn btn-default pull-right" id = "saveCollaborator">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>

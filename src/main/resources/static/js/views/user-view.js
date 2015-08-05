@@ -71,6 +71,8 @@ define(function(require) {
 					});
 					$("#manageCollaboratorsModal").find('.modal-body').append(userListView.render().el);
 				});
+                 $("#manageCollaboratorsModal").find('.modal-body').append('<a id = "addCollaborator">Add Collaborators</a>'+ '<form id = "addCollaboratorForm" style="display:none;">'+
+					'<div class = "row"><div class = "col-lg-8 col-md-8 col-sm-10">	<br><input type="text" id="collaboratorName" class="form-control" name = "collaboratorName" placeholder="Name" required> <br>		<input type="email" id="collaboratorEmailId" class="form-control" name = "collaboratorEmailId" placeholder="Email Id" required><br>							<input type="password" id="collaboratorPassword" class="form-control" name = "collaboratorPassword" placeholder="Password" required>							<br>							<button type="button" class="btn btn-default pull-right" id = "saveCollaborator">Save</button>						</div>					</div>				</form>');
 			}});
 		},
 		

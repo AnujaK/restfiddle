@@ -12,6 +12,10 @@ define(function(require) {
 		UserEvents.triggerFetch();
    });
    
+   $("#manageCollaboratorsMenu").bind('click', function(){
+		UserEvents.triggerFetch();
+   });
+   
    UserEvents.triggerFetch = function(){
 	   APP.Events.trigger(UserEvents.FETCH);
     };
