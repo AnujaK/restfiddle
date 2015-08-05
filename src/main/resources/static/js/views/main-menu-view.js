@@ -179,21 +179,19 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 						});
 						tag.save(null, {
 							success : function(response) {
-							    var tagsView = new TagsView();
-                                tagsView.addOne(tag);
-							    tagsView.showTags();
+				
 								$("#tagTextField").val("");
 							    $("#tagTextArea").val("");
 							    $('#tagModal').modal("hide");
-                                $('#tree').show();
+                 
                                 var node = new NodeModel({
-								id : APP.appView.getCurrentRequestNodeId()
-							});
-							node.fetch({
-								success : function(response) {
-									APP.tagsLabel.display(response.get('tags'));
-								}
-							});	
+                                	id : APP.appView.getCurrentRequestNodeId()
+								});
+								node.fetch({
+									success : function(response) {
+										APP.tagsLabel.display(response.get('tags'));
+									}
+								});	
 							},
 							error : function(e) {
 								alert('Some unexpected error occurred Please try later.');
