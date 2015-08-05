@@ -181,10 +181,10 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 							success : function(response) {
 								var tagView = new TagView();
 								tagView.addOne(tag);
-                                tagView.showTags();
+                               // tagView.showTags();
 							    var tagsView = new TagsView();
                                 tagsView.addOne(tag);
-							    tagsView.showTags();
+							    //tagsView.showTags();
 								$("#tagTextField").val("");
 							    $("#tagTextArea").val("");
 							    $('#tagModal').modal("hide");

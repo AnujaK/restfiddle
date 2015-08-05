@@ -45,6 +45,17 @@ define(function(require) {
 			}));
 			return this;
 		},
+		showTags : function() {
+			var tagList = [];
+			_.each(this.model.get('tags'), function(p){
+				tagList.push(new TagModel(p));
+			});
+			var tagView = new TagView({model : tagList});
+			tagView.render();
+			var tagsView = new TagsView({model : tagList});
+			tagsView.render();
+		},
+		
 		showProjects : function() {
 		
 			var projectList = [];
@@ -59,8 +70,6 @@ define(function(require) {
 				tagList.push(new TagModel(p));
 			});
             
-            var tagView = new TagView({model : tagList});
-			tagView.render();
 			var tagsView = new TagsView({model : tagList});
 			tagsView.render();
             
@@ -166,8 +175,7 @@ define(function(require) {
 					_.each(tags, function(p){
 						tagList.push(new TagModel(p));
 					});
-					var tagView = new TagView({model : tagList});
-					tagView.render();
+				
                     var tagsView = new TagsView({model : tagList});
 					tagsView.render();
 				}

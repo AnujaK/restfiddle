@@ -78,24 +78,32 @@ define(function(require) {
             }
     	},
 		showTags : function(event){
-			/*$("#tagLabels").empty();
-			$(".label-dropdown-menu").empty();
-			$(".label-dropdown-menu").append('<li>Select Tags</li>');
-			APP.tags.fetch({
-			    success : function(response){
-				
-					response.each(function(tag) {
-						var tagsListView = new TagsListItemView({
-							model : tag
-						});
-						$(".label-dropdown-menu").append(tagsListView.render().el);
-						$("#tagLabels").append('<span class="label label-default" id ="'+ tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
-						$("#" + tag.get('name')+ "Label").hide();
-					});
+            
+           /* $.ajax({
+                url : APP.config.baseUrl + '/workspaces/'+APP.appView.getCurrentWorkspaceId()+'/tags',
+                type : 'get',
+                dataType : 'json',
+                contentType : "application/json",
+                success : function(response) {
+                    $("#rfTags").html('');
 
-			    }
-			});*/			
-		},
+                //TagsView showTags() here:
+                    $("#tagLabels").empty();
+                    $(".label-dropdown-menu").empty();
+                    $(".label-dropdown-menu").append('<li>Select Tags</li>');
+                    console.log("Response are "+response);
+                    response.each(function(tag) {
+                        console.log("Tags are "+tag);
+				        var tagsListView = new TagsListItemView({
+							model : tag
+                        });
+				        $(".label-dropdown-menu").append(tagsListView.render().el);
+                        $("#tagLabels").append('<span class="label label-default" id ="'+ tag.get('name')+'Label">'+tag.get('name')+'</span>&nbsp;&nbsp;');
+                        $("#" + tag.get('name')+ "Label").hide();
+				});
+                }	
+            });
+		},*/
 
 		display : function(tags){
 			var that  = this;

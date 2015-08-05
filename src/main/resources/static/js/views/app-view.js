@@ -48,11 +48,6 @@ define(function(require) {
 				model : APP.users
 			});
 			
-			APP.tags = new TagCollection();
-			var tagView = new TagView({
-				model : APP.tags
-			});
-			
 			APP.conversation = new ConversationView();
 			APP.tagsLabel = new TagsView();
             APP.projectRunner = new ProjectRunnerView();
@@ -92,6 +87,13 @@ define(function(require) {
 					$("#editWorkspaceTextArea").val(workspace.description);
 				}
 			});
+			
+			APP.tags = new TagCollection([],{ id : id });
+			var tagView = new TagView({
+				collection : APP.tags
+			});
+			
+			APP.tags.fetch();
 			
 			tree.resetTree();
 			this.workspaceId = id;
