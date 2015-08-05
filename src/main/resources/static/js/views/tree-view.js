@@ -550,6 +550,39 @@ define(function(require) {
 			}
 		});
 	});
+        
+	// API Name in second column should get trimmed based on column width and not be limited to the fixed width
+	var setAPICallNameMaxWidth  = function() {
+		$( ".large-text" ).each(function() {
+			var fancytreeNodeWidth = $(this).closest(".fancytree-node").width();
+			var fancytreeExpanderWidth = $(this).closest(".fancytree-node").find(".fancytree-expander").outerWidth(true);
+			var fancytreeIconWidth = $(this).closest(".fancytree-node").find(".fancytree-icon").outerWidth(true);
+
+			var fancytreeTitle = $(this).closest(".fancytree-title");
+			var fancytreeTitleMarginsPaddings = parseInt(fancytreeTitle.css("margin-left").replace("px", "")) + parseInt(fancytreeTitle.css("margin-right").replace("px", "")) + fancytreeTitle.outerWidth() - fancytreeTitle.width();
+
+			var lozengeWidth = $(this).closest(".fancytree-node").find(".fancytree-title").find(".lozenge").outerWidth(true);
+
+			// menu arrow's width is hardcoded, because it is inconvenient to get it in runtime
+			var menuArrowWidth = 24;
+
+			var result = fancytreeNodeWidth - fancytreeExpanderWidth - fancytreeIconWidth - fancytreeTitleMarginsPaddings - lozengeWidth - menuArrowWidth;
+
+			var div = $(".rf-col-2").get(0);
+				if (div.scrollHeight > div.clientHeight) {
+				// scroll width is hardcoded, because it is inconvenient to get it in runtime
+				var scrollSize = 17;
+				result -= scrollSize;
+			}
+			result = Math.floor(result);
+
+			$(this).css({"max-width":result + "px"});
+		});
+	}
+
+	$(window).resize(function() {
+		setAPICallNameMaxWidth();
+	});
 
 $("#deleteRequestBtn").bind("click", function() {
 	var nodeId = $("#deleteNodeId").val();
@@ -1056,6 +1089,7 @@ function nodeConverter(serverNode, uiNode) {
 				});
 
 				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
+				setAPICallNameMaxWidth();
 			}
 		});
 	};
