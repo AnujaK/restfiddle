@@ -179,12 +179,9 @@ $("#saveTagBtn").unbind("click").bind("click", function() {
 						});
 						tag.save(null, {
 							success : function(response) {
-								var tagView = new TagView();
-								tagView.addOne(tag);
-                               // tagView.showTags();
 							    var tagsView = new TagsView();
                                 tagsView.addOne(tag);
-							    //tagsView.showTags();
+							    tagsView.showTags();
 								$("#tagTextField").val("");
 							    $("#tagTextArea").val("");
 							    $('#tagModal').modal("hide");
@@ -320,10 +317,9 @@ $("#editTagBtn").unbind("click").bind("click", function() {
 					});
 					tag.save(null, {
 						success : function(response) {
-							var tagView = new TagView();
-							tagView.showTags();
-							var tagsView = new TagsView();
-							tagsView.showTags();
+							
+							APP.tags.fetch();
+							
 							var node = new NodeModel({
 								id : APP.appView.getCurrentRequestNodeId()
 							});
@@ -589,17 +585,17 @@ $("#deleteProjectBtn").bind("click", function() {
     $("#deleteProjectModal").modal('hide');
 });
 
-		$("#colaboratorModal").on('show.bs.modal',function(e){
+		$("#collaboratorModal").on('show.bs.modal',function(e){
 			APP.users.fetch({
 			    success : function(response){
 			    	console.log(response)
 					$('#collaborators').html('');
 					console.log(response);
 					response.each(function(user) {
-						$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+						$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
 					});
 
-					$(".deleteCollabotator").each(function(i, element){
+					$(".deleteCollaborator").each(function(i, element){
 				        $(element).click(function(event){
 				           	$.ajax({
 								url : APP.config.baseUrl + '/users/' + event.currentTarget.dataset.id,
@@ -614,7 +610,7 @@ $("#deleteProjectBtn").bind("click", function() {
 												$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
 										    });	
 										    response.each(function(user) {
-												$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+												$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
 											});			
 							         	}
 							    	 });
@@ -660,7 +656,7 @@ $("#deleteProjectBtn").bind("click", function() {
 								$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
 						    });	
 						    response.each(function(user) {
-								$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollabotator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
+								$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
 							});					
 					    }
 					});
