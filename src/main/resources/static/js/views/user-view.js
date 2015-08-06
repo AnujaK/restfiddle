@@ -39,11 +39,8 @@ define(function(require) {
                     alert('User deleted successfully!');
 				}
 			});
-		},
-
-		deleteCollaborator : function(event){
-			console.log(event);
 		}
+
 	});
 	
 	var UserView = Backbone.View.extend({
