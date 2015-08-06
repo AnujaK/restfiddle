@@ -632,8 +632,6 @@ $("#deleteTagBtn").bind("click", function() {
 		dataType : 'json',
 		contentType : "application/json",
 		success : function(data) {
-			var tagsView = new TagsView();
-			tagsView.showTags();
 			var node = new NodeModel({
 				id : APP.appView.getCurrentRequestNodeId()
 			});
