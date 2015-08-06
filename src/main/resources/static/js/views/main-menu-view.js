@@ -7,9 +7,11 @@ define(function(require) {
 	require("libs/jquery.validate");
 	var Workspace = require('models/workspace');
 	var ProjectModel = require("models/project");
+    var UserModel = require("models/user");
 	var TagModel = require("models/tag");
 	var NodeModel = require("models/node");
 	var ProjectView = require("views/project-view");
+    var UserView = require("views/user-view");
 	var StarView = require("views/star-view");
 	var TreeView = require("views/tree-view");
 	var TagView = require('views/tag-view');
@@ -587,52 +589,14 @@ $("#deleteProjectBtn").bind("click", function() {
     $("#deleteProjectModal").modal('hide');
 });
 
-		$("#collaboratorModal").on('show.bs.modal',function(e){
-			APP.users.fetch({
-			    success : function(response){
-			    	console.log(response)
-					$('#collaborators').html('');
-					console.log(response);
-					response.each(function(user) {
-						$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
-					});
+$('#manageCollaboratorsModal .modal-body').on('click', '#addCollaborator', function(){
+    $('#addCollaboratorForm').show();
+    $("#collaboratorName").val("");
+    $("#collaboratorEmailId").val("");
+    $("#collaboratorPassword").val("");
+});
 
-					$(".deleteCollaborator").each(function(i, element){
-				        $(element).click(function(event){
-				           	$.ajax({
-								url : APP.config.baseUrl + '/users/' + event.currentTarget.dataset.id,
-								type : 'delete',
-								contentType : "application/json",
-								success : function(data) {
-				                    APP.users.fetch({
-				                        success : function(response){
-				                        	$("#rfUsers").html('');
-				                        	$('#collaborators').html('');
-										    response.each(function(user) {
-												$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
-										    });	
-										    response.each(function(user) {
-												$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
-											});			
-							         	}
-							    	 });
-								}
-			            	});
-				        });
-    				});	
-			    }	
-			});
-            $('#addCollaboratorForm').hide();
-		});
-
-		$('#addCollaborator').bind('click',function(){
-			$('#addCollaboratorForm').show();
-			$("#collaboratorName").val("");
-			$("#collaboratorEmailId").val("");
-			$("#collaboratorPassword").val("");
-		});
-
-		$("#saveCollaborator").bind("click",function(){
+$('#manageCollaboratorsModal .modal-body').on('click', '#saveCollaborator', function(){
 			$.ajax({
 				url : APP.config.baseUrl + '/users',
 				type : 'post',
@@ -649,20 +613,18 @@ $("#deleteProjectBtn").bind("click", function() {
 					$("#collaboratorPassword").val("");
 					$("#collaboratorEmailId").val("");
 					$('#addCollaboratorForm').hide();
-					
 					APP.users.fetch({
-						success : function(response){
-		                    $("#rfUsers").html('');
-                        	$('#collaborators').html('');
-						    response.each(function(user) {
-								$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
-						    });	
-						    response.each(function(user) {
-								$("#collaborators").append("<li>&nbsp;"+user.attributes.name+"&nbsp;&nbsp;"+user.attributes.email+"&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-trash' id = 'deleteCollaborator' data-id = '"+ user.attributes.id+"'></span></li><br>");					
-							});					
+						success : function(response){	
+                            var userList = [];
+                            response.each(function(user) {
+                                userList.push(new UserModel(user));
+                            });
+				            var userView = new UserView({model : userList});
+                            userView.handleUsers();
+                            userView.showUsers();
 					    }
 					});
 		        }
 		    });    
-	});
+	   });
 });

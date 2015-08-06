@@ -29,12 +29,14 @@ define(function(require) {
 				type : 'delete',
 				contentType : "application/json",
 				success : function(data) {
-					$("#manageCollaboratorsModal").modal("hide");
-                    APP.users.fetch({success : function(response){
-                    $("#rfUsers").html('');
-				    response.each(function(user) {
-					$("#rfUsers").append("<li>&nbsp;&nbsp;<span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+user.attributes.name+"</li>");
-				    });				
+                    APP.users.fetch({success : function(response){	
+                        var userList = [];
+                        response.each(function(user) {
+                            userList.push(new UserModel(user));
+                        });
+				        var userView = new UserView({model : userList});
+                        userView.handleUsers();
+                        userView.showUsers();
 			         }});
                     alert('User deleted successfully!');
 				}
@@ -47,6 +49,7 @@ define(function(require) {
 		initialize : function() {
 			this.listenTo(APP.Events, UserEvents.FETCH, this.handleUsers);
 		},
+        
 		showUsers : function(){
 			APP.users.fetch({success : function(response){
 				console.log('fetched users');
@@ -68,7 +71,7 @@ define(function(require) {
 					});
 					$("#manageCollaboratorsModal").find('.modal-body').append(userListView.render().el);
 				});
-                 $("#manageCollaboratorsModal").find('.modal-body').append('<a id = "addCollaborator">Add Collaborators</a>'+ '<form id = "addCollaboratorForm" style="display:none;">'+
+                 $("#manageCollaboratorsModal").find('.modal-body').append('<a href="#" id = "addCollaborator">Add Collaborators</a>'+ '<form id = "addCollaboratorForm" style="display:none;">'+
 					'<div class = "row"><div class = "col-lg-8 col-md-8 col-sm-10">	<br><input type="text" id="collaboratorName" class="form-control" name = "collaboratorName" placeholder="Name" required> <br>		<input type="email" id="collaboratorEmailId" class="form-control" name = "collaboratorEmailId" placeholder="Email Id" required><br>							<input type="password" id="collaboratorPassword" class="form-control" name = "collaboratorPassword" placeholder="Password" required>							<br>							<button type="button" class="btn btn-default pull-right" id = "saveCollaborator">Save</button>						</div>					</div>				</form>');
 			}});
 		},
