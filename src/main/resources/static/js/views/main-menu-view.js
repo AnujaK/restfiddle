@@ -597,6 +597,11 @@ $('#manageCollaboratorsModal .modal-body').on('click', '#addCollaborator', funct
 });
 
 $('#manageCollaboratorsModal .modal-body').on('click', '#saveCollaborator', function(){
+    if($("#addCollaboratorForm").valid()){
+        APP.users.fetch({
+			success : function(response){
+            var collaboratorWithSameEmail = response.findWhere({email : $("#collaboratorEmailId").val()});
+            if(!collaboratorWithSameEmail){
 			$.ajax({
 				url : APP.config.baseUrl + '/users',
 				type : 'post',
@@ -625,6 +630,25 @@ $('#manageCollaboratorsModal .modal-body').on('click', '#saveCollaborator', func
 					    }
 					});
 		        }
-		    });    
+		    });
+            }
+                else{
+						$('#collaboratorEmailId').after('<label class="text-danger" id="collaborator-add-error">Email id already exists</label>');
+					}
+            } //success
+                
+             }); 
+            }
 	   });
+    
+$('#manageCollaboratorsModal .modal-body').on('keyup', '#collaboratorEmailId', function(){
+    if($('#collaboratorEmailId').val() == ''){
+    	$('#collaborator-add-error').remove();
+    };
+});
+
+$("#manageCollaboratorsModal").on('show.bs.modal',function(e){
+	$("#collaborator-add-error").text("");
+});
+    
 });
