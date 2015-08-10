@@ -58,6 +58,13 @@ define(function(require) {
 			break;
 		}
 	};
+	
+	var getTitleClass = function(method){
+		if(method)
+			return method.toLowerCase();
+		else
+			return "";
+	}
 
 	
 	function editNode(node){
@@ -550,7 +557,7 @@ define(function(require) {
 		node.data.description = nodeModel.attributes.description;
 		var colorCode = getColorCode(nodeModel.attributes.method);
 		var treeNodeView = new TreeNodeView();
-		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
@@ -876,7 +883,7 @@ function nodeConverter(serverNode, uiNode) {
 
 			if(serverNode.children[i].method){
 				colorCode = getColorCode(serverNode.children[i].method);
-				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template();
+				title = '<span class="lozenge left '+ colorCode +' auth_required">'+serverNode.children[i].method+'</span>' + '<span class = "large-text '+getTitleClass(serverNode.children[i].method) +'" title = "' + serverNode.children[i].name+'">' + serverNode.children[i].name + '</span>'+ treeNodeView.template();
 			}else{
 				title = serverNode.children[i].name + treeNodeView.template()
 			}
@@ -996,7 +1003,7 @@ function nodeConverter(serverNode, uiNode) {
     	node.data.name = nodeModel.attributes.name;
         var colorCode = getColorCode(nodeModel.attributes.method);
     	var treeNodeView = new TreeNodeView();
-    	node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
+    	node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
     	node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
     	node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
     	node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
@@ -1033,7 +1040,7 @@ function nodeConverter(serverNode, uiNode) {
 	    node.data.name = nodeModel.attributes.name;
 	    var colorCode = getColorCode(nodeModel.attributes.method);
 	    var treeNodeView = new TreeNodeView();
-	    node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
+	    node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' + '<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>'+ treeNodeView.template());
 	    node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 	    node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 	    node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});

@@ -551,7 +551,7 @@ ul .dropdown-menu li{
 }
 
 .large-text {
-  max-width: 140px;
+  max-width : 100%;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -559,6 +559,20 @@ ul .dropdown-menu li{
   vertical-align: middle;
   font-size: 13px;
 }
+
+.large-text.get {
+	max-width : calc(100% - 80px);
+}
+.large-text.put {
+	max-width : calc(100% - 80px);
+}
+.large-text.post {
+	max-width : calc(100% - 87px);
+}
+.large-text.delete {
+	max-width : calc(100% - 102px);
+}
+
 
 @media (max-width:767px) {
   .env-selectbox{
