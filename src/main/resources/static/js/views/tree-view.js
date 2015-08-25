@@ -76,10 +76,6 @@ define(function(require) {
 			alert("Please use 'Edit Project' menu to edit a project.");
 			return;
 		}
-		else if(node.data.nodeType == 'ENTITY'){
-			$("#editEntityModal").modal("show");
-			return;
-		}
 		$("#editNodeModal").modal("show");
 		
 		$("#editNodeId").val(node.data.id);
