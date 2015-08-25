@@ -150,6 +150,40 @@ public class GenerateApiController {
 
 	nodeName = "Update " + entityNode.getName();
 	createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
+	
+	if(entityNode.getName().equals("User")){
+	 // API to GENERATE >> Login Entity
+	    conversationDTO = new ConversationDTO();
+	    rfRequestDTO = new RfRequestDTO();
+	    rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/login");
+	    rfRequestDTO.setMethodType("POST");
+
+	    JSONObject json = new JSONObject();
+	    json.put("username", "");
+	    json.put("password", "");
+
+	    rfRequestDTO.setApiBody(json.toString(4));
+	    conversationDTO.setRfRequestDTO(rfRequestDTO);
+
+	    createdConversation = conversationController.create(conversationDTO);
+	    conversationDTO.setId(createdConversation.getId());
+
+	    nodeName = "Login " + entityNode.getName();
+	    createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
+	    
+	 // API to GENERATE >> Get Entity Data By Id
+	    conversationDTO = new ConversationDTO();
+	    rfRequestDTO = new RfRequestDTO();
+	    rfRequestDTO.setApiUrl("http://localhost:8080/api/" + projectId + "/entities/logout?llt=");
+	    rfRequestDTO.setMethodType("GET");
+	    conversationDTO.setRfRequestDTO(rfRequestDTO);
+
+	    createdConversation = conversationController.create(conversationDTO);
+	    conversationDTO.setId(createdConversation.getId());
+
+	    nodeName = "Logout " + entityNode.getName();
+	    createdNode = createNode(nodeName, entityNode.getId(), projectId, conversationDTO);
+	}
 
 	return null;
     }

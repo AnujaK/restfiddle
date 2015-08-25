@@ -390,7 +390,7 @@ define(function(require) {
 		$("#newEntityName").val("");
 		$("#newEntityDescription").val("");
 	});
-
+	
 	$("#createNewEntityBtn").unbind("click").bind("click", function() {
 	  if($('#createNewEntityForm').valid()){
 	  	var activeFolder = tree.getActiveFolder();
@@ -423,6 +423,92 @@ define(function(require) {
         	$('#newEntityName').after('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
      	}
 	  }
+	});
+	
+	$('#createUserModal').on('show.bs.modal', function (event) {
+		var activeFolder = tree.getActiveFolder(); 
+	    if(activeFolder.data.nodeType != 'ENTITY'){
+	    	$("#createUserModal").find(".modal-body").html('This will create system defined entity User. Are you sure you want to create?');
+	    	$("#createUserEntity").prop("disabled",false);
+	    } else {
+	    	$("#createUserModal").find(".modal-body").html('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
+	    	$("#createUserEntity").prop("disabled",true);
+	    }
+	});
+	
+	$("#createUserEntity").unbind("click").bind("click", function() {
+	  
+	  	var activeFolder = tree.getActiveFolder();
+	 
+	    if(activeFolder.data.nodeType != 'ENTITY'){
+
+			var entityFields = [{name:"username",type:"String"},{name:"password",type:"String"},{name:"role",type:"Relation"}];
+
+			var entity = new EntityModel({
+				id : null,
+				name : "User",
+				description : "Predefined Entity User",
+				fields : entityFields
+
+			});
+
+			tree.createNewNode({
+				nodeName : "User",
+				nodeDesc : "Predefined Entity User",
+				conversation : null,
+				entity : entity,
+				successCallBack : function() {
+					$("#entityModal").modal("hide");
+					$("#createUserModal").modal("hide");
+				}
+			});
+        }else{
+        	$("#createUserModal").find(".modal-body").html('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
+     	}
+	  
+	});
+	
+	$('#createRoleModal').on('show.bs.modal', function (event) {
+		var activeFolder = tree.getActiveFolder(); 
+	    if(activeFolder.data.nodeType != 'ENTITY'){
+	    	$("#createRoleModal").find(".modal-body").html('This will create system defined entity Role. Are you sure you want to create?');
+	    	$("#createRoleEntity").prop("disabled",false);
+	    } else {
+	    	$("#createRoleModal").find(".modal-body").html('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
+	    	$("#createRoleEntity").prop("disabled",true);
+	    }
+	});
+	
+	$("#createRoleEntity").unbind("click").bind("click", function() {
+	  
+	  	var activeFolder = tree.getActiveFolder();
+	 
+	    if(activeFolder.data.nodeType != 'ENTITY'){
+
+			var entityFields = [{name:"username",type:"String"}];
+
+			var entity = new EntityModel({
+				id : null,
+				name : "Role",
+				description : "Predefined Entity Role",
+				fields : entityFields
+
+			});
+
+			tree.createNewNode({
+				nodeName : "Role",
+				nodeDesc : "Predefined Entity Role",
+				conversation : null,
+				entity : entity,
+				successCallBack : function() {
+					$("#entityModal").modal("hide");
+					$("#createRoleModal").modal("hide");
+				}
+			});
+        }else{
+        	$("#createRoleModal").find(".modal-body").html('<label class="text-danger" id="new-entity-error">Sorry you cannot create entity inside another entity.</label>');
+     	}
+	  
 	});
 
 	var getEntityFields = function(){
