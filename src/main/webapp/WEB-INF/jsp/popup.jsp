@@ -24,23 +24,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">New Entity</h4>
 				</div>
-      
-                <div class="row">
-            
-                </div>
-              
 				<div class="modal-body">
-                    <div class="row">
-                    <div class="col-xs-6">
-                        <select class="predefinedEntities form-control">
-                                <option selected>Custom Entity</option>
-                                <option value="-1"  disabled>Predefined Entities</option>
-                                <option value="user">User</option>
-                                <option value="role">Role</option>
-                        </select>
-                    </div>
-                    </div>
-                    <br>
 					<form id = "createNewEntityForm">
 					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name" name = "entityName" required>
                     <p class="text-danger" id="new-entity-error"></p>
@@ -61,25 +45,6 @@
 			</div>
 		</div>
 	</div>
-<div class="modal fade" id="createPredefinedEntity" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Delete Node</h4>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" id="deleteNodeId"/>
-				Are You Sure You Want To Delete Selected Node?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				<button type="button" class="btn btn-primary" id="deleteRequestBtn">Yes</button>
-			</div>
-		</div>
-	</div>
-</div>    
-
 	<div class="modal fade" id="folderModal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
