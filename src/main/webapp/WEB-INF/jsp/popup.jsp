@@ -25,6 +25,16 @@
 					<h4 class="modal-title">New Entity</h4>
 				</div>
 				<div class="modal-body">
+					<div class="btn-group">
+				        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+				            Predefined Entity&nbsp;&nbsp;<span class="caret"></span>
+				        </button>
+						<ul class="dropdown-menu">
+	            			<li><a class="rf-font-12" data-toggle="modal" data-target="#createUserModal">User Entity</a></li>
+	            			<li><a class="rf-font-12" data-toggle="modal" data-target="#createRoleModal">Role Entity</a></li>
+	            		</ul>
+	            	</div>
+	            	<br> <br>
 					<form id = "createNewEntityForm">
 					<input type="text" id="newEntityName" class="form-control" placeholder="Enter Entity Name" name = "entityName" required>
                     <p class="text-danger" id="new-entity-error"></p>
@@ -41,6 +51,42 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" id="createNewEntityBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="createUserModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Create User Entity</h4>
+				</div>
+
+				<div class="modal-body">
+					This will create system defined entity User. Are you sure you want to create?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="createUserEntity">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="createRoleModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Create Role Entity</h4>
+				</div>
+
+				<div class="modal-body">
+					This will create system defined entity Role. Are you sure you want to create?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-primary" id="createRoleEntity">Yes</button>
 				</div>
 			</div>
 		</div>

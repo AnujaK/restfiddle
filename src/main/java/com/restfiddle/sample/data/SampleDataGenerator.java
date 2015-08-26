@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.restfiddle.constant.NodeType;
@@ -58,6 +59,9 @@ import com.restfiddle.util.CommonUtil;
 
 @Component
 public class SampleDataGenerator {
+    
+    @Value("${application.host-uri}")
+    private String hostUri;
 
     @Autowired
     private ConfigController configController;
@@ -271,13 +275,13 @@ public class SampleDataGenerator {
 
 	ConversationDTO conversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO.setApiUrl(hostUri + "/api/workspaces");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
 	ConversationDTO postConversationDTO = new ConversationDTO();
 	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
-	rfRequestDTO2.setApiUrl("http://localhost:8080/api/workspaces");
+	rfRequestDTO2.setApiUrl(hostUri + "/api/workspaces");
 	rfRequestDTO2.setMethodType("POST");
 
 	JSONObject jsonObject = new JSONObject();
@@ -326,7 +330,7 @@ public class SampleDataGenerator {
 
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl("http://localhost:8080/api/nodes/starred");
+	rfRequestDTO.setApiUrl(hostUri + "/api/nodes/starred");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 	createdConversation = conversationController.create(conversationDTO);
