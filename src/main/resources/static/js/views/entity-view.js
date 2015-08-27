@@ -9,6 +9,12 @@ define(function(require) {
         $("#entityFieldsWrapper").append(entityFieldView.render().el);
 	});
     
+    $("#addFieldEditEntityBtn").unbind("click").bind("click", function() {
+        var entityFieldView = new EntityFieldView();
+        $("#editEntityFieldsWrapper").append(entityFieldView.render().el);
+        $("#regenerateAPI").prop("disabled",false);
+	});
+    
 	var EntityFieldView = Backbone.View.extend({	
         template: _.template($('#tpl-entity-field').html()),
         

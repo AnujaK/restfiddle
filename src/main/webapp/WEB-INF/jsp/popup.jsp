@@ -398,7 +398,37 @@
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
+
+<div class="modal fade" id="editEntityModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="editNodeModalLabel">Edit Entity</h4>
+			    </div>
+                <div class="modal-body">
+				<form id = "editNodeForm">
+					<input type="hidden" id="editEntityId"/>
+					<input type="text" id="editEntityTextField" class="form-control" placeholder="Enter Node Name" name = "editNodeName" required> <br>
+					<textarea id="editEntityTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                    <br>
+					<p>
+						<button type="button" class="btn btn-default btn-sm" id="addFieldEditEntityBtn">Add Field</button>
+					</p>
+					<div id="editEntityFieldsWrapper">
+					</div>
+					<br>
+                    <input type="checkbox" id="regenerateAPI" placeholder="Regenerate API" name = "regenerateAPI" disabled="true"> Regenerate API </input> <br>
+			    </form>
+			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="editNodeBtn">Save changes</button>
+				</div>
+			</div>
+		</div>
+</div>
 
 <div class="modal fade" id="copyNodeModal" tabindex="-1">
 	<div class="modal-dialog">

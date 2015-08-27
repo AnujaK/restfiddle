@@ -76,8 +76,14 @@ define(function(require) {
 			alert("Please use 'Edit Project' menu to edit a project.");
 			return;
 		}
-		$("#editNodeModal").modal("show");
-		
+        else if(node.data.nodeType == 'ENTITY'){
+			$("#editEntityModal").modal("show");
+            $("#editEntityId").val(node.data.id);
+		    $("#editEntityTextField").val(node.data.name);
+		    $("#editEntityTextArea").val(node.data.description);
+            return;
+		}
+        $("#editNodeModal").modal("show");
 		$("#editNodeId").val(node.data.id);
 		$("#editNodeTextField").val(node.data.name);
 		$("#editNodeTextArea").val(node.data.description);
