@@ -22,7 +22,7 @@ define(function(require) {
 				var projectListView = new ProjectListView({model: p});
 				this.$el.append(projectListView.render().el);
 				if(index == 0){
-					projectListView.$el.find('a').trigger('click');
+					//projectListView.$el.find('a').trigger('click');
 				}
 			},this);
 		}
