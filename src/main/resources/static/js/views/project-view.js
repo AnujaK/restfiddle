@@ -82,7 +82,7 @@ define(function(require) {
 				//$(this).removeClass('active');
 			//});
 
-            $('#rf-col-1-body').find('li').each(function(){
+          /*  $('#rf-col-1-body').find('li').each(function(){
                 $(this).removeClass('active');
             });
             this.$el.addClass("active");
@@ -95,7 +95,7 @@ define(function(require) {
             console.log('Project Id : ' + this.$el.find('a').data('project-id'))
             ProjectEvents.triggerChange(this.$el.find('a').data('project-id'));
             console.log('current project id is ' + APP.appView.getCurrentProjectId());
-            tree.showTree(this.$el.find('a').data('project-ref-id'));
+            tree.showTree(this.$el.find('a').data('project-ref-id')); */
         },
         render : function() {
             this.$el.html(this.template({project : this.model.toJSON()}));

@@ -9,10 +9,7 @@ define([ 'jquery',
 	
 	var init = function(){
 		APP.appView = new AppView();
-		APP.router = new AppRouter();
-		 
-	    Backbone.history.start();
-		
+		APP.router = new AppRouter();	
 	};
 	return {
 		initialize : init

@@ -158,12 +158,18 @@ define(function(require) {
 			environmentView.render();
 			
 			APP.workspaces.fetch({success : function(response){
+				var firstProjectId;
 				if(response.at(0)){
 					var projects = response.at(0).get('projects');
 					var projectList = [];
 					_.each(projects, function(p){
 						projectList.push(new ProjectModel(p));
 					});
+					
+					if(projects[0]){
+						firstProjectId = projects[0].id;
+					}	
+						
                     APP.workspaceNameView = new WorkspaceNameView({model : response.at(0)});
 					APP.workspaceNameView.render();
 					WorkspaceEvents.triggerChange(response.at(0).get('id'));
@@ -179,6 +185,13 @@ define(function(require) {
                     var tagsView = new TagsView({model : tagList});
 					tagsView.render();
 				}
+				
+				Backbone.history.start();
+				
+				if(!Backbone.history.getFragment() && firstProjectId){
+					APP.router.navigate('/project/'+firstProjectId, {trigger: true});
+				}
+				
 			}});
 		},
 		initialize : function() {
