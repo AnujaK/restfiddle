@@ -57,7 +57,7 @@ define(function(require) {
 			
 			APP.workspaces = new WorkspaceCollection(); //TODO: REMOVE FROM HERE
 			APP.environments = new EnvironmentCollection();
-		    APP.workspaceView = new WorkspaceView({
+		    var workspaceView = new WorkspaceView({
 		    	model : APP.workspaces
 		    });
 		    
@@ -65,7 +65,7 @@ define(function(require) {
 				model : APP.node
 			});
 		   
-		//	workspaceView.showDefault();
+			workspaceView.showDefault();
 		    this.listenTo(APP.Events, WorkspaceEvents.CHANGE,this.handleWorkspaceChange);
 		    this.listenTo(APP.Events, ProjectEvents.CHANGE ,this.handleProjectChange);
 		    this.listenTo(APP.Events,ConversationEvents.CHANGE,this.handleConversationChange);
