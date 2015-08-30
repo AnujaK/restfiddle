@@ -58,7 +58,7 @@ define(function(require) {
 		
 		showProjects : function() {
 		
-			var projectList = [];
+			/*var projectList = [];
 			_.each(this.model.get('projects'), function(p){
 				projectList.push(new ProjectModel(p));
 			});
@@ -81,7 +81,7 @@ define(function(require) {
 			APP.workspaceNameView.render();
 			
 			$("#switchWorkspaceModal").modal('hide');
-			WorkspaceEvents.triggerChange(this.model.get('id'));
+			WorkspaceEvents.triggerChange(this.model.get('id'));*/
 		}
 	});
 
@@ -189,7 +189,7 @@ define(function(require) {
 				Backbone.history.start();
 				
 				if(!Backbone.history.getFragment() && firstProjectId){
-					APP.router.navigate('/project/'+firstProjectId, {trigger: true});
+					APP.router.navigate('/workspace/'+ APP.appView.getCurrentWorkspaceId() +'/project/'+firstProjectId, {trigger: true});
 				}
 				
 			}});
@@ -225,6 +225,33 @@ define(function(require) {
 			APP.workspaceNameView = new WorkspaceNameView({model : workspace});
 			APP.workspaceNameView.render();
 			
+		},
+		changeWorkspace : function(workspace) {
+			var projectList = [];
+			_.each(workspace.get('projects'), function(p){
+				projectList.push(new ProjectModel(p));
+			});
+			
+			WorkspaceEvents.triggerChange(workspace.get('id'));
+			var projectView = new ProjectView({model : projectList});
+			projectView.render();
+			
+            var tagList = [];
+			_.each(workspace.get('tags'), function(p){
+				tagList.push(new TagModel(p));
+			});
+            
+			var tagsView = new TagsView({model : tagList});
+			tagsView.render();
+            
+            if(APP.workspaceNameView != undefined){
+                APP.workspaceNameView.undelegateEvents();
+            }
+            
+			APP.workspaceNameView = new WorkspaceNameView({model : workspace});
+			APP.workspaceNameView.render();
+			
+			$("#switchWorkspaceModal").modal('hide');
 		}
 	});
 

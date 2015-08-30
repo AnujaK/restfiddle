@@ -20,7 +20,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
-		<a href="#/project/<@=project.id@>" id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> class ="project-name">
+		<a href="#/workspace/<@=project.workspaceId@>/project/<@=project.id@>" id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> class ="project-name">
 		<span class="glyphicon glyphicon-list-alt">
 		</span>&nbsp;&nbsp;<@=project.name@>&nbsp;&nbsp;
               <div class="btn-group hover-down-arrow">
@@ -38,7 +38,7 @@
         </a>
 	</script>
 	<script type="text/template" id="tpl-workspace-all-list-item">
-		<a href="#" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
+		<a href="#/workspace/<@=workspace.id@>" data-workspace-id = <@=workspace.id@> class="dummyWSli list-group-item"><@=workspace.name@></a>
 	</script>
 	<script type="text/template" id="tpl-user-list-item">
 		<div class="row">
