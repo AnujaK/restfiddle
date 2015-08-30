@@ -11,6 +11,7 @@ define(function(require) {
 	var ProjectView = Backbone.View.extend({
 		el : '#test_project',
 		addOne : function(model){
+			model.set('workspaceId',APP.appView.getCurrentWorkspaceId());
 			var projectListView = new ProjectListView({model: model});
 			this.$el.append(projectListView.render().el);
 			projectListView.$el.find('a').trigger('click');

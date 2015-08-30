@@ -55,7 +55,7 @@ define(function(require) {
         },
 
 		showTaggedNodes : function(){
-			console.log("Inside showTaggedNodes");
+			/*console.log("Inside showTaggedNodes");
 			$('#rf-col-1-body').find('li').each(function(){
 				$(this).removeClass('active');
 			});
@@ -65,13 +65,14 @@ define(function(require) {
 			$('#history-items').hide();
 			$('#tagged-items').show();
 			var taggedNodeView = new TaggedNodeView();
-			taggedNodeView.showTaggedNodes(this.model.get('id'));
+			taggedNodeView.showTaggedNodes(this.model.get('id'));*/
 		}
 	});
 
 	var TagView = Backbone.View.extend({
 	    el : '#rfTags',
 	    addOne : function(model){
+	    		model.set('workspaceId',APP.appView.getCurrentWorkspaceId());
 				var tagListView = new TagListItemView({model: model});
 				this.$el.append(tagListView.render().el);
 				tagListView.$el.find('a').trigger('click');
@@ -84,6 +85,7 @@ define(function(require) {
 		render : function(isDefautlView) {
 	        this.$el.html('');
 			_.each(this.collection.models,function(p, index){
+				p.set('workspaceId',APP.appView.getCurrentWorkspaceId());
 				var tagListView = new TagListItemView({model: p});
 				this.$el.append(tagListView.render().el);
 			},this);

@@ -9,6 +9,7 @@ define(function(require) {
 	var tree = require('views/tree-view');
 	var Workspace = require('models/workspace');
 	var WorkspaceView = require('views/workspace-view');
+	var TaggedNodeView = require('views/tagged-node-view');
 
 	var AppRouter = Backbone.Router.extend({
 
@@ -20,7 +21,8 @@ define(function(require) {
 			"" : "handleDefault",
 			"starred" : "showStarred",
 			"activityLog" : "showHistory",
-			"workspace/:workspaceId(/project/:projectId)" : "showProject"
+			"workspace/:workspaceId(/project/:projectId)" : "showProject",
+			"workspace/:workspaceId/tag/:tagId" : "showTagNodes"
 		},
 
 		handleDefault : function() {
@@ -115,7 +117,33 @@ define(function(require) {
 				}
 			});
 
+		},
+		showTagNodes : function(workspaceId,tagId) {
+			var workspace = new Workspace({
+				id : workspaceId
+			});
+			workspace.fetch({
+				success : function(response) {
+					var workSpaceView = new WorkspaceView();
+					workSpaceView.changeWorkspace(response);
+
+					$('#rf-col-1-body').find('li').each(function(){
+						$(this).removeClass('active');
+					});
+					
+					var element = $('#' + tagId);
+					element.parent('li').addClass('active');
+					
+					$('#starred-items').hide();
+					$('#tree').hide();
+					$('#history-items').hide();
+					$('#tagged-items').show();
+					var taggedNodeView = new TaggedNodeView();
+					taggedNodeView.showTaggedNodes(tagId);
+				}
+			});
 		}
+		
 
 	});
 

@@ -55,7 +55,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="tpl-tag-list-item">
-        <a href="#" data-tag-id=<@=tag.id@> class = "tag-name"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;<@=tag.name@>&nbsp;&nbsp;
+        <a href="#/workspace/<@=tag.workspaceId@>/tag/<@=tag.id@>" id=<@=tag.id@> class = "tag-name"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;<@=tag.name@>&nbsp;&nbsp;
          <div class="btn-group hover-down-arrow">
                 <button type="button" class="dropdown-toggle" data-toggle="dropdown">
                     <span class= "fa fa-angle-down"></span> <span class="sr-only">Toggle Dropdown</span>
