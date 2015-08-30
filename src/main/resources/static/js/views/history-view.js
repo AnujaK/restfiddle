@@ -110,7 +110,6 @@ var HistoryView = Backbone.View.extend({
 	
 	render : function(response) {
         //ToDo: When starred nodes will be workspace specific, add 'workspace/<workspaceId>' before "starred" in url
-        window.history.pushState("", "activityLog", APP.config.root+"activityLog");
 		this.$el.html('');
         
         var historyList = response.data;

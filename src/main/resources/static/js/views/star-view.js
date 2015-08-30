@@ -181,7 +181,6 @@ var StarView = Backbone.View.extend({
 
     render: function () {
         //ToDo: When starred nodes will be workspace specific, add 'workspace/<workspaceId>' before "starred" in url
-        window.history.pushState("", "starred", APP.config.root+"starred");
         this.$el.html('');
         var starListView = new StarListView({model: this.model});
         this.$el.append('<div id="star-request-pannel"></div><div class= "star-paginator"></div>');

@@ -42,7 +42,7 @@ define(function(require) {
 		APP.socketConnector.$el.show();
 	});
 	
-	$(".starred").unbind("click").bind("click", function() {
+	/*$(".starred").unbind("click").bind("click", function() {
 		$('#rf-col-1-body').find('li').each(function(){
 			$(this).removeClass('active');
 		});
@@ -63,9 +63,9 @@ define(function(require) {
 		$('#tagged-items').hide();
 		$('#history-items').hide();
 		$('#starred-items').show();
-	});
+	});*/
 
-	$(".history").unbind("click").bind("click", function() {
+	/*$(".history").unbind("click").bind("click", function() {
 		$('#rf-col-1-body').find('li').each(function(){
 			$(this).removeClass('active');
 		});
@@ -88,7 +88,7 @@ define(function(require) {
 		$('#tagged-items').hide();
 		$('#starred-items').hide();
 		$('#history-items').show();
-	});
+	}); */
 
 	$('#projectCreationForm').validate({
 		messages : {

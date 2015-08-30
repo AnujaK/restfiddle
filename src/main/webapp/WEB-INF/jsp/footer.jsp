@@ -20,7 +20,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="tpl-project-list-item">
-		<a href="#" data-project-id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> class ="project-name">
+		<a href="#/project/<@=project.id@>" id = <@=project.id@>   data-project-ref-id = <@=project.projectRef.id@> class ="project-name">
 		<span class="glyphicon glyphicon-list-alt">
 		</span>&nbsp;&nbsp;<@=project.name@>&nbsp;&nbsp;
               <div class="btn-group hover-down-arrow">
