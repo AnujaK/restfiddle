@@ -7,29 +7,33 @@ define(function(require) {
 	var StarView = require("views/star-view");
 	var ProjectEvents = require('events/project-event');
 	var tree = require('views/tree-view');
+	var Workspace = require('models/workspace');
+	var WorkspaceView = require('views/workspace-view');
+	var TaggedNodeView = require('views/tagged-node-view');
 
 	var AppRouter = Backbone.Router.extend({
-		
-		initialize: function () {
-			
-	    },
-		
+
+		initialize : function() {
+
+		},
+
 		routes : {
 			"" : "handleDefault",
 			"starred" : "showStarred",
 			"activityLog" : "showHistory",
-			"project/:projectId" : "showProject"
+			"workspace/:workspaceId(/project/:projectId)" : "showProject",
+			"workspace/:workspaceId/tag/:tagId" : "showTagNodes"
 		},
-		
+
 		handleDefault : function() {
-			
+
 		},
-		
+
 		showStarred : function() {
 			$('#rf-col-1-body').find('li').each(function() {
 				$(this).removeClass('active');
 			});
-			
+
 			$(".starred").addClass('active');
 
 			$.ajax({
@@ -49,10 +53,10 @@ define(function(require) {
 			$('#tree').hide();
 			$('#tagged-items').hide();
 			$('#history-items').hide();
-			
+
 		},
 		showHistory : function() {
-			$('#rf-col-1-body').find('li').each(function(){
+			$('#rf-col-1-body').find('li').each(function() {
 				$(this).removeClass('active');
 			});
 			$(".history").addClass('active');
@@ -63,37 +67,84 @@ define(function(require) {
 				dataType : 'json',
 				contentType : "application/json",
 				success : function(response) {
-	                if(response != undefined){
-	                    //var conversations = response.data;
-					    APP.historyView.render(response);
-					    $('#history-items').show();
-	                }
+					if (response != undefined) {
+						// var conversations = response.data;
+						APP.historyView.render(response);
+						$('#history-items').show();
+					}
 				}
 			});
-			
+
 			$('#tree').hide();
 			$('#tagged-items').hide();
 			$('#starred-items').hide();
 		},
-		showProject : function(projectId){
-			$('#rf-col-1-body').find('li').each(function(){
-                $(this).removeClass('active');
-            });
-            
-			var element = $('#'+projectId);
-			element.parent('li').addClass('active');
+		showProject : function(workspaceId, projectId) {
 
-            $('#tagged-items').hide();
-            $('#starred-items').hide();
-            $('#history-items').hide();
-            $('#tree').show();
+			var workspace = new Workspace({
+				id : workspaceId
+			});
+			workspace.fetch({
+				success : function(response) {
+					var workSpaceView = new WorkspaceView();
+					workSpaceView.changeWorkspace(response);
 
-            console.log('Project Id : ' + element.data('project-ref-id'))
-            ProjectEvents.triggerChange(projectId);
-            console.log('current project id is ' + APP.appView.getCurrentProjectId());
-            tree.showTree(element.data('project-ref-id'));
+					if (!projectId) {
+						var projects = response.get('projects');
+						if (projects[0]) {
+							projectId = projects[0].id;
+						}
+					}
+
+					if (projectId) {
+						$('#rf-col-1-body').find('li').each(function() {
+							$(this).removeClass('active');
+						});
+
+						var element = $('#' + projectId);
+						element.parent('li').addClass('active');
+
+						$('#tagged-items').hide();
+						$('#starred-items').hide();
+						$('#history-items').hide();
+						$('#tree').show();
+
+						console.log('Project Id : ' + element.data('project-ref-id'))
+						ProjectEvents.triggerChange(projectId);
+						console.log('current project id is ' + APP.appView.getCurrentProjectId());
+						tree.showTree(element.data('project-ref-id'));
+					}
+				}
+			});
+
+		},
+		showTagNodes : function(workspaceId,tagId) {
+			var workspace = new Workspace({
+				id : workspaceId
+			});
+			workspace.fetch({
+				success : function(response) {
+					var workSpaceView = new WorkspaceView();
+					workSpaceView.changeWorkspace(response);
+
+					$('#rf-col-1-body').find('li').each(function(){
+						$(this).removeClass('active');
+					});
+					
+					var element = $('#' + tagId);
+					element.parent('li').addClass('active');
+					
+					$('#starred-items').hide();
+					$('#tree').hide();
+					$('#history-items').hide();
+					$('#tagged-items').show();
+					var taggedNodeView = new TaggedNodeView();
+					taggedNodeView.showTaggedNodes(tagId);
+				}
+			});
 		}
 		
+
 	});
 
 	return AppRouter;
