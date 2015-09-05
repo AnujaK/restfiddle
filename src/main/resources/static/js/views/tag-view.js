@@ -85,7 +85,7 @@ define(function(require) {
 		render : function(isDefautlView) {
 			var activeTag = this.$el.find('.active')[0];
 			if(activeTag)
-				var activeTagId = activeTag.children('li').attr('id');
+				var activeTagId = $(activeTag).children('a').attr('id');
 			
 	        this.$el.html('');
 			_.each(this.collection.models,function(p, index){
