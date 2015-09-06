@@ -22,6 +22,7 @@ define(function(require) {
 			"starred" : "showStarred",
 			"activityLog" : "showHistory",
 			"workspace/:workspaceId(/project/:projectId)" : "showProject",
+			"workspace/:workspaceId/project/:projectId/node/:nodeId" : "showNode",
 			"workspace/:workspaceId/tag/:tagId" : "showTagNodes"
 		},
 
@@ -79,7 +80,7 @@ define(function(require) {
 			$('#tagged-items').hide();
 			$('#starred-items').hide();
 		},
-		showProject : function(workspaceId, projectId) {
+		showProject : function(workspaceId, projectId, nodeId) {
 
 			var workspace = new Workspace({
 				id : workspaceId
@@ -112,11 +113,53 @@ define(function(require) {
 						console.log('Project Id : ' + element.data('project-ref-id'))
 						ProjectEvents.triggerChange(projectId);
 						console.log('current project id is ' + APP.appView.getCurrentProjectId());
-						tree.showTree(element.data('project-ref-id'));
+						tree.showTree(element.data('project-ref-id'),nodeId);
 					}
 				}
 			});
 
+		},
+		showNode : function(workspaceId, projectId, nodeId) {
+			
+			if(workspaceId === APP.appView.getCurrentWorkspaceId() && projectId === APP.appView.getCurrentProjectId() && $('#tree').is(':visible')){
+				tree.loadNode(nodeId);
+			}else{
+				var workspace = new Workspace({
+					id : workspaceId
+				});
+				workspace.fetch({
+					success : function(response) {
+						var workSpaceView = new WorkspaceView();
+						workSpaceView.changeWorkspace(response);
+
+						if (!projectId) {
+							var projects = response.get('projects');
+							if (projects[0]) {
+								projectId = projects[0].id;
+							}
+						}
+
+						if (projectId) {
+							$('#rf-col-1-body').find('li').each(function() {
+								$(this).removeClass('active');
+							});
+
+							var element = $('#' + projectId);
+							element.parent('li').addClass('active');
+
+							$('#tagged-items').hide();
+							$('#starred-items').hide();
+							$('#history-items').hide();
+							$('#tree').show();
+
+							console.log('Project Id : ' + element.data('project-ref-id'))
+							ProjectEvents.triggerChange(projectId);
+							console.log('current project id is ' + APP.appView.getCurrentProjectId());
+							tree.showTree(element.data('project-ref-id'),nodeId);
+						}
+					}
+				});
+			}
 		},
 		showTagNodes : function(workspaceId,tagId) {
 			var workspace = new Workspace({
