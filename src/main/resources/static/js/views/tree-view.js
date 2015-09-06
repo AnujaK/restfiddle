@@ -726,6 +726,40 @@ define(function(require) {
 			}
 		});
 	});
+    
+    $("#editEntityBtn").unbind("click").bind("click", function(event) {
+		var nodeId = $("#editEntityId").val();
+		var node = treeObj.getNodeByKey(nodeId);
+		
+		var nodeModel = new NodeModel({
+			id : node.data.id,
+			name : $("#editEntityTextField").val(),
+			description : $("#editEntityTextArea").val(),
+			method : node.data.method,
+			tags : []
+		});
+
+		node.data.id = nodeModel.attributes.id;
+		node.data.name = nodeModel.attributes.name;
+		node.data.description = nodeModel.attributes.description;
+		var colorCode = getColorCode(nodeModel.attributes.method);
+		var treeNodeView = new TreeNodeView();
+		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
+		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
+		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
+		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+		nodeModel.save(null, {
+			success : function(response) {
+				$("#editEntityTextField").val("");
+				$("#editEntityTextArea").val("");
+				$("#editEntityModal").modal("hide");
+			},
+			error : function(e) {
+				alert('Some unexpected error occured Please try later.');
+			}
+		});
+	});
 
 	$("#deleteRequestBtn").bind("click", function() {
 		var nodeId = $("#deleteNodeId").val();
