@@ -83,7 +83,7 @@ public class GenerateApiController {
 
 	String projectId = entityNode.getProjectId();
 
-	rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/" + entityNode.getName() + "/list");
+	rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/" + entityNode.getName() + "/list");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -96,7 +96,7 @@ public class GenerateApiController {
 	// API to GENERATE >> Get Entity Data By Id
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -109,7 +109,7 @@ public class GenerateApiController {
 	// API to GENERATE >> Delete Entity Data By Id
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("DELETE");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
@@ -122,7 +122,7 @@ public class GenerateApiController {
 	// API to GENERATE >> Create Entity Data
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/" + entityNode.getName());
+	rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/" + entityNode.getName());
 	rfRequestDTO.setMethodType("POST");
 
 	JSONObject jsonObject = getFieldJson(genericEntity);
@@ -139,7 +139,7 @@ public class GenerateApiController {
 	// API to GENERATE >> Update Entity Data
 	conversationDTO = new ConversationDTO();
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
+	rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/" + entityNode.getName() + "/{uuid}");
 	rfRequestDTO.setMethodType("PUT");
 
 	jsonObject = getFieldJson(genericEntity);
@@ -159,7 +159,7 @@ public class GenerateApiController {
 	 // API to GENERATE >> Login Entity
 	    conversationDTO = new ConversationDTO();
 	    rfRequestDTO = new RfRequestDTO();
-	    rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/login");
+	    rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/login");
 	    rfRequestDTO.setMethodType("POST");
 
 	    JSONObject json = new JSONObject();
@@ -178,7 +178,7 @@ public class GenerateApiController {
 	 // API to GENERATE >> Get Entity Data By Id
 	    conversationDTO = new ConversationDTO();
 	    rfRequestDTO = new RfRequestDTO();
-	    rfRequestDTO.setApiUrl(hostUri + "/" + projectId + "/entities/logout?llt=");
+	    rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/logout?llt=");
 	    rfRequestDTO.setMethodType("GET");
 	    conversationDTO.setRfRequestDTO(rfRequestDTO);
 
