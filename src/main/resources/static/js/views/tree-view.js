@@ -750,7 +750,7 @@ define(function(require) {
 		node.data.description = nodeModel.attributes.description;
 		var colorCode = getColorCode(nodeModel.attributes.method);
 		var treeNodeView = new TreeNodeView();
-		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		node.setTitle('&nbsp;<i class = "fa fa-database color-gray"></i>'+'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>&nbsp;' + nodeModel.attributes.name + '&nbsp;</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
