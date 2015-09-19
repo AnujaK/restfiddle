@@ -15,14 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import org.bson.BSONObject;
-import org.bson.types.ObjectId;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.DBRef;
-import com.mongodb.util.JSON;
-import com.restfiddle.dto.StatusResponse;
-import com.restfiddle.entity.GenericEntityData;
 import com.restfiddle.service.auth.AuthService;
 
 @RestController
@@ -60,20 +45,15 @@ public class EntitySessionController {
 
     @RequestMapping(value = "/api/{projectId}/entities/logout", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
-    String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @PathVariable("id") String entityDataId) {
-	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
-
-	BasicDBObject queryObject = new BasicDBObject();
-	queryObject.append("_id", new ObjectId(entityDataId));
-
-	DBObject resultObject = dbCollection.findOne(queryObject);
-//	dbRefToRelation(resultObject);
-	String json = resultObject.toString();
-
-	// Indentation
-	JSONObject jsonObject = new JSONObject(json);
-	return jsonObject.toString(4);
+    String getEntityDataById(@PathVariable("projectId") String projectId,
+	    @RequestParam(value = "llt", required = true) String llt) {
+	
+	boolean status = authService.logout(llt);
+	
+	JSONObject res = new JSONObject();
+	res.put("success", status);
+	
+	return res.toString(4);
     }
 
     /**
@@ -82,18 +62,15 @@ public class EntitySessionController {
     @RequestMapping(value = "/api/{projectId}/entities/login", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
     String createEntityData(@PathVariable("projectId") String projectId,
-	    @RequestBody Object genericEntityDataDTO) {
+	    @RequestBody Object userDTO) {
 	String data = "";
-	if (!(genericEntityDataDTO instanceof Map)) {
+	if (!(userDTO instanceof Map)) {
 	    return null;
 	} else {
-	    // Note : Entity data is accessible through this map.
-	    Map map = (Map) genericEntityDataDTO;
+	    Map map = (Map) userDTO;
 	    JSONObject jsonObj = new JSONObject(map);
 	    data = authService.authenticate(jsonObj, projectId);
 	}
-	
-	
 	
 	return "{\"llt\":\""+data+"\"}";
     }

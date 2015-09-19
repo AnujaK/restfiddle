@@ -13,6 +13,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.DBRef;
+import com.mongodb.WriteResult;
 
 @Service
 public class AuthService {
@@ -44,5 +45,16 @@ public class AuthService {
 	dbCollectionAuth.insert(auth);
 	
 	return auth.getString("_id");
+    }
+    
+    public boolean logout(String llt){
+	
+	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
+	
+	BasicDBObject queryObject = new BasicDBObject();
+	queryObject.append("_id", new ObjectId(llt));
+	WriteResult result = dbCollection.remove(queryObject);
+	
+	return result.getN() == 1;
     }
 }
