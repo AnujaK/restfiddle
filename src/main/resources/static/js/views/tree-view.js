@@ -7,6 +7,8 @@ define(function(require) {
 	require('bootstarp');
 	require("libs/jquery.validate");
 	require('mCustomScrollbar');
+	var _ = require('underscore');
+	
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var StarEvent = require('events/star-event');
@@ -71,6 +73,23 @@ define(function(require) {
 		else
 			return "";
 	}
+	
+	var EntityFieldView = Backbone.View.extend({	
+        template: _.template($('#tpl-entity-field').html()),
+        
+        events : {
+            'click .destroy': 'clear',
+        },
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		},
+        
+        clear : function(){
+            this.remove();
+        }
+	});
 
 	function editNode(node) {
 		if (node == null) {
@@ -84,6 +103,22 @@ define(function(require) {
 			$("#editEntityId").val(node.data.id);
 			$("#editEntityTextField").val(node.data.name);
 			$("#editEntityTextArea").val(node.data.description);
+			
+			var node = new NodeModel({id:node.data.id});
+			node.fetch({success:function(data){
+				var genericEntity = data.get('genericEntity');
+				$("#editEntityFieldsWrapper").html('');
+				_.times(genericEntity.fields.length, function(i){
+					var entityFieldView = new EntityFieldView();
+			        $("#editEntityFieldsWrapper").append(entityFieldView.render().el);
+				});
+
+				$("#editEntityFieldsWrapper .row").each(function(i,row){
+					$(row).find('input').val(genericEntity.fields[i].name);
+					$(row).find('select').val(genericEntity.fields[i].type);
+				});
+			}});
+			
 			return;
 		}
 		$("#editNodeModal").modal("show");
