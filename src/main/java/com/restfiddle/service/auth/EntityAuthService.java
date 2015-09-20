@@ -1,12 +1,11 @@
 package com.restfiddle.service.auth;
 
 import java.util.Date;
-import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.BasicDBObject;
@@ -16,12 +15,12 @@ import com.mongodb.DBRef;
 import com.mongodb.WriteResult;
 
 @Service
-public class AuthService {
+public class EntityAuthService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
     
-    public String authenticate(JSONObject userDTO, String projectId){
+    public DBObject authenticate(JSONObject userDTO, String projectId) throws Exception{
 	
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_User");
 	
@@ -29,22 +28,23 @@ public class AuthService {
 	query.append("username", userDTO.get("username"));
 	
 	DBObject user = dbCollection.findOne(query);
-	
-	if(userDTO.get("password").equals(user.get("password"))){
-	     
+	if(user == null){
+	    throw new Exception("User not found");
 	}
 	
-	BasicDBObject auth = new BasicDBObject();
-	auth.append("user", new DBRef(mongoTemplate.getDb(),projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
-	
-	DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
-	List<DBObject> indexInfo =  dbCollectionAuth.getIndexInfo();
-	if(indexInfo.size() == 1){
-	    dbCollectionAuth.createIndex(new BasicDBObject("expireAt", 1),new BasicDBObject("expireAfterSeconds", 0));
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	BasicDBObject auth = null;
+	if(encoder.matches((String)userDTO.get("password"),(String)user.get("password"))){
+	    auth = new BasicDBObject();
+	    auth.append("user", new DBRef(mongoTemplate.getDb(),projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
+		
+	    DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
+	    dbCollectionAuth.insert(auth);
+	}else{
+	   throw new Exception("Invalid password");
 	}
-	dbCollectionAuth.insert(auth);
 	
-	return auth.getString("_id");
+	return auth;
     }
     
     public boolean logout(String llt){

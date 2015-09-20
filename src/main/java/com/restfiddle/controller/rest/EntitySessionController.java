@@ -16,6 +16,8 @@
 package com.restfiddle.controller.rest;
 
 import java.util.Map;
+
+import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restfiddle.service.auth.AuthService;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.DBRef;
+import com.restfiddle.service.auth.EntityAuthService;
 
 @RestController
 @Transactional
@@ -41,37 +46,79 @@ public class EntitySessionController {
     private MongoTemplate mongoTemplate;
     
     @Autowired
-    private AuthService authService;
+    private EntityAuthService authService;
 
     @RequestMapping(value = "/api/{projectId}/entities/logout", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId,
-	    @RequestParam(value = "llt", required = true) String llt) {
+	    @RequestParam(value = "authToken", required = true) String llt) {
 	
 	boolean status = authService.logout(llt);
 	
-	JSONObject res = new JSONObject();
-	res.put("success", status);
+	JSONObject response = new JSONObject();
 	
-	return res.toString(4);
+	if(status){
+	    response.put("msg", "sucessfully logged out");
+	}else{
+	    response.put("msg", "session expired"); 
+	}
+	
+	return response.toString(4);
     }
 
-    /**
-     * [NOTE] http://stackoverflow.com/questions/25953056/how-to-access-fields-of-converted-json-object-sent-in-post-body
-     */
     @RequestMapping(value = "/api/{projectId}/entities/login", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
     String createEntityData(@PathVariable("projectId") String projectId,
 	    @RequestBody Object userDTO) {
-	String data = "";
+	DBObject data = null;
 	if (!(userDTO instanceof Map)) {
 	    return null;
-	} else {
-	    Map map = (Map) userDTO;
-	    JSONObject jsonObj = new JSONObject(map);
+	} 
+	
+	JSONObject response = new JSONObject();
+	
+	Map map = (Map) userDTO;
+	JSONObject jsonObj = new JSONObject(map);
+	try {
 	    data = authService.authenticate(jsonObj, projectId);
+	} catch (Exception e) {
+	    response.put("msg", e.getMessage());
+	    return response.toString(4);
 	}
 	
-	return "{\"llt\":\""+data+"\"}";
+	data.put("user", ((DBRef)(data.get("user"))).fetch());
+	
+	dbRefToRelation(data);
+	data.put("authToken", data.get("_id"));
+	data.removeField("_id");
+	data.removeField("expireAt");
+	String json = data.toString();
+
+	// Indentation
+	response = new JSONObject(json);
+	return response.toString(4);
     }
+    
+    private void dbRefToRelation(DBObject dbObject) {
+	if (dbObject == null) {
+	    return;
+	}
+	if (dbObject.containsField("_id")) 
+	    dbObject.put("_id", ((ObjectId) dbObject.get("_id")).toHexString());
+	for (String key : dbObject.keySet()) {
+	    Object obj = dbObject.get(key);
+	    if (obj instanceof DBRef) {
+		DBRef ref = (DBRef) obj;
+		dbObject.put(key, dbRefToRel(ref));
+	    } else if (obj instanceof DBObject) {
+		dbRefToRelation((DBObject) obj);
+	    }
+	}
+
+    }
+    
+    private DBObject dbRefToRel(DBRef obj){
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", obj.getRef().split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+    }
+
 }
