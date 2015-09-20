@@ -23,8 +23,12 @@ import javax.annotation.PostConstruct;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.constant.PermissionType;
 import com.restfiddle.constant.RoleType;
@@ -98,6 +102,9 @@ public class SampleDataGenerator {
 
     @Autowired
     private OAuth2DataGenerator oauth2DataGenerator;
+    
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     private String demoWorkspaceId;
     private String socialWorkspaceId;
@@ -113,6 +120,8 @@ public class SampleDataGenerator {
 	if (isSampleDataPresent()) {
 	    return;
 	}
+	
+	addIndexEntityAuth();
 
 	createSuperUser();
 
@@ -377,5 +386,10 @@ public class SampleDataGenerator {
 	}
 
 	requestHeaderRepository.save(headers);
+    }
+    
+    private void addIndexEntityAuth(){
+	DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
+	dbCollectionAuth.createIndex(new BasicDBObject("expireAt", 1),new BasicDBObject("expireAfterSeconds", 0));
     }
 }

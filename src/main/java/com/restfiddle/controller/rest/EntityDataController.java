@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -126,10 +127,16 @@ public class EntityDataController {
 	    JSONObject jsonObj = createJsonFromMap(map);
 	    data = jsonObj.toString();
 	}
+	
+	DBObject dbObject = (DBObject) JSON.parse(data);
+	
+	if(entityName.equals("User")){
+	    return handleUserSignUp(projectId,dbObject);
+	}
+	
+	
 	// Create a new document for the entity.
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
-
-	DBObject dbObject = (DBObject) JSON.parse(data);
 	
 	relationToDBRef(dbObject, projectId);
 	
@@ -247,5 +254,55 @@ public class EntityDataController {
 		}
 	    }
 	}
+    }
+    
+    private String handleUserSignUp(String projectId, DBObject user){
+	JSONObject response = new JSONObject();
+	
+	if(!user.containsField("username")){
+	    response.put("msg", "username is mandotary");
+	    return response.toString(4);
+	}
+	
+	if(((String)user.get("username")).length() < 3){
+	    response.put("msg", "username must be more then 3 character");
+	    return response.toString(4);
+	}
+	
+	if(!user.containsField("password")){
+	    response.put("msg", "password is mandotary");
+	    return response.toString(4);
+	}
+	
+	if(((String)user.get("password")).length() < 3){
+	    response.put("msg", "password must be more then 3 character");
+	    return response.toString(4);
+	}
+
+	
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_User");
+	
+	BasicDBObject query = new BasicDBObject();
+	query.append("username", user.get("username"));
+	
+	DBObject existingUser = dbCollection.findOne(query);
+	
+	if(existingUser != null){
+	    response.put("msg", "username already exists");
+	    return response.toString(4); 
+	}
+	
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	user.put("password", encoder.encode((String) user.get("password")));
+
+	relationToDBRef(user, projectId);
+	
+	dbCollection.save(user);
+	dbRefToRelation(user);
+	String json = user.toString();
+
+	// Indentation
+	response = new JSONObject(json);
+	return response.toString(4);
     }
 }

@@ -178,7 +178,7 @@ public class GenerateApiController {
 	 // API to GENERATE >> Get Entity Data By Id
 	    conversationDTO = new ConversationDTO();
 	    rfRequestDTO = new RfRequestDTO();
-	    rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/logout?llt=");
+	    rfRequestDTO.setApiUrl(hostUri + "/api/" + projectId + "/entities/logout?authToken=");
 	    rfRequestDTO.setMethodType("GET");
 	    conversationDTO.setRfRequestDTO(rfRequestDTO);
 
