@@ -7,6 +7,8 @@ define(function(require) {
 	require('bootstarp');
 	require("libs/jquery.validate");
 	require('mCustomScrollbar');
+	var _ = require('underscore');
+	
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
 	var StarEvent = require('events/star-event');
@@ -71,6 +73,23 @@ define(function(require) {
 		else
 			return "";
 	}
+	
+	var EntityFieldView = Backbone.View.extend({	
+        template: _.template($('#tpl-entity-field').html()),
+        
+        events : {
+            'click .destroy': 'clear',
+        },
+        
+		render : function() {
+            this.$el.html(this.template());
+			return this;
+		},
+        
+        clear : function(){
+            this.remove();
+        }
+	});
 
 	function editNode(node) {
 		if (node == null) {
@@ -84,6 +103,22 @@ define(function(require) {
 			$("#editEntityId").val(node.data.id);
 			$("#editEntityTextField").val(node.data.name);
 			$("#editEntityTextArea").val(node.data.description);
+			
+			var node = new NodeModel({id:node.data.id});
+			node.fetch({success:function(data){
+				var genericEntity = data.get('genericEntity');
+				$("#editEntityFieldsWrapper").html('');
+				_.times(genericEntity.fields.length, function(i){
+					var entityFieldView = new EntityFieldView();
+			        $("#editEntityFieldsWrapper").append(entityFieldView.render().el);
+				});
+
+				$("#editEntityFieldsWrapper .row").each(function(i,row){
+					$(row).find('input').val(genericEntity.fields[i].name);
+					$(row).find('select').val(genericEntity.fields[i].type);
+				});
+			}});
+			
 			return;
 		}
 		$("#editNodeModal").modal("show");
@@ -680,9 +715,15 @@ define(function(require) {
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
 		node.data.description = nodeModel.attributes.description;
-		var colorCode = getColorCode(nodeModel.attributes.method);
-		var treeNodeView = new TreeNodeView();
-		node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+        var treeNodeView = new TreeNodeView();
+        if(node.data.nodeType != 'FOLDER' && node.data.nodeType != 'ENTITY' && nodeModel.attributes.method != null){
+            var colorCode = getColorCode(nodeModel.attributes.method);
+            node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+        }
+        else{
+            node.setTitle('<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());   
+        }
+
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function() {
 			editNode(node);
 		});
@@ -744,7 +785,7 @@ define(function(require) {
 		node.data.description = nodeModel.attributes.description;
 		var colorCode = getColorCode(nodeModel.attributes.method);
 		var treeNodeView = new TreeNodeView();
-		node.setTitle('<span class="lozenge left '+ colorCode +' auth_required">'+nodeModel.attributes.method+'</span>' +'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		node.setTitle('&nbsp;<i class = "fa fa-database color-gray"></i>'+'<span class = "large-text '+getTitleClass(nodeModel.attributes.method) +'" title = ' + nodeModel.attributes.name+'>&nbsp;' + nodeModel.attributes.name + '&nbsp;</span>' + treeNodeView.template());
 		node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function(){editNode(node);});
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
