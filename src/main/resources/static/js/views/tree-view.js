@@ -790,6 +790,7 @@ define(function(require) {
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function(){copyNode(node);});
 		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event){runNode(node,event);});
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
+		node.li.getElementsByClassName("dropdown-toggle")[0].addEventListener("click", handleMenuzIndex);
 		nodeModel.save(null, {
 			success : function(response) {
 				$("#editEntityTextField").val("");
