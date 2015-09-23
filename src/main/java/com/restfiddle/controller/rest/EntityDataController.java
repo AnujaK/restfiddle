@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -83,6 +84,13 @@ public class EntityDataController {
 	    cursor.limit(limit);
 	}
 	List<DBObject> array = cursor.toArray();
+	
+	if(entityName.equals("User")){
+	    for(DBObject dbObject : array){
+		dbObject.removeField("password");
+	    }
+	}
+	
 	for(DBObject dbObject : array){
 	    dbRefToRelation(dbObject);
 	}
@@ -103,6 +111,11 @@ public class EntityDataController {
 	queryObject.append("_id", new ObjectId(entityDataId));
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
+	
+	if(entityName.equals("User")){
+	    resultObject.removeField("password");
+	}
+
 	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 

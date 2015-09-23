@@ -86,7 +86,9 @@ public class EntitySessionController {
 	    return response.toString(4);
 	}
 	
-	data.put("user", ((DBRef)(data.get("user"))).fetch());
+	DBObject user = ((DBRef)(data.get("user"))).fetch();
+	user.removeField("password");
+	data.put("user", user);
 	
 	dbRefToRelation(data);
 	data.put("authToken", data.get("_id"));
