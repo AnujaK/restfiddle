@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -83,6 +84,13 @@ public class EntityDataController {
 	    cursor.limit(limit);
 	}
 	List<DBObject> array = cursor.toArray();
+	
+	if(entityName.equals("User")){
+	    for(DBObject dbObject : array){
+		dbObject.removeField("password");
+	    }
+	}
+	
 	for(DBObject dbObject : array){
 	    dbRefToRelation(dbObject);
 	}
@@ -103,6 +111,11 @@ public class EntityDataController {
 	queryObject.append("_id", new ObjectId(entityDataId));
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
+	
+	if(entityName.equals("User")){
+	    resultObject.removeField("password");
+	}
+
 	dbRefToRelation(resultObject);
 	String json = resultObject.toString();
 
@@ -130,8 +143,8 @@ public class EntityDataController {
 	
 	DBObject dbObject = (DBObject) JSON.parse(data);
 	
-	if(entityName.equals("User")){
-	    return handleUserSignUp(projectId,dbObject);
+	if (entityName.equals("User")) {
+	    return handleUserEntityData(projectId, dbObject, true);
 	}
 	
 	
@@ -174,6 +187,11 @@ public class EntityDataController {
 	    for (String key : keySet) {
 		resultObject.put(key, obj.get(key));
 	    }
+	    
+	    if(entityName.equals("User")){
+		return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
+	    }
+	    
 	    relationToDBRef(resultObject, projectId);
 	    dbCollection.save(resultObject);
 	}
@@ -256,48 +274,50 @@ public class EntityDataController {
 	}
     }
     
-    private String handleUserSignUp(String projectId, DBObject user){
+    private String handleUserEntityData(String projectId, DBObject user, boolean encryptPassword) {
 	JSONObject response = new JSONObject();
-	
-	if(!user.containsField("username")){
+
+	if (!user.containsField("username")) {
 	    response.put("msg", "username is mandotary");
 	    return response.toString(4);
 	}
-	
-	if(((String)user.get("username")).length() < 3){
+
+	if (((String) user.get("username")).length() < 3) {
 	    response.put("msg", "username must be more then 3 character");
 	    return response.toString(4);
 	}
-	
-	if(!user.containsField("password")){
+
+	if (!user.containsField("password")) {
 	    response.put("msg", "password is mandotary");
 	    return response.toString(4);
 	}
-	
-	if(((String)user.get("password")).length() < 3){
+
+	if (((String) user.get("password")).length() < 3) {
 	    response.put("msg", "password must be more then 3 character");
 	    return response.toString(4);
 	}
 
-	
-	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_User");
-	
+	DBCollection dbCollection = mongoTemplate.getCollection(projectId + "_User");
+
 	BasicDBObject query = new BasicDBObject();
 	query.append("username", user.get("username"));
-	
+
 	DBObject existingUser = dbCollection.findOne(query);
-	
-	if(existingUser != null){
+
+	if (existingUser != null && !existingUser.get("_id").equals(user.get("_id"))) {
 	    response.put("msg", "username already exists");
-	    return response.toString(4); 
+	    return response.toString(4);
 	}
-	
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	user.put("password", encoder.encode((String) user.get("password")));
+
+	if (encryptPassword) {
+	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	    user.put("password", encoder.encode((String) user.get("password")));
+	}
 
 	relationToDBRef(user, projectId);
-	
+
 	dbCollection.save(user);
+	user.removeField("password");
 	dbRefToRelation(user);
 	String json = user.toString();
 
