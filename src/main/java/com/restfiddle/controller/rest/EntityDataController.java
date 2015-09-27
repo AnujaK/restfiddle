@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ import com.mongodb.DBRef;
 import com.mongodb.util.JSON;
 import com.restfiddle.dto.StatusResponse;
 import com.restfiddle.entity.GenericEntityData;
+import com.restfiddle.service.auth.EntityAuthService;
 
 @RestController
 @Transactional
@@ -55,6 +57,9 @@ public class EntityDataController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    @Autowired
+    private EntityAuthService authService;
 
     // Note : SORT PARAM : Specify in the sort parameter the field or fields to sort by and a value of 1 or -1 to specify an ascending or descending
     // sort respectively (http://docs.mongodb.org/manual/reference/method/cursor.sort/).
@@ -62,7 +67,14 @@ public class EntityDataController {
     public @ResponseBody
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
-	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query) {
+	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query, 
+	    @RequestParam(value = "authToken", required = false) String authToken) {
+	
+	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
+	if(!authRes.getBoolean("success")){
+	    return authRes.toString(4);
+	}
+	
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	DBCursor cursor = null;
 	if (query != null && !query.isEmpty()) {
@@ -104,7 +116,14 @@ public class EntityDataController {
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @PathVariable("id") String entityDataId) {
+	    @PathVariable("id") String entityDataId,
+	    @RequestParam(value = "authToken", required = false) String authToken) {
+	
+	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
+	if(!authRes.getBoolean("success")){
+	    return authRes.toString(4);
+	}
+	
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 
 	BasicDBObject queryObject = new BasicDBObject();
@@ -130,7 +149,9 @@ public class EntityDataController {
     @RequestMapping(value = "/api/{projectId}/entities/{name}", method = RequestMethod.POST, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
     String createEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @RequestBody Object genericEntityDataDTO) {
+	    @RequestBody Object genericEntityDataDTO,
+	    @RequestParam(value = "authToken", required = false) String authToken) {	
+	
 	String data = "";
 	if (!(genericEntityDataDTO instanceof Map)) {
 	    return null;
@@ -147,11 +168,22 @@ public class EntityDataController {
 	    return handleUserEntityData(projectId, dbObject, true);
 	}
 	
+	DBRef user = null;
+	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
+	if(authRes.getBoolean("success")){
+	   user = (DBRef) authRes.get("user");
+	} else {
+	    return authRes.toString(4);
+	}
+	
 	
 	// Create a new document for the entity.
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	
 	relationToDBRef(dbObject, projectId);
+	
+	dbObject.put("createdBy", user);
+	dbObject.put("createdAt", new Date());
 	
 	dbCollection.save(dbObject);
 	dbRefToRelation(dbObject);
@@ -165,7 +197,17 @@ public class EntityDataController {
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.PUT, headers = "Accept=application/json", consumes = "application/json")
     public @ResponseBody
     String updateEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
-	    @RequestBody Object genericEntityDataDTO) {
+	    @RequestBody Object genericEntityDataDTO,
+	    @RequestParam(value = "authToken", required = false) String authToken) {
+	
+	DBRef user = null;
+	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
+	if(authRes.getBoolean("success")){
+	   user = (DBRef) authRes.get("user");
+	} else {
+	    return authRes.toString(4);
+	}
+	
 	DBObject resultObject = new BasicDBObject();
 	if (genericEntityDataDTO instanceof Map) {
 	    Map map = (Map) genericEntityDataDTO;
@@ -189,10 +231,19 @@ public class EntityDataController {
 	    }
 	    
 	    if(entityName.equals("User")){
-		return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
+		DBObject loggedInUser = user.fetch();
+		if(loggedInUser.get("username").equals(resultObject.get("username"))){
+		    return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
+		}else{
+		    return new JSONObject().put("success", false).put("msg", "unauthorize").toString(4);
+		}
 	    }
 	    
 	    relationToDBRef(resultObject, projectId);
+	    
+	    resultObject.put("updatedBy", user);
+	    resultObject.put("updatedAt", new Date());
+	    
 	    dbCollection.save(resultObject);
 	}
 	dbRefToRelation(resultObject);
@@ -206,13 +257,24 @@ public class EntityDataController {
     @RequestMapping(value = "/api/{projectId}/entities/{name}/{uuid}", method = RequestMethod.DELETE, headers = "Accept=application/json")
     public @ResponseBody
     StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
-	    @PathVariable("uuid") String uuid) {
+	    @PathVariable("uuid") String uuid,
+	    @RequestParam(value = "authToken", required = false) String authToken) {
+	
+
+	StatusResponse res = new StatusResponse();
+	
+	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
+	if(!authRes.getBoolean("success")){
+	    res.setStatus("Unauthorize");
+	    return res;
+	}
+	
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(uuid));
 	dbCollection.remove(queryObject);
 
-	StatusResponse res = new StatusResponse();
+	
 	res.setStatus("DELETED");
 
 	return res;
