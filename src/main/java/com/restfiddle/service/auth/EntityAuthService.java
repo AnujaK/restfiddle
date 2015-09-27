@@ -91,6 +91,9 @@ public class EntityAuthService {
 	    if((roleObj != null && roleList.contains((roleObj.get("name")))) || roleList.contains("USER")){
 		response.put("success", true);
 		response.put("user", userRef);
+		
+		authData.put("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
+		dbCollection.save(authData);
 	    } else {
 		response.put("success", false).put("msg", "unauthorize");
 	    }
