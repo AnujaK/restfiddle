@@ -1,6 +1,10 @@
 package com.restfiddle.service.auth;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,7 @@ public class EntityAuthService {
 	if(encoder.matches((String)userDTO.get("password"),(String)user.get("password"))){
 	    auth = new BasicDBObject();
 	    auth.append("user", new DBRef(mongoTemplate.getDb(),projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
+	    auth.put("projectId", projectId);
 		
 	    DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
 	    dbCollectionAuth.insert(auth);
@@ -56,5 +61,46 @@ public class EntityAuthService {
 	WriteResult result = dbCollection.remove(queryObject);
 	
 	return result.getN() == 1;
+    }
+
+    public JSONObject authorize(String projectId, String authToken, String... roles) {
+	
+	JSONObject response = new JSONObject();
+	if(authToken == null){
+	    return response.put("success", false).put("msg", "unauthorize");
+	}
+	
+	List<String> roleList = Arrays.asList(roles);
+	
+	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
+	
+	BasicDBObject queryObject = new BasicDBObject();
+	queryObject.append("_id", new ObjectId(authToken));
+	
+	DBObject authData = dbCollection.findOne(queryObject);
+	
+	if(authData != null && projectId.equals(authData.get("projectId"))) {
+	    DBRef userRef = (DBRef)authData.get("user");
+	    DBObject user = userRef.fetch();
+	    
+	    DBObject roleObj = null;
+	    if(user.containsField("role")){
+		roleObj = ((DBRef)user.get("role")).fetch();
+	    }
+	    
+	    if((roleObj != null && roleList.contains((roleObj.get("name")))) || roleList.contains("USER")){
+		response.put("success", true);
+		response.put("user", userRef);
+		
+		authData.put("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
+		dbCollection.save(authData);
+	    } else {
+		response.put("success", false).put("msg", "unauthorize");
+	    }
+	} else {
+	    response.put("success", false).put("msg", "unauthorize");
+	}
+	
+	return response;
     }
 }
