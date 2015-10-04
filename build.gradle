@@ -12,7 +12,7 @@ targetCompatibility = 1.7
 
 ext{
     springBootVersion = getSpringBootVersion()
-    httpComponentsVersion = '4.4'
+    httpComponentsVersion = '4.5.1'
 }
 
 repositories {
