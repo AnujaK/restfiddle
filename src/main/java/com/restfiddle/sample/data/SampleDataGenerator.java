@@ -417,6 +417,7 @@ public class SampleDataGenerator {
 	createSampleRequest("http://httpbin.org/image/png", "GET", "Image PNG", "Returns page containing PNG image.", null, null);
 	createSampleRequest("http://httpbin.org/image/jpeg", "GET", "Image JPEG", "Returns page containing JPEG image.", null, null);
 	createSampleRequest("http://httpbin.org/image/webp", "GET", "Image", "Returns page containing WEBP image.", null, null);
+	//CheckPost form returns the form but doesn't return response on submit.
 	createSampleRequest("http://httpbin.org/forms/post", "GET", "Post form", "HTML form that submits to /post", null, null);
 	createSampleRequest("http://httpbin.org/xml", "GET", "XML", "Returns some XML", null, null);
     }

@@ -4,6 +4,8 @@
 
 .settings/org.eclipse.jdt.core.prefs
 
+.settings/org.eclipse.jdt.ui.prefs
+
 .settings/org.eclipse.core.resources.prefs
 
 .settings/org.maven.ide.eclipse.prefs
