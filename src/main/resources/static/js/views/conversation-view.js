@@ -261,9 +261,16 @@ define(function(require) {
 	$("#clearRequest").unbind("click").bind("click", function() {
 		$("#headersWrapper").html('');
 		APP.conversation.apiBodyCodeMirror.setValue('');
-
+		$("#apiUrl").val('');
+		$("#apiRequestName").text('');
+		$("#oauthName").val('');
+		$("#authorizationUrl").val('');
+		$("#accessTokenUrl").val('');
+		$("#accessTokenBtn").prop('disabled', false);
 		$("#bAuthUsername").val('');
 		$("#bAuthPassword").val('');
+		$("#digestUsername").val('');
+		$("#digestPassword").val('');
 	});
 
 	$('.label-dropdown-menu').unbind("click").bind("click", function(event) {
