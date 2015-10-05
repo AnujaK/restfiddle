@@ -608,8 +608,10 @@ define(function(require) {
 						}
 						if (imageTypes.indexOf(contentType) > -1) {
 							$("#response-wrapper").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
+							$("#response-preview").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
 						} else {
-							$("#response-wrapper").html('<br><pre class="prettyprint">' + response.body + '</pre>');
+							$("#response-wrapper").html('<br><pre class="prettyprint">' + response.body.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
+							$("#response-preview").html('<br><pre>' + response.body + '</pre>');
 						}
 						$("body,html").animate({
 							scrollTop : $('#responseContainer').offset().top

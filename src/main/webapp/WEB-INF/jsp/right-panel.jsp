@@ -325,6 +325,7 @@
             <div  id="responseContainer" >
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#res-tab-body" data-toggle="tab">Body</a></li>
+                    <li><a href="#res-tab-preview" data-toggle="tab">Preview</a></li>
                     <li><a href="#res-tab-header" data-toggle="tab">Header</a></li>
                     <li><a href="#res-tab-assert" data-toggle="tab">Asserts <span id="assertResultCount" class="badge">0/0</span></a></li>
                 </ul>
@@ -334,6 +335,15 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div id="response-wrapper"></div>
+                            </div>
+                        </div>
+                        <br><br>					
+                    </div>
+                    <div class="tab-pane" id="res-tab-preview">
+                        <br>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div id="response-preview"></div>
                             </div>
                         </div>
                         <br><br>					
