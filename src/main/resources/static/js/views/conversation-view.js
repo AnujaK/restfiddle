@@ -606,13 +606,21 @@ define(function(require) {
 								contentType = response.headers[i].headerValue;
 							}
 						}
+						
+						var iframe = document.getElementById('response-preview');
+						iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+						iframe.document.open();						
+						
 						if (imageTypes.indexOf(contentType) > -1) {
 							$("#response-wrapper").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
-							$("#response-preview").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
+							iframe.document.write('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
 						} else {
 							$("#response-wrapper").html('<br><pre class="prettyprint">' + response.body.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
-							$("#response-preview").html('<br><pre>' + response.body + '</pre>');
+							iframe.document.write('<br><pre>' + response.body + '</pre>');
 						}
+						
+						iframe.document.close();
+						
 						$("body,html").animate({
 							scrollTop : $('#responseContainer').offset().top
 						}, "slow");
@@ -866,6 +874,10 @@ define(function(require) {
 			this.$el.find('#assertCount').html(request.assertion ? request.assertion.bodyAsserts.length : 0);
 
 			this.$el.find("#response-wrapper").html('');
+			
+			var iframe = document.getElementById("response-preview"),
+			iframe = iframe.contentDocument || iframe.contentWindow.document;
+			iframe.removeChild(iframe.documentElement);
 		},
 		saveOrUpdateConversation : function() {
 			if (APP.appView.getCurrentConversationId() != null) {

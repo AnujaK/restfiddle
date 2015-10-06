@@ -343,7 +343,7 @@
                         <br>
                         <div class="container-fluid">
                             <div class="row">
-                                <div id="response-preview"></div>
+                                <iframe id="response-preview"></iframe>
                             </div>
                         </div>
                         <br><br>					
