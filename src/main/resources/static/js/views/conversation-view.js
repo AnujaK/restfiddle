@@ -496,9 +496,10 @@ define(function(require) {
 						$('#oauthName').val($(".existingOAuth option:selected").text());
 						$('#authorizationUrl').val(res.authorizationUrl);
 						$('#accessTokenUrl').val(res.accessTokenUrl);
-						$('#authScopes').val(res.authScopes);
+						$('#clientId').val(res.clientId);
+						$('#authScopes').val(res.scopes);
 						$('#accessTokenLocation').val(res.accessTokenLocation);
-						$('#accessTokenBtn').prop("disabled", true);
+						$('#accessTokenBtn').prop("disabled", false);
 					}
 				}
 			});

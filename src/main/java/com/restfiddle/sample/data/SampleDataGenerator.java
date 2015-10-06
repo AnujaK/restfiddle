@@ -149,6 +149,7 @@ public class SampleDataGenerator {
 	oauth2DataGenerator.loadAsanaAPI();
 	oauth2DataGenerator.loadTrelloAPI();
 	oauth2DataGenerator.loadGitHubAPI();
+	oauth2DataGenerator.loadGoogleAPI();
     }
 
     private void loadRoleData() {
@@ -266,7 +267,8 @@ public class SampleDataGenerator {
 
 	ProjectDTO googleProject = new ProjectDTO();
 	googleProject.setName("Google");
-	projectController.create(socialWorkspaceId, googleProject);
+	Project projGoogle = projectController.create(socialWorkspaceId, googleProject);
+	createSocialSample(projGoogle, "https://www.googleapis.com/plus/v1/people/me", "GET", "Google Plus", "Get Access Token from Auth and run this request", null, null);
 
 	ProjectDTO facebookProject = new ProjectDTO();
 	facebookProject.setName("Facebook");
@@ -445,6 +447,32 @@ public class SampleDataGenerator {
 	conversationhttpbin.setNodeDTO(createdHttpbinNode);
 	conversationController.update(conversationhttpbin.getId(), conversationhttpbin);
     }
+    
+    private void createSocialSample(Project project, String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject) {
+	String projectId = project.getId();
+	String projectRefId = project.getProjectRef().getId();
+	ConversationDTO socialDTO = new ConversationDTO();
+   	RfRequestDTO socialReqDTO = new RfRequestDTO();
+   	socialReqDTO.setApiUrl(apiUrl);
+   	socialReqDTO.setMethodType(methodType);
+   	socialDTO.setRfRequestDTO(socialReqDTO);
+   	if (urlParams!=null) {
+   	    socialReqDTO.setUrlParams(urlParams);
+   	}
+   	if(jsonObject!=null){
+   	    socialReqDTO.setApiBody(jsonObject.toString(4));
+   	}
+   	ConversationDTO conversationsocial = conversationController.create(socialDTO);
+   	NodeDTO socialNode = new NodeDTO();
+   	socialNode.setName(name);
+   	socialNode.setDescription(description);
+   	socialNode.setProjectId(projectId);
+   	socialNode.setConversationDTO(conversationsocial);
+   	NodeDTO createdSocialNode = nodeController.create(projectRefId, socialNode);
+   	//nodeController.addTags(httpbinNode.getId(), tags);
+   	conversationsocial.setNodeDTO(createdSocialNode);
+   	conversationController.update(conversationsocial.getId(), conversationsocial);
+       }
 
     private void loadTagData() {
 	TagDTO tagDTO = new TagDTO();

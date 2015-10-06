@@ -35,7 +35,7 @@ public class OAuth2DataGenerator {
 	String name = "Google";
 	String authorizationUrl = "https://accounts.google.com/o/oauth2/auth";
 	String accessTokenUrl = "https://accounts.google.com/o/oauth2/token";
-	String clientId = "";
+	String clientId = "783627935897-rg3jiqddrg70q9gv5qssj3rd2u10k3ht.apps.googleusercontent.com";
 	String clientSecret = "";
 	String accessTokenLocation = "HEADER_BEARER";// Authorization: Bearer OAUTH-TOKEN
 	List<String> scopes = new ArrayList<String>();

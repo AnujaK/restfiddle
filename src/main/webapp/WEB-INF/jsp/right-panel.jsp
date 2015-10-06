@@ -290,9 +290,9 @@
                             <div class="col-xs-6">
                                 <select class="form-control" id="accessTokenLocation">
                                     <option>Select Access Token Location</option>
-                                    <option>Auth Header With Bearer Prefix</option>
-                                    <option>Auth Header With OAuth Prefix</option>
-                                    <option>URL Parameter with access_token</option>
+                                    <option value="HEADER_BEARER">Auth Header With Bearer Prefix</option>
+                                    <option value="HEADER_TOKEN">Auth Header With OAuth Prefix</option>
+                                    <option value="URL_PARAM_ACCESS_TOKEN">URL Parameter with access_token</option>
                                 </select>
                             </div>
                             <div class="col-xs-3">
