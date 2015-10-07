@@ -150,6 +150,7 @@ public class SampleDataGenerator {
 	oauth2DataGenerator.loadTrelloAPI();
 	oauth2DataGenerator.loadGitHubAPI();
 	oauth2DataGenerator.loadGoogleAPI();
+	oauth2DataGenerator.loadFacebookAPI();
     }
 
     private void loadRoleData() {
@@ -268,11 +269,12 @@ public class SampleDataGenerator {
 	ProjectDTO googleProject = new ProjectDTO();
 	googleProject.setName("Google");
 	Project projGoogle = projectController.create(socialWorkspaceId, googleProject);
-	createSocialSample(projGoogle, "https://www.googleapis.com/plus/v1/people/me", "GET", "Google Plus", "Get Access Token from Auth and run this request", null, null);
+	createSocialSample(projGoogle, "https://www.googleapis.com/plus/v1/people/me", "GET", "Google Plus", "Get Access Token from Auth and run this request. Enable Google Plus API in your account https://console.developers.google.com.", null, null);
 
 	ProjectDTO facebookProject = new ProjectDTO();
 	facebookProject.setName("Facebook");
-	projectController.create(socialWorkspaceId, facebookProject);
+	Project projFacebook = projectController.create(socialWorkspaceId, facebookProject);
+	createSocialSample(projFacebook, "https://graph.facebook.com/me", "GET", "Graph API", "Get Access Token from Auth and run this request. Do needful settings for your app in https://developers.facebook.com", null, null);
 
 	ProjectDTO twitterProject = new ProjectDTO();
 	twitterProject.setName("Twitter");

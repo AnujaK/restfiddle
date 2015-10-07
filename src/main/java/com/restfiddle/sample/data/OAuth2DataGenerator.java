@@ -45,6 +45,22 @@ public class OAuth2DataGenerator {
 	OAuth2RequestDTO oauth2DTO = buildOAuth2DTO(name, authorizationUrl, accessTokenUrl, clientId, clientSecret, accessTokenLocation, scopes);
 	oauth2Controller.create(oauth2DTO);
     }
+    
+    public void loadFacebookAPI() {
+	// Documentation : https://developers.facebook.com
+	String name = "Facebook";
+	String authorizationUrl = "https://graph.facebook.com/oauth/authorize";
+	String accessTokenUrl = "https://graph.facebook.com/oauth/access_token";
+	String clientId = "933577536708638";
+	String clientSecret = "";
+	String accessTokenLocation = "HEADER_BEARER";// Authorization: Bearer OAUTH-TOKEN
+	List<String> scopes = new ArrayList<String>();
+	scopes.add("user_likes");
+	scopes.add("email");
+
+	OAuth2RequestDTO oauth2DTO = buildOAuth2DTO(name, authorizationUrl, accessTokenUrl, clientId, clientSecret, accessTokenLocation, scopes);
+	oauth2Controller.create(oauth2DTO);
+    }
 
     public void loadInstagramAPI() {
 	// Documentation : http://instagram.com/developer/authentication/
