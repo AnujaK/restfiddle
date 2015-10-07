@@ -621,6 +621,7 @@ define(function(require) {
 						}
 						
 						iframe.document.close();
+						iframe.document.body.style.wordWrap = 'break-word';
 						
 						$("body,html").animate({
 							scrollTop : $('#responseContainer').offset().top
