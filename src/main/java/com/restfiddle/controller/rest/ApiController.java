@@ -109,7 +109,9 @@ public class ApiController {
 	long endTime = System.currentTimeMillis();
 	long duration = endTime - startTime;
 	
-	assertHandler.runAssert(result);
+	if(result!=null){
+	    assertHandler.runAssert(result);
+	}
 
 	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
 	
@@ -159,7 +161,9 @@ public class ApiController {
 	ConversationDTO conversationDTO = new ConversationDTO();
 	conversationDTO.setDuration(duration);
 	conversationDTO.setRfResponseDTO(result);
-	result.setItemDTO(conversationDTO);
+	if(result!=null){
+	    result.setItemDTO(conversationDTO);
+	}
 	return conversationDTO;
     }
 
