@@ -1077,9 +1077,9 @@ define(function(require) {
 				treeNodeView = new TreeNodeView();
 			}
 			if (serverNode.nodeType == 'ENTITY') {
-				uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span>&nbsp;' + serverNode.name + treeNodeView.template();
+				uiNode.title = '&nbsp;<span><i class="fa fa-database color-gray"></i></span><span class="large-text ety">&nbsp;' + serverNode.name + '</span>' + treeNodeView.template();
 			} else {
-				uiNode.title = serverNode.name + treeNodeView.template();
+				uiNode.title = '<span class="large-text folder">' + serverNode.name + '</span>'  + treeNodeView.template();
 			}
 		}
 		if (serverNode.children == undefined || serverNode.children.length == 0) {

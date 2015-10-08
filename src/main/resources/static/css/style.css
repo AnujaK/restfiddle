@@ -574,6 +574,13 @@ ul .dropdown-menu li{
 	max-width : calc(100% - 102px);
 }
 
+.large-text.ety {
+	max-width : calc(100% - 38px);
+}
+
+.large-text.folder {
+	max-width : calc(100% - 22px);
+}
 
 @media (max-width:767px) {
   .env-selectbox{
