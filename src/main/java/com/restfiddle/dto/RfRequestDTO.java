@@ -41,6 +41,8 @@ public class RfRequestDTO extends BaseDTO {
     private ConversationDTO itemDTO;
     
     private AssertionDTO assertionDTO;
+    
+    private String workspaceId;
 
     public String getApiUrl() {
 	return apiUrl;
@@ -120,5 +122,13 @@ public class RfRequestDTO extends BaseDTO {
 
     public void setAssertionDTO(AssertionDTO assertionDTO) {
 	this.assertionDTO = assertionDTO;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 }

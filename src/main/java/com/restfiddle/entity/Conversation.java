@@ -17,7 +17,6 @@ package com.restfiddle.entity;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-
 public class Conversation extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
@@ -28,8 +27,10 @@ public class Conversation extends NamedEntity {
     private RfResponse rfResponse;
 
     private Long duration;
-    
+
     private String nodeId;
+
+    private String workspaceId;
 
     public RfRequest getRfRequest() {
 	return rfRequest;
@@ -61,5 +62,13 @@ public class Conversation extends NamedEntity {
 
     public void setNodeId(String nodeId) {
 	this.nodeId = nodeId;
+    }
+
+    public String getWorkspaceId() {
+	return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+	this.workspaceId = workspaceId;
     }
 }

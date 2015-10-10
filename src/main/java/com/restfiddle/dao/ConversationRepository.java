@@ -15,8 +15,15 @@
  */
 package com.restfiddle.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Query;
+
 import com.restfiddle.entity.Conversation;
 
 public interface ConversationRepository extends RfRepository<Conversation, String> {
+    
+    @Query("{ 'workspaceId' : ?0 }")
+    public Page<Conversation> findConversationsFromWorkspace(String workspaceId, Pageable pageable);
 
 }

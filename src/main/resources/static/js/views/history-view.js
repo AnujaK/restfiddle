@@ -110,6 +110,7 @@ var HistoryView = Backbone.View.extend({
 	
 	render : function(response) {
         //ToDo: When starred nodes will be workspace specific, add 'workspace/<workspaceId>' before "starred" in url
+        var workspaceId = APP.appView.getCurrentWorkspaceId();
 		this.$el.html('');
         
         var historyList = response.data;
@@ -132,7 +133,8 @@ var HistoryView = Backbone.View.extend({
             //fetch activity-log per page.
              var zeroBasedPageNumber = pageNumber - 1;
             $.ajax({
-                url : APP.config.baseUrl + '/conversations?page='+zeroBasedPageNumber+'&limit=10',
+                url : APP.config.baseUrl 
+                + '/conversations?workspaceId='+workspaceId+'&page='+zeroBasedPageNumber+'&limit=10',
                 type : 'get',
                 dataType : 'json',
                 contentType : "application/json",

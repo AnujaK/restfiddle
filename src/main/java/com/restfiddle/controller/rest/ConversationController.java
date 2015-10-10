@@ -61,7 +61,7 @@ public class ConversationController {
     Logger logger = LoggerFactory.getLogger(ConversationController.class);
 
     @Resource
-    private ConversationRepository itemRepository;
+    private ConversationRepository conversationRepository;
 
     @Autowired
     private RfRequestRepository rfRequestRepository;
@@ -80,15 +80,19 @@ public class ConversationController {
 	Conversation conversation = ConversationConverter.convertToEntity(rfRequestDTO, rfResponseDTO);
 	conversation.setName(conversationDTO.getName());
 	conversation.setDescription(conversationDTO.getDescription());
+	
+	conversation.setWorkspaceId(conversationDTO.getWorkspaceId());
+	
 	conversation.setCreatedDate(new Date());
 	conversation.setLastModifiedDate(new Date());
+	
 	if(conversationDTO.getNodeDTO() != null )
 	    conversation.setNodeId(conversationDTO.getNodeDTO().getId());
 
 	rfRequestRepository.save(conversation.getRfRequest());
 	rfResponseRepository.save(conversation.getRfResponse());
 
-	conversation = itemRepository.save(conversation);
+	conversation = conversationRepository.save(conversation);
 
 	conversation.getRfRequest().setConversationId(conversation.getId());
 	rfRequestRepository.save(conversation.getRfRequest());
@@ -101,16 +105,17 @@ public class ConversationController {
     Conversation delete(@PathVariable("conversationId") String conversationId) {
 	logger.debug("Deleting item with id: " + conversationId);
 
-	Conversation deleted = itemRepository.findOne(conversationId);
+	Conversation deleted = conversationRepository.findOne(conversationId);
 
-	itemRepository.delete(deleted);
+	conversationRepository.delete(deleted);
 
 	return deleted;
     }
 
     @RequestMapping(value = "/api/conversations", method = RequestMethod.GET)
     public @ResponseBody
-    PaginatedResponse<ConversationDTO> findAll(@RequestParam(value = "page", required = false) Integer page,
+    PaginatedResponse<ConversationDTO> findAll(@RequestParam(value = "workspaceId", required = false) String workspaceId, 
+	    @RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit) {
 	logger.debug("Finding all items");
 
@@ -126,7 +131,7 @@ public class ConversationController {
 
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
 	Pageable topRecords = new PageRequest(pageNo, numberOfRecords, sort);
-	Page<Conversation> result = itemRepository.findAll(topRecords);
+	Page<Conversation> result = conversationRepository.findConversationsFromWorkspace(workspaceId, topRecords);
 
 	List<Conversation> content = result.getContent();
 	
@@ -154,13 +159,13 @@ public class ConversationController {
     Conversation findById(@PathVariable("conversationId") String conversationId) {
 	logger.debug("Finding item by id: " + conversationId);
 
-	return itemRepository.findOne(conversationId);
+	return conversationRepository.findOne(conversationId);
     }
 
     @RequestMapping(value = "/api/conversations/{conversationId}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
     Conversation update(@PathVariable("conversationId") String conversationId, @RequestBody ConversationDTO conversationDTO) {
-	Conversation dbConversation = itemRepository.findOne(conversationDTO.getId());
+	Conversation dbConversation = conversationRepository.findOne(conversationDTO.getId());
 	
 	RfRequestDTO rfRequestDTO = conversationDTO.getRfRequestDTO();
 	RfResponseDTO rfResponseDTO = new RfResponseDTO();
@@ -190,7 +195,7 @@ public class ConversationController {
 	}
 	rfResponseRepository.save(rfResponse);
 
-	conversation = itemRepository.save(conversation);
+	conversation = conversationRepository.save(conversation);
 
 	return conversation;
     }

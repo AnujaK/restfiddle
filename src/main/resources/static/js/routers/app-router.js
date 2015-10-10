@@ -57,13 +57,15 @@ define(function(require) {
 
 		},
 		showHistory : function() {
+            var workspaceId = APP.appView.getCurrentWorkspaceId();
+            
 			$('#rf-col-1-body').find('li').each(function() {
 				$(this).removeClass('active');
 			});
 			$(".history").addClass('active');
 
 			$.ajax({
-				url : APP.config.baseUrl + '/conversations',
+				url : APP.config.baseUrl + '/conversations?workspaceId='+workspaceId,
 				type : 'get',
 				dataType : 'json',
 				contentType : "application/json",

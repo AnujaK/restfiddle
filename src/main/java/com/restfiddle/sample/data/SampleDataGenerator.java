@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 import com.restfiddle.constant.NodeType;
 import com.restfiddle.constant.PermissionType;
 import com.restfiddle.constant.RoleType;
@@ -303,12 +302,16 @@ public class SampleDataGenerator {
 	firstFolderNode.setProjectId(firstProjectId);
 
 	ConversationDTO conversationDTO = new ConversationDTO();
+	conversationDTO.setWorkspaceId(demoWorkspaceId);
+	
 	RfRequestDTO rfRequestDTO = new RfRequestDTO();
 	rfRequestDTO.setApiUrl(hostUri + "/api/workspaces");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 
 	ConversationDTO postConversationDTO = new ConversationDTO();
+	postConversationDTO.setWorkspaceId(demoWorkspaceId);
+	
 	RfRequestDTO rfRequestDTO2 = new RfRequestDTO();
 	rfRequestDTO2.setApiUrl(hostUri + "/api/workspaces");
 	rfRequestDTO2.setMethodType("POST");
@@ -358,6 +361,8 @@ public class SampleDataGenerator {
 	nodeController.create(firstProjectRefId, testNode);
 
 	conversationDTO = new ConversationDTO();
+	conversationDTO.setWorkspaceId(demoWorkspaceId);
+	
 	rfRequestDTO = new RfRequestDTO();
 	rfRequestDTO.setApiUrl(hostUri + "/api/nodes/starred");
 	rfRequestDTO.setMethodType("GET");
@@ -428,9 +433,13 @@ public class SampleDataGenerator {
 
     private void createSampleRequest(String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject) {
 	ConversationDTO httpbinDTO = new ConversationDTO();
+	
+	httpbinDTO.setWorkspaceId(demoWorkspaceId);
+	
 	RfRequestDTO httpbinReqDTO = new RfRequestDTO();
 	httpbinReqDTO.setApiUrl(apiUrl);
 	httpbinReqDTO.setMethodType(methodType);
+	
 	httpbinDTO.setRfRequestDTO(httpbinReqDTO);
 	if (urlParams!=null) {
 	    httpbinReqDTO.setUrlParams(urlParams);
@@ -453,8 +462,11 @@ public class SampleDataGenerator {
     private void createSocialSample(Project project, String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject) {
 	String projectId = project.getId();
 	String projectRefId = project.getProjectRef().getId();
+	
 	ConversationDTO socialDTO = new ConversationDTO();
-   	RfRequestDTO socialReqDTO = new RfRequestDTO();
+	socialDTO.setWorkspaceId(socialWorkspaceId);
+	
+	RfRequestDTO socialReqDTO = new RfRequestDTO();
    	socialReqDTO.setApiUrl(apiUrl);
    	socialReqDTO.setMethodType(methodType);
    	socialDTO.setRfRequestDTO(socialReqDTO);

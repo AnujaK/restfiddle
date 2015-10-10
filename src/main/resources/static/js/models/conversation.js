@@ -11,7 +11,8 @@ define(function(require) {
 			name : '',
 			description : '',
 			rfRequest : '',
-			rfResponse : '' 
+			rfResponse : '',
+            workspaceId : null
 		},
 		sync : function(method, model, options){
 			if(method == 'create' || method == 'update'){

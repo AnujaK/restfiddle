@@ -30,6 +30,8 @@ public class ConversationDTO extends BaseDTO {
     
     @JsonBackReference
     private NodeDTO nodeDTO;
+    
+    private String workspaceId;
 
     public RfRequestDTO getRfRequestDTO() {
 	return rfRequestDTO;
@@ -62,5 +64,13 @@ public class ConversationDTO extends BaseDTO {
 
     public void setNodeDTO(NodeDTO nodeDTO) {
         this.nodeDTO = nodeDTO;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 }

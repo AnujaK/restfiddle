@@ -159,6 +159,7 @@ public class ApiController {
 	    throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);
 	}
 	ConversationDTO conversationDTO = new ConversationDTO();
+	conversationDTO.setWorkspaceId(rfRequestDTO.getWorkspaceId());
 	conversationDTO.setDuration(duration);
 	conversationDTO.setRfResponseDTO(result);
 	if(result!=null){

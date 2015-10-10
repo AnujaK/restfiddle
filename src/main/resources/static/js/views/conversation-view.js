@@ -650,6 +650,7 @@ define(function(require) {
 			});
 		},
 		getProcessRequest : function() {
+            var workspaceId = APP.appView.getCurrentWorkspaceId();
 			var item = {	
 				id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
 				apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()),
@@ -660,6 +661,7 @@ define(function(require) {
 				formParams : this.getFormParams(),
 				basicAuthDTO : this.getBasicAuthDTO(),
 				digestAuthDTO : this.getDigestAuthDTO(),
+                workspaceId : workspaceId
 			};
 			return item;
 		},
@@ -882,6 +884,8 @@ define(function(require) {
 			iframe.removeChild(iframe.documentElement);
 		},
 		saveOrUpdateConversation : function() {
+            var workspaceId = APP.appView.getCurrentWorkspaceId();
+            
 			if (APP.appView.getCurrentConversationId() != null) {
 				var rfRequest = {
 					id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
@@ -893,17 +897,22 @@ define(function(require) {
 					formParams : this.getFormParams(),
 					basicAuthDTO : this.getBasicAuthDTO(),
 					digestAuthDTO : this.getDigestAuthDTO(),
-				}
+                    workspaceId : workspaceId,
+				};
+                
 				var rfResponse = {
 
-				}
+				};
+                
 				var conversation = new ConversationModel({
 					id : APP.appView.getCurrentConversationId(),
+                    workspaceId : workspaceId,
 					nodeDTO : {id:APP.appView.getCurrentRequestNodeId()}, 
 					rfRequestDTO : rfRequest,
 					rfResponseDTO : rfResponse
 
 				});
+                
 				conversation.save(null, {
 					success : function() {
 						alert('Changes saved successfully!');

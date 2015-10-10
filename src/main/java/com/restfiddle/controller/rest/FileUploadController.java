@@ -85,6 +85,10 @@ public class FileUploadController {
 		    String requestMethod = request.getString("method");
 
 		    ConversationDTO conversationDTO = new ConversationDTO();
+		    
+		    //TODO : Set workspace Id to the conversation
+		    //conversationDTO.setWorkspaceId(project.getWorkspace().getId());
+		    
 		    RfRequestDTO rfRequestDTO = new RfRequestDTO();
 		    rfRequestDTO.setApiUrl(requestUrl);
 		    rfRequestDTO.setMethodType(requestMethod);
