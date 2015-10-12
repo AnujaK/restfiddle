@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.DBRef;
 import com.restfiddle.service.auth.EntityAuthService;
@@ -85,8 +86,9 @@ public class EntitySessionController {
 	    response.put("msg", e.getMessage());
 	    return response.toString(4);
 	}
+	DBCollection userCollection = mongoTemplate.getCollection(projectId + "_User");
 	
-	DBObject user = ((DBRef)(data.get("user"))).fetch();
+	DBObject user = userCollection.findOne((DBRef)(data.get("user")));
 	user.removeField("password");
 	data.put("user", user);
 	
@@ -120,7 +122,7 @@ public class EntitySessionController {
     }
     
     private DBObject dbRefToRel(DBRef obj){
-	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", obj.getRef().split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", ((String) obj.getId()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
     }
 
 }

@@ -40,7 +40,7 @@ public class EntityAuthService {
 	BasicDBObject auth = null;
 	if(encoder.matches((String)userDTO.get("password"),(String)user.get("password"))){
 	    auth = new BasicDBObject();
-	    auth.append("user", new DBRef(mongoTemplate.getDb(),projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
+	    auth.append("user", new DBRef(projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
 	    auth.put("projectId", projectId);
 		
 	    DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
@@ -73,6 +73,9 @@ public class EntityAuthService {
 	List<String> roleList = Arrays.asList(roles);
 	
 	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
+	DBCollection userCollection = mongoTemplate.getCollection(projectId + "_User");
+	DBCollection roleCollection = mongoTemplate.getCollection(projectId + "_Role");
+
 	
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(authToken));
@@ -81,11 +84,11 @@ public class EntityAuthService {
 	
 	if(authData != null && projectId.equals(authData.get("projectId"))) {
 	    DBRef userRef = (DBRef)authData.get("user");
-	    DBObject user = userRef.fetch();
+	    DBObject user = userCollection.findOne(userRef);
 	    
 	    DBObject roleObj = null;
 	    if(user.containsField("role")){
-		roleObj = ((DBRef)user.get("role")).fetch();
+		roleObj = roleCollection.findOne((DBRef)user.get("role"));
 	    }
 	    
 	    if((roleObj != null && roleList.contains((roleObj.get("name")))) || roleList.contains("USER")){
