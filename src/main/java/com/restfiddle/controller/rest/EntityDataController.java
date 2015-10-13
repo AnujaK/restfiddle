@@ -231,7 +231,7 @@ public class EntityDataController {
 	    }
 	    
 	    if(entityName.equals("User")){
-		DBObject loggedInUser = user.fetch();
+		DBObject loggedInUser = dbCollection.findOne(user);
 		if(loggedInUser.get("username").equals(resultObject.get("username"))){
 		    return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
 		}else{
@@ -318,7 +318,7 @@ public class EntityDataController {
     }
     
     private DBObject dbRefToRel(DBRef obj){
-	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", obj.getRef().split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", ((String) obj.getId()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
     }
     
     private void relationToDBRef(DBObject dbObject, String projectId) {
@@ -328,7 +328,7 @@ public class EntityDataController {
 		DBObject doc = (DBObject) obj;
 		if (doc.containsField("_rel")) {
 		    DBObject relation = (DBObject) doc.get("_rel");
-		    dbObject.put(key, new DBRef(mongoTemplate.getDb(), projectId + "_" + (String) relation.get("entity"), (new ObjectId((String) relation.get("_id")))));
+		    dbObject.put(key, new DBRef(projectId + "_" + (String) relation.get("entity"), (new ObjectId((String) relation.get("_id")))));
 		} else {
 		    relationToDBRef(doc, projectId);
 		}
