@@ -15,36 +15,43 @@
  */
 package com.restfiddle.config.persistence;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.data.authentication.UserCredentials;
-import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 
 @Configuration
-@EnableTransactionManagement
-@EnableMongoRepositories(basePackages = { "com.restfiddle.dao" })
-public class PersistenceConfig {
+@EnableMongoRepositories("com.restfiddle.dao")
+@EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
+public class PersistenceConfig extends AbstractMongoConfiguration{
 
     @Autowired
     private Environment env;
 
-    public @Bean
-    MongoDbFactory mongoDbFactory() throws Exception {
-	UserCredentials userCredentials = new UserCredentials(env.getProperty("mongodb.username"), env.getProperty("mongodb.password"));
-	return new SimpleMongoDbFactory(new MongoClient(env.getProperty("mongodb.host"), env.getProperty("mongodb.port", Integer.class)),
-		env.getProperty("mongodb.name"), userCredentials);
-    }
+	@Override
+	protected String getDatabaseName() {
+		return env.getProperty("mongodb.name");
+	}
 
-    public @Bean
-    MongoTemplate mongoTemplate() throws Exception {
-	return new MongoTemplate(mongoDbFactory());
-    }
+	@Override
+	@Bean
+	public Mongo mongo() throws Exception {
+		  return new MongoClient(Collections.singletonList(new ServerAddress(env.getProperty("mongodb.host"), env.getProperty("mongodb.port", Integer.class))),
+				  Collections.singletonList(MongoCredential.createCredential(env.getProperty("mongodb.username"), env.getProperty("mongodb.auth"), env.getProperty("mongodb.password").toCharArray())));
+	}
+	
+	  @Override
+	  protected String getMappingBasePackage() {
+	    return "com.restfiddle.dao";
+	  }
 }
