@@ -15,7 +15,9 @@
  */
 package com.restfiddle.config.persistence;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +34,6 @@ import com.mongodb.ServerAddress;
 
 @Configuration
 @EnableMongoRepositories("com.restfiddle.dao")
-@EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class PersistenceConfig extends AbstractMongoConfiguration{
 
     @Autowired
@@ -46,8 +47,11 @@ public class PersistenceConfig extends AbstractMongoConfiguration{
 	@Override
 	@Bean
 	public Mongo mongo() throws Exception {
-		  return new MongoClient(Collections.singletonList(new ServerAddress(env.getProperty("mongodb.host"), env.getProperty("mongodb.port", Integer.class))),
-				  Collections.singletonList(MongoCredential.createCredential(env.getProperty("mongodb.username"), env.getProperty("mongodb.auth"), env.getProperty("mongodb.password").toCharArray())));
+	    List<MongoCredential> credentials = new ArrayList<MongoCredential>();
+	    credentials.add(MongoCredential.createCredential(env.getProperty("mongodb.username"), env.getProperty("mongodb.auth"), env.getProperty("mongodb.password").toCharArray()));
+	    credentials.add(MongoCredential.createCredential(env.getProperty("mongodb.username"), env.getProperty("mongodb.name"), env.getProperty("mongodb.password").toCharArray()));
+	    return new MongoClient(Collections.singletonList(new ServerAddress(env.getProperty("mongodb.host"), env.getProperty("mongodb.port", Integer.class))),
+				  credentials);
 	}
 	
 	  @Override
