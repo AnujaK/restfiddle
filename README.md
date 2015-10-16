@@ -162,7 +162,7 @@ applicationDefaultJvmArgs = [
 Using MongoDB 3.x
 ==========
 
-Download the latest MongoDB version. After kappa release, RESTFiddle has enabled authentication and moved to version 3.0. To start using this, create a configuration file mongo.conf at a location.e.g. F:\restfiddledata\. Create mongo.log file for logging e.g. F:\restfiddledata\log\
+Download the latest MongoDB version. After kappa release, RESTFiddle has enabled authentication and moved to version 3.0. To start using this, create a configuration file mongo.conf at a location.e.g. F:\restfiddledata\. Create mongo.log file for logging e.g. F:\restfiddledata\log\ This is how configuration file looks like:
 
 ```
 bind_ip = 127.0.0.1
