@@ -178,7 +178,7 @@ logpath=F:\restfiddledata\log\mongo.log
 logappend = true
 ```
 
-Start MongoDB without authenction.
+Start MongoDB without authentication.
 ```
 "C:\Program Files\MongoDB\Server\3.0\bin\mongod.exe" --config F:\restfiddledata\mongo.conf  
 ```
