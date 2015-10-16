@@ -271,6 +271,7 @@ define(function(require) {
 		$("#bAuthPassword").val('');
 		$("#digestUsername").val('');
 		$("#digestPassword").val('');
+		$("#tagLabels").html('');
 	});
 
 	$('.label-dropdown-menu').unbind("click").bind("click", function(event) {

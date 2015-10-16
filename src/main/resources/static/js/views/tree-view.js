@@ -821,6 +821,7 @@ define(function(require) {
 				node.remove();
 			}
 		});
+		$("#clearRequest").trigger("click");
 	});
 
 	$("#deleteWorkspaceBtn").bind("click", function() {
