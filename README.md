@@ -158,6 +158,49 @@ applicationDefaultJvmArgs = [
     "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
 ]
 ```
+
+Using MongoDB 3.x
+==========
+
+Download the latest MongoDB version. After kappa release, RESTFiddle has enabled authentication and moved to version 3.0. To start using this, create a configuration file mongo.conf at a location.e.g. F:\restfiddledata\. Create mongo.log file for logging e.g. F:\restfiddledata\log\
+
+```
+bind_ip = 127.0.0.1
+ 
+port = 27017
+ 
+quiet = true
+ 
+dbpath=F:\restfiddledata\data0
+  
+logpath=F:\restfiddledata\log\mongo.log
+ 
+logappend = true
+```
+
+Start MongoDB without authenction.
+```
+"C:\Program Files\MongoDB\Server\3.0\bin\mongod.exe" --config F:\restfiddledata\mongo.conf  
+```
+
+On another command prompt go to C:\Program Files\MongoDB\Server\3.0\bin and type command mongo. This opens Mongo Shell. 
+Create user here.
+
+```
+use restfiddle
+db.createUser({"user":"rf","pwd":"rf","roles":["dbOwner","read","readWrite"]})
+```
+
+Now stop the database and restart it so that it checks for authentication
+```
+"C:\Program Files\MongoDB\Server\3.0\bin\mongod.exe" --auth --config F:\restfiddledata\mongo.conf
+```
+
+Start the RESTFiddle application using the same command as earlier
+```
+mvn spring-boot:run -Drun.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
+```
+
 Deployment
 ==========
 
