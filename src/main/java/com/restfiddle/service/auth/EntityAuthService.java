@@ -73,9 +73,6 @@ public class EntityAuthService {
 	List<String> roleList = Arrays.asList(roles);
 	
 	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
-	DBCollection userCollection = mongoTemplate.getCollection(projectId + "_User");
-	DBCollection roleCollection = mongoTemplate.getCollection(projectId + "_Role");
-
 	
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(authToken));
@@ -84,11 +81,12 @@ public class EntityAuthService {
 	
 	if(authData != null && projectId.equals(authData.get("projectId"))) {
 	    DBRef userRef = (DBRef)authData.get("user");
-	    DBObject user = userCollection.findOne(userRef);
+	    DBObject user = mongoTemplate.getCollection(userRef.getCollectionName()).findOne(userRef.getId());
 	    
 	    DBObject roleObj = null;
 	    if(user.containsField("role")){
-		roleObj = roleCollection.findOne((DBRef)user.get("role"));
+		DBRef roleRef = (DBRef)user.get("role");
+		roleObj = mongoTemplate.getCollection(roleRef.getCollectionName()).findOne(roleRef.getId());
 	    }
 	    
 	    if((roleObj != null && roleList.contains((roleObj.get("name")))) || roleList.contains("USER")){
