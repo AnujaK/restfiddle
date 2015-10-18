@@ -88,7 +88,7 @@ public class EntitySessionController {
 	}
 	DBCollection userCollection = mongoTemplate.getCollection(projectId + "_User");
 	
-	DBObject user = userCollection.findOne((DBRef)(data.get("user")));
+	DBObject user = userCollection.findOne(((DBRef)(data.get("user"))).getId());
 	user.removeField("password");
 	data.put("user", user);
 	

@@ -131,6 +131,10 @@ public class EntityDataController {
 
 	DBObject resultObject = dbCollection.findOne(queryObject);
 	
+	if(resultObject == null){
+	    return "Not Found";
+	}
+	
 	if(entityName.equals("User")){
 	    resultObject.removeField("password");
 	}
