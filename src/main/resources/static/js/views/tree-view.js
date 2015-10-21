@@ -100,13 +100,14 @@ define(function(require) {
 			return;
 		} else if (node.data.nodeType == 'ENTITY') {
 			$("#editEntityModal").modal("show");
-			$("#editEntityId").val(node.data.id);
+			$("#editEntityNodeId").val(node.data.id);
 			$("#editEntityTextField").val(node.data.name);
 			$("#editEntityTextArea").val(node.data.description);
 			
 			var node = new NodeModel({id:node.data.id});
 			node.fetch({success:function(data){
 				var genericEntity = data.get('genericEntity');
+				$("#editEntityId").val(genericEntity.id);
 				$("#editEntityFieldsWrapper").html('');
 				_.times(genericEntity.fields.length, function(i){
 					var entityFieldView = new EntityFieldView();
@@ -116,6 +117,9 @@ define(function(require) {
 				$("#editEntityFieldsWrapper .row").each(function(i,row){
 					$(row).find('input').val(genericEntity.fields[i].name);
 					$(row).find('select').val(genericEntity.fields[i].type);
+					$(row).find('input').prop('disabled', true);
+					$(row).find('select').prop('disabled', true);
+					$(row).find('button').remove();
 				});
 			}});
 			
@@ -769,8 +773,11 @@ define(function(require) {
 	});
     
     $("#editEntityBtn").unbind("click").bind("click", function(event) {
-		var nodeId = $("#editEntityId").val();
+		var nodeId = $("#editEntityNodeId").val();
 		var node = treeObj.getNodeByKey(nodeId);
+		
+		var entityName = $("#editEntityTextField").val();
+		var entityDescription =  $("#editEntityTextArea").val();
 		
 		var nodeModel = new NodeModel({
 			id : node.data.id,
@@ -779,6 +786,18 @@ define(function(require) {
 			method : node.data.method,
 			tags : []
 		});
+
+		var entityFields = getEntityFields();
+
+		var entity = new EntityModel({
+			id : $("#editEntityId").val(),
+			name : entityName,
+			description : entityDescription,
+			fields : entityFields
+
+		});
+		
+		entity.save();
 
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
