@@ -112,6 +112,22 @@ public class GenericEntityController {
 
 	entity.setName(updated.getName());
 	entity.setDescription(updated.getDescription());
+	
+	List<GenericEntityFieldDTO> fieldsDTOs = updated.getFields();
+	if(fieldsDTOs != null){
+	    List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
+	    for(GenericEntityFieldDTO fieldDTO : fieldsDTOs){
+		GenericEntityField field = new GenericEntityField();
+		field.setName(fieldDTO.getName());
+		field.setType(field.getType());
+		
+		fields.add(field);
+	    }
+	    
+	    entity.setFields(fields);
+	}
+	
+	genericEntityRepository.save(entity);
 
 	return entity;
     }

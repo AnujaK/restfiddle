@@ -409,6 +409,7 @@
 			    </div>
                 <div class="modal-body">
 				<form id = "editNodeForm">
+					<input type="hidden" id="editEntityNodeId"/>
 					<input type="hidden" id="editEntityId"/>
 					<input type="text" id="editEntityTextField" class="form-control" placeholder="Enter Node Name" name = "editNodeName" required> <br>
 					<textarea id="editEntityTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
