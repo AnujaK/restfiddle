@@ -52,7 +52,7 @@ Building From Source
 
 * Gradle 2.4 (Optional)
 
-* MongoDB
+* MongoDB 3.x
 
 ##### Build
 
@@ -107,10 +107,10 @@ mongodb.password=
 ```
 1. Stop RESTFiddle server, if running.
 2. Start MongoDB, if not running.
-	Here is the command I use : "C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddle\data
+	Here is the command I use : "C:\Program Files\MongoDB\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddle\data
 3. Connect to MongoDB.
 	Here is one of the ways to connect to MongoDB : 
-	Go to "C:\Program Files\MongoDB 2.6 Standard\bin" folder and run "mongo" command.
+	Go to "C:\Program Files\MongoDB\bin" folder and run "mongo" command.
 	Then run "use restfiddle" command and finally "db.dropDatabase()" command to delete the existing RESTFiddle database.
 	Note : you will see following message on the command prompt : { "dropped" : "restfiddle", "ok" : 1 }
 4. Start RESTFiddle application (mvn spring-boot:run) - This will create and initialize the database.
@@ -122,7 +122,7 @@ mongodb.password=
 Sometimes MongoDB doesn't start and shows message:
         old lock file: C:\Users\ANUJA\Documents\restfiddledata\data\mongod.lock. probably means unclean shutdown
 Run repair operation to recover your database
-	"C:\Program Files\MongoDB 2.6 Standard\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddledata\data --repair
+	"C:\Program Files\MongoDB\bin\mongod.exe" --dbpath C:\Users\ANUJA\Documents\restfiddledata\data --repair
 Most likely, your data will be repaired with the --repair option. In case it doesn't, delete the mongod.lock file and then run the above --repair command.
 ```
 
