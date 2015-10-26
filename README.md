@@ -295,6 +295,6 @@ If you need help in setting up RESTFiddle for your Team/Organization, feel free 
 Copyright and License
 ==========
 
-Copyright 2015 Ranjan Kumar
+Copyright 2015 BootSimply Solutions
 
 Licensed under Apache License, Version 2.0
