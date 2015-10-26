@@ -33,6 +33,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version:springBootVersion
     compile group: 'org.hibernate', name: 'hibernate-validator', version:'5.1.3.Final'
     compile group: 'org.mongodb', name: 'mongo-java-driver', version:'3.1.0'
+    compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.2'
     compile(group: 'org.apache.httpcomponents', name: 'httpclient', version:httpComponentsVersion) {
 exclude(module: 'commons-logging')
     }
