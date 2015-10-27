@@ -882,7 +882,9 @@ define(function(require) {
 			
 			var iframe = document.getElementById("response-preview"),
 			iframe = iframe.contentDocument || iframe.contentWindow.document;
-			iframe.removeChild(iframe.documentElement);
+			if(iframe.documentElement){
+				iframe.removeChild(iframe.documentElement);
+			}
 		},
 		saveOrUpdateConversation : function() {
             var workspaceId = APP.appView.getCurrentWorkspaceId();
