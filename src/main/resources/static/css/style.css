@@ -492,6 +492,7 @@ ul .dropdown-menu li{
 
 .dropdown-menu>li>a{
 	outline: none;
+	cursor:pointer;
 }
 
 
