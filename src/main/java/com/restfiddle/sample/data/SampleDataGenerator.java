@@ -209,8 +209,8 @@ public class SampleDataGenerator {
 	userController.create(user1);
 
 	PasswordDTO user2 = new PasswordDTO();
-	user2.setName("Ranjan Kumar");
-	user2.setEmail("ranjan@example.com");
+	user2.setName("Anuja Kumar");
+	user2.setEmail("anuja@example.com");
 	user2.setPassword("rf");
 	userController.create(user2);
 
