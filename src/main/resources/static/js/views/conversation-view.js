@@ -925,6 +925,10 @@ define(function(require) {
 					}
 				});
 			} else {
+				if($("#tree").fancytree("getTree").activeNode == null){
+					alert("Create/Select a Project before saving request");
+					return;
+				}
 				$("#requestModal").find("#source").val("conversation");
 				$("#requestModal").modal("show");
 			}

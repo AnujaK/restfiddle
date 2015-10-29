@@ -256,6 +256,10 @@ define(function(require) {
 	});
 
 	$("#saveAsConversationBtn").bind("click", function() {
+		if($("#tree").fancytree("getTree").activeNode == null){
+			alert("Create/Select a Project before saving request");
+			return;
+		}
 		$("#requestModal").find("#source").val("conversation");
 		$("#requestModal").modal("show");
 	});
@@ -1037,39 +1041,12 @@ define(function(require) {
 				} else {
 					
 					APP.router.navigate('/workspace/'+ APP.appView.getCurrentWorkspaceId() +'/project/'+ APP.appView.getCurrentProjectId() + '/node/' + data.node.data.id, {trigger: true});
-					
-					/*APP.Events.trigger(StarEvent.CLICK, data.node.data.id);
-					var node = new NodeModel({
-						id : data.node.data.id
-					});
-					node.fetch({
-						success : function(response) {
-							console.log(response.get("conversation"));
-							if (response.get("starred")) {
-								$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Unstar');
-							} else {
-								$('#starNodeBtn').html('<span class="glyphicon glyphicon-star"></span>&nbsp;Star');
-							}
-							var conversation = new ConversationModel(response.get("conversation"));
-							$("#apiReqNodeId").html(data.node.data.id);
-							$("#rfRequestId").html(conversation.get("rfRequest").id);
-							conversation.set("id", conversation.get("id"));
-							conversation.set("name", response.get("name"));
-							conversation.set("description", response.get("description"));
-							// var conversationView = new
-							// app.ConversationView({model : conversation});
-							APP.conversation.render(conversation);
-							APP.tagsLabel.display(response.get('tags'));
-							ConversationEvents.triggerChange(response.get("conversation") ? response.get("conversation").id : null);
-						}
-					});*/
 				}
 
 			} else if (data.node.isFolder()) {
-				var conversation = new ConversationModel({});
-				// var conversationView = new
-				// app.ConversationView({model : conversation});
-				APP.conversation.render(conversation);
+                /*Commented following 2 lines for #320. Else on clicking on folder/project, unsaved request in 3rd column was getting lost*/
+				//var conversation = new ConversationModel({});
+				//APP.conversation.render(conversation);
 				ConversationEvents.triggerChange(null);
 				
 				APP.router.navigate('/');
