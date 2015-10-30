@@ -159,6 +159,11 @@
 			<artifactId>swagger-compat-spec-parser</artifactId>
 			<version>1.0.12-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.raml</groupId>
+			<artifactId>raml-parser</artifactId>
+			<version>0.8.12</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
