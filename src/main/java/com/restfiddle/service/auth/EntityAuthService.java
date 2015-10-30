@@ -67,7 +67,7 @@ public class EntityAuthService {
 	
 	JSONObject response = new JSONObject();
 	if(authToken == null){
-	    return response.put("success", false).put("msg", "unauthorize");
+	    return response.put("success", false).put("msg", "unauthorized");
 	}
 	
 	List<String> roleList = Arrays.asList(roles);
@@ -96,10 +96,10 @@ public class EntityAuthService {
 		authData.put("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
 		dbCollection.save(authData);
 	    } else {
-		response.put("success", false).put("msg", "unauthorize");
+		response.put("success", false).put("msg", "unauthorized");
 	    }
 	} else {
-	    response.put("success", false).put("msg", "unauthorize");
+	    response.put("success", false).put("msg", "unauthorized");
 	}
 	
 	return response;
