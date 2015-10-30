@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.GenericEntityDataRepository;
 import com.restfiddle.dao.GenericEntityRepository;
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.RfRequestDTO;
@@ -51,6 +52,9 @@ public class GenerateApiController {
     
     @Autowired
     private NodeController nodeController;
+    
+    @Autowired
+    private NodeRepository nodeRepository;
 
     @Autowired
     private ConversationController conversationController;
@@ -71,6 +75,14 @@ public class GenerateApiController {
 	String baseNodeId = entity.getBaseNodeId();
 	BaseNode entityNode = nodeController.findById(baseNodeId);
 
+	return generateApi(entityNode);
+    }
+    
+    StatusResponse generateApiByEntity(GenericEntity entity) {
+	
+	String baseNodeId = entity.getBaseNodeId();
+	BaseNode entityNode = nodeController.findById(baseNodeId);
+	
 	return generateApi(entityNode);
     }
 

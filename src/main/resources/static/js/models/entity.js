@@ -14,6 +14,10 @@ define(function(require) {
 			entityDataList : null, 
 		},
 		sync : function(method, model, options){
+			if(options.params){
+				options.url = this.url() + '?' + $.param(options.params);
+			}
+			
 			if(method == 'create' || method == 'update'){
 				model.unset("entityDataList");
 				return Backbone.sync(method, model, options);				
