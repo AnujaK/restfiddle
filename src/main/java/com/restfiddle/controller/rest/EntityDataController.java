@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bson.BSONObject;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,13 +32,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.sym.Name;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -68,7 +67,7 @@ public class EntityDataController {
     String getEntityDataList(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,
 	    @RequestParam(value = "sort", required = false) String sort, @RequestParam(value = "query", required = false) String query, 
-	    @RequestParam(value = "authToken", required = false) String authToken) {
+	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
 	if(!authRes.getBoolean("success")){
@@ -117,7 +116,7 @@ public class EntityDataController {
     public @ResponseBody
     String getEntityDataById(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("id") String entityDataId,
-	    @RequestParam(value = "authToken", required = false) String authToken) {
+	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
 	if(!authRes.getBoolean("success")){
@@ -154,7 +153,7 @@ public class EntityDataController {
     public @ResponseBody
     String createEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @RequestBody Object genericEntityDataDTO,
-	    @RequestParam(value = "authToken", required = false) String authToken) {	
+	    @RequestHeader(value = "authToken", required = false) String authToken) {	
 	
 	String data = "";
 	if (!(genericEntityDataDTO instanceof Map)) {
@@ -202,7 +201,7 @@ public class EntityDataController {
     public @ResponseBody
     String updateEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName, @PathVariable("uuid") String uuid,
 	    @RequestBody Object genericEntityDataDTO,
-	    @RequestParam(value = "authToken", required = false) String authToken) {
+	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 	DBRef user = null;
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
@@ -239,7 +238,7 @@ public class EntityDataController {
 		if(loggedInUser.get("username").equals(resultObject.get("username"))){
 		    return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
 		}else{
-		    return new JSONObject().put("success", false).put("msg", "unauthorize").toString(4);
+		    return new JSONObject().put("success", false).put("msg", "unauthorized").toString(4);
 		}
 	    }
 	    
@@ -262,14 +261,14 @@ public class EntityDataController {
     public @ResponseBody
     StatusResponse deleteEntityData(@PathVariable("projectId") String projectId, @PathVariable("name") String entityName,
 	    @PathVariable("uuid") String uuid,
-	    @RequestParam(value = "authToken", required = false) String authToken) {
+	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 
 	StatusResponse res = new StatusResponse();
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
 	if(!authRes.getBoolean("success")){
-	    res.setStatus("Unauthorize");
+	    res.setStatus("Unauthorized");
 	    return res;
 	}
 	
@@ -322,7 +321,7 @@ public class EntityDataController {
     }
     
     private DBObject dbRefToRel(DBRef obj){
-	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", ((String) obj.getId()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", (obj.toString()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
     }
     
     private void relationToDBRef(DBObject dbObject, String projectId) {
