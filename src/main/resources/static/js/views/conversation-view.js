@@ -647,6 +647,16 @@ define(function(require) {
 					// update issue.
 					// APP.conversation.toggleRequestSection();
 				},
+                error : function(){
+                    $('#req-time').html();
+					$('#status-code').html();
+					$('#content-size').html();
+                    var iframe = document.getElementById('response-preview');
+                    iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+                    iframe.document.open();	
+                    $("#response-wrapper").html('<br><pre class="prettyprint"> Check the URL </pre>');
+                    iframe.document.close();
+                },
 				data : JSON.stringify(this.getProcessRequest())
 			});
 		},
@@ -654,7 +664,7 @@ define(function(require) {
             var workspaceId = APP.appView.getCurrentWorkspaceId();
 			var item = {	
 				id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
-				apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()),
+				apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()).replace(/%7B/g, '{').replace(/%7D/g, '}'),
 				methodType : this.$el.find(".apiRequestType").val(),
 				apiBody : this.apiBodyCodeMirror.getValue(),
 				headers : this.getHeaderParams(),
