@@ -321,7 +321,7 @@ public class EntityDataController {
     }
     
     private DBObject dbRefToRel(DBRef obj){
-	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", ((String) obj.getId()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
+	return new BasicDBObject().append("_rel",new BasicDBObject().append("entity", (obj.toString()).split("_")[1]).append("_id", ((ObjectId)obj.getId()).toHexString()));
     }
     
     private void relationToDBRef(DBObject dbObject, String projectId) {
