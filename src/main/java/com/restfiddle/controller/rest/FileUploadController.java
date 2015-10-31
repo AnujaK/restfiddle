@@ -15,8 +15,20 @@
  */
 package com.restfiddle.controller.rest;
 
+import io.swagger.models.Info;
+import io.swagger.models.Operation;
+import io.swagger.models.Path;
+import io.swagger.models.Swagger;
+import io.swagger.models.parameters.Parameter;
+import io.swagger.parser.SwaggerParser;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,8 +64,8 @@ public class FileUploadController {
 
     @Autowired
     private ProjectController projectController;
-    
-    @RequestMapping(value = "/api/import", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/api/import/postman", method = RequestMethod.POST)
     public @ResponseBody
     void upload(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
 
@@ -63,17 +75,11 @@ public class FileUploadController {
 		String fileContent = new String(bytes);
 		JSONObject pmCollection = new JSONObject(fileContent);
 
-		String collectionName = pmCollection.getString("name");
-		System.out.println(collectionName);
+		String folderName = pmCollection.getString("name");
+		System.out.println(folderName);
 		//
-		Project project = projectController.findById(null, projectId);
-		
-		NodeDTO collectionNodeDTO = new NodeDTO();
-		collectionNodeDTO.setName(collectionName);
-		collectionNodeDTO.setNodeType(NodeType.FOLDER.name());
-		collectionNodeDTO.setProjectId(projectId);
-		
-		NodeDTO collectionNode = nodeController.create(project.getProjectRef().getId(), collectionNodeDTO);
+		NodeDTO folderNode = createFolder(projectId, folderName);
+		ConversationDTO conversationDTO = null;
 
 		JSONArray requests = pmCollection.getJSONArray("requests");
 		int len = requests.length();
@@ -84,11 +90,11 @@ public class FileUploadController {
 		    String requestUrl = request.getString("url");
 		    String requestMethod = request.getString("method");
 
-		    ConversationDTO conversationDTO = new ConversationDTO();
-		    
-		    //TODO : Set workspace Id to the conversation
-		    //conversationDTO.setWorkspaceId(project.getWorkspace().getId());
-		    
+		    conversationDTO = new ConversationDTO();
+
+		    // TODO : Set workspace Id to the conversation
+		    // conversationDTO.setWorkspaceId(project.getWorkspace().getId());
+
 		    RfRequestDTO rfRequestDTO = new RfRequestDTO();
 		    rfRequestDTO.setApiUrl(requestUrl);
 		    rfRequestDTO.setMethodType(requestMethod);
@@ -141,12 +147,88 @@ public class FileUploadController {
 		    childNode.setDescription(requestDescription);
 		    childNode.setProjectId(projectId);
 		    childNode.setConversationDTO(conversationDTO);
-		    NodeDTO createdChildNode = nodeController.create(collectionNode.getId(), childNode);
+		    NodeDTO createdChildNode = nodeController.create(folderNode.getId(), childNode);
 		    System.out.println("created node : " + createdChildNode.getName());
 		}
 	    } catch (Exception e) {
 		logger.error(e.getMessage(), e);
 	    }
 	}
+    }
+
+    private NodeDTO createFolder(String projectId, String folderName) {
+	Project project = projectController.findById(null, projectId);
+
+	NodeDTO folderNodeDTO = new NodeDTO();
+	folderNodeDTO.setName(folderName);
+	folderNodeDTO.setNodeType(NodeType.FOLDER.name());
+	folderNodeDTO.setProjectId(projectId);
+
+	NodeDTO collectionNode = nodeController.create(project.getProjectRef().getId(), folderNodeDTO);
+	return collectionNode;
+    }
+
+    @RequestMapping(value = "/api/import", method = RequestMethod.POST)
+    public @ResponseBody
+    void uploadSwagger(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	try {
+	    swaggerParser(projectId, name, file);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    // Swagger sample json : http://petstore.swagger.io/v2/swagger.json
+    public void swaggerParser(String projectId, String name, MultipartFile file) throws IOException {
+	// MultipartFile file
+	File tempFile = File.createTempFile("RF_SWAGGER_IMPORT", "JSON");
+	Swagger swagger = new SwaggerParser().read("http://petstore.swagger.io/v2/swagger.json");
+
+	String host = swagger.getHost();
+	String basePath = swagger.getBasePath();
+
+	Info info = swagger.getInfo();
+	String title = info.getTitle();
+	String description = info.getDescription();
+
+	NodeDTO folderNode = createFolder(projectId, title);
+	ConversationDTO conversationDTO = null;
+
+	Map<String, Path> paths = swagger.getPaths();
+	Set<String> keySet = paths.keySet();
+	for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext();) {
+	    String pathKey = iterator.next();
+	    Path path = paths.get(pathKey);
+	    List<Operation> operations = path.getOperations();
+	    for (Operation operation : operations) {
+
+		conversationDTO = new ConversationDTO();
+
+		String operationId = operation.getOperationId();
+		String summary = operation.getSummary();
+		List<Parameter> parameters = operation.getParameters();
+		for (Parameter parameter : parameters) {
+		    String parameterName = parameter.getName();
+		    String parameterDescription = parameter.getDescription();
+		    String parameterIn = parameter.getIn();
+		}
+		//conversationDTO.setRfRequestDTO(rfRequestDTO);
+		ConversationDTO createdConversation = conversationController.create(conversationDTO);
+		conversationDTO.setId(createdConversation.getId());
+
+		// Request Node
+		NodeDTO childNode = new NodeDTO();
+		//childNode.setName(requestName);
+		//childNode.setDescription(requestDescription);
+		childNode.setProjectId(projectId);
+		childNode.setConversationDTO(conversationDTO);
+		NodeDTO createdChildNode = nodeController.create(folderNode.getId(), childNode);
+		System.out.println("created node : " + createdChildNode.getName());
+	    }
+	}
+    }
+
+    public static void main(String[] args) throws IOException {
+	new FileUploadController().swaggerParser(null, null, null);
     }
 }
