@@ -470,7 +470,7 @@ define(function(require) {
 				var entityName = $("#newEntityName").val();
 				var entityDescription = $("#newEntityDescription").val();
 
-				var entityFields = getEntityFields();
+				var entityFields = getEntityFields("#entityModal");
 
 				var entity = new EntityModel({
 					id : null,
@@ -594,16 +594,16 @@ define(function(require) {
 
 	});
 
-	var getEntityFields = function() {
+	var getEntityFields = function(modalSelector) {
 		var fieldNames = [];
-		$(".entityFieldName").each(function() {
+		$(modalSelector).find('.entityFieldName').each(function() {
 			var fieldName = {};
 			fieldName.name = $(this).val();
 			fieldNames.push(fieldName);
 		});
 
 		var fieldTypes = [];
-		$(".entityFieldType").each(function() {
+		$(modalSelector).find('.entityFieldType').each(function() {
 			var fieldType = {};
 			fieldType.type = $(this).val();
 			fieldTypes.push(fieldType);
@@ -791,7 +791,7 @@ define(function(require) {
 			tags : []
 		});
 
-		var entityFields = getEntityFields();
+		var entityFields = getEntityFields("#editEntityModal");
 
 		var entity = new EntityModel({
 			id : $("#editEntityId").val(),
@@ -801,8 +801,14 @@ define(function(require) {
 
 		});
 		
-		entity.save();
-
+		entity.save({},{
+			params:{generateApi:$('#regenerateAPI').is(':checked')},
+			success : function(){
+				
+				tree.showTree(tree.projectRefNodeId);
+			}
+		});
+		
 		node.data.id = nodeModel.attributes.id;
 		node.data.name = nodeModel.attributes.name;
 		node.data.description = nodeModel.attributes.description;
@@ -824,6 +830,8 @@ define(function(require) {
 				alert('Some unexpected error occured Please try later.');
 			}
 		});
+
+		
 	});
 
 	$("#deleteRequestBtn").bind("click", function() {

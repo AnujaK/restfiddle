@@ -109,6 +109,8 @@ public class NodeController {
 
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
 	    GenericEntity genericEntity = genericEntityRepository.findOne(nodeDTO.getGenericEntityDTO().getId());
+	    genericEntity.setBaseNodeId(node.getId());
+	    genericEntityRepository.save(genericEntity);
 	    node.setGenericEntity(genericEntity);
 	}
 	
@@ -149,7 +151,7 @@ public class NodeController {
 	// return deleted;
     }
 
-    private void deleteNodeRecursively(BaseNode node) {
+    public void deleteNodeRecursively(BaseNode node) {
 	String nodeType = node.getNodeType();
 	if (nodeType != null
 		&& (NodeType.FOLDER.name().equalsIgnoreCase(nodeType) || NodeType.PROJECT.name().equalsIgnoreCase(nodeType) || NodeType.ENTITY.name()

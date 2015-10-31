@@ -411,7 +411,7 @@
 				<form id = "editNodeForm">
 					<input type="hidden" id="editEntityNodeId"/>
 					<input type="hidden" id="editEntityId"/>
-					<input type="text" id="editEntityTextField" class="form-control" placeholder="Enter Node Name" name = "editNodeName" required> <br>
+					<input type="text" id="editEntityTextField" class="form-control" placeholder="Enter Node Name" name = "editNodeName" required disabled> <br>
 					<textarea id="editEntityTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
                     <br>
 					<p>
@@ -420,7 +420,7 @@
 					<div id="editEntityFieldsWrapper">
 					</div>
 					<br>
-                    <input type="checkbox" id="regenerateAPI" placeholder="Regenerate API" name = "regenerateAPI" disabled="true"> Regenerate API </input> <br>
+                    <input type="checkbox" id="regenerateAPI" placeholder="Regenerate API" name = "regenerateAPI"> Regenerate API </input> <br>
 			    </form>
 			</div>
 				<div class="modal-footer">

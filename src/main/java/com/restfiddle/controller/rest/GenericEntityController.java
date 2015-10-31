@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,9 @@ public class GenericEntityController {
 
     @Autowired
     private GenericEntityRepository genericEntityRepository;
+    
+    @Autowired
+    private GenerateApiController generateApiController;
 
     @RequestMapping(value = "/api/entities", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
@@ -105,7 +109,7 @@ public class GenericEntityController {
 
     @RequestMapping(value = "/api/entities/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
     public @ResponseBody
-    GenericEntity update(@PathVariable("id") String id, @RequestBody GenericEntityDTO updated) {
+    GenericEntity update(@PathVariable("id") String id, @RequestBody GenericEntityDTO updated, @RequestParam(value = "generateApi", required = false) boolean generateApi) {
 	logger.debug("Updating entity with information: " + updated);
 
 	GenericEntity entity = genericEntityRepository.findOne(updated.getId());
@@ -115,19 +119,25 @@ public class GenericEntityController {
 	
 	List<GenericEntityFieldDTO> fieldsDTOs = updated.getFields();
 	if(fieldsDTOs != null){
-	    List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
+	    List<GenericEntityField> fields = entity.getFields() != null ? entity.getFields(): new ArrayList<GenericEntityField>();
 	    for(GenericEntityFieldDTO fieldDTO : fieldsDTOs){
 		GenericEntityField field = new GenericEntityField();
 		field.setName(fieldDTO.getName());
-		field.setType(field.getType());
+		field.setType(fieldDTO.getType());
 		
-		fields.add(field);
+		if(!fields.contains(field)){
+		    fields.add(field);
+		}
 	    }
 	    
 	    entity.setFields(fields);
 	}
 	
 	genericEntityRepository.save(entity);
+	
+	if(generateApi){
+	    generateApiController.generateApiByEntity(entity);
+	}
 
 	return entity;
     }
