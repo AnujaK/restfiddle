@@ -19,6 +19,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -170,27 +173,29 @@ public class ApiController {
 
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id) {
+    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id, @RequestParam(value = "environment", required = false) String environment) {
 	logger.debug("Running all requests inside project : " + id);
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, environment);
 	return nodeStatuses;
     }
 
+    //Handle environment passing here as above. Passing null as of now
     @RequestMapping(value = "/api/processor/folders/{id}", method = RequestMethod.GET)
     public @ResponseBody
     List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id) {
 	logger.debug("Running all requests inside folder : " + id);
 
 	List<BaseNode> listOfNodes = nodeRepository.getChildren(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, null);
 	return nodeStatuses;
     }
 
-    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes) {
+    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String environment) {
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;
+	String regex = "\\{\\{([^\\}\\}]*)";
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
 	    if (nodeType != null && (NodeType.PROJECT.name().equals(nodeType) || NodeType.FOLDER.name().equals(nodeType))) {
@@ -203,6 +208,9 @@ public class ApiController {
 		    String apiUrl = rfRequest.getApiUrl();
 		    String apiBody = rfRequest.getApiBody();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
+			if(apiUrl.matches(regex)){ //ToDo: contains env variable, get the value from env
+			    
+			}
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);
 			rfRequestDTO.setApiUrl(apiUrl);
