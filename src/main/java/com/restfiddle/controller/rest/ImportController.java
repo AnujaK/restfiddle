@@ -15,6 +15,7 @@
  */
 package com.restfiddle.controller.rest;
 
+import io.swagger.models.HttpMethod;
 import io.swagger.models.Info;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
@@ -53,8 +54,8 @@ import com.restfiddle.entity.Project;
 
 @RestController
 @Transactional
-public class FileUploadController {
-    Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+public class ImportController {
+    Logger logger = LoggerFactory.getLogger(ImportController.class);
 
     @Autowired
     private NodeController nodeController;
@@ -182,7 +183,8 @@ public class FileUploadController {
     public void swaggerParser(String projectId, String name, MultipartFile file) throws IOException {
 	// MultipartFile file
 	File tempFile = File.createTempFile("RF_SWAGGER_IMPORT", "JSON");
-	Swagger swagger = new SwaggerParser().read("http://petstore.swagger.io/v2/swagger.json");
+	file.transferTo(tempFile);
+	Swagger swagger = new SwaggerParser().read(tempFile.getAbsolutePath());
 
 	String host = swagger.getHost();
 	String basePath = swagger.getBasePath();
@@ -192,6 +194,8 @@ public class FileUploadController {
 	String description = info.getDescription();
 
 	NodeDTO folderNode = createFolder(projectId, title);
+	folderNode.setDescription(description);
+
 	ConversationDTO conversationDTO = null;
 
 	Map<String, Path> paths = swagger.getPaths();
@@ -199,27 +203,34 @@ public class FileUploadController {
 	for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext();) {
 	    String pathKey = iterator.next();
 	    Path path = paths.get(pathKey);
-	    List<Operation> operations = path.getOperations();
-	    for (Operation operation : operations) {
+
+	    Map<HttpMethod, Operation> operationMap = path.getOperationMap();
+	    Set<HttpMethod> operationsKeySet = operationMap.keySet();
+	    for (Iterator<HttpMethod> operIterator = operationsKeySet.iterator(); operIterator.hasNext();) {
+		HttpMethod httpMethod = operIterator.next();
+		Operation operation = operationMap.get(httpMethod);
 
 		conversationDTO = new ConversationDTO();
+		RfRequestDTO rfRequestDTO = new RfRequestDTO();
+		rfRequestDTO.setApiUrl("http://" + host + basePath + pathKey);
+		rfRequestDTO.setMethodType(httpMethod.name());
 
-		String operationId = operation.getOperationId();
-		String summary = operation.getSummary();
 		List<Parameter> parameters = operation.getParameters();
 		for (Parameter parameter : parameters) {
 		    String parameterName = parameter.getName();
 		    String parameterDescription = parameter.getDescription();
 		    String parameterIn = parameter.getIn();
 		}
-		//conversationDTO.setRfRequestDTO(rfRequestDTO);
+		conversationDTO.setRfRequestDTO(rfRequestDTO);
 		ConversationDTO createdConversation = conversationController.create(conversationDTO);
 		conversationDTO.setId(createdConversation.getId());
 
+		String operationId = operation.getOperationId();
+		String summary = operation.getSummary();
 		// Request Node
 		NodeDTO childNode = new NodeDTO();
-		//childNode.setName(requestName);
-		//childNode.setDescription(requestDescription);
+		childNode.setName(operationId);
+		childNode.setDescription(summary);
 		childNode.setProjectId(projectId);
 		childNode.setConversationDTO(conversationDTO);
 		NodeDTO createdChildNode = nodeController.create(folderNode.getId(), childNode);
@@ -227,8 +238,4 @@ public class FileUploadController {
 	    }
 	}
     }
-
-//    public static void main(String[] args) throws IOException {
-//	new FileUploadController().swaggerParser(null, null, null);
-//    }
 }
