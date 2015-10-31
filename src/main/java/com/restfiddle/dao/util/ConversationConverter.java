@@ -27,10 +27,10 @@ public class ConversationConverter {
 
     public static Conversation convertToEntity(RfRequestDTO rfRequestDTO, RfResponseDTO responseDTO) {
 	Conversation conversation = new Conversation();
-	conversation.setWorkspaceId(rfRequestDTO.getWorkspaceId());
 	
 	RfRequest rfRequest = new RfRequest();
 	if (rfRequestDTO != null) {
+	    conversation.setWorkspaceId(rfRequestDTO.getWorkspaceId());
 	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
 	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 
