@@ -33,6 +33,8 @@ import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.raml.model.Raml;
+import org.raml.parser.visitor.RamlDocumentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +68,29 @@ public class ImportController {
     @Autowired
     private ProjectController projectController;
 
+    @RequestMapping(value = "/api/import", method = RequestMethod.POST)
+    public @ResponseBody
+    void importSwagger(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	try {
+	    swaggerToRFConverter(projectId, name, file);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    @RequestMapping(value = "/api/import/raml", method = RequestMethod.POST)
+    public @ResponseBody
+    void importRaml(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	try {
+	    ramlToRFConverter(projectId, name, file);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+
     @RequestMapping(value = "/api/import/postman", method = RequestMethod.POST)
     public @ResponseBody
-    void upload(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+    void importPostman(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
 
 	if (!file.isEmpty()) {
 	    try {
@@ -157,6 +179,11 @@ public class ImportController {
 	}
     }
 
+    private void ramlToRFConverter(String projectId, String name, MultipartFile file) throws IOException{
+	//Raml raml = new RamlDocumentBuilder().build(ramlLocation);
+
+    }
+
     private NodeDTO createFolder(String projectId, String folderName) {
 	Project project = projectController.findById(null, projectId);
 
@@ -169,18 +196,8 @@ public class ImportController {
 	return collectionNode;
     }
 
-    @RequestMapping(value = "/api/import", method = RequestMethod.POST)
-    public @ResponseBody
-    void uploadSwagger(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-	try {
-	    swaggerParser(projectId, name, file);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-    }
-
     // Swagger sample json : http://petstore.swagger.io/v2/swagger.json
-    public void swaggerParser(String projectId, String name, MultipartFile file) throws IOException {
+    private void swaggerToRFConverter(String projectId, String name, MultipartFile file) throws IOException {
 	// MultipartFile file
 	File tempFile = File.createTempFile("RF_SWAGGER_IMPORT", "JSON");
 	file.transferTo(tempFile);
