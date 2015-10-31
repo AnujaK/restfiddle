@@ -416,8 +416,8 @@ define(function(require) {
 			});
 		}
 	});
-
-	$("#importFileBtn").unbind("click").bind("click", function() {
+	
+	$("#importSwaggerFileBtn").unbind("click").bind("click", function() {
 		var projectId = APP.appView.getCurrentProjectId();
 		var fileInput = document.getElementById('importFileId');
 		var file = fileInput.files[0];
@@ -426,7 +426,51 @@ define(function(require) {
 		fd.append('name', '');
 		fd.append('file', file);
 		$.ajax({
-			url : APP.config.baseUrl + '/import',
+			url : APP.config.baseUrl + '/import/swagger',
+			type : 'post',
+			processData : false,
+			contentType : false,
+			data : fd,
+			success : function(response) {
+				console.log("Import file response : " + response);
+				$("#importModal").modal("hide");
+				tree.showTree(tree.projectRefNodeId);
+			}
+		});
+	});
+
+	$("#importPostmanFileBtn").unbind("click").bind("click", function() {
+		var projectId = APP.appView.getCurrentProjectId();
+		var fileInput = document.getElementById('importFileId');
+		var file = fileInput.files[0];
+		var fd = new FormData();
+		fd.append('projectId', projectId);
+		fd.append('name', '');
+		fd.append('file', file);
+		$.ajax({
+			url : APP.config.baseUrl + '/import/postman',
+			type : 'post',
+			processData : false,
+			contentType : false,
+			data : fd,
+			success : function(response) {
+				console.log("Import file response : " + response);
+				$("#importModal").modal("hide");
+				tree.showTree(tree.projectRefNodeId);
+			}
+		});
+	});
+	
+	$("#importRamlFileBtn").unbind("click").bind("click", function() {
+		var projectId = APP.appView.getCurrentProjectId();
+		var fileInput = document.getElementById('importFileId');
+		var file = fileInput.files[0];
+		var fd = new FormData();
+		fd.append('projectId', projectId);
+		fd.append('name', '');
+		fd.append('file', file);
+		$.ajax({
+			url : APP.config.baseUrl + '/import/raml',
 			type : 'post',
 			processData : false,
 			contentType : false,

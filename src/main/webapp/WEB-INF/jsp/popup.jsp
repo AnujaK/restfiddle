@@ -321,7 +321,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-info">
-					Import a Postman Collection. Support for other file types will be added soon!
+					Support for RAML file type will be added soon!
 				</div>
 				<br>
 				<input type="file" name="file" id="importFileId" class="form-control">
@@ -329,7 +329,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button id="importFileBtn" type="button" class="btn btn-primary">Import</button>
+                <button id="importSwaggerFileBtn" type="button" class="btn btn-primary">Import Swagger</button>
+				<button id="importPostmanFileBtn" type="button" class="btn btn-primary">Import Postman</button>
+				<button id="importRamlFileBtn" type="button" class="btn btn-primary">Import RAML</button>
 			</div>
 		</div>
 	</div>

@@ -68,7 +68,7 @@ public class ImportController {
     @Autowired
     private ProjectController projectController;
 
-    @RequestMapping(value = "/api/import", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/import/swagger", method = RequestMethod.POST)
     public @ResponseBody
     void importSwagger(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
 	try {
