@@ -228,7 +228,7 @@ public class FileUploadController {
 	}
     }
 
-    public static void main(String[] args) throws IOException {
-	new FileUploadController().swaggerParser(null, null, null);
-    }
+//    public static void main(String[] args) throws IOException {
+//	new FileUploadController().swaggerParser(null, null, null);
+//    }
 }
