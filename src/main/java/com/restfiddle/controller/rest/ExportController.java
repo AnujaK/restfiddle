@@ -1,6 +1,7 @@
 package com.restfiddle.controller.rest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.models.Info;
@@ -47,6 +48,7 @@ public class ExportController {
 	
 	swagger = new Swagger();
 	
+	//TODO : set host and basepath for swagger
 	//swagger.setHost(host);
 	//swagger.setBasePath(basePath);
 	
@@ -62,12 +64,19 @@ public class ExportController {
 	Operation op = null;
 	String operationId = null;
 	String summary = null;
-	for (int i = 0; i < 10; i++) {
+	List<TreeNode> children = projectNode.getChildren();
+	for (int i = 0; i < children.size(); i++) {
+	    TreeNode childNode = children.get(i);
 	    path = new Path();
+	    
+	    op = new Operation();
+	    operationId = childNode.getName();
+	    summary = childNode.getDescription();
 	    op.setOperationId(operationId);
 	    op.setSummary(summary);
+	    method = childNode.getMethod().toLowerCase();
 	    path.set(method, op);
-	    
+	    //TODO : pathKey is the relative url (for example /workspaces) from the api url
 	    pathKey = null;
 	    paths.put(pathKey, path);
 	}
