@@ -1097,12 +1097,15 @@ define(function(require) {
 				runNodeBtn[0].addEventListener("click", function() {
 					runNode(data.node);
 				});
-			} else {
-				 var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
-				 runFolderBtn[0].addEventListener("click",function(){
-                     runFolder(data.node);
-                 });
-			}
+			} 
+            else{
+                var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
+                if (runFolderBtn && runFolderBtn.length > 0) {
+                    runFolderBtn[0].addEventListener("click",function(){
+                    runFolder(data.node);
+                     });
+                }
+            }
 			var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 			if (deleteNodeBtn && deleteNodeBtn.length > 0) {
 				deleteNodeBtn[0].addEventListener("click", function() {
@@ -1302,12 +1305,20 @@ define(function(require) {
 			node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function() {
 				copyNode(node);
 			});
-			node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event) {
-				runNode(node, event);
-			});
-            node.li.getElementsByClassName("run-folder")[0].addEventListener("click", function(event) {
-			runFolder(node, event);
-		    });
+			var runNodeBtn = data.node.li.getElementsByClassName("run-node");
+			if (runNodeBtn && runNodeBtn.length > 0) {
+				runNodeBtn[0].addEventListener("click", function() {
+					runNode(data.node);
+				});
+			} 
+            else{
+                var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
+                if (runFolderBtn && runFolderBtn.length > 0) {
+                    runFolderBtn[0].addEventListener("click",function(){
+                    runFolder(data.node);
+                     });
+                }
+            }
 			node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 			nodeModel.save(null, {
 				success : function(response) {
