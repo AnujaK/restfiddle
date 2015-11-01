@@ -14,7 +14,7 @@ body {
 	font-weight: 300;
     color: #666;
     background-color: #fff;
-	font-size: 16px;
+	font-size: 15px;
     line-height: 1.6em;
 	font-weight: 400;
 	overflow-x: hidden;
@@ -72,13 +72,17 @@ h1.font-light,h2.font-light,h3.font-light,h4.font-light,h5.font-light,h6.font-li
 	color: #fff;
 }
 
+a:hover, a:focus{
+	outline:none;
+}
+
 .big-heading {
 	font-size: 48px;
 	font-weight: 700;
 }
 
 p {
-    margin: 0 0 20px;
+    margin: 0 0 10px;
 
 }
 
@@ -170,6 +174,9 @@ blockquote strong {
 	width:100%;
     box-sizing:border-box;
 	border-bottom: 1px solid #eee;
+}
+
+.is-sticky #navigation {
 	box-shadow:0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -327,7 +334,7 @@ hr.bold {
 ============================ */
 
 .home-section {
-    padding-top: 150px;
+    padding-top: 80px;
     padding-bottom: 110px;
 	display:block;
     position:relative;
@@ -1141,8 +1148,7 @@ a.btn:focus{
 }
 
 .col-left {
-    float: left;
-    margin: 0px 30px 30px 0px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -1161,12 +1167,17 @@ a.btn:focus{
 	color:#666666;
 }
 .icon-box {
-	margin-bottom:10px;
+	margin-bottom:40px;
+	text-align:center;
+}
+.icon-box p {
+	color:#666;
 }
 /* Icon Effect*/
 .icon-box .hi-icon {
 	width:70px;
 	height:70px;
+	margin:auto;
 	border-radius:50%;
 	display:block;
 	box-shadow: 0 0 0 3px rgba(255,105,58,1);
@@ -1318,8 +1329,9 @@ a {  cursor:pointer;}
 
 .screen-holder {
 	width:100%;
-	height:600px;
+	height:auto;
 	background:#232c3b;
+	padding-top:30px;
 }
 .screen-holder:after {
 	content:'';
@@ -1332,15 +1344,34 @@ a {  cursor:pointer;}
 	opacity: 0.8
 }
 .screen-bg {
-	background:url(../img/monitor.png) no-repeat fixed center;
-	background-size:contain;
-	height:600px;
+	background:url(../img/monitor.png) no-repeat center;
+	background-size:100%;
+	height:800px;
+}
+.screen-holder .screen-bg .carousel {
+    margin-top: 25px;
+    padding: 19px;
+}
+.screen-holder .screen-bg .carousel-inner > .item {
+    height: 474px;
+    overflow: hidden;
+}
+
+.screen-holder .screen-bg .carousel-indicators {
+    bottom: -33px;
+}
+.screen-holder .screen-bg .carousel-control .glyphicon-chevron-right, .screen-holder .screen-bg .carousel-control .icon-next {
+    right: -70px;
+}
+
+.screen-holder .screen-bg .carousel-control .glyphicon-chevron-left, .screen-holder .screen-bg .carousel-control .icon-prev {
+    left: -70px;
 }
 
 .screen-bg h1{
 	color:#fff;
 	font-weight:999;
-	margin-top:180px;
+	margin-top:125px;
 }
 .screen-bg h1 b{
 	color:#ff6c3a;
@@ -1356,4 +1387,112 @@ a {  cursor:pointer;}
 }
 .h-bold span{
 	color:#232c3b;
+}
+
+/***************************************
+*****************************Help Page**/
+
+.content-pannel, .menu-pannel {
+	padding:40px 0;
+}
+.content-pannel {
+	/*background:#fafafa;*/
+	border-left:1px solid #ddd;
+	padding-left:30px;
+}
+.content-pannel h3 {
+	color:#F9570C;
+	font-size:26px;
+}
+.content-pannel h3.first_title {
+	margin-top:0px !important;
+}
+
+.content-pannel h3 {
+	margin-top:30px;
+}
+
+.menu-pannel {
+}
+
+.menu-pannel ul li a span{
+	width:50px;
+	margin-right: 15px;
+}
+
+.menu-pannel .nav-tabs > li {
+    float: none;
+	list-style:none;
+}
+
+.menu-pannel .nav-tabs > li > a{
+	border:0px;
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	font-size:15px;
+	color:#222;
+}
+
+.menu-pannel .nav-tabs > li.active > a{
+	border:0px;
+	color:#F9570C;
+	background:#f9f9f9;
+	margin-right:0px;
+}
+.menu-pannel .nav-tabs > li > a:hover {
+	color: #F9570C;
+}
+.menu-pannel .nav-tabs > li > a:hover, .menu-pannel .nav-tabs > li > a:focus{
+	 border:0px;
+	 outline:0px;
+ }
+.menu-pannel .nav-tabs {
+    border-bottom: 0px;
+}
+
+.rf_list {
+	padding-left:20px;
+}
+.rf_list strong {
+	color:#F9570C;
+}
+.rf_list li {
+	list-style:none;
+	margin-bottom:5px;
+}
+.rf_list li i{
+	margin-left: -20px;
+	color: #F9570C;
+	font-size: 13px;
+	margin-right: 5px;
+}
+.screen {
+	width:100%;
+	border:1px solid #ddd;
+}
+
+.clr-orange {
+	color:#F9570C;
+}
+
+.alert-info {
+    background-color: #D9EDF7;
+    border-color: #D9EDF7;
+    color: #2196F3;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 18px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+	margin-top:20px;
+}
+
+.highlight span {
+	color:#03F;
+}
+
+.highlight a {
+	cursor:text;
 }

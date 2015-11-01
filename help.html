@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RESTFiddle</title>
+	
+    <!-- css -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+	<link href="css/animations.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link href="material-icons/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+	
+    <!-- Navigation -->
+    <div id="navigation">
+        <nav class="navbar navbar-custom" role="navigation">
+                              <div class="container">
+                                    <div class="row">
+                                          <div class="col-md-2">
+                                                   <div class="site-logo">
+                                                            <a href="index.html" class="brand">REST<span>Fiddle</span></a>
+                                                    </div>
+                                          </div>
+                                          
+
+                                          <div class="col-md-10">
+                         
+                                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                          <div class="navbar-header">
+                                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                                                <i class="fa fa-bars"></i>
+                                                </button>
+                                          </div>
+                                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                                      <div class="collapse navbar-collapse" id="menu">
+                                                            <ul class="nav navbar-nav navbar-right">
+                                                                  <li class="active"><a href="#intro">Home</a></li>
+                                                                  <li><a href="#">Github</a></li>
+																   <li><a href="#">Blog</a></li>
+                                                                  <li><a href="contact.html">Contact</a></li>
+                                                                  <li><a href="help.html">Help</a></li>
+                                                            </ul>
+                                                      </div>
+                                                      <!-- /.Navbar-collapse -->
+                             
+                                          </div>
+                                    </div>
+                              </div>
+                              <!-- /.container -->
+                        </nav>
+    </div> 
+    <!-- /Navigation -->  
+	<div class="clearfix"></div>
+    
+	<section>
+    <div class="container">
+    	<div class="col-md-3 menu-pannel">
+            <ul class="nav-tabs">
+                <li class="active"><a href="#getting_started" aria-controls="getting_started" role="tab" data-toggle="tab"><span><i class="fa fa-coffee"></i></span>Getting Started</a></li>
+                <li><a href="#workspace" aria-controls="workspace" role="tab" data-toggle="tab"><span><i class="md md-keyboard"></i></span>Workspace</a></li>
+                <li><a href="#project" aria-controls="project" role="tab" data-toggle="tab"><span><i class="md md-computer"></i></span>Project</a></li>
+                <li><a href="#request_builder" aria-controls="request_builder" role="tab" data-toggle="tab"><span><i class="md  md-extension"></i></span>Request Builder</a></li>
+                <li><a href="#asserts" aria-controls="asserts" role="tab" data-toggle="tab"><span><i class="md md-thumbs-up-down"></i></span>Asserts</a></li>
+                <li><a href="#request_header" aria-controls="request_header" role="tab" data-toggle="tab"><span><i class="md md-label-outline"></i></span>Request Header</a></li>
+                <li><a href="#authentication" aria-controls="authentication" role="tab" data-toggle="tab"><span><i class="md md-turned-in-not"></i></span>Authentication</a></li>
+                <li><a href="#activity_log" aria-controls="activity_log" role="tab" data-toggle="tab"><span><i class="md md-input"></i></span>Activity Log</a></li>
+                <li><a href="#starred" aria-controls="starred" role="tab" data-toggle="tab"><span><i class="md md-picture-in-picture"></i></span>Starred</a></li>
+                <li><a href="#tagging" aria-controls="tagging" role="tab" data-toggle="tab"><span><i class="md md-attach-file"></i></span>Tagging</a></li>
+                <li><a href="#collaboration" aria-controls="collaboration" role="tab" data-toggle="tab"><span><i class="md  md-account-child"></i></span>Collaboration</a></li>
+                <li><a href="#project_runnerr" aria-controls="project_runnerr" role="tab" data-toggle="tab"><span><i class="md md-play-arrow"></i></span>Project Runner</a></li>
+                <li><a href="#pdf_report" aria-controls="pdf_report" role="tab" data-toggle="tab"><span><i class="fa fa-file-text"></i>
+</span>PDF Report</a></li>
+                <li><a href="#api_builder" aria-controls="api_builder" role="tab" data-toggle="tab"><span><i class="fa fa-file-o"></i>
+</span>API Builder</a></li>
+                <li><a href="#user_profile" aria-controls="user_profile" role="tab" data-toggle="tab"><span><i class="md md-person"></i></span>User Profile</a></li>
+                <li><a href="#web_socket" aria-controls="web_socket" role="tab" data-toggle="tab"><span><i class="md md-public"></i></span>WebSocket</a></li>
+                <li><a href="#swagger" aria-controls="swagger" role="tab" data-toggle="tab"><span><i class="md md-sync"></i></span>Swagger</a></li>
+            </ul>
+         </div>
+         <div class="col-md-9 content-pannel">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="getting_started">
+                	<h3 class="first_title">What is RESTFiddle?</h3>
+
+<p>RESTFiddle is an easy-to-use platform to work with APIs. It simplifies everything from API exposure to API consumption. RESTFiddle is an Enterprise-grade API Management Platform for teams. It helps you to design, develop, test and release APIs.</p>
+
+<p>It often happens that developers directly try to consume a third party API in their application and write code for it. If any error occurs, developers have no clue about where the error lies. The error can be due to any reason- wrong headers or parameters or authentication or anything else. By using RESTFiddle platform to test a third party API before consuming it in their code, developers can easily catch the root cause of error. Similarly when an API is to be delivered or exposed, it can be thoroughly tested on RESTFiddle with no extra code to write.</p>
+
+<p>RESTFiddle organizes requests in the form of a tree. Any number of folders can be organized one inside the other and requests can reside at any level in the hierarchy.</p>
+
+<p>Backend as a service (BaaS) approach is followed in RESTFiddle. The features that are common to both, mobile and web application, are provided via BaaS. A common backend serves the need. Once the backend is ready, it remains a matter of calling APIs from different applications. Any database entity can be created through RESTFiddle. A set of APIs is autogenerated and provided to the user by RESTFiddle to facilitate CRUD operations on the entity.</p>
+
+<p>RESTFiddle lets you easily craft any request, no matter how complicated it is, using the intuitive request builder. It is the rightmost section of RESTFiddle. Simply enter the fields required to run a particular request, select its type and run it. The response gets populated in the bottom part of the request builder. Response is displayed in two tabs- body and header.</p>
+
+<p>User doesn't have to manually check the values from response. Test asserts will do the checks for you. You can save multiple test asserts against a response. Every time when the request is run, the asserts are checked. This saves the work of manually verifying values from the response.</p>
+
+<p>RESTFiddle allows you to retrieve analytics metrics of the requests run.</p>
+				
+                <h3>Features</h3>
+                
+     <ul class="rf_list">           
+    <li><i class="md md-adjust"></i><strong>Collaboration -</strong> Unlike most of the present day API testing tools where multiple people working on a project means exporting a set of APIs from one machine and importing it on another machine, RESTFiddle allows you to add collaborators. Collaborators work on a project in a synchronised manner. Automatic change notifications prevents to and fro email threads.</li>
+    <li><i class="md md-adjust"></i><strong>History -</strong> There is an unlimited history or activity log of requests run by the user. User can select any request from the activity log. Rerunning the same is very easy as the previously entered fields get populated on selecting the request.</li>
+    <li><i class="md md-adjust"></i><strong>Tagging -</strong> Tags provide a useful way to group related requests together. It is easy to search for any request based on tags attached with it.</li>
+    <li><i class="md md-adjust"></i><strong>PDF Reports -</strong> RESTFiddle lets user run all requests from a project in one go. Project status reports in PDF format are generated that can be downloaded.</li>
+    <li><i class="md md-adjust"></i><strong>Scheduler -</strong> You do not have to manually run an API project every time. Projects can be automatically run in predefined time intervals.</li>
+    <li><i class="md md-adjust"></i><strong>SendGrid -</strong> SendGrid has been integrated to send notifications. User has control over which email notifications he wishes to receive.</li>
+    <li><i class="md md-adjust"></i><strong>Cloud Deployment -</strong> RESTFiddle can be deployed over any server and can also be used as a cloud based hosted web application.</li>
+    <li><i class="md md-adjust"></i><strong>Private -</strong> Install it in your environment and own it completely. Your data resides totally in your own database. Work together with your team in your private network.</li>
+    <li><i class="md md-adjust"></i><strong>Swagger -</strong> Access RESTFiddle API documentation using Swagger UI, which is a very powerful respresentation of RESTful APIs.</li>
+    <li><i class="md md-adjust"></i><strong>More -</strong> Since it is open source, fork it and build the features of your choice. There is much more like Security, Access Control and Notifications.</li>
+    </ul>
+    
+				<h3>License:</h3>
+
+                <p>Open source licensed under Apache License, Version 2.0.</p>
+                
+                <p>Here is a screenshot of home page:</p>
+                
+                <img class="screen" src="img/screens/home_page.png">
+                
+                <br>                
+                </div><!----/tab-pane1-->
+                <div role="tabpanel" class="tab-pane" id="workspace">
+                	<h3 class="first_title">Workspace</h3>
+                    <p>RESTFiddle aims to avoid cluttering of different APIs. It is recommended to work in different workspaces for unrelated APIs.</p>
+
+<p>A workspace is a collection of projects. Users can have private or shared workspaces.</p>
+
+<h3>Create Workspace</h3>
+
+<p>Click on the button in the header section, a list of menus appears below it. Select <strong>New Workspace.</strong></p>
+<div class="col-md-4"><img class="screen" src="img/screens/create_workspace_option.png"></div>
+<div class="clearfix"></div>
+<br>
+<p>A modal panel with name and description field appears on the screen. Enter the fields and save changes to create a new workspace. </p>
+<div class="col-md-7"><img class="screen" src="img/screens/create_workspace_modal.png"></div>
+<div class="clearfix"></div>
+<h3>Switch Workspace</h3>
+
+<p>Selecting <strong>Switch Workspace</strong> option from top menu button lets us work in another workspace.</p>
+<div class="col-md-4"><img class="screen" src="img/screens/switch_workspace_option.png"></div>
+<div class="clearfix"></div><br>
+<p>A list of workspaces appear on modal. Choose the one you want to work in. </p>
+<div class="col-md-7"><img class="screen" src="img/screens/switch_workspace_modal.png"></div>
+<div class="clearfix"></div>
+<h3>Workspace APIs</h3>
+
+<p>Getting available workspaces</p>
+<div class="highlight"><pre>GET <a target="_blank">http://localhost:8080/api/workspaces</a></pre></div>
+
+<p>Getting workspace by Id</p>
+
+<div class="highlight"><pre>GET  <a>http://localhost:8080/api/workspaces/{workspaceId}</a></pre></div>
+
+<p>Creating a new workspace</p>
+
+<div class="highlight"><pre>POST <a>http://localhost:8080/api/workspaces</a>
+
+<span>{"name" : "New Workspace Name"}</span></pre></div>
+
+<p>Updating an existing workspace</p>
+
+<div class="highlight"><pre>PUT <a>http://localhost:8080/api/workspaces/{workspaceId}</a>
+
+<span>{ “id” : workspaceId, "name" : “Another Workspace"}</span></pre></div>
+
+<p>Deleting an existing worksapce</p>
+
+<div class="highlight"><pre>DELETE  <a>http://localhost:8080/api/workspaces/{workspaceId}</a></pre></div>
+
+                </div><!----/tab-pane2-->
+                <div role="tabpanel" class="tab-pane" id="project">
+                <h3 class="first_title">Project</h3>
+                	<p>A step further to keep your set of APIs clean and separate is to create different projects within the same workspace. You can opt to create different projects when APIs are part of different modules, i.e. related to each other but providing totally different functionalities.</p>
+
+<p>A Project is a top level entity within a workspace where all the request/response are organized.</p>
+<h3>Create Project</h3>
+
+<p>In the left navigation column, click on + symbol against Projects. </p>
+<div class="col-md-4"><img class="screen" src="img/screens/create_project_option.png"></div>
+<div class="clearfix"></div>
+<br>
+<p>You can see a modal with project name and description fields to create the new project.</p>
+<div class="col-md-7"><img class="screen" src="img/screens/create_project_modal.png"></div>
+<div class="clearfix"></div>
+<h3>Request Tree</h3>
+
+<p>When you click on any project in left navigation, all the folders and requests within a project are displayed in the form of a tree in the middle column. This tree has no limitation on number of child folders/requests. A request or folder can exist as a node at any level down the tree.</p>
+<div class="col-md-6 col-sm-12"><img class="screen" src="img/screens/request_tree.png"></div>
+<div class="clearfix"></div>
+<p>Folders are meant to keep your requests in an organized manner. <strong>New Folder</strong> button above the request tree creates a folder under selected node or at the root. Similarly <strong>New Request</strong> is meant for creating a request. More about New Request is <a href="#request_builder" aria-controls="request_builder" role="tab" data-toggle="tab">here.</a> </p>
+<h3>Node Menus</h3>
+
+<p>Hover mouse over any of the nodes in the request tree, a down arrow appears. Clicking on the arrow will display the actions associated with the node i.e. Edit, Delete, Copy Node. </p>
+<div class="col-md-6 col-sm-12"><img class="screen" src="img/screens/onclickmenu_Nodes.png"></div>
+<div class="clearfix"></div>
+<h3>Edit Node</h3>
+
+<p>Edit node for a request allows editing its name and description.</p>
+ <div class="col-md-7 col-sm-12"><img class="screen" src="img/screens/editMenu_Nodes.png"></div>
+<div class="clearfix"></div>
+<h3>Delete Node</h3>
+<p>This option asks for confirming deletion of node. </p>
+<div class="col-md-7 col-sm-12"><img class="screen" src="img/screens/deleteMenu_Nodes.png"></div>
+<div class="clearfix"></div>
+<h3>Copy Node</h3>
+
+<p>Copy Node copies a request and the checked attributes to a new request. Default name of node is Copy of RequestNodeName, which can be changed. </p>
+<div class="col-md-7 col-sm-12"><img class="screen" src="img/screens/copyMenu_Nodes.png"></div>
+<div class="clearfix"></div>
+<h3>Project APIs</h3>
+
+<p>Getting projects within a workspace</p>
+
+<div class="highlight"><pre>GET <a>http://localhost:8080/api/workspaces/{workspaceId}/projects</a></pre></div>
+
+<p>Getting project by Id</p>
+
+<div class="highlight"><pre>GET <a>http://localhost:8080/api/workspaces/{workspaceId}/projects/{projectId}</a></pre></div>
+
+<p>Creating a new project</p>
+
+<div class="highlight"><pre>POST <a>http://localhost:8080/api/workspaces/{workspaceId}/projects</a>
+
+<span>{"name" : "New Project Name"}</span></pre></div>
+
+<p>Updating an existing project</p>
+
+<div class="highlight"><pre>PUT <a>http://localhost:8080/api/workspaces/{workspaceId}/projects/{projectId}</a>
+
+<span>{ “id” : projectId, "name" : “Another Project"}</span></pre></div>
+<p>Deleting an existing project<p>
+
+<div class="highlight"><pre>DELETE  <a>http://localhost:8080/api/workspaces/{workspaceId}/projects/{projectId}</a></pre></div>
+
+
+                </div><!----/tab-pane3-->
+                <div role="tabpanel" class="tab-pane" id="request_builder">
+                	<h3 class="first_title">Request Builder</h3>
+
+<p>Click on <strong>New Request</strong> in the request tree column of RESTFiddle. </p>
+<div class="col-md-7"><img class="screen" src="img/screens/new_request_option.png"></div>
+<div class="clearfix"></div>
+<br>
+<p>Enter the request name, description and save to create a new request. The request gets created under the folder selected in request tree. If no folder has been selected, a new request will get saved at root level.</p>
+<div class="col-md-7"><img class="screen" src="img/screens/new_request.png"></div>
+<div class="clearfix"></div>
+<br>
+<p>You can now start building this new request in the Request Builder section of RESTFiddle.</p>
+<h3>Request Builder</h3>
+
+<p>Now you can easily craft any request, no matter how complicated it is. Request builder is the rightmost section of RESTFiddle. Enter the fields required to run a particular request, select its type and run it. The response gets populated in the bottom part of the request builder. Response is displayed in three tabs- body, header and asserts.</p>
+<div class="col-md-7"><img class="screen" src="img/screens/request_builder.png"></div>
+<div class="clearfix"></div>
+<br>
+<h3>Query Param</h3>
+
+<p>You can add query params for any request by directly attaching them to url after question mark (?) symbol or by clicking on Add Query Param button and entering the key value. Example: We can sort the results fetched by adding value 1 or -1 to specify an ascending or descending sort respectively. So append ?sort={name:1} to url or add sort as key and {name:1} as value in Query Param.</p>
+<div class="col-md-7"><img class="screen" src="img/screens/queryParam_sort.png"></div>
+<div class="clearfix"></div>
+<br>
+<p>Example of getting paginated results: Append ?page=1&limit=2 to request url or add 2 query params as page and limit.</p>
+<h3>Form Param</h3>
+
+<p>Form params can be added to a POST request. Click on Form tab of request and add key value pairs of form params to be added.</p>
+<div class="col-md-7"><img class="screen" src="img/screens/formParam.png"></div>
+<div class="clearfix"></div>
+<br>
+                </div><!----/tab-pane4-->
+                <div role="tabpanel" class="tab-pane" id="asserts">
+                <h3 class="first_title">Asserts</h3>
+                <p>Click on Asserts in the request tree column of RESTFiddle. </p>
+                <div class="col-md-9"><img class="screen" src="img/screens/Asserts_Manage.jpe"></div>
+                <div class="clearfix"></div>
+                <br>
+				<p>Click Add Assert. Enter the property name whose value is to be checked, select comparator value from dropdown and enter expected value of the property. Multiple asserts for a property can be added. Click Save Changes to save the entered asserts. Now the Asserts button will show the count of asserts added to the request.</p>
+                <div class="col-md-9"><img class="screen" src="img/screens/Asserts_count.png.jpe"></div>
+                <div class="clearfix"></div>
+                <br>
+                <p>When the request is run, asserts are evaluated and the results can be seen under Asserts tab in response section. </p>
+                <div class="col-md-9"><img class="screen" src="img/screens/Asserts_Result.png.jpe"></div>
+                <div class="clearfix"></div>
+                <br>
+                </div><!----/tab-pane5-->
+                <div role="tabpanel" class="tab-pane" id="request_header">
+                	<h3 class="first_title">Request Header</h3>
+                    <p>You can attach multiple header fields to a request. In the Header tab, click on Add Header. Enter the header name and value. </p>
+                    <div class="col-md-9"><img class="screen" src="img/screens/request_headers.png"></div>
+                <div class="clearfix"></div>
+                <br>
+                    <p>Header name has autosuggest functionality(based on single alphabet). e.g. Typing 'r' in header name box suggests 'Range' and 'Referer'.</p>
+                </div><!----/tab-pane6-->
+                <div role="tabpanel" class="tab-pane" id="authentication">
+                	<h3 class="first_title">Authentication</h3>
+                    <p>RESTFiddle supports authentication in request. Select from the type of authentication listed under Auth section of request. </p>
+                    <div class="col-md-9"><img class="screen" src="img/screens/authentication_option.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <h3>OAuth 2 Support</h3>
+
+<p>There is yet another milestone achievement in RESTFiddle! We have successfully tested Google Plus API using this platform. That also means successful OAuth 2 authentication using RESTFiddle. We fetched a Google Plus profile using Google APIs. Here is what needs to be done:</p>
+<ul class="rf_list">
+    <li><i class="md md-adjust"></i>Obtain OAuth 2 credentials from the Google Developers Console: Visit the Google Developers Console(https://developers.google.com) to obtain OAuth 2.0 credentials such as a client ID and client secret that are known to both Google and our application i.e. RESTFiddle. The set of values varies depending on the type of application. For example, a JavaScript application does not require a secret, but a web server application does.</li>
+
+    <li><i class="md md-adjust"></i>Select OAuth 2 from the 'Auth' dropdown of the request. Enter Authorization Endpoint as https://accounts.google.com/o/oauth2/auth, enter the generated client ID and scope as 'profile'. Scope controls the set of resources and operations that an access token permits. Click 'Get Access Token'. Authentication is asked for in a new window. After logging in, the user is asked whether they are willing to grant the permissions that your application is requesting. User consent is required else you will get error.</li>
+</ul>
+<div class="col-md-12"><img class="screen" src="img/screens/oauth2_google.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>Now you can see the Access Token returned by Google Authorization Server. RESTFiddle does the work of entering this token in HTTP authorization header. This token will be used in further API requests.</p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/oauth2_google_header.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>Now enter the request URL and run it. You can see the data returned by the request in the response section:</p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/oauth2_google_request.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="col-md-12"><img class="screen" src="img/screens/oauth2_google_response.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>Refer <a href="http://blog.restfiddle.com/2015/01/there-is-yet-another-milestone.html" target="_blank">http://blog.restfiddle.com/2015/01/there-is-yet-another-milestone.html</a> for more details.</p>
+                </div><!----/tab-pane7-->
+                <div role="tabpanel" class="tab-pane" id="activity_log">
+                	<h3 class="first_title">Activity Log</h3>
+                    <p>You can see the history of requests run earlier with the most recent one on the top.</p>
+                    <div class="col-md-5"><img class="screen" src="img/screens/activity_log_option.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>By clicking on a request, the data that was used to run the request gets populated in the request builder column. So you have quick access to run a request that was already executed earlier.</p>
+                    <div class="col-md-8"><img class="screen" src="img/screens/activity_log_history.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane8-->
+                <div role="tabpanel" class="tab-pane" id="starred">
+                	<h3 class="first_title">Starred</h3>
+                    <p>See all the most important/needed requests with a single click! Select <strong>Starred </strong>in the left navigation and all the requests marked star appear in the second column. </p>
+                    <div class="col-md-5"><img class="screen" src="img/screens/starred_option.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="col-md-8"><img class="screen" src="img/screens/starred_node.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane9-->
+                <div role="tabpanel" class="tab-pane" id="tagging">
+                	<h3 class="first_title">Tagging</h3>
+                    <p>You can categorize your requests and fetch them easily. Click on plus symbol against Tags in left nav. </p>
+                    <div class="col-md-5"><img class="screen" src="img/screens/create_tag_option.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>Create a new tag by entering name and description in modal.</p>
+                    <div class="col-md-8"><img class="screen" src="img/screens/create_tag.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <h3>Tag APIs</h3>
+
+					<p>Assigning selected tags to a node</p>
+                    
+                    <div class="highlight"><pre>POST <a>http://localhost:8080/api/nodes/{nodeId}/tags</a>
+
+                            <span>[ {
+                            "id" : "{tagId1}"
+                            },
+                            {
+                            "id" : "{tagId2}"
+                            }]</span></pre></div>
+                    
+                </div><!----/tab-pane10-->
+                <div role="tabpanel" class="tab-pane" id="collaboration">
+                	<h3 class="first_title">Collaboration</h3>
+                    <p>RESTFiddle frees you from the extra efforts of exporting requests from a machine and importing to other one. Now all you have to do is to simply add collaborators to your workspace. By clicking on the top menu, you get the option to add New Collaborator.</p>	
+                    <div class="col-md-4"><img class="screen" src="img/screens/collaboration_option.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>A modal appears which asks for name, email and password. The new collaborator person receives invite on the entered email id.</p>
+                    <div class="col-md-7"><img class="screen" src="img/screens/collaborator_modal.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane11-->
+                <div role="tabpanel" class="tab-pane" id="project_runnerr">
+                	<h3 class="first_title">Project Runner</h3>
+                    <p>You can run a complete set of requests from a project. So there are no hassles of running requests one by one. Select the project whose requests you want to run and then click on More button in request tree section of RESTFiddle. Choose Run Project option from the menu.</p>
+                    <div class="col-md-7"><img class="screen" src="img/screens/project_runner.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane12-->
+                <div role="tabpanel" class="tab-pane" id="pdf_report">
+                	<h3 class="first_title">PDF Report</h3>
+                    <p>After running a project, click on Export Report in request builder section to get a PDF report of the requests run.</p>
+                    <div class="col-md-7"><img class="screen" src="img/screens/pdf_report.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane13-->
+                <div role="tabpanel" class="tab-pane" id="api_builder">
+                	<h3 class="first_title">API Builder</h3>
+                    <p><strong>Create API with a click and run it on the fly.</strong></p>
+
+<p>You can create an entity by clicking on New Entity option in the second column. id, createdDate and lastModifiedDate are the fields created by the system. </p>
+					<div class="col-md-12"><img class="screen" src="img/screens/apiBuilder_createEntity.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>Once the entity gets created, its services are generated and populated in the tree as shown:</p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/apiBuilder_generatedAPI.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="col-md-12"><img class="screen" src="img/screens/apiBuilder_createEntityData.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>You can fetch all the data created by running the Get List service of the entity.</p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/apiBuilder_entityList.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <h3>Query Params</h3>
+
+<p>Filtering Filtering can be done using query params. After the request URL, attach the following: ?query={"name": "Jake"} e.g. http://localhost:8080/api/550d1a0a70246295670529c9/entities/employee/list?query={"name": "Jake"}</p>
+
+<p>The same can be achieved by clicking on Add Query Param button: Key is query and value is {"name": "Jake"}.</p>
+
+<p>Example of AND condition: http://localhost:8080/api/550d1a0a70246295670529c9/entities/employee/list?query={"employeeid" : "9999" , "name": "Jake"} Added this feature in issue #185.</p>
+
+<p>Refer <a href="http://docs.mongodb.org/manual/tutorial/query-documents/" target="_blank">http://docs.mongodb.org/manual/tutorial/query-documents/</a> for more details/filtering conditions.</p>
+
+<p>Sorting Add "sort={name:1}" after URL to sort. 1 for ascending and -1 for descending result. Added this feature in issue #184.</p>
+
+<p>Refer <a href="http://docs.mongodb.org/manual/reference/method/cursor.sort" target="_blank">http://docs.mongodb.org/manual/reference/method/cursor.sort</a> for more details.</p>
+
+<p>Paginated Result Add "?page=1&limit=3" after URL to sort. Limit is number of reults on a page. Added this feature in issue #183.</p>
+                </div><!----/tab-pane14-->
+                <div role="tabpanel" class="tab-pane" id="user_profile">
+                	<h3 class="first_title">User Profile</h3>
+                    <p>Top menu offers the options to Update Profile and Change Password for the currently logged in user.</p>
+                    <div class="col-md-6"><img class="screen" src="img/screens/user_profile.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                </div><!----/tab-pane15-->
+                <div role="tabpanel" class="tab-pane" id="web_socket">
+                	<h3 class="first_title">WebSocket</h3>
+                    <p>RESTFiddle supports WebSockets. Click on More button and select <strong>Socket.</strong></p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/web_socket.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>The third column gets populated with fields to estaiblish and test a socket connection. Enter the address to which you want to connect and click on Connect. The Message Log will show the status 'Connected'. Enter a text and click Send. Message Log will show the sent text against 'SENT'. The received message is displayed as 'RESPONSE'.</p>
+                </div><!----/tab-pane16-->
+                <div role="tabpanel" class="tab-pane" id="swagger">
+                	<h3>Swagger</h3>
+                    <p>RESTFiddle API docs are available using Swagger UI.</p>
+                    <div class="col-md-12"><img class="screen" src="img/screens/starred_node.png"></div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <p>This page is accessible at the following link: <a href="http://localhost:8080/sdoc.jsp" target="_blank">http://localhost:8080/sdoc.jsp</a></p>
+                </div><!----/tab-pane17-->
+              </div>
+              <div class="alert alert-info" role="alert">RESTFiddle is an Enterprise-grade API Management Platform for Teams. It helps you design, develop, test and release APIs.</div>
+         </div>
+         
+     </div>
+    </section>
+<div class="clearfix"></div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<ul class="footer-menu">
+						<li><a href="#">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Gitter</a></li>
+					</ul>
+				</div>
+                <div class="col-md-4">
+                	<center><p>RESTFiddle is Developed and Tested using RESTFiddle.</p></center>
+                </div>
+				<div class="col-md-4 text-right">
+					<p>&copy; 2015 - RESTFiddle.</p>
+				</div>
+			</div>	
+		</div>
+	</footer>
+
+    <!-- Core JavaScript Files -->
+    <script src="js/jquery.min.js"></script>	 
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.easing.min.js"></script>	
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.appear.js"></script>
+	<script src="js/stellar.js"></script>
+	<script src="js/nivo-lightbox.min.js"></script>
+	
+    <script src="js/custom.js"></script>
+	<script src="js/css3-animate-it.js"></script>
+
+</body>
+
+</html>
