@@ -187,11 +187,11 @@ public class ApiController {
     // Handle environment passing here as above. Passing null as of now
     @RequestMapping(value = "/api/processor/folders/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id) {
+    List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId) {
 	logger.debug("Running all requests inside folder : " + id);
 
 	List<BaseNode> listOfNodes = nodeRepository.getChildren(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, null);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId);
 	return nodeStatuses;
     }
 

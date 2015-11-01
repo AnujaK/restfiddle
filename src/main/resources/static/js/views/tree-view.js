@@ -185,6 +185,32 @@ define(function(require) {
 		});
 
 	}
+    
+    function runFolder(node, event) {        
+        APP.conversation.$el.hide();
+		APP.socketConnector.$el.hide();
+		APP.projectRunner.$el.show();
+		var folderId = node.data.id;
+		var currentEnvId = $(".environmentsSelectBox").val();
+		var queryParam = '';
+		if( currentEnvId != 'Select'){
+		  //pass environment variable as query param
+		  //if Select is the value, no env has value has been selected
+		  var queryParam = '?envId='+currentEnvId;
+		}
+		$.ajax({
+			url : APP.config.baseUrl + '/processor/folders/'+folderId+queryParam,
+			type : 'get',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+				console.log("Folder runner response : "+response);
+				APP.projectRunner.render(response);
+			}
+		});
+
+	}
+
 
 	function deleteNode(node) {
 		$("#deleteNodeId").val(node.data.id);
@@ -782,9 +808,16 @@ define(function(require) {
 		node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function() {
 			copyNode(node);
 		});
-		node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event) {
+        if(node.data.nodeType == 'FOLDER'){
+            node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event) {
+                runFolder(node, event);
+            });
+        }
+        else{
+            node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event) {
 			runNode(node, event);
 		});
+        }
 		node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 		nodeModel.save(null, {
 			success : function(response) {
@@ -1065,11 +1098,10 @@ define(function(require) {
 					runNode(data.node);
 				});
 			} else {
-				// var runFolderBtn =
-				// data.node.li.getElementsByClassName("run-folder");
-				// runFolderBtn[0].addEventListener("click",
-				// function(){runNode(data.node);});
-				console.log("Run folder yet to be implemented");
+				 var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
+				 runFolderBtn[0].addEventListener("click",function(){
+                     runFolder(data.node);
+                 });
 			}
 			var deleteNodeBtn = data.node.li.getElementsByClassName("delete-node");
 			if (deleteNodeBtn && deleteNodeBtn.length > 0) {
@@ -1273,6 +1305,9 @@ define(function(require) {
 			node.li.getElementsByClassName("run-node")[0].addEventListener("click", function(event) {
 				runNode(node, event);
 			});
+            node.li.getElementsByClassName("run-folder")[0].addEventListener("click", function(event) {
+			runFolder(node, event);
+		    });
 			node.li.getElementsByClassName("menu-arrow")[0].addEventListener("click", nodeMenuEventHandler);
 			nodeModel.save(null, {
 				success : function(response) {

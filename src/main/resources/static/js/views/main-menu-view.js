@@ -41,7 +41,7 @@ define(function(require) {
 				APP.projectRunner.render(response);
 			}
 		});
-	});
+	});    
 
 	$(".socket-connector").unbind("click").bind("click", function() {
 		APP.conversation.$el.hide();
