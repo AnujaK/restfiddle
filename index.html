@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>RESTFiddle</title>
+	
+    <!-- css -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+	<link href="css/animations.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+	<link href="color/default.css" rel="stylesheet">
+	<link href="material-icons/material-design-iconic-font.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+	
+	<section class="header-banner animatedParent" id="intro">
+            <div class="col-md-4 header-banner-left">
+            	<h1 class="animated fadeInDown">REST<span>Fiddle</span></h1>
+                <p class="animated fadeInUp slow">easy-to-use platform to work with APIs. It simplifies everything from API exposure to API consumption. RESTFiddle is an Enterprise-grade API Management Platform for teams. It helps you to design, develop, test and release APIs.</p>
+                <a href="#"><div class="btn-readmore btn-float animated fadeInUp slower">
+                	<span class="btn-text">Take a toure</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a>
+            </div>
+            <div class="col-md-8 header-banner-right animated fadeInRight slowest">
+            	<img src="img/lappy.jpg" width="100%">
+            </div>
+    </section>
+	
+	
+    <!-- Navigation -->
+    <div id="navigation">
+        <nav class="navbar navbar-custom" role="navigation">
+                              <div class="container">
+                                    <div class="row">
+                                          <div class="col-md-2">
+                                                   <div class="site-logo">
+                                                            <a href="index.html" class="brand">REST<span>Fiddle</span></a>
+                                                    </div>
+                                          </div>
+                                          
+
+                                          <div class="col-md-10">
+                         
+                                                      <!-- Brand and toggle get grouped for better mobile display -->
+                                          <div class="navbar-header">
+                                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                                                <i class="fa fa-bars"></i>
+                                                </button>
+                                          </div>
+                                                      <!-- Collect the nav links, forms, and other content for toggling -->
+                                                      <div class="collapse navbar-collapse" id="menu">
+                                                            <ul class="nav navbar-nav navbar-right">
+                                                                  <li class="active"><a href="#intro">Home</a></li>
+                                                                  <li><a href="#about">About Us</a></li>
+																   <li><a href="#service">Services</a></li>
+                                                                  <li><a href="#works">Works</a></li>				                                                                  
+                                                                  
+                                                                  <li><a href="#contact">Contact</a></li>
+                                                            </ul>
+                                                      </div>
+                                                      <!-- /.Navbar-collapse -->
+                             
+                                          </div>
+                                    </div>
+                              </div>
+                              <!-- /.container -->
+                        </nav>
+    </div> 
+    <!-- /Navigation -->  
+
+	<!-- Section: about -->
+    <section id="about" class="features bg-white">
+    	<div class="col-md-7 features-left">
+        <div class="row">
+        	<div class="overlay">
+                <div class="col-md-1">
+                		<div class="btn-holder">
+                        <div data-slide="next" class="btn-vertical-slider"><i class="md md-keyboard-arrow-up"></i></div>  
+                        <div class="clearfix"></div>
+                        <div data-slide="prev" class="btn-vertical-slider"><i class="md md-keyboard-arrow-down"></i></div>
+                        </div>
+                </div>
+                <div class="col-md-11">
+                <div class="row">
+                 <div id="myCarousel" class="vertical-slider carousel vertical slide col-md-12" data-ride="carousel">
+                
+                <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                  <div class="o-hidden">
+                    <h4 class="box-title">Request Builder</h4>
+                    <p>Make requests with ease. Header, query param, auth and much more supported. Organize requests in the form of a tree structure inside different projects in a workspace. </p>
+                  </div>
+                </div>
+                                </a>
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                                  <div class="o-hidden">
+                                    <h4 class="box-title">Collaboration</h4>
+                                    <p>Free yourself from the hassles of sharing APIs via chats or emails. Adding collaborators for a workspace does all the magic for you. Sharing different APIs with different sets of people has never been so easy!</p>
+                                  </div>
+                                </div>
+                                </a>
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                                  <div class="o-hidden">
+                                    <h4 class="box-title">Environment</h4>
+                                    <p>Run same set of APIs for different environments with ease. Use expression language in API urls. Environment-specific values of variables get populated while running the APIs.</p>
+                                  </div>
+                                </div>
+                                </a>
+                            </div>
+                            <!--/item-->
+                            <div class="item ">
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                                  <div class="o-hidden">
+                                    <h4 class="box-title">Assert</h4>
+                                    <p>Get rid of manually comparing response of requests, every time you run them. Save Asserts to do the work for you. When a request is run, all the Assert results get evaluated against expected values. </p>
+                                  </div>
+                                </div>
+                                </a>
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                                  <div class="o-hidden">
+                                    <h4 class="box-title">Report</h4>
+                                    <p>Instead of running requests individually, run requests in a project or folder and get a PDF report of the results. </p>
+                                  </div>
+                                </div>
+                                </a>
+                                <a href="#">
+                                <div class="icon-box style-side-2">
+                                  <div class="col-left"><span class="hi-icon"><i class="fa fa-umbrella"></i></span></div>
+                                  <div class="o-hidden">
+                                    <h4 class="box-title">Backend</h4>
+                                    <p>Quick entity creation, user and role management services are provided through APIs to all app developers to help them develop their apps at a faster pace and without much effort. </p>
+                                  </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+            </div>    
+                </div>
+                </div>        
+        	</div>
+        </div>
+        </div>
+        <div class="col-md-5 features-right animatedParent">
+        	<h1 class="animated bounceInDown slower">Our <span>Featuers</span></h1>
+            <span class="animated bounceInUp slowest">Some of the key features of this platform</span>
+        </div>
+	</section>
+	<!-- /Section: about -->
+    <div class="clearfix"></div>
+    <section class="screen-holder animatedParent">
+    	<div class="container screen-bg">
+        	<center><h1 class="animated bounceInDown slowest">Creating and running ToDo app<br> inside <b>REST<span>Fiddle</span></b></h1>
+            <a href="#"><div class="btn-readmore btn-float animated fadeInUp slowest">
+                	<span class="btn-text">Know More</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a></center>
+        </div>
+    </section>
+	<div class="clearfix"></div>
+	<!-- Section: services -->
+    <section id="service" class="home-section bg-white">
+		<div class="container marginbot-50">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<div>
+					<div class="section-heading text-center animatedParent">
+					<h2 class="h-bold animated bounceInDown slowest">Other <span>important features</span></h2>
+					<div class="divider-header"></div>
+					</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="text-center">
+		<div class="container">
+
+        <div class="row animatedParent">
+            <div class="col-xs-6 col-sm-4 col-md-4">
+				<div class="animated rotateInDownLeft">
+                <div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-paperclip fa-2x"></span> 
+					</div>
+					<div class="service-desc">						
+						<h5>Assert</h5>
+						<div class="divider-header"></div>
+						<p>
+						Ad denique euripidis signiferumque vim, iusto admodum quo cu. No tritani neglegentur mediocritatem duo.
+						</p>
+						<center><a href="#"><div class="btn-readmore btn-float" style="width: 150px;">
+                	<span class="btn-text">Lern More</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a></center>
+					</div>
+                </div>
+				</div>
+            </div>
+			<div class="col-xs-6 col-sm-4 col-md-4">
+				<div class="animated rotateInDownLeft slow">
+                <div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-play-circle-o fa-2x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5>Run Project</h5>
+						<div class="divider-header"></div>
+						<p>
+						Ad denique euripidis signiferumque vim, iusto admodum quo cu. No tritani neglegentur mediocritatem duo.
+						</p>
+						<center><a href="#"><div class="btn-readmore btn-float" style="width: 150px;">
+                	<span class="btn-text">Lern More</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a></center>
+					</div>
+                </div>
+				</div>
+            </div>
+			<div class="col-xs-6 col-sm-4 col-md-4">
+				<div class="animated rotateInDownLeft slower">
+                <div class="service-box">
+					<div class="service-icon">
+						<span class="fa fa-exchange fa-2x"></span> 
+					</div>
+					<div class="service-desc">
+						<h5>Export/Import</h5>
+						<div class="divider-header"></div>
+						<p>
+						Ad denique euripidis signiferumque vim, iusto admodum quo cu. No tritani neglegentur mediocritatem duo.
+						</p>
+						<center><a href="#"><div class="btn-readmore btn-float" style="width: 150px;">
+                	<span class="btn-text">Lern More</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a></center>
+					</div>
+                </div>
+				</div>
+            </div>
+
+        </div>		
+		</div>
+		</div>
+	</section>
+	<!-- /Section: services -->
+	
+    
+    <section class="spectial-title animatedParent">
+    <div class="spectial-bg">
+    	<div class="overlay">
+    		<h1 class="animated bounceInDown">Testing <span>Facebook APIs</span></h1>
+            <center><a href="#"><div class="btn-readmore btn-float animated fadeInUp slower">
+                	<span class="btn-text">Know More</span>
+                	<span class="btn-icon"><i class="md md-arrow-forward"></i></span>
+                </div></a></center>
+        </div>
+    </div>
+    </section>
+
+	
+
+	<!-- Section: contact -->
+    <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+		<div class="container marginbot-50">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<div class="animatedParent">
+					<div class="section-heading text-center">
+					<h2 class="h-bold animated bounceInDown">Get in touch <span>with us</span></h2>
+					<div class="divider-header"></div>
+					</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="container">
+
+			<div class="row marginbot-80">
+				<div class="col-md-8 col-md-offset-2 animatedParent">
+						<form id="contact-form">
+						<div class="row marginbot-20">
+							<div class="col-md-6 xs-marginbot-20 animated fadeInLeft slower">
+								<input type="text" class="form-control input-lg" id="name" placeholder="Enter name" required />
+							</div>
+							<div class="col-md-6 animated fadeInRight slower">
+								<input type="email" class="form-control input-lg" id="email" placeholder="Enter email" required />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group animated fadeInUp slower">
+										<input type="text" class="form-control input-lg" id="subject" placeholder="Subject" required />
+								</div>
+								<div class="form-group animated fadeInUp slower">
+									<textarea name="message" id="message" class="form-control" rows="4" cols="25" required
+										placeholder="Message"></textarea>
+								</div>						
+								<button type="submit" class="btn btn-skin btn-lg btn-block animated bounceInUp slowest" id="btnContactUs">
+									Send Message</button>
+							</div>
+						</div>
+						</form>
+				</div>
+			</div>	
+
+
+		</div>
+	</section>
+	<!-- /Section: contact -->
+
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="footer-menu">
+						<li><a href="#">Home</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 text-right">
+					<p>&copy;Copyright 2015 - RESTFiddle.</p>
+				</div>
+			</div>	
+		</div>
+	</footer>
+
+    <!-- Core JavaScript Files -->
+    <script src="js/jquery.min.js"></script>	 
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.easing.min.js"></script>	
+	<script src="js/jquery.scrollTo.js"></script>
+	<script src="js/jquery.appear.js"></script>
+	<script src="js/stellar.js"></script>
+	<script src="js/nivo-lightbox.min.js"></script>
+	
+    <script src="js/custom.js"></script>
+	<script src="js/css3-animate-it.js"></script>
+
+</body>
+
+</html>
