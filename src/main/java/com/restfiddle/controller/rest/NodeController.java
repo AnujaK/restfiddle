@@ -97,7 +97,7 @@ public class NodeController {
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position
 	node.setPosition(0L);
-	
+
 	node = nodeRepository.save(node);
 
 	if (nodeDTO.getConversationDTO() != null && nodeDTO.getConversationDTO().getId() != null) {
@@ -113,26 +113,26 @@ public class NodeController {
 	    genericEntityRepository.save(genericEntity);
 	    node.setGenericEntity(genericEntity);
 	}
-	
+
 	Project project = projectRepository.findOne(nodeDTO.getProjectId());
 	node.setProjectId(project.getId());
 
 	BaseNode savedNode = nodeRepository.save(node);
-	
-	//set tags
+
+	// set tags
 	List<Tag> tags = new ArrayList<Tag>();
-	
+
 	List<TagDTO> tagDTOs = nodeDTO.getTags();
 	if (tagDTOs != null && !tagDTOs.isEmpty()) {
 	    List<String> tagIds = new ArrayList<String>();
 	    for (TagDTO tagDTO : tagDTOs) {
-	    	tagIds.add(tagDTO.getId());
+		tagIds.add(tagDTO.getId());
 	    }
 	    tags = (List<Tag>) tagRepository.findAll(tagIds);
 	}
 	savedNode.setTags(tags);
 	savedNode = nodeRepository.save(savedNode);
-	
+
 	// Generate APIs for Entity
 	if (nodeDTO.getGenericEntityDTO() != null && nodeDTO.getGenericEntityDTO().getId() != null) {
 	    generateApiController.generateApi(savedNode);
@@ -146,12 +146,22 @@ public class NodeController {
 	logger.debug("Deleting node with id: " + id);
 
 	BaseNode nodeToDelete = nodeRepository.findOne(id);
-	deleteNodeRecursively(nodeToDelete);
+	deleteNodesRecursively(nodeToDelete);
 
 	// return deleted;
     }
 
-    public void deleteNodeRecursively(BaseNode node) {
+    @RequestMapping(value = "/api/nodes/{id}/copy", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    void copy(@PathVariable("id") String id) {
+	BaseNode node = nodeRepository.findOne(id);
+	copyNodesRecursively(node, node.getParentId());
+    }
+
+    public void copyNodesRecursively(BaseNode node, String parentId) {
+	NodeDTO dto = EntityToDTO.toDTO(node);
+	NodeDTO newNode = create(parentId, dto);
+	
 	String nodeType = node.getNodeType();
 	if (nodeType != null
 		&& (NodeType.FOLDER.name().equalsIgnoreCase(nodeType) || NodeType.PROJECT.name().equalsIgnoreCase(nodeType) || NodeType.ENTITY.name()
@@ -159,7 +169,31 @@ public class NodeController {
 	    List<BaseNode> children = getChildren(node.getId());
 	    if (children != null && !children.isEmpty()) {
 		for (BaseNode childNode : children) {
-		    deleteNodeRecursively(childNode);
+		    copyNodesRecursively(childNode, newNode.getId());
+		}
+	    }
+	}
+	// This is just a workaround added for now.
+	if (nodeType != null && NodeType.FOLDER.name().equalsIgnoreCase(nodeType)) {
+	    if (node.getGenericEntity() != null) {
+		// TODO : genericEntityRepository.delete(node.getGenericEntity());
+	    }
+
+	} else if (nodeType != null && NodeType.ENTITY.name().equalsIgnoreCase(nodeType)) {
+	    // TODO : genericEntityRepository.delete(node.getGenericEntity());
+	}
+
+    }
+
+    public void deleteNodesRecursively(BaseNode node) {
+	String nodeType = node.getNodeType();
+	if (nodeType != null
+		&& (NodeType.FOLDER.name().equalsIgnoreCase(nodeType) || NodeType.PROJECT.name().equalsIgnoreCase(nodeType) || NodeType.ENTITY.name()
+			.equalsIgnoreCase(nodeType))) {
+	    List<BaseNode> children = getChildren(node.getId());
+	    if (children != null && !children.isEmpty()) {
+		for (BaseNode childNode : children) {
+		    deleteNodesRecursively(childNode);
 		}
 	    }
 	}
@@ -255,7 +289,8 @@ public class NodeController {
 	    if (baseNode.getConversation() != null) {
 		methodType = baseNode.getConversation().getRfRequest().getMethodType();
 	    }
-	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getDescription(), baseNode.getNodeType(), baseNode.getStarred(), methodType);
+	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getDescription(), baseNode.getNodeType(),
+		    baseNode.getStarred(), methodType);
 	    treeNodeMap.put(nodeId, treeNode);
 	}
 
@@ -301,16 +336,16 @@ public class NodeController {
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 
 	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(pageable);
-	
+
 	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
 	long totalElements = paginatedStarredNodes.getTotalElements();
-	
+
 	List<NodeDTO> response = new ArrayList<NodeDTO>();
-	for(BaseNode item : starredNodes){
+	for (BaseNode item : starredNodes) {
 	    response.add(EntityToDTO.toDTO(item));
 	}
-	
-	System.out.println("totalElements : "+totalElements);
+
+	System.out.println("totalElements : " + totalElements);
 	return response;
     }
 
