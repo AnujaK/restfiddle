@@ -140,19 +140,28 @@ define(function(require) {
 		$('#nodeTags').prop('checked', true);
 
 	});
+	
+	$("#copyProjFolderModal").on('show.bs.modal', function(e) {
+	
+	});
 
 	function copyNode(node) {
-		if (node == null) {
-			alert("Please select a node to copy.");
-			return;
-		}
-
 		$("#copyNodeId").val(node.data.id);
 		$("#copyNodeTextField").val("Copy of " + node.data.name);
 		$("#copyNodeType").val(node.data.nodeType);
 		$("#copyNodeTextArea").val(node.data.description);
-		$("#copyNodeModal").modal("show");
+		if (node == null) {
+			alert("Please select a node to copy.");
+			return;
+		}
+		var type = node.data.nodeType;
+		if (type == 'PROJECT' || type == 'FOLDER'){
+			$("#copyProjFolderModal").modal("show");
+		}
 
+        else{
+            $("#copyNodeModal").modal("show");
+        }
 	}
 
 	function runNode(node, event) {
@@ -778,6 +787,26 @@ define(function(require) {
 
 	})
 
+	$("#copyProjFolderNodeBtn").unbind("click").bind("click", function(event) {
+		var nodeId = $("#copyNodeId").val();
+        var data = {
+            "name" : $("#copyFolderNodeTextField").val(),
+            "description" : $("#copyFolderNodeTextArea").val()
+        };
+		$.ajax({
+				url : APP.config.baseUrl + '/nodes/'+nodeId+'/copy',
+				type : 'post',
+				dataType : 'json',
+                data: JSON.stringify(data),
+				contentType : "application/json",
+				success : function(response) {
+                    treeObj.reload();
+					console.log("Copied successfully");
+				}
+		});
+		$("#copyProjFolderModal").modal("hide");
+	})
+	
 	$("#editNodeBtn").unbind("click").bind("click", function(event) {
 		var nodeId = $("#editNodeId").val();
 		var node = treeObj.getNodeByKey(nodeId);

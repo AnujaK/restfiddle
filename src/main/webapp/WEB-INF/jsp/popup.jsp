@@ -469,6 +469,32 @@
 		</div>
 	</div>
 </div>	
+<div class="modal fade" id="copyProjFolderModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="copyProjFolderModalLabel">Copy Node</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+				    <input type="hidden" id="copyNodeId"/>
+				    <input type="hidden" id="copyNodeType"/>
+					<input type="text" id="copyFolderNodeTextField" class="form-control" placeholder="Enter Node Name" name = "copyNodeName" required/> <br>
+					<textarea id="copyFolderNodeTextArea" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+					<br>
+                </form>
+                <div class="alert alert-info">
+					This will copy all the folders and requests inside this node.
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="copyProjFolderNodeBtn" type="button" class="btn btn-primary">Copy</button>
+			</div>
+		</div>
+	</div>
+</div>	
 <div class="modal fade" id="editProjectModal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">

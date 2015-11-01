@@ -153,15 +153,18 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}/copy", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    void copy(@PathVariable("id") String id) {
+    void copy(@PathVariable("id") String id, @RequestBody NodeDTO nodeDTO) {
 	BaseNode node = nodeRepository.findOne(id);
+	node.setName(nodeDTO.getName());
+	node.setDescription(nodeDTO.getDescription());
+
 	copyNodesRecursively(node, node.getParentId());
     }
 
     public void copyNodesRecursively(BaseNode node, String parentId) {
 	NodeDTO dto = EntityToDTO.toDTO(node);
 	NodeDTO newNode = create(parentId, dto);
-	
+
 	String nodeType = node.getNodeType();
 	if (nodeType != null
 		&& (NodeType.FOLDER.name().equalsIgnoreCase(nodeType) || NodeType.PROJECT.name().equalsIgnoreCase(nodeType) || NodeType.ENTITY.name()
