@@ -16,6 +16,7 @@
 package com.restfiddle.entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Environment extends NamedEntity {
@@ -29,6 +30,21 @@ public class Environment extends NamedEntity {
 
     public void setProperties(List<EnvironmentProperty> properties) {
 	this.properties = properties;
+    }
+
+    public String getPropertyValueByName(String propertyName) {
+	if (propertyName == null) {
+	    return null;
+	}
+	String propertyValue = null;
+	for (Iterator<EnvironmentProperty> iterator = properties.iterator(); iterator.hasNext();) {
+	    EnvironmentProperty property = iterator.next();
+	    if (property.getPropertyName().equals(propertyName)) {
+		propertyValue = property.getPropertyValue();
+		break;
+	    }
+	}
+	return propertyValue;
     }
 
 }

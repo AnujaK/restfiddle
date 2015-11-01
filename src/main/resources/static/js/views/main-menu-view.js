@@ -24,12 +24,12 @@ define(function(require) {
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
 		var projectId = APP.appView.getCurrentProjectId();
-		var currentEnvironment = $(".environmentsSelectBox").val();
+		var currentEnvId = $(".environmentsSelectBox").val();
 		var queryParam = '';
-		if( currentEnvironment != 'Select'){
+		if( currentEnvId != 'Select'){
 		  //pass environment variable as query param
 		  //if Select is the value, no env has value has been selected
-		  var queryParam = '?environment='+currentEnvironment;
+		  var queryParam = '?envId='+currentEnvId;
 		}
 		$.ajax({
 			url : APP.config.baseUrl + '/processor/projects/'+projectId+queryParam,

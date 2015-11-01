@@ -56,6 +56,7 @@ import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
+import com.restfiddle.entity.Environment;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.entity.User;
 import com.restfiddle.exceptions.ApiException;
@@ -84,9 +85,12 @@ public class ApiController {
 
     @Autowired
     private RfResponseRepository rfResponseRepository;
-    
+
     @Autowired
-    private AssertHandler assertHandler; 
+    private AssertHandler assertHandler;
+
+    @Autowired
+    private EnvironmentController environmentController;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     ConversationDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
@@ -102,7 +106,7 @@ public class ApiController {
 	    RfRequest rfRequest = rfRequestRepository.findOne(rfRequestDTO.getId());
 	    String conversationId = rfRequest != null ? rfRequest.getConversationId() : null;
 	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
-	    //finding updated existing conversation 
+	    // finding updated existing conversation
 	    existingConversation = existingConversation != null ? nodeRepository.findOne(existingConversation.getNodeId()).getConversation() : null;
 	    rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(existingConversation.getRfRequest().getAssertion()));
 	}
@@ -111,28 +115,27 @@ public class ApiController {
 	RfResponseDTO result = genericHandler.processHttpRequest(rfRequestDTO);
 	long endTime = System.currentTimeMillis();
 	long duration = endTime - startTime;
-	
-	if(result!=null){
+
+	if (result != null) {
 	    assertHandler.runAssert(result);
 	}
 
 	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
-	
+
 	if (existingConversation != null) {
 	    currentConversation.getRfRequest().setAssertion(existingConversation.getRfRequest().getAssertion());
 	}
 
-	
 	rfRequestRepository.save(currentConversation.getRfRequest());
 	rfResponseRepository.save(currentConversation.getRfResponse());
 
 	currentConversation.setDuration(duration);
-	
+
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	if(principal instanceof User){
+	if (principal instanceof User) {
 	    currentConversation.setLastModifiedBy((User) principal);
 	}
-	
+
 	Date currentDate = new Date();
 	currentConversation.setCreatedDate(currentDate);
 	currentConversation.setLastModifiedDate(currentDate);
@@ -147,15 +150,15 @@ public class ApiController {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		currentConversation.setNodeId(node.getId());
 		currentConversation.setName(node.getName());
-		
+
 		node.setConversation(currentConversation);
 		node.setLastModifiedDate(currentDate);
-		if(principal instanceof User){
+		if (principal instanceof User) {
 		    currentConversation.setLastModifiedBy((User) principal);
 		}
 		nodeRepository.save(node);
 	    }
-	    
+
 	    conversationRepository.save(currentConversation);
 
 	} catch (InvalidDataAccessResourceUsageException e) {
@@ -165,7 +168,7 @@ public class ApiController {
 	conversationDTO.setWorkspaceId(rfRequestDTO.getWorkspaceId());
 	conversationDTO.setDuration(duration);
 	conversationDTO.setRfResponseDTO(result);
-	if(result!=null){
+	if (result != null) {
 	    result.setItemDTO(conversationDTO);
 	}
 	return conversationDTO;
@@ -173,15 +176,15 @@ public class ApiController {
 
     @RequestMapping(value = "/api/processor/projects/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id, @RequestParam(value = "environment", required = false) String environment) {
+    List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId) {
 	logger.debug("Running all requests inside project : " + id);
 
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, environment);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId);
 	return nodeStatuses;
     }
 
-    //Handle environment passing here as above. Passing null as of now
+    // Handle environment passing here as above. Passing null as of now
     @RequestMapping(value = "/api/processor/folders/{id}", method = RequestMethod.GET)
     public @ResponseBody
     List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id) {
@@ -192,10 +195,18 @@ public class ApiController {
 	return nodeStatuses;
     }
 
-    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String environment) {
+    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String envId) {
+	// TODO : Regex is hard-coded for now. User will have the option to choose different regular expressions.
+	// TODO : Need to add the option to change regex in settings (UI).
+	String regex = "\\{\\{([^\\}\\}]*)\\}\\}";
+	Environment env = null;
+	if (envId != null && !envId.isEmpty()) {
+	    env = environmentController.findById(envId);
+	}
+
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;
-	String regex = "\\{\\{([^\\}\\}]*)";
+
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
 	    if (nodeType != null && (NodeType.PROJECT.name().equals(nodeType) || NodeType.FOLDER.name().equals(nodeType))) {
@@ -208,8 +219,16 @@ public class ApiController {
 		    String apiUrl = rfRequest.getApiUrl();
 		    String apiBody = rfRequest.getApiBody();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
-			if(apiUrl.matches(regex)){ //ToDo: contains env variable, get the value from env
-			    
+			if (env != null) {
+			    Pattern p = Pattern.compile(regex);
+			    Matcher m = p.matcher(apiUrl);
+			    String tempUrl = null;
+			    while (m.find()) {
+				String exprVar = m.group(1);
+				String propVal = env.getPropertyValueByName(exprVar);
+				tempUrl = apiUrl.replaceFirst(regex, propVal);
+				apiUrl = tempUrl;
+			    }
 			}
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);
