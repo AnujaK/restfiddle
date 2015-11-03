@@ -6,14 +6,14 @@
 	<subDataset name="dataset1" uuid="a9197358-fe88-4102-8e1e-de0ce6577e10">
 		<field name="name" class="java.lang.String"/>
 		<field name="description" class="java.lang.String"/>
-		<field name="id" class="java.lang.Long"/>
+		<field name="duration" class="java.lang.Long"/>
 	</subDataset>
-	<parameter name="tags" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="nodeStatusResponse" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<field name="apiNodes" class="java.util.List">
-		<fieldDescription><![CDATA[tags]]></fieldDescription>
+		<fieldDescription><![CDATA[nodeStatusResponse]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -34,7 +34,7 @@
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="dataset1" uuid="bbd919ea-0218-418e-b0ea-d00c6aa75026">
 						<datasetParameter name="REPORT_DATA_SOURCE">
-							<datasetParameterExpression><![CDATA[$P{tags}]]></datasetParameterExpression>
+							<datasetParameterExpression><![CDATA[$P{nodeStatusResponse}]]></datasetParameterExpression>
 						</datasetParameter>
 					</datasetRun>
 					<jr:column width="90" uuid="87fb5b36-3400-43c3-ad1d-a567d1e5ca12">
@@ -81,7 +81,7 @@
 							<textField>
 								<reportElement x="0" y="0" width="90" height="30" uuid="69b11ef8-a7b1-493d-93d1-119535a19f1f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{duration}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

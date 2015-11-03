@@ -15,9 +15,12 @@
  */
 package com.restfiddle.controller.rest;
 
+import java.io.Console;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +29,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.ClassPathResource;
@@ -41,10 +47,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dto.NodeDTO;
+import com.restfiddle.dto.NodeStatusResponseDTO;
+import com.restfiddle.dto.ReportDTO;
 import com.restfiddle.dto.TagDTO;
+import com.restfiddle.entity.BaseNode;
 
 @RestController
 @EnableAutoConfiguration
@@ -52,6 +64,12 @@ import com.restfiddle.dto.TagDTO;
 @Transactional
 public class ReportController {
     Logger logger = LoggerFactory.getLogger(ReportController.class);
+    
+    @Autowired
+    private NodeRepository nodeRepository;
+    
+    @Autowired
+    private ApiController apiController;
 
     /**
      * This API can be used to generate report for "RUN PROJECT" functionality.
@@ -59,6 +77,44 @@ public class ReportController {
     @RequestMapping(value = "/api/report/projects/{id}", method = RequestMethod.GET)
     public void generateRunProjectReport(@PathVariable("id") Long id) {
 
+    }
+    
+    @RequestMapping(value = "/api/processor/projects/{id}/report", method = RequestMethod.GET)
+    public @ResponseBody
+    void generateRunNodeReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
+	List<NodeStatusResponseDTO> nodeStatusResponse = apiController.runProjectById(id, envId);
+	
+	String reportTemplateFilePath = "report-template" + File.separator + "rf_doc_template.jasper";
+	Resource resource = new ClassPathResource(reportTemplateFilePath);
+	
+	List<ReportDTO> apiNodes = new ArrayList<ReportDTO>();
+	ReportDTO node = new ReportDTO();
+	apiNodes.add(node);
+
+	Map<String, Object> params = new HashMap<String, Object>();
+	/*List<NodeStatusResponseDTO> tags = new ArrayList<NodeStatusResponseDTO>();
+	NodeStatusResponseDTO tag = new NodeStatusResponseDTO();
+	tag.setName("aa");
+	tag.setDescription("bb");
+	tags.add(tag);*/
+	node.setNodeStatusResponse(nodeStatusResponse);
+
+	JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(apiNodes);
+
+	JRBeanCollectionDataSource ds2 = new JRBeanCollectionDataSource(nodeStatusResponse);
+	params.put("nodeStatusResponse", ds2);
+
+	try (InputStream inputStream = resource.getInputStream();) {
+	    response.setContentType("application/pdf");
+	    response.setHeader("Content-Disposition", "attachment; filename=\"report.pdf\"");
+	    response.setHeader("Cache-Control", "no-cache");
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, params, ds1);
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+	} catch (JRException e) {
+	    logger.error(e.getMessage(), e);
+	} catch (IOException e) {
+	    logger.error(e.getMessage(), e);
+	}
     }
 
     /**
@@ -108,4 +164,16 @@ public class ReportController {
 	    logger.error(e.getMessage(), e);
 	}
     }
+   /* public static void main(String[] args) {
+	String jrxmlFilePath = "C:\\Users\\Ranjan\\Documents\\GitHub\\restfiddle\\src\\main\\resources\\report-template\\rf_doc_template.jrxml";
+	String reportTemplateFilePath = "C:\\Users\\Ranjan\\Documents\\GitHub\\restfiddle\\src\\main\\resources\\report-template\\rf_doc_template.jasper";
+	try {
+	    URL jrxmlResource = ReportController.class.getResource(jrxmlFilePath);
+	    URL jasperResource = ReportController.class.getResource(reportTemplateFilePath);
+	    JasperCompileManager.compileReportToFile(jrxmlFilePath, reportTemplateFilePath);
+	} catch (JRException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+    }*/
 }
