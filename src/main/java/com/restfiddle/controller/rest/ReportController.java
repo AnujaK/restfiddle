@@ -80,8 +80,7 @@ public class ReportController {
     }
     
     @RequestMapping(value = "/api/processor/projects/{id}/report", method = RequestMethod.GET)
-    public @ResponseBody
-    void generateRunNodeReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
+    public void generateRunNodeReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
 	List<NodeStatusResponseDTO> nodeStatusResponse = apiController.runProjectById(id, envId);
 	
 	String reportTemplateFilePath = "report-template" + File.separator + "rf_doc_template.jasper";
@@ -92,15 +91,9 @@ public class ReportController {
 	apiNodes.add(node);
 
 	Map<String, Object> params = new HashMap<String, Object>();
-	/*List<NodeStatusResponseDTO> tags = new ArrayList<NodeStatusResponseDTO>();
-	NodeStatusResponseDTO tag = new NodeStatusResponseDTO();
-	tag.setName("aa");
-	tag.setDescription("bb");
-	tags.add(tag);*/
 	node.setNodeStatusResponse(nodeStatusResponse);
 
 	JRBeanCollectionDataSource ds1 = new JRBeanCollectionDataSource(apiNodes);
-
 	JRBeanCollectionDataSource ds2 = new JRBeanCollectionDataSource(nodeStatusResponse);
 	params.put("nodeStatusResponse", ds2);
 
@@ -164,16 +157,4 @@ public class ReportController {
 	    logger.error(e.getMessage(), e);
 	}
     }
-   /* public static void main(String[] args) {
-	String jrxmlFilePath = "C:\\Users\\Ranjan\\Documents\\GitHub\\restfiddle\\src\\main\\resources\\report-template\\rf_doc_template.jrxml";
-	String reportTemplateFilePath = "C:\\Users\\Ranjan\\Documents\\GitHub\\restfiddle\\src\\main\\resources\\report-template\\rf_doc_template.jasper";
-	try {
-	    URL jrxmlResource = ReportController.class.getResource(jrxmlFilePath);
-	    URL jasperResource = ReportController.class.getResource(reportTemplateFilePath);
-	    JasperCompileManager.compileReportToFile(jrxmlFilePath, reportTemplateFilePath);
-	} catch (JRException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-    }*/
 }
