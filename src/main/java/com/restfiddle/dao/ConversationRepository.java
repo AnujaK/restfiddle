@@ -25,5 +25,8 @@ public interface ConversationRepository extends RfRepository<Conversation, Strin
     
     @Query("{ 'workspaceId' : ?0 }")
     public Page<Conversation> findConversationsFromWorkspace(String workspaceId, Pageable pageable);
+    
+    @Query("{ 'workspaceId' : ?0 ,name : { $regex : ?1, $options: 'i' }}")
+    public Page<Conversation> findConversationsFromWorkspaceByName(String workspaceId, String name, Pageable pageable);
 
 }
