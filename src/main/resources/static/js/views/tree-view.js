@@ -473,7 +473,29 @@ define(function(require) {
 			}
 		});
 	});
-
+	
+	$("#importRfFileBtn").unbind("click").bind("click", function() {
+		var projectId = APP.appView.getCurrentProjectId();
+		var fileInput = document.getElementById('importFileId');
+		var file = fileInput.files[0];
+		var fd = new FormData();
+		fd.append('projectId', projectId);
+		fd.append('name', '');
+		fd.append('file', file);
+		$.ajax({
+			url : APP.config.baseUrl + '/import/restfiddle',
+			type : 'post',
+			processData : false,
+			contentType : false,
+			data : fd,
+			success : function(response) {
+				console.log("Import file response : " + response);
+				$("#importModal").modal("hide");
+				tree.showTree(tree.projectRefNodeId);
+			}
+		});
+	});
+	
 	$("#importPostmanFileBtn").unbind("click").bind("click", function() {
 		var projectId = APP.appView.getCurrentProjectId();
 		var fileInput = document.getElementById('importFileId');

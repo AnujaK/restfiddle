@@ -33,8 +33,6 @@ import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.raml.model.Raml;
-import org.raml.parser.visitor.RamlDocumentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +44,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfiddle.constant.NodeType;
+import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.FormDataDTO;
 import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.RfHeaderDTO;
 import com.restfiddle.dto.RfRequestDTO;
+import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
+import com.restfiddle.util.TreeNode;
 
 @RestController
 @Transactional
@@ -67,6 +69,44 @@ public class ImportController {
 
     @Autowired
     private ProjectController projectController;
+
+    @Autowired
+    private NodeRepository nodeRepository;
+
+    @RequestMapping(value = "/api/import/restfiddle", method = RequestMethod.POST)
+    public @ResponseBody
+    void importRestFiddle(@RequestParam("projectId") String projectId, @RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	if (!file.isEmpty()) {
+	    try {
+		byte[] bytes = file.getBytes();
+		ObjectMapper mapper = new ObjectMapper();
+		TreeNode projectNode = mapper.readValue(bytes, TreeNode.class);
+		System.out.println("projectNode : " + projectNode);
+		createNodeRecursively(projectNode, projectNode.getChildren());
+	    } catch (Exception e) {
+		logger.error(e.getMessage(), e);
+	    }
+	}
+    }
+
+    private void createNodeRecursively(BaseNode parent, List<TreeNode> nodes) {
+	BaseNode node = null;
+	for (TreeNode treeNode : nodes) {
+	    node = new BaseNode();
+	    node.setName(treeNode.getName());
+	    node.setDescription(treeNode.getDescription());
+	    node.setNodeType(treeNode.getNodeType());
+	    node.setStarred(treeNode.getStarred());
+	    node.setPosition(treeNode.getPosition());
+	    node.setProjectId(treeNode.getProjectId());
+	    node.setParentId(parent.getId());// Important
+	    node = nodeRepository.save(node);
+	    List<TreeNode> children = treeNode.getChildren();
+	    if (children != null && !children.isEmpty()) {
+		createNodeRecursively(node, children);
+	    }
+	}
+    }
 
     @RequestMapping(value = "/api/import/swagger", method = RequestMethod.POST)
     public @ResponseBody
@@ -179,8 +219,8 @@ public class ImportController {
 	}
     }
 
-    private void ramlToRFConverter(String projectId, String name, MultipartFile file) throws IOException{
-	//Raml raml = new RamlDocumentBuilder().build(ramlLocation);
+    private void ramlToRFConverter(String projectId, String name, MultipartFile file) throws IOException {
+	// Raml raml = new RamlDocumentBuilder().build(ramlLocation);
 
     }
 

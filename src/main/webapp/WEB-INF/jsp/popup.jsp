@@ -329,9 +329,10 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="importSwaggerFileBtn" type="button" class="btn btn-primary">Import Swagger</button>
-				<button id="importPostmanFileBtn" type="button" class="btn btn-primary">Import Postman</button>
-				<button id="importRamlFileBtn" type="button" class="btn btn-primary">Import RAML</button>
+				<button id="importRfFileBtn" type="button" class="btn btn-primary">Import RESTFiddle</button>
+                <button id="importSwaggerFileBtn" type="button" class="btn">Swagger</button>
+				<button id="importPostmanFileBtn" type="button" class="btn">Postman</button>
+				<button id="importRamlFileBtn" type="button" class="btn">RAML</button>
 			</div>
 		</div>
 	</div>
