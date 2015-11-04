@@ -235,6 +235,7 @@ public class ApiController {
 			rfRequestDTO.setMethodType(methodType);
 			rfRequestDTO.setApiUrl(apiUrl);
 			rfRequestDTO.setApiBody(apiBody);
+			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
 			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO).getRfResponseDTO();
 			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
