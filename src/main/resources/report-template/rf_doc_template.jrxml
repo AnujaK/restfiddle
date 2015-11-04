@@ -7,6 +7,8 @@
 		<field name="name" class="java.lang.String"/>
 		<field name="description" class="java.lang.String"/>
 		<field name="duration" class="java.lang.Long"/>
+		<field name="successAsserts" class="java.lang.Integer"/>
+		<field name="failureAsserts" class="java.lang.Integer"/>
 	</subDataset>
 	<parameter name="nodeStatusResponse" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<queryString>
@@ -53,35 +55,67 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="320" uuid="41f76d7a-643d-4eac-93df-f6b7f19c78cd">
+					<jr:column width="300" uuid="41f76d7a-643d-4eac-93df-f6b7f19c78cd">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="310" height="30" uuid="07d73635-662d-4e89-bb7b-80e99942dbff"/>
+								<reportElement x="0" y="0" width="290" height="30" uuid="07d73635-662d-4e89-bb7b-80e99942dbff"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[API Description]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="310" height="30" uuid="3338abe2-3d52-4fb8-9dd7-ad659415b504"/>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="290" height="30" uuid="3338abe2-3d52-4fb8-9dd7-ad659415b504"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="e8109cb3-2a10-4473-9225-2c235a6658f6">
+					<jr:column width="40" uuid="e8109cb3-2a10-4473-9225-2c235a6658f6">
 						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="177a45f7-d111-4fad-ac38-cfb2d54592cd"/>
+								<reportElement x="0" y="0" width="40" height="30" uuid="177a45f7-d111-4fad-ac38-cfb2d54592cd"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Duration]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="30" uuid="69b11ef8-a7b1-493d-93d1-119535a19f1f"/>
+								<reportElement x="0" y="0" width="40" height="30" uuid="69b11ef8-a7b1-493d-93d1-119535a19f1f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{duration}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="e8109cb3-2a10-4473-9225-2c235a665888">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="30" uuid="177a45f7-d111-4fff-ac38-cfb2d54592cd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Success]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="40" height="30" uuid="69b11ef8-a7b1-493d-93aa-119535a17a1f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{successAsserts}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="40" uuid="e8109cb3-2a10-4473-9226-2c235a669988">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="40" height="30" uuid="177a45f7-d111-4fad-a333-cfb2d54592cd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Failure]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="40" height="30" uuid="69b11ef8-a7b1-493d-93bb-119535a19f1f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{failureAsserts}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
