@@ -358,7 +358,7 @@
                      <div class="tab-pane" id="res-tab-assert">
                         <div><br>
                         	<p><div class="success-icon circle"></div><span>0</span> Success&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="failure-icon circle"></div><span>0</span> Failures</p>
+                            <div class="failure-icon circle"></div><span>0</span> Failure</p>
                             <table id="res-assert-wrapper" class="table">
                               <thead>
                               	<tr><th>Status</th><th>Expression</th><th>Comparator</th><th>Expected</th><th>Actual</th><tr>
