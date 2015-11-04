@@ -18,6 +18,8 @@ body {
     line-height: 1.6em;
 	font-weight: 400;
 	overflow-x: hidden;
+	background:url(../img/bg4.jpg) no-repeat center fixed;
+	 background-size:cover;
 }
 
 html {
@@ -425,7 +427,14 @@ hr.bold {
 --- Intro
 ============================ */
 
-.header-banner { background:#fff; padding: 80px 0px; height: auto; overflow:hidden; }
+.header-banner {
+	 /*background:url(../img/bg2.jpg) no-repeat center fixed;
+	 background-size:cover;*/
+	 background:rgba(255,255,255,0.9);
+	 padding: 80px 0px;
+	 height: auto;
+	 overflow:hidden;
+}
 .header-banner .header-banner-left { padding: 30px 0 30px 90px;}
 .header-banner .header-banner-left h1 { font-size: 46px; margin: 40px 0 10px; font-weight: 900; color: #ff6c3a;}
 .header-banner .header-banner-left h1 span { color: #232c3b; display: inline-block; }
@@ -1044,11 +1053,11 @@ a.btn:focus{
 		padding: 20px 0;
 	}
 	.site-logo{
-		margin: 0 0 0 30px;
+		/*margin: 0 0 0 30px;*/
 		float:none;
 	}
 	.navbar-custom ul.nav li a {
-		color: #eee;
+		/*color: #eee;*/
 	}
 	.navbar-custom ul.nav ul.dropdown-menu li {
 		border-bottom: 1px solid #aaa;
@@ -1069,7 +1078,7 @@ a.btn:focus{
 	}
 	
 	.navbar-custom .nav {
-		background: #444;
+		/*background: #444;*/
 	}
 	
 	.service-box {
@@ -1093,7 +1102,8 @@ a.btn:focus{
 @media (max-width:480px) {
 
 	.navbar-custom .nav.navbar-nav {
-    background-color: rgba(255,255,255,.4);
+    background-color: #fff;
+	z-index:999;
 	}
 	
 	.navbar.navbar-custom.navbar-fixed-top {
@@ -1495,4 +1505,59 @@ a {  cursor:pointer;}
 
 .highlight a {
 	cursor:text;
+}
+
+.btn-skin {
+	background:#232C3B;
+}
+
+#menu ul.nav li.active a {
+    color: #FF6C3A;
+}
+
+#menu ul.nav li a:hover, #menu ul.nav li a:focus {
+    color: #FF6C3A;
+}
+
+.help a{
+	border-radius:5em;
+	border: 1px solid #FF6C3A;
+	color: #FF6C3A !important;
+}
+
+.help a:hover, .help.active a{
+	border-radius:5em;
+	border: 1px solid #FF6C3A;
+	color: #fff !important;
+	background:#FF6C3A !important;
+}
+.navbar-nav > li > a {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.help-section {
+	background:#fff;
+}
+
+.social_icons li {
+    display: inline-block;
+}
+
+.social_icons {
+	margin:auto;
+	margin-bottom:30px;
+}
+
+.social_icons li a {
+    background: #4F5662 none repeat scroll 0% 0%;
+    height: 31px;
+    width: 31px;
+    text-align: center;
+    line-height: 31px;
+    color: #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 12px;
+	margin-right:5px;
 }
