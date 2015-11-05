@@ -35,6 +35,7 @@ import com.restfiddle.constant.NodeType;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.ProjectRepository;
 import com.restfiddle.dao.WorkspaceRepository;
+import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.ProjectDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Project;
@@ -105,7 +106,7 @@ public class ProjectController {
 	nodeRepository.delete(listOfNodes);
 
 	projectRepository.delete(projectToBeDeleted);
-	
+
 	Workspace workspace = workspaceRepository.findOne(workspaceId);
 	workspace.getProjects().remove(projectToBeDeleted);
 	workspaceRepository.save(workspace);
@@ -155,8 +156,26 @@ public class ProjectController {
 
 	nodeRepository.save(projectRef);
 	projectRepository.save(project);
-	
+
 	return project;
+    }
+
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/projects/{id}/copy", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    void copy(@PathVariable("workspaceId") String workspaceId, @PathVariable("id") String id, @RequestBody NodeDTO nodeDTO) {
+	String nodeType = nodeDTO.getNodeType();
+	if (!NodeType.PROJECT.name().equalsIgnoreCase(nodeType)) {
+	    return;
+	}
+	String projectId = nodeDTO.getProjectId();
+	Project project = projectRepository.findOne(projectId);
+	BaseNode projectRef = project.getProjectRef();
+
+	BaseNode node = nodeRepository.findOne(id);
+	node.setName(nodeDTO.getName());
+	node.setDescription(nodeDTO.getDescription());
+	// TODO : Use NodeController#copyNodesRecursively.
+	// copyNodesRecursively(node, node.getParentId());
     }
 
 }

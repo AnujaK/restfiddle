@@ -153,6 +153,9 @@ define(function(require) {
 		if (node == null) {
 			alert("Please select a node to copy.");
 			return;
+		} else if (node.data.nodeType == 'PROJECT') {
+			alert("You cannot copy a project.");
+			return;
 		}
 		var type = node.data.nodeType;
 		if (type == 'PROJECT' || type == 'FOLDER'){
@@ -222,6 +225,13 @@ define(function(require) {
 
 
 	function deleteNode(node) {
+		if (node == null) {
+			alert("Please select a node to copy.");
+			return;
+		} else if (node.data.nodeType == 'PROJECT') {
+			alert("You cannot delete a project.");
+			return;
+		}
 		$("#deleteNodeId").val(node.data.id);
 		$("#deleteNodeModal").modal("show");
 	}
@@ -822,7 +832,7 @@ define(function(require) {
                 data: JSON.stringify(data),
 				contentType : "application/json",
 				success : function(response) {
-                    treeObj.reload();
+                    treeObj.reload([]);
 					console.log("Copied successfully");
 				}
 		});
