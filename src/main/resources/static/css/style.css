@@ -600,6 +600,9 @@ ul .dropdown-menu li{
 .mCS-minimal-dark .mCSB_container{
 	overflow: visible;
 }
+#mCSB_1_dragger_vertical{
+     z-index: 4;
+}
 .fancytree-title {
     font-size: 13px   
 }
