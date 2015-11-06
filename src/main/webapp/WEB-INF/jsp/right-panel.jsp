@@ -7,6 +7,7 @@
             <br>
         </div>
         <div id="loading">
+        	Loading
   			<i class="fa fa-cog fa-spin" id="loadingIcon" title="Loading"></i>
 		</div>
         <div>

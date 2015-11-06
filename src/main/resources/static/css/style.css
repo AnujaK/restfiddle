@@ -615,8 +615,7 @@ ul .dropdown-menu li{
 }
 
 #loading {
-    background-color: #333;
-    opacity: 0.4;
+    opacity: 0.8;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -625,6 +624,9 @@ ul .dropdown-menu li{
     width: 100%;
     overflow: hidden;
     display: none;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
 }
 .fa-cog {
     color: black;
