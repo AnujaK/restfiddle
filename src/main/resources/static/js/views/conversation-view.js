@@ -584,6 +584,7 @@ define(function(require) {
 		},
 
 		run : function() {
+            $('#loadingRequest').show();
 			localStorage.setItem("lastResponse", lastResponse);
 			var start_time = new Date().getTime();
 			$.ajax({
@@ -643,6 +644,7 @@ define(function(require) {
 					
 					
 					prettyPrint();
+                    $('#loadingRequest').hide();
 					// TODO : Disable toggleRequestSection for now. Codemirror
 					// update issue.
 					// APP.conversation.toggleRequestSection();

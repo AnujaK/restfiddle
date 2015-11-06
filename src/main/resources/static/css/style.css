@@ -614,7 +614,7 @@ ul .dropdown-menu li{
     width: 100vh;
 }
 
-#loading {
+#loading, #loadingRequest{
     opacity: 0.8;
     position: absolute;
     left: 0px;

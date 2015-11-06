@@ -8,7 +8,7 @@
         </div>
         <div id="loading">
         	Loading
-  			<i class="fa fa-cog fa-spin" id="loadingIcon" title="Loading"></i>
+  			<i class="fa fa-cog fa-spin" title="Loading"></i>
 		</div>
         <div>
             <ul class="nav nav-pills nav-stacked" id="projectRunnerBody"></ul>
@@ -117,7 +117,10 @@
             </button> -->
             <br> <br>
         </div>
-        
+        <div id="loadingRequest">
+        	Loading
+  			<i class="fa fa-cog fa-spin" title="Loading"></i>
+		</div>
         <div id="conversationBody">
             <div>
                 <div>
