@@ -6,6 +6,9 @@
             <br>
             <br>
         </div>
+        <div id="loading">
+  			<i class="fa fa-cog fa-spin" id="loadingIcon" title="Loading"></i>
+		</div>
         <div>
             <ul class="nav nav-pills nav-stacked" id="projectRunnerBody"></ul>
         </div>
