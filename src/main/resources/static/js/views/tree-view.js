@@ -198,7 +198,8 @@ define(function(require) {
 
 	}
     
-    function runFolder(node, event) {        
+    function runFolder(node, event) {    
+        $('#loading').show();    
         APP.conversation.$el.hide();
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
@@ -218,6 +219,7 @@ define(function(require) {
 			success : function(response) {
 				console.log("Folder runner response : "+response);
 				APP.projectRunner.render(response);
+				$('#loading').hide();
 			}
 		});
 
