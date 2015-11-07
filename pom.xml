@@ -14,8 +14,8 @@
 		<version>1.2.6.RELEASE</version>
 	</parent>
 	<properties>
-	    <spring-data-releasetrain.version>Fowler-SR2</spring-data-releasetrain.version>
-	</properties>	
+		<spring-data-releasetrain.version>Fowler-SR2</spring-data-releasetrain.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -28,11 +28,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>				
+		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>3.0.4</version>			
+			<version>3.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -141,17 +141,17 @@
 			<version>0.4</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.oauth-client</groupId>
 			<artifactId>google-oauth-client</artifactId>
 			<version>1.19.0</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.jayway.jsonpath</groupId>
-		    <artifactId>json-path</artifactId>
-		    <version>2.0.0</version>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -183,13 +183,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- <plugin> <artifactId>maven-war-plugin</artifactId> <configuration> 
 				<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> </configuration> 
@@ -201,6 +194,29 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.github.jsimone</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>8.0.24.0</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
