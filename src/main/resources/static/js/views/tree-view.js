@@ -1076,7 +1076,7 @@ define(function(require) {
 	});
 
 	$("#tree").fancytree({
-		extensions : [ "glyph", "wide" ],
+		extensions : [ "glyph", "wide", "dnd" ],
 		glyph : {
 			map : {
 				doc : "glyphicon glyphicon-file",
