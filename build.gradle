@@ -20,6 +20,8 @@ repositories {
     mavenCentral()
     maven { url "http://oss.jfrog.org/artifactory/oss-release-local" }
     maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/jaspersoft-repo/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    
 }
 
 dependencies {
@@ -49,6 +51,8 @@ exclude(module: 'jackson-annotations')
     compile group: 'org.ajar', name: 'swagger-spring-mvc-ui', version:'0.4'
     compile group: 'com.google.oauth-client', name: 'google-oauth-client', version:'1.19.0'
     compile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.0.0'
+    compile group: 'io.swagger', name: 'swagger-compat-spec-parser', version:'1.0.12'
+    compile group: 'org.raml', name: 'raml-parser', version:'0.8.12'
     testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:springBootVersion) {
 exclude(module: 'commons-logging')
     }
