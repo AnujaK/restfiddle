@@ -38,8 +38,17 @@
             <li><a class="rf-font-12" data-toggle="modal" data-target="#importModal">Import</a></li>
         </ul>
     </div>
-
-    <br> <br>
+    
+    <div class="btn-group" id="searchBox">
+	    <div class="input-group stylish-input-group">
+	         <input type="text" class="form-control"  placeholder="Search"  id="search">
+	         <span class="input-group-addon">
+	             <button id="searchbtn" type="submit">
+	                 <span class="glyphicon glyphicon-search"></span>
+	             </button>  
+	         </span>
+         </div>
+    </div>
 
 
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="starred-items">

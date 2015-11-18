@@ -610,3 +610,19 @@ ul .dropdown-menu li{
     height: 100vh;        /* Viewport-relative units */
     width: 100vh;
 }
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+   
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+#searchBox {
+	margin: 10px; 
+}
