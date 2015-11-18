@@ -49,6 +49,7 @@ import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dao.RfResponseRepository;
 import com.restfiddle.dao.util.ConversationConverter;
+import com.restfiddle.dto.BodyAssertDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeStatusResponseDTO;
 import com.restfiddle.dto.OAuth2RequestDTO;
@@ -234,6 +235,7 @@ public class ApiController {
 			rfRequestDTO.setMethodType(methodType);
 			rfRequestDTO.setApiUrl(apiUrl);
 			rfRequestDTO.setApiBody(apiBody);
+			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
 			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO).getRfResponseDTO();
 			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
@@ -247,8 +249,26 @@ public class ApiController {
 			nodeStatus.setMethodType(methodType);
 			nodeStatus.setStatusCode(rfResponseDTO.getStatus());
 			nodeStatus.setDuration(conversationDTO.getDuration());
-			nodeStatuses.add(nodeStatus);
+			
 
+			int successCount = 0;
+			int failureCount = 0;
+			// TODO: get AssertionDTO from rfResponseDTO. Get bodyAssertsDTOs and loop through the list to count no. of success
+			List<BodyAssertDTO> bodyAssertDTOs = rfResponseDTO.getAssertionDTO().getBodyAssertDTOs();
+			if(bodyAssertDTOs != null){
+			    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
+				if (bodyAssertDTO.isSuccess()) {
+				    successCount++;
+				} else {
+				    failureCount++;
+				}
+			    }
+			}
+			nodeStatus.setSuccessAsserts(successCount);
+			nodeStatus.setFailureAsserts(failureCount);
+			
+			nodeStatuses.add(nodeStatus);
+			
 			// TODO : Create ProjectRunnerLog and store nodeId as well as loggedConversationId.
 		    }
 		}

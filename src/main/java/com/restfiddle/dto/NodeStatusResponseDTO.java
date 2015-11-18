@@ -20,6 +20,8 @@ public class NodeStatusResponseDTO extends BaseDTO {
     private String methodType;
     private String statusCode;
     private Long duration;
+    private Integer successAsserts;
+    private Integer failureAsserts;
 
     public String getApiUrl() {
 	return apiUrl;
@@ -51,6 +53,22 @@ public class NodeStatusResponseDTO extends BaseDTO {
 
     public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    public Integer getSuccessAsserts() {
+        return successAsserts;
+    }
+
+    public void setSuccessAsserts(Integer successAsserts) {
+        this.successAsserts = successAsserts;
+    }
+
+    public Integer getFailureAsserts() {
+        return failureAsserts;
+    }
+
+    public void setFailureAsserts(Integer failureAsserts) {
+        this.failureAsserts = failureAsserts;
     }
 
 }

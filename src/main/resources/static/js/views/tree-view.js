@@ -153,6 +153,9 @@ define(function(require) {
 		if (node == null) {
 			alert("Please select a node to copy.");
 			return;
+		} else if (node.data.nodeType == 'PROJECT') {
+			alert("You cannot copy a project.");
+			return;
 		}
 		var type = node.data.nodeType;
 		if (type == 'PROJECT' || type == 'FOLDER'){
@@ -195,7 +198,8 @@ define(function(require) {
 
 	}
     
-    function runFolder(node, event) {        
+    function runFolder(node, event) {    
+        $('#loading').show();    
         APP.conversation.$el.hide();
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
@@ -215,6 +219,7 @@ define(function(require) {
 			success : function(response) {
 				console.log("Folder runner response : "+response);
 				APP.projectRunner.render(response);
+				$('#loading').hide();
 			}
 		});
 
@@ -222,6 +227,13 @@ define(function(require) {
 
 
 	function deleteNode(node) {
+		if (node == null) {
+			alert("Please select a node to copy.");
+			return;
+		} else if (node.data.nodeType == 'PROJECT') {
+			alert("You cannot delete a project.");
+			return;
+		}
 		$("#deleteNodeId").val(node.data.id);
 		$("#deleteNodeModal").modal("show");
 	}
@@ -473,7 +485,29 @@ define(function(require) {
 			}
 		});
 	});
-
+	
+	$("#importRfFileBtn").unbind("click").bind("click", function() {
+		var projectId = APP.appView.getCurrentProjectId();
+		var fileInput = document.getElementById('importFileId');
+		var file = fileInput.files[0];
+		var fd = new FormData();
+		fd.append('projectId', projectId);
+		fd.append('name', '');
+		fd.append('file', file);
+		$.ajax({
+			url : APP.config.baseUrl + '/import/restfiddle',
+			type : 'post',
+			processData : false,
+			contentType : false,
+			data : fd,
+			success : function(response) {
+				console.log("Import file response : " + response);
+				$("#importModal").modal("hide");
+				tree.showTree(tree.projectRefNodeId);
+			}
+		});
+	});
+	
 	$("#importPostmanFileBtn").unbind("click").bind("click", function() {
 		var projectId = APP.appView.getCurrentProjectId();
 		var fileInput = document.getElementById('importFileId');
@@ -800,7 +834,7 @@ define(function(require) {
                 data: JSON.stringify(data),
 				contentType : "application/json",
 				success : function(response) {
-                    treeObj.reload();
+                    treeObj.reload([]);
 					console.log("Copied successfully");
 				}
 		});
@@ -1042,7 +1076,7 @@ define(function(require) {
 	});
 
 	$("#tree").fancytree({
-		extensions : [ "glyph", "wide" ],
+		extensions : [ "glyph", "wide", "dnd" ],
 		glyph : {
 			map : {
 				doc : "glyphicon glyphicon-file",

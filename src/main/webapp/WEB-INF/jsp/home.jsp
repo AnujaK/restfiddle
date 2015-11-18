@@ -5,7 +5,6 @@
 	<jsp:include page="header.jsp"></jsp:include>
 </head>
 <body>
-    
     <jsp:include page="top-nav.jsp"></jsp:include>
 
 	<div class="container-fluid">

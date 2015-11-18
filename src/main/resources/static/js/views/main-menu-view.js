@@ -20,6 +20,7 @@ define(function(require) {
 	var _ = require('underscore');
 
 	$(".run-project").unbind("click").bind("click", function() {
+		$('#loading').show();
 		APP.conversation.$el.hide();
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
@@ -39,6 +40,7 @@ define(function(require) {
 			success : function(response) {
 				console.log("project runner response : "+response);
 				APP.projectRunner.render(response);
+				$('#loading').hide();
 			}
 		});
 	});    

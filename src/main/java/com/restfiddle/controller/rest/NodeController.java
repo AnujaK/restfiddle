@@ -294,6 +294,7 @@ public class NodeController {
 	    }
 	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getDescription(), baseNode.getNodeType(),
 		    baseNode.getStarred(), methodType);
+	    treeNode.setProjectId(projectId);
 	    treeNodeMap.put(nodeId, treeNode);
 	}
 

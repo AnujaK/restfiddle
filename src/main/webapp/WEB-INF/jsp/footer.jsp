@@ -91,6 +91,9 @@
             <p><span class="label label-primary"><@=nodeStatusResponse.methodType@></span>&nbsp;&nbsp;<strong><@=nodeStatusResponse.name@></strong></p>
             <p><@=nodeStatusResponse.description@></p>
             <p><@=nodeStatusResponse.apiUrl@>&nbsp;&nbsp;<@=nodeStatusResponse.duration@>&nbsp;ms</p>
+            <p><div class="success-icon circle"></div><span><@=nodeStatusResponse.successAsserts@></span>&nbsp;Success&nbsp;
+            <div class="failure-icon circle"></div><span><@=nodeStatusResponse.failureAsserts@></span>&nbsp;Failure
+            </p>
         </div>
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
