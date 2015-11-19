@@ -124,6 +124,22 @@ var HistoryView = Backbone.View.extend({
 
 		this.$el.append('<div id="activity-pannel"></div><div class= "activity-paginator"></div>');
 		$("#activity-pannel").html(historyListItemView.render(1).el);
+		
+		$('#search').on('keydown', function (e) {
+		    if (e.which == 13) {
+		    	$.ajax({
+	                url : APP.config.baseUrl 
+	                + '/conversations?workspaceId='+workspaceId+'&search=' + $('#search').val(),
+	                type : 'get',
+	                dataType : 'json',
+	                contentType : "application/json",
+	                success : function(response) {
+	                	APP.historyView.render(response);
+	                }
+	            });
+		    }
+		});
+		
 
 		$('.activity-paginator').bootpag({
             total: totalPages,
@@ -134,7 +150,7 @@ var HistoryView = Backbone.View.extend({
              var zeroBasedPageNumber = pageNumber - 1;
             $.ajax({
                 url : APP.config.baseUrl 
-                + '/conversations?workspaceId='+workspaceId+'&page='+zeroBasedPageNumber+'&limit=10',
+                + '/conversations?workspaceId='+workspaceId+'&page='+zeroBasedPageNumber+'&limit=10&search=' + $('#search').val(),
                 type : 'get',
                 dataType : 'json',
                 contentType : "application/json",
@@ -145,6 +161,7 @@ var HistoryView = Backbone.View.extend({
                 }
             });
 		});
+		
 		return this;
 	}
 });
