@@ -198,6 +198,7 @@ define(function(require) {
 
 	$("#clearBody").unbind("click").bind("click", function() {
 		APP.conversation.apiBodyCodeMirror.setValue('');
+        $(".tab-content").html('');
 	});
 
 	$("[name='authOptions']").change(function() {
@@ -272,6 +273,7 @@ define(function(require) {
 		$("#digestUsername").val('');
 		$("#digestPassword").val('');
 		$("#tagLabels").html('');
+        $(".tab-content").html('');
 	});
 
 	$('.label-dropdown-menu').unbind("click").bind("click", function(event) {
