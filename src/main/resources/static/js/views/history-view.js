@@ -125,7 +125,7 @@ var HistoryView = Backbone.View.extend({
 		this.$el.append('<div id="activity-pannel"></div><div class= "activity-paginator"></div>');
 		$("#activity-pannel").html(historyListItemView.render(1).el);
 		
-		$('#search').on('keydown', function (e) {
+		$('#search').unbind().bind('keydown', function (e) {
 		    if (e.which == 13) {
 		    	$.ajax({
 	                url : APP.config.baseUrl 
