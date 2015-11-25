@@ -127,7 +127,7 @@ public class WorkspaceController {
 	List<TreeNode> projectTreeList = new ArrayList<TreeNode>();
 	TreeNode projectTree = null;
 	for (Project project : projects) {
-	    projectTree = nodeController.getProjectTree(project.getProjectRef().getId());
+	    projectTree = nodeController.getProjectTree(project.getProjectRef().getId(), null);
 	    projectTreeList.add(projectTree);
 	}
 	
