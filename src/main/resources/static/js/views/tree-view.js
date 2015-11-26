@@ -1515,35 +1515,45 @@ define(function(require) {
 
 	tree.showTree = function(projectRefNodeId, activeNodeId) {
 		tree.projectRefNodeId = projectRefNodeId;
-		$.ajax({
-			url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree',
-			type : 'get',
-			dataType : 'json',
-			contentType : "application/json",
-			success : function(serviceSideTreeData) {
-				console.log("server side tree data : ");
-				treeData = serviceSideTreeData;
-				console.log(serviceSideTreeData);
-				var uiTree = [];
-				var uiSideTreeData = {};
-				nodeConverter(serviceSideTreeData, uiSideTreeData);
-				console.log("client side tree data : ");
-				console.log(uiSideTreeData);
-				uiTree.push(uiSideTreeData);
-				treeObj.reload(uiTree);
-				// Make the tree expanded once it is loaded
-				$("#tree").fancytree("getRootNode").visit(function(node) {
-					node.setExpanded(true);
-				});
-
-				$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
-				$('.dropdown-toggle').on('focus blur', handleMenuzIndex);
-				
-				if(activeNodeId){
-					$("#tree").fancytree("getTree").activateKey(activeNodeId);
-					tree.loadNode(activeNodeId);
+		var buildTree = function(){
+			$.ajax({
+				url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree?search=' + $('#search').val(),
+				type : 'get',
+				dataType : 'json',
+				contentType : "application/json",
+				success : function(serviceSideTreeData) {
+					console.log("server side tree data : ");
+					treeData = serviceSideTreeData;
+					console.log(serviceSideTreeData);
+					var uiTree = [];
+					var uiSideTreeData = {};
+					nodeConverter(serviceSideTreeData, uiSideTreeData);
+					console.log("client side tree data : ");
+					console.log(uiSideTreeData);
+					uiTree.push(uiSideTreeData);
+					treeObj.reload(uiTree);
+					// Make the tree expanded once it is loaded
+					$("#tree").fancytree("getRootNode").visit(function(node) {
+						node.setExpanded(true);
+					});
+	
+					$('.menu-arrow').unbind("click").bind("click", nodeMenuEventHandler);
+					$('.dropdown-toggle').on('focus blur', handleMenuzIndex);
+					
+					if(activeNodeId){
+						$("#tree").fancytree("getTree").activateKey(activeNodeId);
+						tree.loadNode(activeNodeId);
+					}
+					
 				}
-				
+			});
+		};
+		
+		buildTree();
+		
+		$('#search').unbind().bind('keydown', function (e) {
+			if (e.which == 13) {
+				buildTree();
 			}
 		});
 	};

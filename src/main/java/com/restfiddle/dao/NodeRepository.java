@@ -34,6 +34,9 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
 
     @Query("{ 'projectId' : ?0 }")
     public List<BaseNode> findNodesFromAProject(String projectId);
+    
+    @Query("{ 'projectId' : ?0 ,$or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
+    public List<BaseNode> searchNodesFromAProject(String projectId, String search);
 
     @Query("{ 'starred' : true }")
     public Page<BaseNode> findStarredNodes(Pageable pageable);
