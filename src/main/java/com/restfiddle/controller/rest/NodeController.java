@@ -318,6 +318,20 @@ public class NodeController {
 		parentTreeNode.getChildren().add(treeNode);
 	    }
 	}
+	
+	if (search != null && !search.trim().equals("")){
+	    for (BaseNode baseNode : listOfNodes) {
+		if(baseNode.getNodeType() != null && !NodeType.PROJECT.name().equals(baseNode.getNodeType())){
+		    TreeNode node = treeNodeMap.get(baseNode.getId());
+		    
+		    if(node.getChildren().isEmpty()){
+			TreeNode parent = treeNodeMap.get(baseNode.getParentId());
+			parent.getChildren().remove(node);
+		    }
+		}
+	    }
+	}
+	
 	return rootNode;
     }
 
