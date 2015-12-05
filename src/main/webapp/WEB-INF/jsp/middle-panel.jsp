@@ -21,6 +21,16 @@
     <div class="btn-group">
         <button class="btn btn-default btn-sm run-project"  data-toggle="tooltip" data-placement="bottom" data-container="body" title="Run project lets you run requests together.">Run Project</button>
     </div>
+     &nbsp;
+     <div class="btn-group" id="sortOptionsDropdown">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            Sort&nbsp;&nbsp;<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+            <li><a class="rf-font-12" data-toggle="modal" id="sortByName">Sort by Name</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModified">Sort by Last Modified</a></li>
+        </ul>
+    </div>
     &nbsp;&nbsp;
     <div class="btn-group" id="moreOptionsDropdown">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -36,6 +46,9 @@
             <li><a class="rf-font-12" data-toggle="modal" data-target="#deleteNodeModal">Delete Node</a></li>
             <li class="divider"></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#importModal">Import</a></li>
+            <li class="divider"></li>
+            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Flat View shows requests only.">Flat View</a></li>
+            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Tree View shows tree structure of project.">Tree View</a></li>
         </ul>
     </div>
     
