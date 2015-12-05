@@ -15,12 +15,9 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.io.Console;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +26,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +43,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.dao.NodeRepository;
@@ -56,7 +50,6 @@ import com.restfiddle.dto.NodeDTO;
 import com.restfiddle.dto.NodeStatusResponseDTO;
 import com.restfiddle.dto.ReportDTO;
 import com.restfiddle.dto.TagDTO;
-import com.restfiddle.entity.BaseNode;
 
 @RestController
 @EnableAutoConfiguration
@@ -80,9 +73,18 @@ public class ReportController {
     }
     
     @RequestMapping(value = "/api/processor/projects/{id}/report", method = RequestMethod.GET)
-    public void generateRunNodeReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
+    public void generateRunProjectReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
 	List<NodeStatusResponseDTO> nodeStatusResponse = apiController.runProjectById(id, envId);
-	
+	generateRunNodeReport(nodeStatusResponse, response);
+    }
+    
+    @RequestMapping(value = "/api/processor/folders/{id}/report", method = RequestMethod.GET)
+    public void generateRunFolderReport(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId, HttpServletResponse response) {
+	List<NodeStatusResponseDTO> nodeStatusResponse = apiController.runFolderById(id, envId);
+	generateRunNodeReport(nodeStatusResponse, response);
+    }
+    
+    public void generateRunNodeReport(List<NodeStatusResponseDTO> nodeStatusResponse, HttpServletResponse response) {
 	String reportTemplateFilePath = "report-template" + File.separator + "rf_doc_template.jasper";
 	Resource resource = new ClassPathResource(reportTemplateFilePath);
 	

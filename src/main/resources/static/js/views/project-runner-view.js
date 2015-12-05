@@ -5,7 +5,9 @@ define(function(require) {
 	var _ = require('underscore');
 	
     $("#exportRunProjectReport").unbind("click").bind("click", function() {
-        window.location = APP.config.baseUrl + '/documentation/projects/1';
+    	var typeofNode = $("#typeRun").attr("name");
+    	var idofNode = $("#typeRun").attr("value");
+        window.location = APP.config.baseUrl + '/processor/' + typeofNode + '/' + idofNode +'/report';
     });
 
 	var ProjectRunnerListItemView = Backbone.View.extend({	

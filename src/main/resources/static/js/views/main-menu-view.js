@@ -27,6 +27,8 @@ define(function(require) {
 		var projectId = APP.appView.getCurrentProjectId();
 		var currentEnvId = $(".environmentsSelectBox").val();
 		var queryParam = '';
+		$("#typeRun").attr("name","projects");
+		$("#typeRun").attr("value", projectId);
 		if( currentEnvId != 'Select'){
 		  //pass environment variable as query param
 		  //if Select is the value, no env has value has been selected

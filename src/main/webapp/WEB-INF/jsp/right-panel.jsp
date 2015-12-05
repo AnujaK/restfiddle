@@ -3,6 +3,7 @@
         <div id="projectRunnerHeader">
             <br>
             <button class="btn btn-primary btn-sm" id="exportRunProjectReport">Export Report</button>
+            <input type="hidden" class="form-control" id="typeRun" name="" value=""/>
             <br>
             <br>
         </div>

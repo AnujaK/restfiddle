@@ -204,6 +204,8 @@ define(function(require) {
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
 		var folderId = node.data.id;
+		$("#typeRun").attr("name","folders");
+		$("#typeRun").attr("value", folderId);
 		var currentEnvId = $(".environmentsSelectBox").val();
 		var queryParam = '';
 		if( currentEnvId != 'Select'){
