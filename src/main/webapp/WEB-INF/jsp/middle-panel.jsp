@@ -1,5 +1,6 @@
 <div class="col-xs-4 rf-col-2">
     <br>
+    &nbsp;
     <button class="btn btn-default btn-sm col-1-toggle-btn">
         <i id="col1-toggle-icon" class="fa fa-angle-double-left"></i>
     </button>
@@ -31,7 +32,7 @@
             <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModified">Sort by Last Modified</a></li>
         </ul>
     </div>
-    &nbsp;&nbsp;
+    &nbsp;
     <div class="btn-group" id="moreOptionsDropdown">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
             More&nbsp;&nbsp;<span class="caret"></span>
