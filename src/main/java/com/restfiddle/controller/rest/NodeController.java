@@ -287,7 +287,7 @@ public class NodeController {
 	}
 	    
 	// Get the list of nodes for a project.
-	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "", null);
+	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "", sort);
 
 	// Creating a map of nodes with node-id as key
 	Map<String, BaseNode> baseNodeMap = new HashMap<String, BaseNode>();
