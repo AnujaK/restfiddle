@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.restfiddle.entity.BaseNode;
@@ -36,7 +37,7 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
     public List<BaseNode> findNodesFromAProject(String projectId);
     
     @Query("{ 'projectId' : ?0 ,$or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
-    public List<BaseNode> searchNodesFromAProject(String projectId, String search);
+    public List<BaseNode> searchNodesFromAProject(String projectId, String search, Sort sort);
 
     @Query("{ 'starred' : true }")
     public Page<BaseNode> findStarredNodes(Pageable pageable);

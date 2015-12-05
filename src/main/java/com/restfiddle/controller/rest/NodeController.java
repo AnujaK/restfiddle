@@ -262,11 +262,16 @@ public class NodeController {
 
 	return node;
     }
+    
+    public TreeNode getProjectTree(String id){
+	return getProjectTree(id, null, null);
+    }
 
     // Get tree-structure for a project. Id parameter is the project-reference node-id.
     @RequestMapping(value = "/api/nodes/{id}/tree", method = RequestMethod.GET)
     public @ResponseBody
-    TreeNode getProjectTree(@PathVariable("id") String id, @RequestParam(value = "search", required = false) String search) {
+    TreeNode getProjectTree(@PathVariable("id") String id, @RequestParam(value = "search", required = false) String search,
+	    @RequestParam(value = "sortBy", required = false) String sortBy) {
 	// Note : There must be a better way of doing it. This method is written in a hurry.
 
 	// Get project Id from the reference node
@@ -274,8 +279,15 @@ public class NodeController {
 
 	String projectId = projectRefNode.getProjectId();
 
+	Sort sort = null;
+	if("name".equals(sortBy)){
+	    sort = new Sort(Direction.ASC, "name");
+	} else if ("lastRun".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}
+	    
 	// Get the list of nodes for a project.
-	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "");
+	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "", null);
 
 	// Creating a map of nodes with node-id as key
 	Map<String, BaseNode> baseNodeMap = new HashMap<String, BaseNode>();
