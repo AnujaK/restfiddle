@@ -44,7 +44,7 @@ public class ExportController {
 	Project project = projectController.findById(null, projectId);
 	String projectNodeRefId = project.getProjectRef().getId();
 	
-	TreeNode projectNode = nodeController.getProjectTree(projectNodeRefId, null);
+	TreeNode projectNode = nodeController.getProjectTree(projectNodeRefId);
 	
 	swagger = new Swagger();
 	
