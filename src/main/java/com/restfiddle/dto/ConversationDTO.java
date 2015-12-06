@@ -15,6 +15,8 @@
  */
 package com.restfiddle.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -32,6 +34,8 @@ public class ConversationDTO extends BaseDTO {
     private NodeDTO nodeDTO;
     
     private String workspaceId;
+    
+    private Date lastRunDate;
 
     public RfRequestDTO getRfRequestDTO() {
 	return rfRequestDTO;
@@ -72,5 +76,13 @@ public class ConversationDTO extends BaseDTO {
 
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+    }
+
+    public Date getLastRunDate() {
+        return lastRunDate;
+    }
+
+    public void setLastRunDate(Date lastRunDate) {
+        this.lastRunDate = lastRunDate;
     }
 }

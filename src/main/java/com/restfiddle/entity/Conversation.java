@@ -15,6 +15,8 @@
  */
 package com.restfiddle.entity;
 
+import java.util.Date;
+
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Conversation extends NamedEntity {
@@ -31,6 +33,8 @@ public class Conversation extends NamedEntity {
     private String nodeId;
 
     private String workspaceId;
+    
+    private Date lastRunDate;
 
     public RfRequest getRfRequest() {
 	return rfRequest;
@@ -70,5 +74,13 @@ public class Conversation extends NamedEntity {
 
     public void setWorkspaceId(String workspaceId) {
 	this.workspaceId = workspaceId;
+    }
+
+    public Date getLastRunDate() {
+        return lastRunDate;
+    }
+
+    public void setLastRunDate(Date lastRunDate) {
+        this.lastRunDate = lastRunDate;
     }
 }
