@@ -1558,6 +1558,9 @@ define(function(require) {
 				buildTree($("#search").val());
 			}
 		});
+        $('#searchbtn').unbind().bind('click', function (e) {
+                buildTree($("#search").val());
+        });
 		
 		$('#sortOptionsDropdown').unbind().bind('click', function (e) {
 			if(e.target.id === 'sortByName'){

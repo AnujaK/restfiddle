@@ -157,7 +157,7 @@ public class TagController {
     @RequestMapping(value = "/api/workspaces/{workspaceId}/tags/{tagId}/nodes", method = RequestMethod.GET)
     public @ResponseBody
     List<NodeDTO> findNodesByTag(@PathVariable("workspaceId") String workspaceId, @PathVariable("tagId") String tagId,
-	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit) {
+	    @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit,  @RequestParam(value = "search", required = false) String search, @RequestParam(value = "sortBy", required = false) String sortBy) {
 	logger.debug("Finding nodes by tag id: " + tagId);
 	
 	int pageNo = 0;
@@ -170,9 +170,14 @@ public class TagController {
 	    numberOfRecords = limit;
 	}
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
+	if("name".equals(sortBy)){
+	    sort = new Sort(Direction.ASC, "name");
+	} else if ("lastRun".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 	
-	Page<BaseNode> paginatedTaggedNodes = nodeRepository.findTaggedNodes(tagId, pageable);
+	Page<BaseNode> paginatedTaggedNodes = nodeRepository.searchTaggedNodes(tagId, search != null ? search : "", pageable);
 	
 	List<BaseNode> taggedNodes = paginatedTaggedNodes.getContent();
 	

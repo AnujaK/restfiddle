@@ -44,5 +44,8 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
 
     @Query("{ 'tags' : ?0 }")
     public Page<BaseNode> findTaggedNodes(String tagId, Pageable pageable);
+    
+    @Query("{ 'tags' : ?0 , $or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
+    public Page<BaseNode> searchTaggedNodes(String tagId, String search, Pageable pageable);
 
 }

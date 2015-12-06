@@ -8,6 +8,8 @@ define(function(require) {
 
   var NodeModel = require('models/node');
   var ConversationModel = require('models/conversation');
+    
+  var selectedTagId;
 
   var TaggedNodeListItemView = Backbone.View.extend({	
     tagName : 'li',
@@ -49,6 +51,7 @@ define(function(require) {
     },
 
     showTaggedNodes : function(tagId){
+      selectedTagId = tagId;
       this.$el.html('');
       var me = this;
       this.$el.append('<div id="tagged-pannel"></div><div class= "tag-paginator"></div>');
@@ -72,24 +75,58 @@ define(function(require) {
     });    		
     },	
 
-    render : function(pageNumber,response) {
-     var start = 10 * (pageNumber-1);
-     var end = start + 9;
-     end = end > response.length-1 ? response.length-1 : end;
-     return this.renderActivityGroup(start, end, response);
-   },
-   getColorCode : function(method){
-    switch (method){
-      case "GET" : return "blue";
-      break;
-      case "POST" : return "green";
-      break;
-      case "DELETE" : return "red";
-      break;
-      case "PUT" : return "orange";
-      break;
-    }
-  },
+    render : function(pageNumber, response) {
+        var start = 10 * (pageNumber-1);
+        var end = start + 9;
+        var me = this;
+        
+        $('#search').unbind().bind('keydown', function (e) {
+            if (e.which == 13) {
+                me.showSearchResults();
+            }
+        });
+
+        $('#searchbtn').unbind().bind('click', function (e) {
+                me.showSearchResults();
+        });
+        
+        end = end > response.length-1 ? response.length-1 : end;
+        return this.renderActivityGroup(start, end, response);
+    },
+      
+    getColorCode : function(method){
+        switch (method){
+          case "GET" : return "blue";
+          break;
+          case "POST" : return "green";
+          break;
+          case "DELETE" : return "red";
+          break;
+          case "PUT" : return "orange";
+          break;
+        }
+    },
+
+      showSearchResults : function(){
+        var me = this;
+        $.ajax({
+            url : APP.config.baseUrl +'/workspaces/' + APP.appView.getCurrentWorkspaceId() + '/tags/'
+            + selectedTagId + '/nodes'+'?search=' + $('#search').val(),
+            type : 'get',
+            dataType : 'json',
+            contentType : "application/json",
+            success : function(res) {
+                me.render(1,res);
+                $('.tag-paginator').bootpag({
+                    total: Math.ceil(res.length/10),
+                    page: 1,
+                    maxVisible: 5
+                }).on("page", function(event, num){
+                    me.render(num,res);
+                });
+            }
+        });
+    },
 
   renderActivityGroup : function(start, end,data) {
     $("#tagged-pannel").html('');
