@@ -121,13 +121,9 @@ var HistoryView = Backbone.View.extend({
 		this.model = historyList;
 		
 		var historyListItemView = new HistoryListItemView({model: this.model});
-
-		this.$el.append('<div id="activity-pannel"></div><div class= "activity-paginator"></div>');
-		$("#activity-pannel").html(historyListItemView.render(1).el);
-		
-		$('#search').unbind().bind('keydown', function (e) {
-		    if (e.which == 13) {
-		    	$.ajax({
+        
+        var showSearchResults = function(method){
+        $.ajax({
 	                url : APP.config.baseUrl 
 	                + '/conversations?workspaceId='+workspaceId+'&search=' + $('#search').val(),
 	                type : 'get',
@@ -137,9 +133,20 @@ var HistoryView = Backbone.View.extend({
 	                	APP.historyView.render(response);
 	                }
 	            });
+        };
+
+		this.$el.append('<div id="activity-pannel"></div><div class= "activity-paginator"></div>');
+		$("#activity-pannel").html(historyListItemView.render(1).el);
+		
+		$('#search').unbind().bind('keydown', function (e) {
+		    if (e.which == 13) {
+		    	showSearchResults();
 		    }
 		});
-		
+        
+        $('#searchbtn').unbind().bind('click', function (e) {
+		    	showSearchResults();
+		});
 
 		$('.activity-paginator').bootpag({
             total: totalPages,
