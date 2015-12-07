@@ -35,6 +35,8 @@ public class BaseNode extends NamedEntity {
     //API method type - GET/POST/PUT/DELETE etc.
     private String method;
 
+    private String workspaceId;
+    
     @DBRef
     private List<Tag> tags;
 
@@ -114,5 +116,13 @@ public class BaseNode extends NamedEntity {
 
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 }
