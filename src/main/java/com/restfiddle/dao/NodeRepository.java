@@ -39,8 +39,8 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
     @Query("{ 'projectId' : ?0 ,$or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
     public List<BaseNode> searchNodesFromAProject(String projectId, String search, Sort sort);
 
-    @Query("{ 'starred' : true }")
-    public Page<BaseNode> findStarredNodes(Pageable pageable);
+    @Query("{ 'starred' : true }, $or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
+    public Page<BaseNode> findStarredNodes(String search, Pageable pageable);
 
     @Query("{ 'tags' : ?0 }")
     public Page<BaseNode> findTaggedNodes(String tagId, Pageable pageable);

@@ -58,6 +58,18 @@ define(function (require) {
         render: function (pageNumber) {
             var start = 10 * (pageNumber-1);
             var end = start + 9;
+            var me = this;
+        
+            $('#search').unbind().bind('keydown', function (e) {
+                if (e.which == 13) {
+                    me.showSearchResults();
+                }
+            });
+
+            $('#searchbtn').unbind().bind('click', function (e) {
+                    me.showSearchResults();
+            });
+            
             end = end > this.model.length-1 ? this.model.length-1 : end;
             return this.renderStarredGroup(start, end);
         },
@@ -74,6 +86,27 @@ define(function (require) {
                 break;
             }
         },
+        
+        showSearchResults : function(){
+        var me = this;
+        $.ajax({
+            url : APP.config.baseUrl +'/nodes/starred?search=' + $('#search').val(),
+            type : 'get',
+            dataType : 'json',
+            contentType : "application/json",
+            success : function(res) {
+                me.render(1,res);
+                $('.tag-paginator').bootpag({
+                    total: Math.ceil(res.length/10),
+                    page: 1,
+                    maxVisible: 5
+                }).on("page", function(event, num){
+                    me.render(num,res);
+                });
+            }
+        });
+        },
+        
         renderStarredGroup : function(start, end) {
             var that = this;
             this.$el.html('');

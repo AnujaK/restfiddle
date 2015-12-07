@@ -350,7 +350,8 @@ public class NodeController {
     @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
     public @ResponseBody
     List<NodeDTO> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
-	    @RequestParam(value = "limit", required = false) Integer limit) {
+	    @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "search", required = false) String search,
+	    @RequestParam(value = "sortBy", required = false) String sortBy) {
 	logger.debug("Finding starred nodes.");
 
 	int pageNo = 0;
@@ -363,9 +364,14 @@ public class NodeController {
 	    numberOfRecords = limit;
 	}
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
+	if("name".equals(sortBy)){
+	    sort = new Sort(Direction.ASC, "name");
+	} else if ("lastRun".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 
-	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(pageable);
+	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(search != null ? search : "", pageable);
 
 	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
 	long totalElements = paginatedStarredNodes.getTotalElements();
