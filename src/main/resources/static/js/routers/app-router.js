@@ -36,9 +36,9 @@ define(function(require) {
 			});
 
 			$(".starred").addClass('active');
-
+			var workspaceId = APP.appView.getCurrentWorkspaceId();
 			$.ajax({
-				url : APP.config.baseUrl + '/nodes/starred',
+				url : APP.config.baseUrl + '/workspaces/' + workspaceId + '/nodes/starred',
 				type : 'get',
 				dataType : 'json',
 				contentType : "application/json",

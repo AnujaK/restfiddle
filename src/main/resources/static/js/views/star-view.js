@@ -90,7 +90,7 @@ define(function (require) {
         showSearchResults : function(){
         var me = this;
         $.ajax({
-            url : APP.config.baseUrl +'/nodes/starred?search=' + $('#search').val(),
+            url : APP.config.baseUrl +'/workspaces/' + APP.appView.getCurrentWorkspaceId() +'/nodes/starred?search=' + $('#search').val(),
             type : 'get',
             dataType : 'json',
             contentType : "application/json",

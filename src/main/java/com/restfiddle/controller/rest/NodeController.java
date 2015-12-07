@@ -347,9 +347,9 @@ public class NodeController {
 	return rootNode;
     }
 
-    @RequestMapping(value = "/api/nodes/starred", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/nodes/starred", method = RequestMethod.GET)
     public @ResponseBody
-    List<NodeDTO> findStarredNodes(@RequestParam(value = "page", required = false) Integer page,
+    List<NodeDTO> findStarredNodes(@PathVariable("workspaceId") String workspaceId, @RequestParam(value = "page", required = false) Integer page,
 	    @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "search", required = false) String search,
 	    @RequestParam(value = "sortBy", required = false) String sortBy) {
 	logger.debug("Finding starred nodes.");
@@ -371,7 +371,7 @@ public class NodeController {
 	}
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 
-	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(search != null ? search : "", pageable);
+	Page<BaseNode> paginatedStarredNodes = nodeRepository.findStarredNodes(workspaceId, search != null ? search : "", pageable);
 
 	List<BaseNode> starredNodes = paginatedStarredNodes.getContent();
 	long totalElements = paginatedStarredNodes.getTotalElements();
