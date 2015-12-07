@@ -95,13 +95,14 @@ define(function (require) {
             dataType : 'json',
             contentType : "application/json",
             success : function(res) {
-                me.render(1,res);
-                $('.tag-paginator').bootpag({
+                var starListView = new StarListView({model: res});
+                $("#star-request-pannel").html(starListView.render(1).el);
+                $('.star-paginator').bootpag({
                     total: Math.ceil(res.length/10),
                     page: 1,
                     maxVisible: 5
                 }).on("page", function(event, num){
-                    me.render(num,res);
+                    $("#star-request-pannel").html(starListView.render(num).el);
                 });
             }
         });

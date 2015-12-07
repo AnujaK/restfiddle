@@ -39,7 +39,7 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
     @Query("{ 'projectId' : ?0 ,$or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
     public List<BaseNode> searchNodesFromAProject(String projectId, String search, Sort sort);
 
-    @Query("{ $and : [{ 'workspaceId' : ?0, 'starred' : true , $or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}]}")
+    @Query("{ 'starred' : true , name : { $regex : ?1, $options: 'i' }}")
     public Page<BaseNode> findStarredNodes(String workspaceId, String search, Pageable pageable);
 
     @Query("{ 'tags' : ?0 }")
