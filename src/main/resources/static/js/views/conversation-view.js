@@ -668,6 +668,7 @@ define(function(require) {
                     iframe.document.open();	
                     $("#response-wrapper").html('<br><pre class="prettyprint"> Check the URL </pre>');
                     iframe.document.close();
+                    $('#loadingRequest').hide();
                 },
 				data : JSON.stringify(this.getProcessRequest())
 			});
