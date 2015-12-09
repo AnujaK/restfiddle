@@ -67,18 +67,18 @@ define(function (require) {
             });
 
             $('#searchbtn').unbind().bind('click', function (e) {
-                    me.showSearchResults($("#search").val());
+                me.showSearchResults($("#search").val());
             });
             
             $('#sortOptionsDropdown').unbind().bind('click', function (e) {
-			if(e.target.id === 'sortByName'){
-				me.showSearchResults($("#search").val(),'name');
-			} else if(e.target.id === 'sortByLastModified'){
-				me.showSearchResults($("#search").val(), 'lastRun');
-			}else if(e.target.id === 'sortByNameDesc'){
-				me.showSearchResults($("#search").val(), 'nameDesc');
-			}
-		});
+                if(e.target.id === 'sortByName'){
+                    me.showSearchResults($("#search").val(),'name');
+                } else if(e.target.id === 'sortByLastModified'){
+                    me.showSearchResults($("#search").val(), 'lastRun');
+                }else if(e.target.id === 'sortByNameDesc'){
+                    me.showSearchResults($("#search").val(), 'nameDesc');
+                }
+            });
             
             end = end > this.model.length-1 ? this.model.length-1 : end;
             return this.renderStarredGroup(start, end);
