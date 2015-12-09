@@ -122,31 +122,41 @@ var HistoryView = Backbone.View.extend({
 		
 		var historyListItemView = new HistoryListItemView({model: this.model});
         
-        var showSearchResults = function(method){
+        var showSearchResults = function(search, sortBy){
         $.ajax({
-	                url : APP.config.baseUrl 
-	                + '/conversations?workspaceId='+workspaceId+'&search=' + $('#search').val(),
-	                type : 'get',
-	                dataType : 'json',
-	                contentType : "application/json",
-	                success : function(response) {
-	                	APP.historyView.render(response);
-	                }
-	            });
+            url : APP.config.baseUrl 
+            + '/conversations?workspaceId='+workspaceId+ (search ? '&search=' + search : '') + (sortBy ? '&sortBy=' + sortBy : ''),
+            type : 'get',
+            dataType : 'json',
+            contentType : "application/json",
+            success : function(response) {
+                APP.historyView.render(response);
+            }
+            });
         };
 
 		this.$el.append('<div id="activity-pannel"></div><div class= "activity-paginator"></div>');
 		$("#activity-pannel").html(historyListItemView.render(1).el);
 		
 		$('#search').unbind().bind('keydown', function (e) {
-		    if (e.which == 13) {
-		    	showSearchResults();
-		    }
+            if (e.which == 13) {
+                showSearchResults($("#search").val());
+            }
 		});
         
         $('#searchbtn').unbind().bind('click', function (e) {
-		    	showSearchResults();
+            showSearchResults($("#search").val());
 		});
+        
+        $('#sortOptionsDropdown').unbind().bind('click', function (e) {
+                if(e.target.id === 'sortByName'){
+                    showSearchResults($("#search").val(),'name');
+                } else if(e.target.id === 'sortByLastModified'){
+                    showSearchResults($("#search").val(), 'lastRun');
+                }else if(e.target.id === 'sortByNameDesc'){
+                    showSearchResults($("#search").val(), 'nameDesc');
+                }
+            });
 
 		$('.activity-paginator').bootpag({
             total: totalPages,

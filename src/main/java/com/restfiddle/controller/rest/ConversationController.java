@@ -117,7 +117,8 @@ public class ConversationController {
     PaginatedResponse<ConversationDTO> findAll(@RequestParam(value = "workspaceId", required = false) String workspaceId, 
 	    @RequestParam(value = "search", required = false) String search, 
 	    @RequestParam(value = "page", required = false) Integer page,
-	    @RequestParam(value = "limit", required = false) Integer limit) {
+	    @RequestParam(value = "limit", required = false) Integer limit,
+	    @RequestParam(value = "sortBy", required = false) String sortBy) {
 	logger.debug("Finding all items");
 
 	int pageNo = 0;
@@ -129,10 +130,18 @@ public class ConversationController {
 	if (limit != null && limit > 0) {
 	    numberOfRecords = limit;
 	}
-
+	
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
-	Pageable topRecords = new PageRequest(pageNo, numberOfRecords, sort);
-	Page<Conversation> result = conversationRepository.findConversationsFromWorkspaceByName(workspaceId, search != null ? search : "", topRecords);
+	if("name".equals(sortBy)){
+	    sort = new Sort(Direction.ASC, "name");
+	} else if ("lastRun".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}else if ("nameDesc".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "name");
+	}
+
+	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
+	Page<Conversation> result = conversationRepository.findConversationsFromWorkspaceByName(workspaceId, search != null ? search : "", pageable);
 
 	List<Conversation> content = result.getContent();
 	
