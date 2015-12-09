@@ -368,6 +368,8 @@ public class NodeController {
 	    sort = new Sort(Direction.ASC, "name");
 	} else if ("lastRun".equals(sortBy)){
 	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}else if ("nameDesc".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "name");
 	}
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 

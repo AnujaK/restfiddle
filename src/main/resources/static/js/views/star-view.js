@@ -75,6 +75,8 @@ define(function (require) {
 				me.showSearchResults($("#search").val(),'name');
 			} else if(e.target.id === 'sortByLastModified'){
 				me.showSearchResults($("#search").val(), 'lastRun');
+			}else if(e.target.id === 'sortByNameDesc'){
+				me.showSearchResults($("#search").val(), 'nameDesc');
 			}
 		});
             
