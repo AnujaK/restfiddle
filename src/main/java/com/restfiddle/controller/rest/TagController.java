@@ -169,12 +169,16 @@ public class TagController {
 	if (limit != null && limit > 0) {
 	    numberOfRecords = limit;
 	}
+	
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
 	if("name".equals(sortBy)){
 	    sort = new Sort(Direction.ASC, "name");
 	} else if ("lastRun".equals(sortBy)){
 	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}else if ("nameDesc".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "name");
 	}
+	
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
 	
 	Page<BaseNode> paginatedTaggedNodes = nodeRepository.searchTaggedNodes(tagId, search != null ? search : "", pageable);

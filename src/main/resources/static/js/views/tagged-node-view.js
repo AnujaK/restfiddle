@@ -82,12 +82,22 @@ define(function(require) {
         
         $('#search').unbind().bind('keydown', function (e) {
             if (e.which == 13) {
-                me.showSearchResults();
+                me.showSearchResults($("#search").val());
             }
         });
 
         $('#searchbtn').unbind().bind('click', function (e) {
-                me.showSearchResults();
+                me.showSearchResults($("#search").val());
+        });
+        
+        $('#sortOptionsDropdown').unbind().bind('click', function (e) {
+            if(e.target.id === 'sortByName'){
+                me.showSearchResults($("#search").val(),'name');
+            } else if(e.target.id === 'sortByLastModified'){
+                me.showSearchResults($("#search").val(), 'lastRun');
+            }else if(e.target.id === 'sortByNameDesc'){
+                me.showSearchResults($("#search").val(), 'nameDesc');
+            }
         });
         
         end = end > response.length-1 ? response.length-1 : end;
@@ -107,11 +117,11 @@ define(function(require) {
         }
     },
 
-      showSearchResults : function(){
+      showSearchResults : function(search, sortBy){
         var me = this;
         $.ajax({
             url : APP.config.baseUrl +'/workspaces/' + APP.appView.getCurrentWorkspaceId() + '/tags/'
-            + selectedTagId + '/nodes'+'?search=' + $('#search').val(),
+            + selectedTagId + '/nodes'+(search ? '?search=' + search + '&' : '?') + (sortBy ? 'sortBy=' + sortBy : ''),
             type : 'get',
             dataType : 'json',
             contentType : "application/json",
