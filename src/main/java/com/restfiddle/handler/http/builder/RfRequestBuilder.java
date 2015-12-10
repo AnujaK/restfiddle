@@ -16,6 +16,7 @@
 package com.restfiddle.handler.http.builder;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,11 @@ public class RfRequestBuilder {
 	    } else {
 		sb.append("&");
 	    }
-	    sb.append(urlParam.getKey() + "=" + urlParam.getValue());
+	    try {
+		sb.append(URLEncoder.encode(urlParam.getKey(), "UTF-8") + "=" + URLEncoder.encode(urlParam.getValue(), "UTF-8"));
+	    } catch (UnsupportedEncodingException e) {
+		logger.error(e.toString());
+	    }
 	}
 	return sb.toString();
     }
