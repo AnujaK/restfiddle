@@ -100,6 +100,7 @@ public class ImportController {
 	    node.setPosition(treeNode.getPosition());
 	    node.setProjectId(treeNode.getProjectId());
 	    node.setParentId(parent.getId());// Important
+	    node.setWorkspaceId(parent.getWorkspaceId());
 	    node = nodeRepository.save(node);
 	    List<TreeNode> children = treeNode.getChildren();
 	    if (children != null && !children.isEmpty()) {

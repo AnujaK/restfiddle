@@ -93,6 +93,8 @@ public class NodeController {
 	node.setDescription(nodeDTO.getDescription());
 	node.setNodeType(nodeDTO.getNodeType());
 	node.setStarred(nodeDTO.getStarred());
+	BaseNode parentNode = nodeRepository.getParentNodeFromNodeId(parentId);
+	node.setWorkspaceId(parentNode.getWorkspaceId());
 
 	node.setParentId(parentId);
 	// TODO : Set the appropriate node position

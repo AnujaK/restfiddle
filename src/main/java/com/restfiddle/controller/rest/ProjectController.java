@@ -73,6 +73,7 @@ public class ProjectController {
 	projectRef.setNodeType(NodeType.PROJECT.name());
 	projectRef.setParentId("-1");
 	projectRef.setPosition(Long.valueOf(0));
+	projectRef.setWorkspaceId(workspaceId);
 
 	// Save project reference node
 	BaseNode savedRef = nodeRepository.save(projectRef);
