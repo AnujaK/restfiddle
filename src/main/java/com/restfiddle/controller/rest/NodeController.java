@@ -307,7 +307,7 @@ public class NodeController {
 		methodType = baseNode.getConversation().getRfRequest().getMethodType();
 	    }
 	    treeNode = TreeNodeBuilder.createTreeNode(nodeId, baseNode.getName(), baseNode.getDescription(), baseNode.getNodeType(),
-		    baseNode.getStarred(), methodType);
+		    baseNode.getStarred(), methodType, baseNode.getLastModifiedDate(), baseNode.getLastModifiedBy());
 	    treeNode.setProjectId(projectId);
 	    treeNodeMap.put(nodeId, treeNode);
 	}

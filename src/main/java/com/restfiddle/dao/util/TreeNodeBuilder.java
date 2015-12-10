@@ -15,11 +15,14 @@
  */
 package com.restfiddle.dao.util;
 
+import java.util.Date;
+
+import com.restfiddle.entity.User;
 import com.restfiddle.util.TreeNode;
 
 public class TreeNodeBuilder {
 
-    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String nodeType,Boolean starred, String method) {
+    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String nodeType,Boolean starred, String method, Date lastModifiedDate, User lastModifiedBy) {
 	TreeNode treeNode = new TreeNode();
 	treeNode.setId(nodeId);
 	treeNode.setName(nodeName);
@@ -27,6 +30,8 @@ public class TreeNodeBuilder {
 	treeNode.setNodeType(nodeType);
 	treeNode.setStarred(starred);
 	treeNode.setMethod(method);
+	treeNode.setLastModifiedDate(lastModifiedDate);
+	treeNode.setLastModifiedBy(lastModifiedBy);
 	return treeNode;
     }
 }

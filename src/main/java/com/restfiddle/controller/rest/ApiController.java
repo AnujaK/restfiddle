@@ -156,7 +156,9 @@ public class ApiController {
 		node.setLastModifiedDate(currentDate);
 		if (principal instanceof User) {
 		    currentConversation.setLastModifiedBy((User) principal);
+		    node.setLastModifiedBy((User) principal);
 		}
+		
 		nodeRepository.save(node);
 	    }
 
