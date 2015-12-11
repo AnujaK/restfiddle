@@ -8,6 +8,7 @@ define(function(require) {
 	require("libs/jquery.validate");
 	require('mCustomScrollbar');
 	var _ = require('underscore');
+    require('moment');
 	
 	var ConversationEvents = require('events/conversation-event');
 	var ConversationModel = require('models/conversation');
@@ -33,8 +34,8 @@ define(function(require) {
 
 		render : function() {
 			this.$el.html(this.template());
-			return this;
-		}
+            return;
+		},
 	});
 
 	var TreeFolderView = Backbone.View.extend({
@@ -1244,9 +1245,10 @@ define(function(require) {
 
 				if (serverNode.children[i].method) {
 					colorCode = getColorCode(serverNode.children[i].method);
-					title = '<span class="lozenge left ' + colorCode + ' auth_required">' + serverNode.children[i].method + '</span>' + '<span class = "large-text ' + getTitleClass(serverNode.children[i].method) + '" title = "' + serverNode.children[i].name + '">' + serverNode.children[i].name + '</span>' + treeNodeView.template();
+					title = '<div><span class="lozenge left ' + colorCode + ' auth_required">' + serverNode.children[i].method + '</span>' + '<span class = "large-text ' + getTitleClass(serverNode.children[i].method) + '" title = "' + serverNode.children[i].name + '">' + serverNode.children[i].name + '</span>' +displayLastModified(serverNode.children[i])+ treeNodeView.template()+'</div>';
+                    //title = title + displayLastModified(serverNode.children[i]);
 				} else {
-					title = serverNode.children[i].name + treeNodeView.template()
+					title = serverNode.children[i].name + treeNodeView.template();
 				}
 				uiNode.children.push({
 					title : title,
@@ -1264,6 +1266,40 @@ define(function(require) {
 
 		}
 	}
+    
+    function displayLastModified(serverNodeChild) {
+        var lastModifiedDate = serverNodeChild.lastModifiedDate;
+        var lastModifiedBy = serverNodeChild.lastModifiedBy;
+        var time = "";
+        var runBy = "";
+        var currentDate = moment(new Date());
+        if(lastModifiedDate){
+            var requestDiff = currentDate.diff(lastModifiedDate,'hours');
+            if(requestDiff == 0){
+                var min = currentDate.diff(lastModifiedDate,'minutes')
+                if(min > 1){
+                    time = min + " minutes ago";
+                }
+                else{
+                    time = min + " minute ago";
+                }
+            }
+            else if(requestDiff <= 1){
+                time = requestDiff + ' hour ago';
+            } 
+            else if(requestDiff < 24){
+                time = requestDiff + ' hours ago';
+            }
+            else{
+                time = moment(lastModifiedDate).format('MMM DD hh:mma');
+            }
+        }
+        if(lastModifiedBy !== null){
+            runBy = 'by '+ lastModifiedBy;
+        }
+        return '&nbsp;<span>'+time+'&nbsp;'+ runBy +'</span>';
+    }
+    
 
 	/**
 	 * params params.nodeName : Name with which node get created
