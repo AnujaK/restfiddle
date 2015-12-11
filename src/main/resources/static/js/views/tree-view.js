@@ -159,7 +159,7 @@ define(function(require) {
 			return;
 		}
 		var type = node.data.nodeType;
-		if (type == 'PROJECT' || type == 'FOLDER'){
+		if (type == 'FOLDER'){
 			$("#copyProjFolderModal").modal("show");
 		}
 
@@ -822,7 +822,7 @@ define(function(require) {
 
 		}
 
-	})
+	});
 
 	$("#copyProjFolderNodeBtn").unbind("click").bind("click", function(event) {
 		var nodeId = $("#copyNodeId").val();
@@ -833,16 +833,20 @@ define(function(require) {
 		$.ajax({
 				url : APP.config.baseUrl + '/nodes/'+nodeId+'/copy',
 				type : 'post',
-				dataType : 'json',
                 data: JSON.stringify(data),
-				contentType : "application/json",
+                contentType : "application/json",
 				success : function(response) {
-                    treeObj.reload([]);
+                    tree.showTree(tree.projectRefNodeId);
 					console.log("Copied successfully");
-				}
+				},
+            error : function(response){
+                    console.log(response);
+                }
 		});
 		$("#copyProjFolderModal").modal("hide");
-	})
+        $("#copyFolderNodeTextField").val('');
+        $("#copyFolderNodeTextArea").val('');
+	});
 	
 	$("#editNodeBtn").unbind("click").bind("click", function(event) {
 		var nodeId = $("#editNodeId").val();
