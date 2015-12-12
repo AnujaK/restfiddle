@@ -16,6 +16,9 @@
 package com.restfiddle.controller.rest;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -273,23 +276,16 @@ public class NodeController {
     @RequestMapping(value = "/api/nodes/{id}/tree", method = RequestMethod.GET)
     public @ResponseBody
     TreeNode getProjectTree(@PathVariable("id") String id, @RequestParam(value = "search", required = false) String search,
-	    @RequestParam(value = "sortBy", required = false) String sortBy) {
+	    @RequestParam(value = "sort", required = false) String sort) {
 	// Note : There must be a better way of doing it. This method is written in a hurry.
 
 	// Get project Id from the reference node
 	BaseNode projectRefNode = nodeRepository.findOne(id);
 
 	String projectId = projectRefNode.getProjectId();
-
-	Sort sort = null;
-	if("name".equals(sortBy)){
-	    sort = new Sort(Direction.ASC, "name");
-	} else if ("lastRun".equals(sortBy)){
-	    sort = new Sort(Direction.DESC, "lastModifiedDate");
-	}
 	    
 	// Get the list of nodes for a project.
-	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "", sort);
+	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "");
 
 	// Creating a map of nodes with node-id as key
 	Map<String, BaseNode> baseNodeMap = new HashMap<String, BaseNode>();
@@ -346,7 +342,75 @@ public class NodeController {
 	    }
 	}
 	
+	if (sort != null) {
+	    int order = 1;
+	    if(sort.trim().charAt(0) == '-'){
+		order = -1;
+		sort = sort.substring(1);
+	    }
+	
+	    sortTree(rootNode, sort, order);
+	}
 	return rootNode;
+    }
+
+    private void sortTree(TreeNode rootNode, String sort, final int order) {
+	if (rootNode != null && rootNode.getChildren() != null) {
+
+	    Comparator<TreeNode> comparator = null;
+
+	    switch (sort) {
+	    case "lastRun":
+		comparator = new Comparator<TreeNode>() {
+
+		    @Override
+		    public int compare(TreeNode o1, TreeNode o2) {
+			int val = 0;
+			if (o1.getLastModifiedDate() != null && o2.getLastModifiedDate() != null) {
+			    val = o1.getLastModifiedDate().compareTo(o2.getLastModifiedDate());
+			} else if (o1.getLastModifiedDate() != null) {
+			    val = 1;
+			} else if (o2.getLastModifiedDate() != null) {
+			    val = -1;
+			}
+
+			return order * val;
+		    }
+		};
+		break;
+	    case "name":
+		comparator = new Comparator<TreeNode>() {
+
+		    @Override
+		    public int compare(TreeNode o1, TreeNode o2) {
+
+			return order * o1.getName().compareTo(o2.getName());
+		    }
+		};
+		break;
+		
+	    default :
+		return;
+	    }
+	    
+	    sortTreeNodes(rootNode, comparator);
+
+	}
+    }
+    
+    private void sortTreeNodes(TreeNode rootNode, Comparator<TreeNode> comparator){
+	if (rootNode != null && rootNode.getChildren() != null) {
+	    List<TreeNode> childs = rootNode.getChildren();
+	    for (TreeNode node : childs) {
+		sortTreeNodes(node, comparator);
+	    }
+	    
+	    Collections.sort(childs, comparator);
+	    
+	    if(childs.size() > 0){
+		rootNode.setLastModifiedDate(childs.get(0).getLastModifiedDate());
+	    }
+	}
     }
 
     @RequestMapping(value = "/api/workspaces/{workspaceId}/nodes/starred", method = RequestMethod.GET)

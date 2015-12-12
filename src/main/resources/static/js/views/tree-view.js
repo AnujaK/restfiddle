@@ -1557,9 +1557,9 @@ define(function(require) {
 
 	tree.showTree = function(projectRefNodeId, activeNodeId) {
 		tree.projectRefNodeId = projectRefNodeId;
-		var buildTree = function(search, sortBy){
+		var buildTree = function(search, sort){
 			$.ajax({
-				url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree' + (search ? '?search=' + search + '&' : '?') + (sortBy ? 'sortBy=' + sortBy : ''),
+				url : APP.config.baseUrl + '/nodes/' + projectRefNodeId + '/tree' + (search ? '?search=' + search + '&' : '?') + (sort ? 'sort=' + sort : ''),
 				type : 'get',
 				dataType : 'json',
 				contentType : "application/json",
@@ -1605,7 +1605,11 @@ define(function(require) {
 		$('#sortOptionsDropdown').unbind().bind('click', function (e) {
 			if(e.target.id === 'sortByName'){
 				buildTree($("#search").val(),'name');
+			} else if(e.target.id === 'sortByNameDesc'){
+				buildTree($("#search").val(), '-name');
 			} else if(e.target.id === 'sortByLastModified'){
+				buildTree($("#search").val(), '-lastRun');
+			} else if(e.target.id === 'sortByLastModifiedDesc'){
 				buildTree($("#search").val(), 'lastRun');
 			}
 		});
