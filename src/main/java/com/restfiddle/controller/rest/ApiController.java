@@ -140,6 +140,7 @@ public class ApiController {
 	Date currentDate = new Date();
 	currentConversation.setCreatedDate(currentDate);
 	currentConversation.setLastModifiedDate(currentDate);
+	currentConversation.setLastRunDate(currentDate);
 	try {
 	    currentConversation = conversationRepository.save(currentConversation);
 

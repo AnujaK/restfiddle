@@ -33,7 +33,7 @@
             <li><a class="rf-font-12" data-toggle="modal">Sort by Last Run ASC</a></li>
             <li><a class="rf-font-12" data-toggle="modal">Sort by Last Run DESC</a></li>
             <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModified">Sort by Last Modified ASC</a></li>
-            <li><a class="rf-font-12" data-toggle="modal">Sort by Last Modified DESC</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModifiedDesc">Sort by Last Modified DESC</a></li>
         </ul>
     </div>
     &nbsp;
