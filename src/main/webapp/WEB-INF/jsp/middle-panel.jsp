@@ -30,8 +30,8 @@
         <ul class="dropdown-menu pull-right">
             <li><a class="rf-font-12" data-toggle="modal" id="sortByName">Sort by Name ASC</a></li>
             <li><a class="rf-font-12" data-toggle="modal" id="sortByNameDesc">Sort by Name DESC</a></li>
-            <li><a class="rf-font-12" data-toggle="modal">Sort by Last Run ASC</a></li>
-            <li><a class="rf-font-12" data-toggle="modal">Sort by Last Run DESC</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" id="sortByLastRun">Sort by Last Run ASC</a></li>
+            <li><a class="rf-font-12" data-toggle="modal" id="sortByLastRunDesc">Sort by Last Run DESC</a></li>
             <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModified">Sort by Last Modified ASC</a></li>
             <li><a class="rf-font-12" data-toggle="modal" id="sortByLastModifiedDesc">Sort by Last Modified DESC</a></li>
         </ul>

@@ -1607,10 +1607,14 @@ define(function(require) {
 				buildTree($("#search").val(),'name');
 			} else if(e.target.id === 'sortByNameDesc'){
 				buildTree($("#search").val(), '-name');
-			} else if(e.target.id === 'sortByLastModified'){
-				buildTree($("#search").val(), '-lastRun');
-			} else if(e.target.id === 'sortByLastModifiedDesc'){
+			} else if(e.target.id === 'sortByLastRun'){
 				buildTree($("#search").val(), 'lastRun');
+			} else if(e.target.id === 'sortByLastRunDesc'){
+				buildTree($("#search").val(), '-lastRun');
+			} else if(e.target.id === 'sortByLastModified'){
+				buildTree($("#search").val(), 'lastRun');
+			} else if(e.target.id === 'sortByLastModifiedDesc'){
+				buildTree($("#search").val(), '-lastRun');
 			}
 		});
 		
