@@ -364,7 +364,7 @@ public class SampleDataGenerator {
 	conversationDTO.setWorkspaceId(demoWorkspaceId);
 	
 	rfRequestDTO = new RfRequestDTO();
-	rfRequestDTO.setApiUrl(hostUri + "/api/nodes/starred");
+	rfRequestDTO.setApiUrl(hostUri + "/api/workspaces/"+demoWorkspaceId+"/nodes/starred");
 	rfRequestDTO.setMethodType("GET");
 	conversationDTO.setRfRequestDTO(rfRequestDTO);
 	createdConversation = conversationController.create(conversationDTO);
