@@ -1608,13 +1608,13 @@ define(function(require) {
 			} else if(e.target.id === 'sortByNameDesc'){
 				buildTree($("#search").val(), '-name');
 			} else if(e.target.id === 'sortByLastRun'){
-				buildTree($("#search").val(), 'lastRun');
+				buildTree($("#search").val(), 'lastModified');
 			} else if(e.target.id === 'sortByLastRunDesc'){
-				buildTree($("#search").val(), '-lastRun');
+				buildTree($("#search").val(), '-lastModified');
 			} else if(e.target.id === 'sortByLastModified'){
-				buildTree($("#search").val(), 'lastRun');
+				buildTree($("#search").val(), 'lastModified');
 			} else if(e.target.id === 'sortByLastModifiedDesc'){
-				buildTree($("#search").val(), '-lastRun');
+				buildTree($("#search").val(), '-lastModified');
 			}
 		});
 		
