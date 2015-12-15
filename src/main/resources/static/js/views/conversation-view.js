@@ -169,27 +169,26 @@ define(function(require) {
 	})
 
 	$("#showLastResponse").unbind("click").bind("click", function() {
-		var response = JSON.parse(localStorage.getItem("lastResponse"));
-		$('#responseData').val(JSON.stringify(response));
-		if (response.headers && response.headers.length > 0) {
-			$("#res-header-wrapper").html('');
-			var contentType;
-			for (var i = 0; i < response.headers.length; i++) {
-				$("#res-header-wrapper").append('<tr><td>' + response.headers[i].headerName + '</td><td>' + response.headers[i].headerValue + '</td></tr>');
-				if (response.headers[i].headerName === 'Content-Type') {
-					contentType = response.headers[i].headerValue;
-				}
-			}
-			if (imageTypes.indexOf(contentType) > -1) {
-				$("#response-wrapper").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
-			} else {
-				$("#response-wrapper").html('<br><pre class="prettyprint">' + response.body + '</pre>');
-			}
-			$("body,html").animate({
-				scrollTop : $('#responseContainer').offset().top
-			}, "slow");
-		}
-		prettyPrint();
+        $('#assertsPreviousModal').modal('show');
+        var nodeId = APP.appView.getCurrentRequestNodeId();
+        if(nodeId != undefined && nodeId != ""){
+            $.ajax({
+                url : APP.config.baseUrl + '/requests/'+nodeId+'/assertiondto',
+                type : 'get',
+                dataType : 'json',
+                contentType : "application/json",
+                success : function(res) {
+                    if(res != undefined && res.bodyAssertDTOs != undefined && res.bodyAssertDTOs.length > 0 ){
+                        var assertResults = res.bodyAssertDTOs;
+                        if(assertResults){
+                            var assertView = new BodyAssertResultView({model : assertResults});
+                            $('#prev-res-assert-wrapper tbody').remove();
+                            $('#prev-res-assert-wrapper').append(assertView.render().el);
+                        } 
+                    }
+                }
+            });
+        }
 	});
 
 	$("#clearHeader").unbind("click").bind("click", function() {
