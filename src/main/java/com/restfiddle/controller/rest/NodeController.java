@@ -360,7 +360,7 @@ public class NodeController {
 	    Comparator<TreeNode> comparator = null;
 
 	    switch (sort) {
-	    case "lastRun":
+	    case "lastModified":
 		comparator = new Comparator<TreeNode>() {
 
 		    @Override
