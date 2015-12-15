@@ -1299,7 +1299,7 @@ define(function(require) {
             }
         }
         if(lastModifiedBy !== null){
-            runBy = 'by '+ lastModifiedBy;
+            runBy = 'by '+ lastModifiedBy.name;
         }
         return '&nbsp;<span>'+time+'&nbsp;'+ runBy +'</span>';
     }
