@@ -42,6 +42,7 @@ import com.restfiddle.entity.Assertion;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.BodyAssert;
 import com.restfiddle.entity.RfRequest;
+import com.restfiddle.util.EntityToDTO;
 
 @RestController
 @EnableAutoConfiguration
@@ -111,6 +112,24 @@ public class AssertionController {
 	
 	Assertion assertion = rfRequest.getAssertion();
 	return assertion;
+    }
+    
+    @RequestMapping(value = "/api/requests/{nodeId}/assertiondto", method = RequestMethod.GET)
+    public @ResponseBody
+    AssertionDTO getSavedAsserts(@PathVariable("nodeId") String nodeId) {
+	BaseNode node = nodeRepository.findOne(nodeId);
+	if(node == null || node.getConversation() == null){
+	    return null;
+	}
+	
+	RfRequest rfRequest = node.getConversation().getRfRequest();
+	if (rfRequest == null) {
+	    return null;
+	}
+	
+	Assertion assertion = rfRequest.getAssertion();
+	AssertionDTO assertiondto = EntityToDTO.toDTO(assertion);
+	return assertiondto;
     }
 
 }
