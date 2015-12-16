@@ -833,12 +833,15 @@ define(function(require) {
 
 			this.$el.find("#apiRequestName").html(conversation.get('name') + '<i class = "fa fa-pencil edit-pencil" id ="apiRequestNameEdit"></i>');
 			this.$el.find("#apiRequestDescription").html(conversation.get('description'));
+			
+			this.$el.find("#apiUrl").typeahead('val', request.apiUrl.split('?')[0]).trigger('typeahead:change');
 
 			this.$el.find(".apiRequestType").val(request.methodType).change();
 			if (request.urlParams) {
 				_.each(request.urlParams, function(item, index) {
 					var queryParamListItemView = new QueryParamListItemView();
 					$("#queryParamsWrapper").append(queryParamListItemView.displayQueryParams(item).el);
+					queryParamListItemView.addQuery();
 				})
 			}
 
@@ -866,7 +869,6 @@ define(function(require) {
 				})
 			}
 
-			this.$el.find("#apiUrl").typeahead('val', request.apiUrl).trigger('typeahead:change');
 
 			// workaround to remove un-wanted typeahead hint
 			$('#apiUrl').typeahead('open');

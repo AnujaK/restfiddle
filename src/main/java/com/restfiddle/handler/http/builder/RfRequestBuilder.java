@@ -74,7 +74,7 @@ public class RfRequestBuilder {
 	}
 	requestBuilder.setUri(apiUrl);
 	// TODO : Shall we set this API URL in UI Layer itself?
-	requestDTO.setApiUrl(apiUrl);
+	//requestDTO.setApiUrl(apiUrl);
     }
 
     private String buildUrlWithParams(String apiUrl, List<UrlParamDTO> urlParams) {
