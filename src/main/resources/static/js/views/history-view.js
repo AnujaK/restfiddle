@@ -30,7 +30,35 @@ define(function(require) {
                         dataType : 'json',
                         contentType : "application/json",
                         success : function(response) {
-                             $('#apiRequestName').html(response.name);
+                            $('#apiRequestName').html(response.name);
+                            //ToDo: Put the following code in a separate function
+                            var iframe = document.getElementById('response-preview');
+                            iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+                            iframe.document.open();		
+                            var responseBody = response.conversation.rfResponse.body;
+                            $("#response-wrapper").html('<br><pre class="prettyprint">' + responseBody.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
+                            iframe.document.write('<br><pre>' + responseBody + '</pre>');
+
+                            iframe.document.close();
+                            iframe.document.body.style.wordWrap = 'break-word';
+
+                            $("body,html").animate({
+                            scrollTop : $('#responseContainer').offset().top
+                            }, "slow");
+                            
+                            var assertResults = response.conversation.rfRequest.assertion.bodyAsserts;
+                            if(assertResults.length > 0){
+                                var assertView = new BodyAssertResultView({model : assertResults});
+                                $('#res-assert-wrapper tbody').remove();
+                                $('#res-assert-wrapper').append(assertView.render().el);
+                                var successCount = assertView.getSuccessCount();
+                                $('#assertResultCount').html(successCount+'/'+assertResults.length);
+                                var spans = $('#res-tab-assert').find('span');
+                                $(spans[0]).html(successCount);
+                                $(spans[1]).html(assertResults.length - successCount);
+                            }
+
+                            prettyPrint();
                         }
                     });
                     
@@ -44,6 +72,23 @@ define(function(require) {
             });
              
 		},
+        
+        showSavedResponse : function(response){
+            var iframe = document.getElementById('response-preview');
+            iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+            iframe.document.open();						
+            //ToDo:Check if it is possible to show response image or file download as well
+            $("#response-wrapper").html('<br><pre class="prettyprint">' + response.body.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
+            iframe.document.write('<br><pre>' + response.conversation.rfResponse.body + '</pre>');
+            // }
+
+            iframe.document.close();
+            iframe.document.body.style.wordWrap = 'break-word';
+
+            $("body,html").animate({
+            scrollTop : $('#responseContainer').offset().top
+            }, "slow");
+        },
 		
 		render : function(pageNumber) {
 			return this.renderActivityGroup();
@@ -101,6 +146,40 @@ define(function(require) {
 			return this;
 		}
 	});
+    
+    //Todo: Check if this rewriting of BodyAssertResultView code can be omitted by using the one from conversation-view
+    var BodyAssertResultView = Backbone.View.extend({
+		template : _.template($('#assert-result-list-item').html()),
+		
+		tagName: 'tbody',
+
+		render : function() {
+			return this.renderAssertResult();
+		},
+
+		renderAssertResult : function(){
+			this.successCount = 0;
+			
+			 _.each(this.model, function (assert) {
+				assert.status = assert.success ? "Success" : "Failure";
+				assert.iconClass = assert.success ? "success-icon" : "failure-icon";
+				var templ = this.template({result : assert});
+                this.$el.append(templ);
+                if(assert.success)
+                	this.successCount++;
+			 }, this);
+			 
+			 
+			 return this;
+		},
+		
+		getSuccessCount : function(){
+			return this.successCount;
+		}
+		
+		
+	});
+
 
 var HistoryView = Backbone.View.extend({
 	el: '#history-items',
