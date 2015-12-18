@@ -15,6 +15,7 @@
  */
 package com.restfiddle.sample.data;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,7 @@ import com.restfiddle.controller.rest.UserController;
 import com.restfiddle.controller.rest.WorkspaceController;
 import com.restfiddle.dao.HttpRequestHeaderRepository;
 import com.restfiddle.dao.UserRepository;
+import com.restfiddle.dto.BasicAuthDTO;
 import com.restfiddle.dto.ConfigDTO;
 import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.dto.NodeDTO;
@@ -112,8 +114,14 @@ public class SampleDataGenerator {
     private String firstProjectId;
     private String firstProjectRefId;
     
+    @SuppressWarnings("unused")
     private String httpbinProjectId;
+    @SuppressWarnings("unused")
     private String httpbinProjectRefId;
+    @SuppressWarnings("unused")
+    private String gitProjectId;
+    @SuppressWarnings("unused")
+    private String gitProjectRefId;
 
     private String impTagId;
     private String wlTagId;
@@ -264,6 +272,12 @@ public class SampleDataGenerator {
 	Project projHttpbin = projectController.create(demoWorkspaceId, httpbinProject);
 	httpbinProjectId = projHttpbin.getId();
 	httpbinProjectRefId = projHttpbin.getProjectRef().getId();
+	
+	ProjectDTO gitProject = new ProjectDTO();
+	gitProject.setName("Git Project");
+	Project projGit = projectController.create(demoWorkspaceId, gitProject);
+	gitProjectId = projGit.getId();
+	gitProjectRefId = projGit.getProjectRef().getId();
 
 	ProjectDTO googleProject = new ProjectDTO();
 	googleProject.setName("Google");
@@ -380,11 +394,10 @@ public class SampleDataGenerator {
 	createdConversation.setNodeDTO(createdStarredNode);
 	conversationController.update(createdConversation.getId(), createdConversation);
 
-
-	createSampleRequest("http://httpbin.org/ip", "GET", "httpbin ip", "Returns Origin IP.", null, null);
-	createSampleRequest("http://httpbin.org/user-agent", "GET", "httpbin User Agent", "Returns user-agent.", null, null);
-	createSampleRequest("http://httpbin.org/headers", "GET", "httpbin Headers", "Returns header dict.", null, null);
-	createSampleRequest("http://httpbin.org/get", "GET", "httpbin Get", "Returns GET data.", null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/ip", "GET", "httpbin ip", "Returns Origin IP.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/user-agent", "GET", "httpbin User Agent", "Returns user-agent.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/headers", "GET", "httpbin Headers", "Returns header dict.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/get", "GET", "httpbin Get", "Returns GET data.", null, null, null);
 	UrlParamDTO urlParamDTO = new UrlParamDTO();
 	urlParamDTO.setKey("key1");
 	urlParamDTO.setValue("value1");
@@ -393,70 +406,93 @@ public class SampleDataGenerator {
 	JSONObject jsonObjectSample = new JSONObject();
 	jsonObjectSample.put("name", "httpbin Post");
 	jsonObjectSample.put("description", "Test request using sample data generator");
-	createSampleRequest("http://httpbin.org/post", "POST", "Post", "POST method testing.", urlParams, jsonObjectSample);
-	createSampleRequest("http://httpbin.org/encoding/utf8", "GET", "UTF-8", "Returns page containing UTF-8 data.", null, null);
-	createSampleRequest("http://httpbin.org/delete", "DELETE", "Delete", "Returns DELETE data.", null, null);
-	createSampleRequest("http://httpbin.org/gzip", "GET", "Gzip", "Returns gzip-encoded data.", null, null);
-	createSampleRequest("http://httpbin.org/deflate", "GET", "Deflate", "Returns deflate-encoded data.", null, null);
-	createSampleRequest("http://httpbin.org/status/418", "GET", "Status code", "Returns given HTTP Status code.", null, null);
-	createSampleRequest("http://httpbin.org/response-headers?Content-Type=text/plain;charset=UTF-8&Server=httpbin", "GET", "httpbin Content type", "Returns given response headers.", null, null);
-	createSampleRequest("http://httpbin.org/redirect/6", "GET", "httpbin redirect", "Redirects.", null, null);
-	createSampleRequest("http://httpbin.org/redirect-to/url=http://example.com/", "GET", "Redirect-to", "Redirects to the url.", null, null);
-	createSampleRequest("http://httpbin.org/relative-redirect/6", "GET", "Relative redirect", "Relative Redirect.", null, null);
-	createSampleRequest("http://httpbin.org/absolute-redirect/6", "GET", "Absolute redirect", "Absolute Redirect.", null, null);
-	createSampleRequest("http://httpbin.org/cookies", "GET", "Cookies", "Returns cookie data.", null, null);
-	createSampleRequest("http://httpbin.org/cookies/set?k2=v2&k1=v1", "GET", "Simple Cookies", "Sets one or more simple cookies.", null, null);
-	createSampleRequest("http://httpbin.org/cookies/delete?k2=&k1=", "GET", "Delete Cookies", "Deletes one or more simple cookies.", null, null);
-	createSampleRequest("http://httpbin.org/basic-auth/user/passwd", "GET", "Basic Auth", "Challenges HTTPBasic Auth.", null, null);
-	createSampleRequest("http://httpbin.org/hidden-basic-auth/user/passwd", "GET", "Hidden Basic Auth", "404'd BasicAuth.", null, null);
-	createSampleRequest("http://httpbin.org/digest-basic-auth/auth/user/passwd", "GET", "Digest Auth", "Challenges HTTP Digest Auth.", null, null);
-	createSampleRequest("http://httpbin.org/stream/20", "GET", "Digest Auth", "Streams n–100 lines.", null, null);
-	createSampleRequest("http://httpbin.org/delay/3", "GET", "Delay", "Delays responding for n–10 seconds.", null, null);
-	createSampleRequest("http://httpbin.org/drip?duration=5&numbytes=5&code=200", "GET", "Drip", "Drips data over a duration after an optional initial delay, then (optionally) returns with the given status code.", null, null);
-	createSampleRequest("http://httpbin.org/range/1024", "GET", "Range", "Streams n bytes, and allows specifying a Range header to select a subset of the data. Accepts a chunk_size and request duration parameter.", null, null);
-	createSampleRequest("http://httpbin.org/html", "GET", "HTML", "Renders an HTML Page.", null, null);
-	createSampleRequest("http://httpbin.org/robots.txt", "GET", "Robots.txt", "Returns some robots.txt rules.", null, null);
-	createSampleRequest("http://httpbin.org/deny", "GET", "Deny", "Denied by robots.txt file.", null, null);
-	createSampleRequest("http://httpbin.org/cache", "GET", "Cache", "Returns 200 unless an If-Modified-Since or If-None-Match header is provided, when it returns a 304.", null, null);
-	createSampleRequest("http://httpbin.org/cache/60", "GET", "Cache-Control", "Sets a Cache-Control header for n seconds.", null, null);
-	createSampleRequest("http://httpbin.org/bytes/1024", "GET", "Bytes", "Generates n random bytes of binary data, accepts optional seed integer parameter.", null, null);
-	createSampleRequest("http://httpbin.org/stream-bytes/1024", "GET", "Stream-bytes", "Streams n random bytes of binary data, accepts optional seed and chunk_size integer parameters.", null, null);
-	createSampleRequest("http://httpbin.org/links/10", "GET", "Bytes", "Returns page containing n HTML links.", null, null);
-	createSampleRequest("http://httpbin.org/image", "GET", "Image", "Returns page containing an image.", null, null);
-	createSampleRequest("http://httpbin.org/image/png", "GET", "Image PNG", "Returns page containing PNG image.", null, null);
-	createSampleRequest("http://httpbin.org/image/jpeg", "GET", "Image JPEG", "Returns page containing JPEG image.", null, null);
-	createSampleRequest("http://httpbin.org/image/webp", "GET", "Image", "Returns page containing WEBP image.", null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/post", "POST", "Post", "POST method testing.", urlParams, jsonObjectSample, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/encoding/utf8", "GET", "UTF-8", "Returns page containing UTF-8 data.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/delete", "DELETE", "Delete", "Returns DELETE data.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/gzip", "GET", "Gzip", "Returns gzip-encoded data.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/deflate", "GET", "Deflate", "Returns deflate-encoded data.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/status/418", "GET", "Status code", "Returns given HTTP Status code.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/response-headers?Content-Type=text/plain;charset=UTF-8&Server=httpbin", "GET", "httpbin Content type", "Returns given response headers.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/redirect/6", "GET", "httpbin redirect", "Redirects.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/redirect-to/url=http://example.com/", "GET", "Redirect-to", "Redirects to the url.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/relative-redirect/6", "GET", "Relative redirect", "Relative Redirect.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/absolute-redirect/6", "GET", "Absolute redirect", "Absolute Redirect.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/cookies", "GET", "Cookies", "Returns cookie data.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/cookies/set?k2=v2&k1=v1", "GET", "Simple Cookies", "Sets one or more simple cookies.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/cookies/delete?k2=&k1=", "GET", "Delete Cookies", "Deletes one or more simple cookies.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/basic-auth/user/passwd", "GET", "Basic Auth", "Challenges HTTPBasic Auth.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/hidden-basic-auth/user/passwd", "GET", "Hidden Basic Auth", "404'd BasicAuth.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/digest-basic-auth/auth/user/passwd", "GET", "Digest Auth", "Challenges HTTP Digest Auth.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/stream/20", "GET", "Digest Auth", "Streams n–100 lines.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/delay/3", "GET", "Delay", "Delays responding for n–10 seconds.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/drip?duration=5&numbytes=5&code=200", "GET", "Drip", "Drips data over a duration after an optional initial delay, then (optionally) returns with the given status code.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/range/1024", "GET", "Range", "Streams n bytes, and allows specifying a Range header to select a subset of the data. Accepts a chunk_size and request duration parameter.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/html", "GET", "HTML", "Renders an HTML Page.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/robots.txt", "GET", "Robots.txt", "Returns some robots.txt rules.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/deny", "GET", "Deny", "Denied by robots.txt file.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/cache", "GET", "Cache", "Returns 200 unless an If-Modified-Since or If-None-Match header is provided, when it returns a 304.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/cache/60", "GET", "Cache-Control", "Sets a Cache-Control header for n seconds.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/bytes/1024", "GET", "Bytes", "Generates n random bytes of binary data, accepts optional seed integer parameter.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/stream-bytes/1024", "GET", "Stream-bytes", "Streams n random bytes of binary data, accepts optional seed and chunk_size integer parameters.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/links/10", "GET", "Bytes", "Returns page containing n HTML links.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/image", "GET", "Image", "Returns page containing an image.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/image/png", "GET", "Image PNG", "Returns page containing PNG image.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/image/jpeg", "GET", "Image JPEG", "Returns page containing JPEG image.", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/image/webp", "GET", "Image", "Returns page containing WEBP image.", null, null, null);
 	//CheckPost form returns the form but doesn't return response on submit.
-	createSampleRequest("http://httpbin.org/forms/post", "GET", "Post form", "HTML form that submits to /post", null, null);
-	createSampleRequest("http://httpbin.org/xml", "GET", "XML", "Returns some XML", null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/forms/post", "GET", "Post form", "HTML form that submits to /post", null, null, null);
+	createSampleRequest("httpbinProject", "http://httpbin.org/xml", "GET", "XML", "Returns some XML", null, null, null);
+	
+	createSampleRequest("gitProject", "https://api.github.com/users/anujak", "GET", "Git Profile", "Get Git profile by username", null, null, null);
+	BasicAuthDTO basicAuth = new BasicAuthDTO();
+	basicAuth.setUsername("username");
+	basicAuth.setPassword("password");
+	createSampleRequest("gitProject", "https://api.github.com/user", "GET", "Basic Auth Logged in User Profile", "Get Git profile of logged in user by basic authentication", null, null, basicAuth);
     }
 
-    private void createSampleRequest(String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject) {
-	ConversationDTO httpbinDTO = new ConversationDTO();
+    private void createSampleRequest(String projectName, String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject, BasicAuthDTO basicAuth) {
+	String projId = null;
+	String projRefId = null;
+	try {
+	    Field declaredField = this.getClass().getDeclaredField(projectName+"Id");
+	    projId = (String) declaredField.get(this);
+	    Field declaredField2 = this.getClass().getDeclaredField(projectName+"RefId");
+	    projRefId = (String) declaredField2.get(this);
+	} catch (NoSuchFieldException | SecurityException e) {
+	    e.printStackTrace();
+	} catch (IllegalArgumentException e) {
+	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    e.printStackTrace();
+	}
 	
-	httpbinDTO.setWorkspaceId(demoWorkspaceId);
+	ConversationDTO conversationDTO = new ConversationDTO();
+	conversationDTO.setWorkspaceId(demoWorkspaceId);
 	
-	RfRequestDTO httpbinReqDTO = new RfRequestDTO();
-	httpbinReqDTO.setApiUrl(apiUrl);
-	httpbinReqDTO.setMethodType(methodType);
+	RfRequestDTO requestDTO = new RfRequestDTO();
+	requestDTO.setApiUrl(apiUrl);
+	requestDTO.setMethodType(methodType);
 	
-	httpbinDTO.setRfRequestDTO(httpbinReqDTO);
+	conversationDTO.setRfRequestDTO(requestDTO);
 	if (urlParams!=null) {
-	    httpbinReqDTO.setUrlParams(urlParams);
+	    requestDTO.setUrlParams(urlParams);
 	}
 	if(jsonObject!=null){
-	    httpbinReqDTO.setApiBody(jsonObject.toString(4));
+	    requestDTO.setApiBody(jsonObject.toString(4));
 	}
-	ConversationDTO conversationhttpbin = conversationController.create(httpbinDTO);
-	NodeDTO httpbinNode = new NodeDTO();
-	httpbinNode.setName(name);
-	httpbinNode.setDescription(description);
-	httpbinNode.setProjectId(httpbinProjectId);
-	httpbinNode.setConversationDTO(conversationhttpbin);
-	NodeDTO createdHttpbinNode = nodeController.create(httpbinProjectRefId, httpbinNode);
+	if(basicAuth!=null){
+	    requestDTO.setBasicAuthDTO(basicAuth);
+	}
+	ConversationDTO conversation = conversationController.create(conversationDTO);
+	NodeDTO node = new NodeDTO();
+	node.setName(name);
+	node.setDescription(description);
+	node.setProjectId(projId);
+	node.setConversationDTO(conversation);
+	NodeDTO createdHttpbinNode = nodeController.create(projRefId, node);
 	//nodeController.addTags(httpbinNode.getId(), tags);
-	conversationhttpbin.setNodeDTO(createdHttpbinNode);
-	conversationController.update(conversationhttpbin.getId(), conversationhttpbin);
+	conversation.setNodeDTO(createdHttpbinNode);
+	conversationController.update(conversation.getId(), conversation);
     }
     
     private void createSocialSample(Project project, String apiUrl, String methodType, String name, String description, List<UrlParamDTO> urlParams, JSONObject jsonObject) {
