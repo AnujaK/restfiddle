@@ -38,9 +38,11 @@ import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.RfRequestRepository;
 import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.BodyAssertDTO;
+import com.restfiddle.dto.ConversationDTO;
 import com.restfiddle.entity.Assertion;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.BodyAssert;
+import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.RfRequest;
 import com.restfiddle.util.EntityToDTO;
 
@@ -131,5 +133,44 @@ public class AssertionController {
 	AssertionDTO assertiondto = EntityToDTO.toDTO(assertion);
 	return assertiondto;
     }
+    
+    @RequestMapping(value = "/api/requests/{nodeId}/assertiondto", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public @ResponseBody
+    void update(@PathVariable("nodeId") String nodeId, @RequestBody AssertionDTO assertionDTO) {
+	BaseNode node = nodeRepository.findOne(nodeId);
+	if (node == null || node.getConversation() == null) {
+	    return;
+	}
 
+	RfRequest rfRequest = node.getConversation().getRfRequest();
+	if (rfRequest == null) {
+	    return;
+	}
+	if (rfRequest.getAssertion() != null) {
+	    Assertion assertion = converttoEntity(assertionDTO);
+	    assertion.setId(rfRequest.getAssertion().getId());
+	    assertionRepository.save(assertion);
+	}
+    }
+
+    private Assertion converttoEntity(AssertionDTO assertionDTO) {
+	Assertion assertion = new Assertion();
+	assertion.setStatusCode(assertionDTO.getStatusCode());
+	assertion.setResponseTime(assertionDTO.getResponseTime());
+	assertion.setResponseSize(assertionDTO.getResponseSize());
+	assertion.setBodyContentType(assertionDTO.getBodyContentType());
+	List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
+	List<BodyAssert> list = new ArrayList<BodyAssert>();
+	for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
+	    BodyAssert bodyAssert = new BodyAssert();
+	    bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
+	    bodyAssert.setComparator(bodyAssertDTO.getComparator());
+	    bodyAssert.setExpectedValue(bodyAssertDTO.getExpectedValue());
+	    bodyAssert.setSuccess(bodyAssertDTO.isSuccess());
+	    bodyAssert.setActualValue(bodyAssertDTO.getActualValue());
+	    list.add(bodyAssert);
+	}
+	assertion.setBodyAsserts(list);
+	return assertion;
+    }
 }

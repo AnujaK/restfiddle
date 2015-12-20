@@ -118,7 +118,11 @@ public class ApiController {
 	long duration = endTime - startTime;
 
 	if (result != null) {
-	    assertHandler.runAssert(result);
+	    String nodeId = null;
+	    if (existingConversation != null && existingConversation.getNodeId() != null) {
+		nodeId = existingConversation.getNodeId();
+	    }
+	    assertHandler.runAssert(result, nodeId);
 	}
 
 	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
