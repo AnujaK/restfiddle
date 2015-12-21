@@ -19,26 +19,18 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.restfiddle.entity.BaseNode;
 
 public interface NodeRepository extends RfRepository<BaseNode, String> {
-
-    // TODO : Also check for hasChildren.
-    @Query("{ 'parentId' : ?0 }")
-    public BaseNode getParent(String parentId);
     
-    @Query("{ '_id' : ?0 }")
-    public BaseNode getParentNodeFromNodeId(String parentId);
-
     @Query("{ 'parentId' : ?0 }")
     public List<BaseNode> getChildren(String nodeId);
 
     @Query("{ 'projectId' : ?0 }")
     public List<BaseNode> findNodesFromAProject(String projectId);
-    
+
     @Query("{ 'projectId' : ?0 ,$or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
     public List<BaseNode> searchNodesFromAProject(String projectId, String search);
 
@@ -47,8 +39,7 @@ public interface NodeRepository extends RfRepository<BaseNode, String> {
 
     @Query("{ 'tags' : ?0 }")
     public Page<BaseNode> findTaggedNodes(String tagId, Pageable pageable);
-    
+
     @Query("{ 'tags' : ?0 , $or : [{name : { $regex : ?1, $options: 'i' }},{ nodeType : {$exists: true}}]}")
     public Page<BaseNode> searchTaggedNodes(String tagId, String search, Pageable pageable);
-
 }

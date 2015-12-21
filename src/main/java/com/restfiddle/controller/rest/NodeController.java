@@ -16,7 +16,6 @@
 package com.restfiddle.controller.rest;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -43,6 +42,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restfiddle.constant.NodeType;
+import com.restfiddle.controller.util.NodeUtil;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.GenericEntityRepository;
 import com.restfiddle.dao.NodeRepository;
@@ -96,12 +96,16 @@ public class NodeController {
 	node.setDescription(nodeDTO.getDescription());
 	node.setNodeType(nodeDTO.getNodeType());
 	node.setStarred(nodeDTO.getStarred());
-	BaseNode parentNode = nodeRepository.getParentNodeFromNodeId(parentId);
+	BaseNode parentNode = nodeRepository.findOne(parentId);
 	node.setWorkspaceId(parentNode.getWorkspaceId());
 
 	node.setParentId(parentId);
-	// TODO : Set the appropriate node position
-	node.setPosition(0L);
+
+	// To find the last child node and its position
+	long lastChildPosition = NodeUtil.findLastChildPosition(nodeRepository.getChildren(parentId));
+
+	// Set the appropriate node position.
+	node.setPosition(lastChildPosition + 1);
 
 	node = nodeRepository.save(node);
 
@@ -151,9 +155,20 @@ public class NodeController {
 	logger.debug("Deleting node with id: " + id);
 
 	BaseNode nodeToDelete = nodeRepository.findOne(id);
+	Long deletedNodePosition = nodeToDelete.getPosition();
+
 	deleteNodesRecursively(nodeToDelete);
 
-	// return deleted;
+	BaseNode parent = nodeRepository.findOne(nodeToDelete.getParentId());
+	List<BaseNode> children = nodeRepository.getChildren(parent.getId());
+	if (children != null && !children.isEmpty()) {
+	    for (BaseNode baseNode : children) {
+		if (baseNode.getPosition() > deletedNodePosition) {
+		    baseNode.setPosition(baseNode.getPosition() - 1);
+		    nodeRepository.save(baseNode);
+		}
+	    }
+	}
     }
 
     @RequestMapping(value = "/api/nodes/{id}/copy", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -267,8 +282,8 @@ public class NodeController {
 
 	return node;
     }
-    
-    public TreeNode getProjectTree(String id){
+
+    public TreeNode getProjectTree(String id) {
 	return getProjectTree(id, null, null);
     }
 
@@ -283,7 +298,7 @@ public class NodeController {
 	BaseNode projectRefNode = nodeRepository.findOne(id);
 
 	String projectId = projectRefNode.getProjectId();
-	    
+
 	// Get the list of nodes for a project.
 	List<BaseNode> listOfNodes = nodeRepository.searchNodesFromAProject(projectId, search != null ? search : "");
 
@@ -328,27 +343,27 @@ public class NodeController {
 		parentTreeNode.getChildren().add(treeNode);
 	    }
 	}
-	
-	if (search != null && !search.trim().equals("")){
+
+	if (search != null && !search.trim().equals("")) {
 	    for (BaseNode baseNode : listOfNodes) {
-		if(baseNode.getNodeType() != null && !NodeType.PROJECT.name().equals(baseNode.getNodeType())){
+		if (baseNode.getNodeType() != null && !NodeType.PROJECT.name().equals(baseNode.getNodeType())) {
 		    TreeNode node = treeNodeMap.get(baseNode.getId());
-		    
-		    if(node.getChildren().isEmpty()){
+
+		    if (node.getChildren().isEmpty()) {
 			TreeNode parent = treeNodeMap.get(baseNode.getParentId());
 			parent.getChildren().remove(node);
 		    }
 		}
 	    }
 	}
-	
+
 	if (sort != null) {
 	    int order = 1;
-	    if(sort.trim().charAt(0) == '-'){
+	    if (sort.trim().charAt(0) == '-') {
 		order = -1;
 		sort = sort.substring(1);
 	    }
-	
+
 	    sortTree(rootNode, sort, order);
 	}
 	return rootNode;
@@ -388,26 +403,26 @@ public class NodeController {
 		    }
 		};
 		break;
-		
-	    default :
+
+	    default:
 		return;
 	    }
-	    
+
 	    sortTreeNodes(rootNode, comparator);
 
 	}
     }
-    
-    private void sortTreeNodes(TreeNode rootNode, Comparator<TreeNode> comparator){
+
+    private void sortTreeNodes(TreeNode rootNode, Comparator<TreeNode> comparator) {
 	if (rootNode != null && rootNode.getChildren() != null) {
 	    List<TreeNode> childs = rootNode.getChildren();
 	    for (TreeNode node : childs) {
 		sortTreeNodes(node, comparator);
 	    }
-	    
+
 	    Collections.sort(childs, comparator);
-	    
-	    if(childs.size() > 0){
+
+	    if (childs.size() > 0) {
 		rootNode.setLastModifiedDate(childs.get(0).getLastModifiedDate());
 	    }
 	}
@@ -430,11 +445,11 @@ public class NodeController {
 	    numberOfRecords = limit;
 	}
 	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
-	if("name".equals(sortBy)){
+	if ("name".equals(sortBy)) {
 	    sort = new Sort(Direction.ASC, "name");
-	} else if ("lastRun".equals(sortBy)){
+	} else if ("lastRun".equals(sortBy)) {
 	    sort = new Sort(Direction.DESC, "lastModifiedDate");
-	}else if ("nameDesc".equals(sortBy)){
+	} else if ("nameDesc".equals(sortBy)) {
 	    sort = new Sort(Direction.DESC, "name");
 	}
 	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
@@ -472,5 +487,42 @@ public class NodeController {
 
 	nodeRepository.save(node);
 	return Boolean.TRUE;
+    }
+
+    @RequestMapping(value = "/api/nodes/{id}/move", method = RequestMethod.POST, headers = "Accept=application/json")
+    public @ResponseBody
+    void move(@PathVariable("id") String id, @RequestParam(value = "newParentId", required = true) String newParentId,
+	    @RequestParam(value = "newPosition", required = true) Long newPosition) {
+
+	BaseNode node = nodeRepository.findOne(id);
+	Long oldPosition = node.getPosition();
+
+	BaseNode newParentNode = nodeRepository.findOne(newParentId);
+	BaseNode oldParentNode = nodeRepository.findOne(node.getParentId());
+
+	// update new folder
+	List<BaseNode> newFolderChildren = nodeRepository.getChildren(newParentNode.getId());
+	node.setParentId(newParentNode.getId());
+	node.setPosition(newPosition);
+	nodeRepository.save(node);
+	if (newFolderChildren != null && !newFolderChildren.isEmpty()) {
+	    for (BaseNode newFolderChild : newFolderChildren) {
+		if (newFolderChild.getPosition() >= newPosition) {
+		    newFolderChild.setPosition(newFolderChild.getPosition() + 1);
+		    nodeRepository.save(newFolderChild);
+		}
+	    }
+	}
+
+	// update old folder
+	List<BaseNode> oldFolderChildren = nodeRepository.getChildren(oldParentNode.getId());
+	if (oldFolderChildren != null && !oldFolderChildren.isEmpty()) {
+	    for (BaseNode oldFolderChild : oldFolderChildren) {
+		if (oldFolderChild.getPosition() >= oldPosition) {
+		    oldFolderChild.setPosition(oldFolderChild.getPosition() - 1);
+		    nodeRepository.save(oldFolderChild);
+		}
+	    }
+	}
     }
 }
