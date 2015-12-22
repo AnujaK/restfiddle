@@ -1117,6 +1117,13 @@ define(function(require) {
 			// 'before self', etc.
 			preventRecursiveMoves : true, // Prevent dropping nodes on
 			// own descendants
+			draggable: { // modify default jQuery draggable options
+			  zIndex: 1000,
+			  scroll: true,
+			  containment: "parent",
+			  // appendTo: "body", Todo: check where to append
+			  revert: "invalid"
+			},
 			dragStart : function(node, data) {
 				/**
 				 * This function MUST be defined to enable dragging for the
@@ -1149,6 +1156,7 @@ define(function(require) {
 				 * the tree.
 				 */
 				data.otherNode.moveTo(node, data.hitMode);
+                repositionNodes(node, data);
 			}
 		},
 		createNode : function(event, data) {
@@ -1211,6 +1219,19 @@ define(function(require) {
 		},
 		source : []
 	});
+    
+    function repositionNodes(node, data){
+        $.ajax({
+            //ToDo: newPosition to be picked up dynamically
+			url : APP.config.baseUrl + '/nodes/' + node.key + '/move?newParentId='+node.parent.key+'&newPosition=1',
+			type : 'post',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+				console.log("Repositioning");
+			}
+		});
+    }
 
 	var treeObj = $("#tree").fancytree("getTree");
 
