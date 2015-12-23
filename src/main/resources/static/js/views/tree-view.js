@@ -20,6 +20,7 @@ define(function(require) {
 	var TagsView = require('views/tags-view');
 	var treeData;
 	var tree = {};
+    var draggedNodeId;
 
 	$(".rf-col-2").mCustomScrollbar({
 		theme : "minimal-dark"
@@ -1129,6 +1130,7 @@ define(function(require) {
 				 * This function MUST be defined to enable dragging for the
 				 * tree. Return false to cancel dragging of node.
 				 */
+                draggedNodeId = node.key;
 				return true;
 			},
 			dragEnter : function(node, data) {
@@ -1221,9 +1223,10 @@ define(function(require) {
 	});
     
     function repositionNodes(node, data){
+        console.log("this is being dragged "+draggedNodeId);
         $.ajax({
             //ToDo: newPosition to be picked up dynamically
-			url : APP.config.baseUrl + '/nodes/' + node.key + '/move?newParentId='+node.parent.key+'&newPosition=1',
+			url : APP.config.baseUrl + '/nodes/' + draggedNodeId + '/move?newParentId='+node.key+'&newPosition=1',
 			type : 'post',
 			dataType : 'json',
 			contentType : "application/json",
