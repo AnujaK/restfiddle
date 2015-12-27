@@ -502,10 +502,13 @@ public class NodeController {
 
 	// update new folder
 	List<BaseNode> newFolderChildren = nodeRepository.getChildren(newParentNode.getId());
-	node.setParentId(newParentNode.getId());
-	node.setPosition(newPosition);
-	nodeRepository.save(node);
-	if (newFolderChildren != null && !newFolderChildren.isEmpty()) {
+
+	if (newFolderChildren == null || newFolderChildren.isEmpty()) {
+	    return;
+	} else {
+	    node.setParentId(newParentNode.getId());
+	    node.setPosition(newPosition);
+	    nodeRepository.save(node);
 	    for (BaseNode newFolderChild : newFolderChildren) {
 		if (newFolderChild.getPosition() >= newPosition) {
 		    newFolderChild.setPosition(newFolderChild.getPosition() + 1);
