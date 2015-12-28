@@ -491,32 +491,53 @@ public class NodeController {
 
     @RequestMapping(value = "/api/nodes/{id}/move", method = RequestMethod.POST, headers = "Accept=application/json")
     public @ResponseBody
-    void move(@PathVariable("id") String id, @RequestParam(value = "newParentId", required = true) String newParentId,
-	    @RequestParam(value = "newPosition", required = true) Long newPosition) {
+    void move(@PathVariable("id") String id, @RequestParam(value = "newRefNodeId", required = true) String newRefNodeId,
+	    @RequestParam(value = "position", required = true) String position) {
 
 	BaseNode node = nodeRepository.findOne(id);
 	Long oldPosition = node.getPosition();
-
-	BaseNode newParentNode = nodeRepository.findOne(newParentId);
+	BaseNode newRefNode = nodeRepository.findOne(newRefNodeId);
 	BaseNode oldParentNode = nodeRepository.findOne(node.getParentId());
-
-	// update new folder
-	List<BaseNode> newFolderChildren = nodeRepository.getChildren(newParentNode.getId());
-
-	if (newFolderChildren == null || newFolderChildren.isEmpty()) {
-	    return;
-	} else {
-	    node.setParentId(newParentNode.getId());
-	    node.setPosition(newPosition);
-	    nodeRepository.save(node);
-	    for (BaseNode newFolderChild : newFolderChildren) {
-		if (newFolderChild.getPosition() >= newPosition) {
-		    newFolderChild.setPosition(newFolderChild.getPosition() + 1);
-		    nodeRepository.save(newFolderChild);
-		}
-	    }
+	
+	Long newPosition;
+	String newParentId;
+	if(position.equals("over")){
+	    newParentId = newRefNode.getId();
+	    newPosition = (long) 1;
+	}else if(position.equals("before")){
+	    newParentId = newRefNode.getParentId();
+	    newPosition = newRefNode.getPosition(); 
+	}else{
+	    newParentId = newRefNode.getParentId();
+	    newPosition = newRefNode.getPosition()+1;
 	}
 
+	// Not allowed to save request under a request
+	if (position.equals("over") && !(newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))) {
+	    return;
+	}
+	// update new folder
+	List<BaseNode> newFolderChildren;
+	if(newRefNode.getNodeType() != null && (newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))){
+	    newFolderChildren = nodeRepository.getChildren(newRefNode.getId());
+	}else{
+	    newFolderChildren = nodeRepository.getChildren(newRefNode.getParentId());
+	}
+
+	node.setParentId(newParentId);
+	node.setPosition(newPosition);
+	nodeRepository.save(node);
+	for (BaseNode newFolderChild : newFolderChildren) {
+	    if (newFolderChild.getPosition() >= newPosition) {
+		newFolderChild.setPosition(newFolderChild.getPosition() + 1);
+		nodeRepository.save(newFolderChild);
+	    }
+	}
+	
+	//If node is moved within the same folder, updating new folder is sufficient
+	if(oldParentNode.getId().equals(newParentId)){
+	    return;
+	}
 	// update old folder
 	List<BaseNode> oldFolderChildren = nodeRepository.getChildren(oldParentNode.getId());
 	if (oldFolderChildren != null && !oldFolderChildren.isEmpty()) {

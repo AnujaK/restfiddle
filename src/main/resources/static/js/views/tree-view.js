@@ -1150,13 +1150,21 @@ define(function(require) {
 				 * Don't allow dropping *over* a node (would create a child)
 				 * return ["before", "after"];
 				 */
-				return true;
+				//return true;
+                //Preventing drop on leaf nodes i.e. request nodes
+                /*if(node.folder == undefined || node.folder == false) {
+                    return false;
+                }*/
+                return true;
 			},
 			dragDrop : function(node, data) {
 				/**
 				 * This function MUST be defined to enable dropping of items on
 				 * the tree.
 				 */
+                if ((node.folder == undefined || node.folder == false) && data.hitMode == 'over'){
+                    return false;
+                }
 				data.otherNode.moveTo(node, data.hitMode);
                 repositionNodes(node, data);
 			}
@@ -1226,7 +1234,7 @@ define(function(require) {
         console.log("this is being dragged "+draggedNodeId);
         $.ajax({
             //ToDo: newPosition to be picked up dynamically
-			url : APP.config.baseUrl + '/nodes/' + draggedNodeId + '/move?newParentId='+node.key+'&newPosition=1',
+			url : APP.config.baseUrl + '/nodes/' + draggedNodeId + '/move?newRefNodeId='+node.key+'&position='+data.hitMode,
 			type : 'post',
 			dataType : 'json',
 			contentType : "application/json",
