@@ -1203,6 +1203,8 @@ define(function(require) {
 			}
 		},
 		click : function(event, data) {
+            $("#apiRequestNameTextBox").hide();
+            $("#apiRequestName").show();
 			if (!data.node.isFolder() && data.node.data.id) {
 				if (data.node.data.nodeType == "SOCKET") {
 					$("#socketName").html(data.node.data.name + '<i class="fa fa-pencil edit-pencil" id="socketNameEdit"></i>');
