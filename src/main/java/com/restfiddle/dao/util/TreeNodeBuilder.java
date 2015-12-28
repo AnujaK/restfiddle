@@ -22,11 +22,14 @@ import com.restfiddle.util.TreeNode;
 
 public class TreeNodeBuilder {
 
-    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String nodeType,Boolean starred, String method, Date lastModifiedDate, User lastModifiedBy) {
+    public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String workspaceId, String parentId, Long position, String nodeType, Boolean starred, String method, Date lastModifiedDate, User lastModifiedBy) {
 	TreeNode treeNode = new TreeNode();
 	treeNode.setId(nodeId);
 	treeNode.setName(nodeName);
 	treeNode.setDescription(nodeDesc);
+	treeNode.setWorkspaceId(workspaceId);
+	treeNode.setParentId(parentId);
+	treeNode.setPosition(position);
 	treeNode.setNodeType(nodeType);
 	treeNode.setStarred(starred);
 	treeNode.setMethod(method);
