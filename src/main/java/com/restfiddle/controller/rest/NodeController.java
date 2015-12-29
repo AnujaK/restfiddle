@@ -357,15 +357,17 @@ public class NodeController {
 	    }
 	}
 
+	int order = 1;
 	if (sort != null) {
-	    int order = 1;
 	    if (sort.trim().charAt(0) == '-') {
 		order = -1;
 		sort = sort.substring(1);
 	    }
-
 	    sortTree(rootNode, sort, order);
+	}else{
+	    sortTree(rootNode, "position", order);
 	}
+	
 	return rootNode;
     }
 
@@ -405,7 +407,15 @@ public class NodeController {
 		break;
 
 	    default:
-		return;
+		comparator = new Comparator<TreeNode>() {
+
+		    @Override
+		    public int compare(TreeNode o1, TreeNode o2) {
+
+			return order * o1.getPosition().compareTo(o2.getPosition());
+		    }
+		};
+		break;
 	    }
 
 	    sortTreeNodes(rootNode, comparator);
