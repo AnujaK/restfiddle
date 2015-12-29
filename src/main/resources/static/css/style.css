@@ -88,16 +88,16 @@ ul.fancytree-container {
 	display: block;
 }
 
-#starred-items .list-group-item, #tagged-items .list-group-item, #history-items .list-group-item {
+#starred-items .list-group-item, #tagged-items .list-group-item, #history-items .list-group-item, #requests-items .list-group-item {
 	border-left: 0px;
 	border-right: 0px;
 }
 
-#starred-items .list-group-item:first-child, #tagged-items .list-group-item:first-child, #history-items .list-group-item:first-child {
+#starred-items .list-group-item:first-child, #tagged-items .list-group-item:first-child, #history-items .list-group-item:first-child, #requests-items .list-group-item:first-child {
 	border-top-right-radius: 0px;
 	border-top-left-radius: 0px;
 }
-#starred-items .list-group-item:last-child, #tagged-items .list-group-item:last-child, #history-items .list-group-item:last-child {
+#starred-items .list-group-item:last-child, #tagged-items .list-group-item:last-child, #history-items .list-group-item:last-child, #requests-items .list-group-item:last-child {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
 }

@@ -16,7 +16,6 @@
 package com.restfiddle.controller.rest;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -472,5 +471,22 @@ public class NodeController {
 
 	nodeRepository.save(node);
 	return Boolean.TRUE;
+    }
+    
+    @RequestMapping(value = "/api/nodes/{id}/requests", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> getProjectRequests(@PathVariable("id") String id, @RequestParam(value = "page", required = false) Integer page,
+	    @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "search", required = false) String search,
+	    @RequestParam(value = "sort", required = false) String sortBy) {
+	// Note : There must be a better way of doing it. This method is written in a hurry.
+
+	// Get project Id from the reference node
+	BaseNode projectRefNode = nodeRepository.findOne(id);
+
+	String projectId = projectRefNode.getProjectId();
+
+	List<BaseNode> requestsNodes = nodeRepository.findRequestsFromAProject(projectId, search != null ? search : "");
+	
+	return requestsNodes;
     }
 }

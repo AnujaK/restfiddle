@@ -52,6 +52,7 @@ define(function(require) {
 			});
 
 			$('#tree').hide();
+			$('#requests-items').hide();
 			$('#tagged-items').hide();
 			$('#history-items').hide();
 
@@ -79,6 +80,7 @@ define(function(require) {
 			});
 
 			$('#tree').hide();
+			$('#requests-items').hide();
 			$('#tagged-items').hide();
 			$('#starred-items').hide();
 		},
@@ -110,6 +112,7 @@ define(function(require) {
 						$('#tagged-items').hide();
 						$('#starred-items').hide();
 						$('#history-items').hide();
+						$('#requests-items').hide();
 						$('#tree').show();
 
 						console.log('Project Id : ' + element.data('project-ref-id'))
@@ -152,6 +155,7 @@ define(function(require) {
 							$('#tagged-items').hide();
 							$('#starred-items').hide();
 							$('#history-items').hide();
+							$('#requests-items').hide();
 							$('#tree').show();
 
 							console.log('Project Id : ' + element.data('project-ref-id'))
@@ -183,6 +187,7 @@ define(function(require) {
 					$('#tree').hide();
 					$('#history-items').hide();
 					$('#tagged-items').show();
+					$('#requests-items').hide();
 					var taggedNodeView = new TaggedNodeView();
 					taggedNodeView.showTaggedNodes(tagId);
 				}
