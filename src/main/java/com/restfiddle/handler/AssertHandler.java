@@ -7,25 +7,30 @@ import net.minidev.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.restfiddle.controller.rest.AssertionController;
 import com.restfiddle.dto.AssertionDTO;
 import com.restfiddle.dto.BodyAssertDTO;
 import com.restfiddle.dto.RfResponseDTO;
 
 @Component
 public class AssertHandler {
+    
+    @Autowired
+    private AssertionController assertionController;
+    
     Logger logger = LoggerFactory.getLogger(AssertHandler.class);
 
-    public void runAssert(RfResponseDTO rfResponseDTO) {
+    public void runAssert(RfResponseDTO rfResponseDTO, String nodeId) {
 	AssertionDTO assertionDTO = rfResponseDTO.getAssertionDTO();
 	if (assertionDTO == null)
 	    return;
 
 	List<BodyAssertDTO> bodyAssertDTOs = assertionDTO.getBodyAssertDTOs();
-	;
 	if (bodyAssertDTOs == null)
 	    return;
 
@@ -34,6 +39,7 @@ public class AssertHandler {
 	    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
 		tool.doAssert(bodyAssertDTO);
 	    }
+	    assertionController.update(nodeId, assertionDTO);
 	} catch (Exception e) {
 	    logger.debug("Body is not json");
 	}

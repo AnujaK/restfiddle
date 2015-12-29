@@ -21,6 +21,7 @@ define(function(require) {
 	var RequestsView = require('views/requests-view');
 	var treeData;
 	var tree = {};
+    var draggedNodeId;
 
 	$(".rf-col-2").mCustomScrollbar({
 		theme : "minimal-dark"
@@ -1118,11 +1119,19 @@ define(function(require) {
 			// 'before self', etc.
 			preventRecursiveMoves : true, // Prevent dropping nodes on
 			// own descendants
+			draggable: { // modify default jQuery draggable options
+			  zIndex: 1000,
+			  scroll: true,
+			  containment: "parent",
+			  // appendTo: "body", Todo: check where to append
+			  revert: "invalid"
+			},
 			dragStart : function(node, data) {
 				/**
 				 * This function MUST be defined to enable dragging for the
 				 * tree. Return false to cancel dragging of node.
 				 */
+                draggedNodeId = node.key;
 				return true;
 			},
 			dragEnter : function(node, data) {
@@ -1142,14 +1151,23 @@ define(function(require) {
 				 * Don't allow dropping *over* a node (would create a child)
 				 * return ["before", "after"];
 				 */
-				return true;
+				//return true;
+                //Preventing drop on leaf nodes i.e. request nodes
+                /*if(node.folder == undefined || node.folder == false) {
+                    return false;
+                }*/
+                return true;
 			},
 			dragDrop : function(node, data) {
 				/**
 				 * This function MUST be defined to enable dropping of items on
 				 * the tree.
 				 */
+                if ((node.folder == undefined || node.folder == false) && data.hitMode == 'over'){
+                    return false;
+                }
 				data.otherNode.moveTo(node, data.hitMode);
+                repositionNodes(node, data);
 			}
 		},
 		createNode : function(event, data) {
@@ -1212,6 +1230,20 @@ define(function(require) {
 		},
 		source : []
 	});
+    
+    function repositionNodes(node, data){
+        console.log("this is being dragged "+draggedNodeId);
+        $.ajax({
+            //ToDo: newPosition to be picked up dynamically
+			url : APP.config.baseUrl + '/nodes/' + draggedNodeId + '/move?newRefNodeId='+node.key+'&position='+data.hitMode,
+			type : 'post',
+			dataType : 'json',
+			contentType : "application/json",
+			success : function(response) {
+				console.log("Repositioning");
+			}
+		});
+    }
 
 	var treeObj = $("#tree").fancytree("getTree");
 
