@@ -37,3 +37,4 @@ nb-configuration.xml
 
 build/*
 .gradle/*
+/bin/

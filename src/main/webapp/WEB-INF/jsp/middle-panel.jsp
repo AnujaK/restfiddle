@@ -52,8 +52,8 @@
             <li class="divider"></li>
             <li><a class="rf-font-12" data-toggle="modal" data-target="#importModal">Import</a></li>
             <li class="divider"></li>
-            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Flat View shows requests only.">Flat View</a></li>
-            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Tree View shows tree structure of project.">Tree View</a></li>
+            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Flat View shows requests only." id="showFlatView">Flat View</a></li>
+            <li><a class="rf-font-12" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Tree View shows tree structure of project." id="showTreeView">Tree View</a></li>
         </ul>
     </div>
     
@@ -76,6 +76,9 @@
     </ul> 
 
     <ul class="nav nav-pills nav-stacked rf-left-nav" id="history-items">
+    </ul>
+    
+    <ul class="nav nav-pills nav-stacked rf-left-nav" id="requests-items">
     </ul>
 
     <div id="tree" class="fancytree-colorize-hover"></div>

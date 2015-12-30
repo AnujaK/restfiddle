@@ -18,6 +18,7 @@ define(function(require) {
 	var EntityModel = require('models/entity');
 	var TagView = require('views/tag-view');
 	var TagsView = require('views/tags-view');
+	var RequestsView = require('views/requests-view');
 	var treeData;
 	var tree = {};
     var draggedNodeId;
@@ -1619,6 +1620,8 @@ define(function(require) {
 						tree.loadNode(activeNodeId);
 					}
 					
+					$('#tree').show();
+					
 				}
 			});
 		};
@@ -1648,6 +1651,15 @@ define(function(require) {
 			} else if(e.target.id === 'sortByLastModifiedDesc'){
 				buildTree($("#search").val(), '-lastModified');
 			}
+		});
+		
+		$('#showTreeView').unbind();
+		$('#requests-items').hide();
+		$('#showFlatView').unbind().bind('click',function (e){
+			$('#tree').hide();
+			$('#requests-items').show();
+			var requestsView = new RequestsView();
+			requestsView.showRequestNodes(projectRefNodeId);
 		});
 		
 	};
