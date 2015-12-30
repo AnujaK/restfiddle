@@ -1436,9 +1436,11 @@ define(function(require) {
 
 			node.data.id = nodeModel.attributes.id;
 			node.data.name = nodeModel.attributes.name;
-			var colorCode = getColorCode(nodeModel.attributes.method);
-			var treeNodeView = new TreeNodeView();
-			node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+			if (serverNode.children[i].method){
+				var colorCode = getColorCode(nodeModel.attributes.method);
+				var treeNodeView = new TreeNodeView();
+				node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+			}
 			node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function() {
 				editNode(node);
 			});
