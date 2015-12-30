@@ -543,6 +543,10 @@ public class NodeController {
 	if (position.equals("over") && !(newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))) {
 	    return;
 	}
+	// Special case where -1 getting saved for non-project node
+	if (!(node.getNodeType().equalsIgnoreCase("PROJECT")) && newParentId.equals("-1")){
+	    return;
+	}
 	// update new folder
 	List<BaseNode> newFolderChildren;
 	if(newRefNode.getNodeType() != null && (newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))){
