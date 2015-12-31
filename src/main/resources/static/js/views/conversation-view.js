@@ -166,9 +166,9 @@ define(function(require) {
 	});
 	$("#copyResponse").on('mouseleave', function() {
 		$("#copyResponse").attr('title', 'Copy the response content.').tooltip('fixTitle').data('bs.tooltip').$tip.find('.tooltip-inner').text('Copy the response content.');
-	})
+	});
 
-	$("#showLastResponse").unbind("click").bind("click", function() {
+	$("#showPreviousAssert").unbind("click").bind("click", function() {
         $('#assertsPreviousModal').modal('show');
         var nodeId = APP.appView.getCurrentRequestNodeId();
         if(nodeId != undefined && nodeId != ""){
