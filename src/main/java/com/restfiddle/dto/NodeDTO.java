@@ -39,6 +39,8 @@ public class NodeDTO extends BaseDTO {
     private List<TagDTO> tags;
     
     private String apiURL;
+    
+    private String workspaceId;
 
     public String getProjectId() {
 	return projectId;
@@ -118,6 +120,14 @@ public class NodeDTO extends BaseDTO {
 
     public void setApiURL(String apiURL) {
         this.apiURL = apiURL;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
     }
 
 }

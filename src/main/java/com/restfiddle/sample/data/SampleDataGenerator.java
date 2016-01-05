@@ -314,6 +314,7 @@ public class SampleDataGenerator {
 	firstFolderNode.setName("First Folder Node");
 	firstFolderNode.setNodeType(NodeType.FOLDER.name());
 	firstFolderNode.setProjectId(firstProjectId);
+	firstFolderNode.setWorkspaceId(demoWorkspaceId);
 
 	ConversationDTO conversationDTO = new ConversationDTO();
 	conversationDTO.setWorkspaceId(demoWorkspaceId);
@@ -348,6 +349,7 @@ public class SampleDataGenerator {
 	childNode.setName("GET Workspace");
 	childNode.setDescription("A workspace is a collection of projects. This API returns list of available workspaces.");
 	childNode.setProjectId(firstProjectId);
+	childNode.setWorkspaceId(demoWorkspaceId);
 	childNode.setConversationDTO(createdConversation);
 	NodeDTO createdChildNode = nodeController.create(createdFolderNode.getId(), childNode);
 	nodeController.addTags(createdChildNode.getId(), tags);
@@ -358,6 +360,7 @@ public class SampleDataGenerator {
 	secondNode.setName("POST Workspace");
 	secondNode.setDescription("A workspace is a collection of projects. This API is used to create a new workspace.");
 	secondNode.setProjectId(firstProjectId);
+	secondNode.setWorkspaceId(demoWorkspaceId);
 	secondNode.setConversationDTO(createdPostConversation);
 	NodeDTO createdSecondNode = nodeController.create(firstProjectRefId, secondNode);
 	nodeController.addTags(createdSecondNode.getId(), tags);
@@ -489,6 +492,7 @@ public class SampleDataGenerator {
 	node.setDescription(description);
 	node.setProjectId(projId);
 	node.setConversationDTO(conversation);
+	node.setWorkspaceId(demoWorkspaceId);
 	NodeDTO createdHttpbinNode = nodeController.create(projRefId, node);
 	//nodeController.addTags(httpbinNode.getId(), tags);
 	conversation.setNodeDTO(createdHttpbinNode);
@@ -518,6 +522,7 @@ public class SampleDataGenerator {
    	socialNode.setDescription(description);
    	socialNode.setProjectId(projectId);
    	socialNode.setConversationDTO(conversationsocial);
+   	socialNode.setWorkspaceId(socialWorkspaceId);
    	NodeDTO createdSocialNode = nodeController.create(projectRefId, socialNode);
    	//nodeController.addTags(httpbinNode.getId(), tags);
    	conversationsocial.setNodeDTO(createdSocialNode);
