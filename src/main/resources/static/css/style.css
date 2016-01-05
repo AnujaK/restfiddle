@@ -627,6 +627,7 @@ ul .dropdown-menu li{
 
 #searchBox {
 	margin: 10px; 
+    min-width: 95%;
 }
 #loading, #loadingRequest{
     opacity: 0.8;
@@ -646,4 +647,7 @@ ul .dropdown-menu li{
     color: black;
     font-size: xx-large;
     text-align: center;
+}
+.nodeTimestamp {
+    font-size: xx-small;
 }

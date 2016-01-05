@@ -1284,7 +1284,8 @@ define(function(require) {
 
 				if (serverNode.children[i].method) {
 					colorCode = getColorCode(serverNode.children[i].method);
-					title = '<div><span class="lozenge left ' + colorCode + ' auth_required">' + serverNode.children[i].method + '</span>' + '<span class = "large-text ' + getTitleClass(serverNode.children[i].method) + '" title = "' + serverNode.children[i].name + '">' + serverNode.children[i].name + '</span>' +displayLastModified(serverNode.children[i])+ treeNodeView.template()+'</div>';
+					title = '<div><span class="lozenge left ' + colorCode + ' auth_required">' + serverNode.children[i].method + '</span>' + '<span class = "large-text ' + getTitleClass(serverNode.children[i].method) + '" title = "' + serverNode.children[i].name + '">' + serverNode.children[i].name + '</span>' 
+                        +treeNodeView.template() + displayLastModified(serverNode.children[i]) +'</div>';
                     //title = title + displayLastModified(serverNode.children[i]);
 				} else {
 					title = serverNode.children[i].name + treeNodeView.template();
@@ -1336,7 +1337,7 @@ define(function(require) {
         if(lastModifiedBy !== null){
             runBy = 'by '+ lastModifiedBy.name;
         }
-        return '&nbsp;<span>'+time+'&nbsp;'+ runBy +'</span>';
+        return '&nbsp;<div class="nodeTimestamp">'+time+'&nbsp;'+ runBy +'</div>';
     }
     
 
@@ -1436,28 +1437,28 @@ define(function(require) {
 
 			node.data.id = nodeModel.attributes.id;
 			node.data.name = nodeModel.attributes.name;
-			if (serverNode.children[i].method){
-				var colorCode = getColorCode(nodeModel.attributes.method);
-				var treeNodeView = new TreeNodeView();
-				node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
-			}
+			
+            var colorCode = getColorCode(nodeModel.attributes.method);
+            var treeNodeView = new TreeNodeView();
+            node.setTitle('<span class="lozenge left ' + colorCode + ' auth_required">' + nodeModel.attributes.method + '</span>' + '<span class = "large-text ' + getTitleClass(nodeModel.attributes.method) + '" title = ' + nodeModel.attributes.name + '>' + nodeModel.attributes.name + '</span>' + treeNodeView.template());
+		
 			node.li.getElementsByClassName("edit-node")[0].addEventListener("click", function() {
 				editNode(node);
 			});
 			node.li.getElementsByClassName("copy-node")[0].addEventListener("click", function() {
 				copyNode(node);
 			});
-			var runNodeBtn = data.node.li.getElementsByClassName("run-node");
+			var runNodeBtn = node.li.getElementsByClassName("run-node");
 			if (runNodeBtn && runNodeBtn.length > 0) {
 				runNodeBtn[0].addEventListener("click", function() {
-					runNode(data.node);
+					runNode(node);
 				});
 			} 
             else{
                 var runFolderBtn = data.node.li.getElementsByClassName("run-folder");
                 if (runFolderBtn && runFolderBtn.length > 0) {
                     runFolderBtn[0].addEventListener("click",function(){
-                    runFolder(data.node);
+                    runFolder(node);
                      });
                 }
             }
