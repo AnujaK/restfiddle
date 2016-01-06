@@ -25,6 +25,7 @@ span.fancytree-node {
 
 ul.fancytree-container {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding : 5px;
 }
 
 .rf-left-nav>li>a, .div-list-item{
