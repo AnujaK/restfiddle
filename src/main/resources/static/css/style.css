@@ -69,7 +69,8 @@ ul.fancytree-container {
 }
 
 .apiRequestType {
-	
+	padding: 3px;
+    font-size: 12px;
 }
 
 .rf-col-btn {
