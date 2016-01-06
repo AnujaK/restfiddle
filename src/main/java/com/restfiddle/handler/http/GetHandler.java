@@ -37,7 +37,7 @@ public class GetHandler extends GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpGet httpGet = new HttpGet(rfRequestDTO.getApiUrl());
+	HttpGet httpGet = new HttpGet(rfRequestDTO.getEvaluatedApiUrl());
 	try {
 	    response = processHttpRequest(httpGet, httpclient);
 

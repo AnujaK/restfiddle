@@ -206,11 +206,7 @@ public class ApiController {
     private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String envId) {
 	// TODO : Regex is hard-coded for now. User will have the option to choose different regular expressions.
 	// TODO : Need to add the option to change regex in settings (UI).
-	String regex = "\\{\\{([^\\}\\}]*)\\}\\}";
-	Environment env = null;
-	if (envId != null && !envId.isEmpty()) {
-	    env = environmentController.findById(envId);
-	}
+	
 
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;
@@ -227,20 +223,10 @@ public class ApiController {
 		    String apiUrl = rfRequest.getApiUrl();
 		    String apiBody = rfRequest.getApiBody();
 		    if (methodType != null && !methodType.isEmpty() && apiUrl != null && !apiUrl.isEmpty()) {
-			if (env != null) {
-			    Pattern p = Pattern.compile(regex);
-			    Matcher m = p.matcher(apiUrl);
-			    String tempUrl = null;
-			    while (m.find()) {
-				String exprVar = m.group(1);
-				String propVal = env.getPropertyValueByName(exprVar);
-				tempUrl = apiUrl.replaceFirst(regex, propVal);
-				apiUrl = tempUrl;
-			    }
-			}
+			String evaulatedApiUrl = evaluateApiUrl(envId, apiUrl);
 			RfRequestDTO rfRequestDTO = new RfRequestDTO();
 			rfRequestDTO.setMethodType(methodType);
-			rfRequestDTO.setApiUrl(apiUrl);
+			rfRequestDTO.setApiUrl(evaulatedApiUrl);
 			rfRequestDTO.setApiBody(apiBody);
 			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
@@ -252,7 +238,7 @@ public class ApiController {
 			nodeStatus.setId(baseNode.getId());
 			nodeStatus.setName(baseNode.getName());
 			nodeStatus.setDescription(baseNode.getDescription());
-			nodeStatus.setApiUrl(apiUrl);
+			nodeStatus.setApiUrl(evaulatedApiUrl);
 			nodeStatus.setMethodType(methodType);
 			nodeStatus.setStatusCode(rfResponseDTO.getStatus());
 			nodeStatus.setDuration(conversationDTO.getDuration());
@@ -282,6 +268,26 @@ public class ApiController {
 	    }
 	}
 	return nodeStatuses;
+    }
+
+    private String evaluateApiUrl(String envId, String apiUrl) {
+	String regex = "\\{\\{([^\\}\\}]*)\\}\\}";
+	Environment env = null;
+	if (envId != null && !envId.isEmpty()) {
+	    env = environmentController.findById(envId);
+	}
+	if (env != null) {
+	    Pattern p = Pattern.compile(regex);
+	    Matcher m = p.matcher(apiUrl);
+	    String tempUrl = null;
+	    while (m.find()) {
+		String exprVar = m.group(1);
+		String propVal = env.getPropertyValueByName(exprVar);
+		tempUrl = apiUrl.replaceFirst(regex, propVal);
+		apiUrl = tempUrl;
+	    }
+	}
+	return apiUrl;
     }
 
     @RequestMapping(value = "/api/oauth/form", method = RequestMethod.POST)

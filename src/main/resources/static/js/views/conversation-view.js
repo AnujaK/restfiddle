@@ -676,7 +676,8 @@ define(function(require) {
             var workspaceId = APP.appView.getCurrentWorkspaceId();
 			var item = {	
 				id : this.nodeRfRequest ? this.nodeRfRequest.id : null,
-				apiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()).replace(/%7B/g, '{').replace(/%7D/g, '}'),
+				evaluatedApiUrl : encodeURI(this.$el.find("#evaluatedApiUrl").val()).replace(/%7B/g, '{').replace(/%7D/g, '}'),
+				apiUrl : $("#apiUrl").val(),
 				methodType : this.$el.find(".apiRequestType").val(),
 				apiBody : this.apiBodyCodeMirror.getValue(),
 				headers : this.getHeaderParams(),

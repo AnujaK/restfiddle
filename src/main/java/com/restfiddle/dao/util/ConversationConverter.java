@@ -32,6 +32,8 @@ public class ConversationConverter {
 	if (rfRequestDTO != null) {
 	    conversation.setWorkspaceId(rfRequestDTO.getWorkspaceId());
 	    rfRequest.setApiUrl(rfRequestDTO.getApiUrl());
+	    //Futuristic approach: evaluatedApiUrl not being used on UI currently.
+	    rfRequest.setEvaluatedApiUrl(rfRequestDTO.getEvaluatedApiUrl());
 	    rfRequest.setMethodType(rfRequestDTO.getMethodType());
 
 	    List<FormDataDTO> formDataDTOs = rfRequestDTO.getFormParams();

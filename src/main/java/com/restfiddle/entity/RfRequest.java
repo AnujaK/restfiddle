@@ -44,6 +44,8 @@ public class RfRequest extends NamedEntity {
     private OAuth2 oAuth2;
 
     private String conversationId;
+    
+    private String evaluatedApiUrl;
 
     @DBRef
     private Assertion assertion;
@@ -142,5 +144,13 @@ public class RfRequest extends NamedEntity {
 
     public void setApiBody(String apiBody) {
         this.apiBody = apiBody;
+    }
+
+    public String getEvaluatedApiUrl() {
+        return evaluatedApiUrl;
+    }
+
+    public void setEvaluatedApiUrl(String evaluatedApiUrl) {
+        this.evaluatedApiUrl = evaluatedApiUrl;
     }
 }

@@ -33,7 +33,7 @@ public class PutHandler extends GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpPut httpPut = new HttpPut(rfRequestDTO.getApiUrl());
+	HttpPut httpPut = new HttpPut(rfRequestDTO.getEvaluatedApiUrl());
 	httpPut.addHeader("Content-Type", "application/json");
 	httpPut.setEntity(new StringEntity(rfRequestDTO.getApiBody()));
 	try {

@@ -37,7 +37,7 @@ public class PostHandler extends GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpPost httpPost = new HttpPost(rfRequestDTO.getApiUrl());
+	HttpPost httpPost = new HttpPost(rfRequestDTO.getEvaluatedApiUrl());
 	httpPost.addHeader("Content-Type", "application/json");
 	httpPost.setEntity(new StringEntity(rfRequestDTO.getApiBody()));
 	try {

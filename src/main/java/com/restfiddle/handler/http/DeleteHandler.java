@@ -32,7 +32,7 @@ public class DeleteHandler extends GenericHandler {
     public RfResponseDTO process(RfRequestDTO rfRequestDTO) throws IOException {
 	RfResponseDTO response = null;
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	HttpDelete httpDelete = new HttpDelete(rfRequestDTO.getApiUrl());
+	HttpDelete httpDelete = new HttpDelete(rfRequestDTO.getEvaluatedApiUrl());
 	httpDelete.addHeader("Content-Type", "application/json");
 	try {
 	    response = processHttpRequest(httpDelete, httpclient);

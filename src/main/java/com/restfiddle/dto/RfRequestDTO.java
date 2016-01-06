@@ -18,7 +18,6 @@ package com.restfiddle.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.restfiddle.entity.Assertion;
 
 public class RfRequestDTO extends BaseDTO {
     private String apiUrl;
@@ -43,6 +42,8 @@ public class RfRequestDTO extends BaseDTO {
     private AssertionDTO assertionDTO;
     
     private String workspaceId;
+    
+    private String evaluatedApiUrl;
 
     public String getApiUrl() {
 	return apiUrl;
@@ -130,5 +131,13 @@ public class RfRequestDTO extends BaseDTO {
 
     public void setWorkspaceId(String workspaceId) {
         this.workspaceId = workspaceId;
+    }
+
+    public String getEvaluatedApiUrl() {
+        return evaluatedApiUrl;
+    }
+
+    public void setEvaluatedApiUrl(String evaluatedApiUrl) {
+        this.evaluatedApiUrl = evaluatedApiUrl;
     }
 }
