@@ -612,6 +612,9 @@ ul .dropdown-menu li{
 .fancytree-title {
     font-size: 13px   
 }
+span.fancytree-title {
+    height: 2.3em;
+}
 
 #response-preview {
 	display: block;       /* iframes are inline by default */
