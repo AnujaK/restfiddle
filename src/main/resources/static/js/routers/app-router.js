@@ -173,9 +173,6 @@ define(function(require) {
 			});
 			workspace.fetch({
 				success : function(response) {
-					var workSpaceView = new WorkspaceView();
-					workSpaceView.changeWorkspace(response);
-
 					$('#rf-col-1-body').find('li').each(function(){
 						$(this).removeClass('active');
 					});
