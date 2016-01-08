@@ -580,4 +580,10 @@ public class NodeController {
 	    }
 	}
     }
+    
+    @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BaseNode> findProjectsFromAWorkspace(@PathVariable("workspaceId") String workspaceId) {
+	return nodeRepository.findProjectsfromAWorkspace(workspaceId);
+    }
 }

@@ -26,5 +26,5 @@ public interface ProjectRepository extends RfRepository<Project, String> {
 
     // TODO : Implement me!
     @Query("{ 'workspaceId' : '' }")
-    public List<Project> findProjectsFromAWorkspace(@Param("workspaceId") Long workspaceId);
+    public List<Project> findProjectsFromAWorkspace(@Param("workspaceId") String workspaceId);
 }

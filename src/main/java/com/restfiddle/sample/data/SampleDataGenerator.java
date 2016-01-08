@@ -160,6 +160,7 @@ public class SampleDataGenerator {
 	oauth2DataGenerator.loadFacebookAPI();
     }
 
+    @SuppressWarnings("unused")
     private void loadRoleData() {
 	RoleDTO adminRoleDTO = new RoleDTO();
 	adminRoleDTO.setType(RoleType.ROLE_ADMIN.name());
@@ -170,6 +171,7 @@ public class SampleDataGenerator {
 	roleController.create(userRoleDTO);
     }
 
+    @SuppressWarnings("unused")
     private void loadPermissionData() {
 	PermissionDTO viewWorkspacePermission = new PermissionDTO();
 	viewWorkspacePermission.setType(PermissionType.VIEW_WORKSPACE.name());
@@ -224,6 +226,7 @@ public class SampleDataGenerator {
 
     }
 
+    @SuppressWarnings("unused")
     private void loadUserData() {
 
     }
@@ -367,15 +370,25 @@ public class SampleDataGenerator {
 	createdPostConversation.setNodeDTO(createdSecondNode);
 	conversationController.update(createdPostConversation.getId(), createdPostConversation);
 
-	NodeDTO dummyNode = new NodeDTO();
-	dummyNode.setName("Dummy Node");
-	dummyNode.setProjectId(firstProjectId);
-	nodeController.create(firstProjectRefId, dummyNode);
+	conversationDTO = new ConversationDTO();
+	conversationDTO.setWorkspaceId(demoWorkspaceId);
+	
+	rfRequestDTO = new RfRequestDTO();
+	rfRequestDTO.setApiUrl(hostUri + "/api/workspaces/"+demoWorkspaceId+"/projects");
+	rfRequestDTO.setMethodType("GET");
+	conversationDTO.setRfRequestDTO(rfRequestDTO);
+	createdConversation = conversationController.create(conversationDTO);
+	conversationDTO.setId(createdConversation.getId());
 
 	NodeDTO testNode = new NodeDTO();
 	testNode.setName("Test Node");
+	testNode.setDescription("Fetches projects from a workspace.");
 	testNode.setProjectId(firstProjectId);
-	nodeController.create(firstProjectRefId, testNode);
+	testNode.setWorkspaceId(demoWorkspaceId);
+	testNode.setConversationDTO(conversationDTO);
+	NodeDTO createdTestNode = nodeController.create(firstProjectRefId, testNode);
+	createdConversation.setNodeDTO(createdTestNode);
+	conversationController.update(createdConversation.getId(), createdConversation);
 
 	conversationDTO = new ConversationDTO();
 	conversationDTO.setWorkspaceId(demoWorkspaceId);
@@ -392,6 +405,7 @@ public class SampleDataGenerator {
 	starredNode.setDescription("This API returns a list of requests which are marked as star.");
 	starredNode.setStarred(Boolean.TRUE);
 	starredNode.setProjectId(firstProjectId);
+	starredNode.setWorkspaceId(demoWorkspaceId);
 	starredNode.setConversationDTO(conversationDTO);
 	NodeDTO createdStarredNode = nodeController.create(firstProjectRefId, starredNode);
 	createdConversation.setNodeDTO(createdStarredNode);
