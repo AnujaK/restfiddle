@@ -1,3 +1,5 @@
+var element;
+
 define(function(require) {
 
 	require('backbone');
@@ -21,7 +23,8 @@ define(function(require) {
 			"" : "handleDefault",
 			"starred" : "showStarred",
 			"activityLog" : "showHistory",
-			"workspace/:workspaceId(/project/:projectId)" : "showProject",
+			"workspace/:workspaceId" : "showWorkspace",
+            "workspace/:workspaceId/project/:projectId" : "showProject",
 			"workspace/:workspaceId/project/:projectId/node/:nodeId" : "showNode",
 			"workspace/:workspaceId/tag/:tagId" : "showTagNodes"
 		},
@@ -84,8 +87,7 @@ define(function(require) {
 			$('#tagged-items').hide();
 			$('#starred-items').hide();
 		},
-		showProject : function(workspaceId, projectId, nodeId) {
-
+		showWorkspace : function(workspaceId) {
 			var workspace = new Workspace({
 				id : workspaceId
 			});
@@ -94,77 +96,30 @@ define(function(require) {
 					var workSpaceView = new WorkspaceView();
 					workSpaceView.changeWorkspace(response);
 
-					if (!projectId) {
-						var projects = response.get('projects');
-						if (projects[0]) {
-							projectId = projects[0].id;
-						}
-					}
-
-					if (projectId) {
-						$('#rf-col-1-body').find('li').each(function() {
-							$(this).removeClass('active');
-						});
-
-						var element = $('#' + projectId);
-						element.parent('li').addClass('active');
-
-						$('#tagged-items').hide();
-						$('#starred-items').hide();
-						$('#history-items').hide();
-						$('#requests-items').hide();
-						$('#tree').show();
-
-						console.log('Project Id : ' + element.data('project-ref-id'))
-						ProjectEvents.triggerChange(projectId);
-						console.log('current project id is ' + APP.appView.getCurrentProjectId());
-						tree.showTree(element.data('project-ref-id'),nodeId);
-					}
+                    //if (!projectId) {
+                        var projects = response.get('projects');
+                        var projectId;
+                        if (projects[0]) {
+                            projectId = projects[0].id;
+                        }
+                   // }
+                    renderProject(projectId);
+                    ProjectEvents.triggerChange(projectId);
+                    tree.showTree(element.data('project-ref-id'));
 				}
 			});
 
 		},
+        
+        showProject : function(workspaceId, projectId) {
+            renderProject(projectId);
+            ProjectEvents.triggerChange(projectId);
+            tree.showTree(element.data('project-ref-id'));
+        },
+        
 		showNode : function(workspaceId, projectId, nodeId) {
-			
 			if(workspaceId === APP.appView.getCurrentWorkspaceId() && projectId === APP.appView.getCurrentProjectId() && $('#tree').is(':visible')){
 				tree.loadNode(nodeId);
-			}else{
-				var workspace = new Workspace({
-					id : workspaceId
-				});
-				workspace.fetch({
-					success : function(response) {
-						var workSpaceView = new WorkspaceView();
-						workSpaceView.changeWorkspace(response);
-
-						if (!projectId) {
-							var projects = response.get('projects');
-							if (projects[0]) {
-								projectId = projects[0].id;
-							}
-						}
-
-						if (projectId) {
-							$('#rf-col-1-body').find('li').each(function() {
-								$(this).removeClass('active');
-							});
-
-							var element = $('#' + projectId);
-							element.parent('li').addClass('active');
-
-							$('#tagged-items').hide();
-							$('#starred-items').hide();
-							$('#history-items').hide();
-							$('#requests-items').hide();
-							$('#tree').show();
-
-							console.log('Project Id : ' + element.data('project-ref-id'))
-							ProjectEvents.triggerChange(projectId);
-							console.log('current project id is ' + APP.appView.getCurrentProjectId());
-							tree.showTree(element.data('project-ref-id'),nodeId);
-						}
-					}
-				});
 			}
 		},
 		showTagNodes : function(workspaceId,tagId) {
@@ -196,3 +151,24 @@ define(function(require) {
 
 	return AppRouter;
 });
+
+function renderProject(projectId){
+    if (projectId) {
+        $('#rf-col-1-body').find('li').each(function() {
+            $(this).removeClass('active');
+        });
+        
+        element = $('#' + projectId);
+   
+        element.parent('li').addClass('active');
+
+        $('#tagged-items').hide();
+        $('#starred-items').hide();
+        $('#history-items').hide();
+        $('#requests-items').hide();
+        $('#tree').show();
+
+        console.log('Project Id : ' + element.data('project-ref-id'));
+        console.log('current project id is ' + APP.appView.getCurrentProjectId());
+    }   
+}
