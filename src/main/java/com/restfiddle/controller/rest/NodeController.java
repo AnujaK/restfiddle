@@ -583,7 +583,8 @@ public class NodeController {
     
     @RequestMapping(value = "/api/workspaces/{workspaceId}/projects", method = RequestMethod.GET)
     public @ResponseBody
-    List<BaseNode> findProjectsFromAWorkspace(@PathVariable("workspaceId") String workspaceId) {
-	return nodeRepository.findProjectsfromAWorkspace(workspaceId);
+    List<BaseNode> findProjectsFromAWorkspace(@PathVariable("workspaceId") String workspaceId,
+	    @RequestParam(value = "search", required = false) String search) {
+	return nodeRepository.findProjectsfromAWorkspace(workspaceId, search != null ? search : "");
     }
 }
