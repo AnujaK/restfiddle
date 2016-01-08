@@ -544,7 +544,7 @@ public class NodeController {
 	    return;
 	}
 	// Special case where -1 getting saved for non-project node
-	if (!(node.getNodeType().equalsIgnoreCase("PROJECT")) && newParentId.equals("-1")){
+	if (!(node.getNodeType() != null && node.getNodeType().equalsIgnoreCase("PROJECT")) && newParentId.equals("-1")){
 	    return;
 	}
 	// update new folder
@@ -559,7 +559,7 @@ public class NodeController {
 	node.setPosition(newPosition);
 	nodeRepository.save(node);
 	for (BaseNode newFolderChild : newFolderChildren) {
-	    if (newFolderChild.getPosition() >= newPosition) {
+	    if (newFolderChild.getPosition() >= newPosition && newFolderChild.getId() != id) {
 		newFolderChild.setPosition(newFolderChild.getPosition() + 1);
 		nodeRepository.save(newFolderChild);
 	    }
