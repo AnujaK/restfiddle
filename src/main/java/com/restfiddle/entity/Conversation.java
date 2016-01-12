@@ -33,7 +33,12 @@ public class Conversation extends NamedEntity {
     private String nodeId;
 
     private String workspaceId;
-    
+
+    /**
+     * It acts as a reference to track/log run-project/run-folder functionality
+     */
+    private String runnerLogId;
+
     private Date lastRunDate;
 
     public RfRequest getRfRequest() {
@@ -77,10 +82,18 @@ public class Conversation extends NamedEntity {
     }
 
     public Date getLastRunDate() {
-        return lastRunDate;
+	return lastRunDate;
     }
 
     public void setLastRunDate(Date lastRunDate) {
-        this.lastRunDate = lastRunDate;
+	this.lastRunDate = lastRunDate;
+    }
+
+    public String getRunnerLogId() {
+	return runnerLogId;
+    }
+
+    public void setRunnerLogId(String runnerLogId) {
+	this.runnerLogId = runnerLogId;
     }
 }

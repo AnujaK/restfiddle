@@ -55,10 +55,12 @@ import com.restfiddle.dto.NodeStatusResponseDTO;
 import com.restfiddle.dto.OAuth2RequestDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
+import com.restfiddle.dto.RunnerLogDTO;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.Environment;
 import com.restfiddle.entity.RfRequest;
+import com.restfiddle.entity.RunnerLog;
 import com.restfiddle.entity.User;
 import com.restfiddle.exceptions.ApiException;
 import com.restfiddle.handler.AssertHandler;
@@ -91,10 +93,13 @@ public class ApiController {
     private AssertHandler assertHandler;
 
     @Autowired
+    private RunnerLogController runnerLogController;
+
+    @Autowired
     private EnvironmentController environmentController;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
-    ConversationDTO requestProcessor(@RequestBody RfRequestDTO rfRequestDTO) {
+    ConversationDTO requestProcessor(@RequestParam(value = "runnerLogId", required = false) String runnerLogId, @RequestBody RfRequestDTO rfRequestDTO) {
 	Conversation existingConversation = null;
 	Conversation currentConversation = null;
 
@@ -126,6 +131,9 @@ public class ApiController {
 	}
 
 	currentConversation = ConversationConverter.convertToEntity(rfRequestDTO, result);
+
+	// This is used to get project-runner/folder-runner logs
+	currentConversation.setRunnerLogId(runnerLogId);
 
 	if (existingConversation != null) {
 	    currentConversation.getRfRequest().setAssertion(existingConversation.getRfRequest().getAssertion());
@@ -163,7 +171,7 @@ public class ApiController {
 		    currentConversation.setLastModifiedBy((User) principal);
 		    node.setLastModifiedBy((User) principal);
 		}
-		
+
 		nodeRepository.save(node);
 	    }
 
@@ -187,8 +195,14 @@ public class ApiController {
     List<NodeStatusResponseDTO> runProjectById(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId) {
 	logger.debug("Running all requests inside project : " + id);
 
+	RunnerLogDTO runnerLogDTO = new RunnerLogDTO();
+	// TODO : Set project node id
+	// runnerLogDTO.setNodeId(nodeId);
+
+	RunnerLog log = runnerLogController.create(runnerLogDTO);
+
 	List<BaseNode> listOfNodes = nodeRepository.findNodesFromAProject(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId, log.getId());
 	return nodeStatuses;
     }
 
@@ -198,15 +212,20 @@ public class ApiController {
     List<NodeStatusResponseDTO> runFolderById(@PathVariable("id") String id, @RequestParam(value = "envId", required = false) String envId) {
 	logger.debug("Running all requests inside folder : " + id);
 
+	RunnerLogDTO runnerLogDTO = new RunnerLogDTO();
+	// TODO : Set project node id
+	// runnerLogDTO.setNodeId(nodeId);
+
+	RunnerLog log = runnerLogController.create(runnerLogDTO);
+
 	List<BaseNode> listOfNodes = nodeRepository.getChildren(id);
-	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId);
+	List<NodeStatusResponseDTO> nodeStatuses = runNodes(listOfNodes, envId, log.getId());
 	return nodeStatuses;
     }
 
-    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String envId) {
+    private List<NodeStatusResponseDTO> runNodes(List<BaseNode> listOfNodes, String envId, String runnerLogId) {
 	// TODO : Regex is hard-coded for now. User will have the option to choose different regular expressions.
 	// TODO : Need to add the option to change regex in settings (UI).
-	
 
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
 	NodeStatusResponseDTO nodeStatus = null;
@@ -230,9 +249,9 @@ public class ApiController {
 			rfRequestDTO.setApiBody(apiBody);
 			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
-			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO).getRfResponseDTO();
-			//logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
-			//ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
+			RfResponseDTO rfResponseDTO = requestProcessor(runnerLogId, rfRequestDTO).getRfResponseDTO();
+			// logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
+			// ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
 
 			nodeStatus = new NodeStatusResponseDTO();
 			nodeStatus.setId(baseNode.getId());
@@ -240,9 +259,8 @@ public class ApiController {
 			nodeStatus.setDescription(baseNode.getDescription());
 			nodeStatus.setApiUrl(evaulatedApiUrl);
 			nodeStatus.setMethodType(methodType);
-			//nodeStatus.setStatusCode(rfResponseDTO.getStatus());
-			//nodeStatus.setDuration(conversationDTO.getDuration());
-			
+			// nodeStatus.setStatusCode(rfResponseDTO.getStatus());
+			// nodeStatus.setDuration(conversationDTO.getDuration());
 
 			int successCount = 0;
 			int failureCount = 0;
@@ -265,9 +283,9 @@ public class ApiController {
 			}
 			nodeStatus.setSuccessAsserts(successCount);
 			nodeStatus.setFailureAsserts(failureCount);
-			
+
 			nodeStatuses.add(nodeStatus);
-			
+
 			// TODO : Create ProjectRunnerLog and store nodeId as well as loggedConversationId.
 		    }
 		}
