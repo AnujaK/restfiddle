@@ -149,6 +149,7 @@ public class ConversationConverter {
 	rfRequestDTO.setApiBody(rfRequest.getApiBody());
 
 	rfRequestDTO.setApiUrl(rfRequest.getApiUrl());
+	rfRequestDTO.setEvaluatedApiUrl(rfRequest.getEvaluatedApiUrl());
 	rfRequestDTO.setMethodType(rfRequest.getMethodType());
 
 	return itemDTO;

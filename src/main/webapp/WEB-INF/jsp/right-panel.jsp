@@ -4,6 +4,7 @@
             <br>
             <button class="btn btn-primary btn-sm" id="exportRunProjectReport">Export Report</button>
             <input type="hidden" class="form-control" id="typeRun" name="" value=""/>
+            <span id="projectRunnerError"></span>
             <br>
             <br>
         </div>

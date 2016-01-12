@@ -231,8 +231,8 @@ public class ApiController {
 			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
 			RfResponseDTO rfResponseDTO = requestProcessor(rfRequestDTO).getRfResponseDTO();
-			logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
-			ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
+			//logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
+			//ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
 
 			nodeStatus = new NodeStatusResponseDTO();
 			nodeStatus.setId(baseNode.getId());
@@ -240,20 +240,26 @@ public class ApiController {
 			nodeStatus.setDescription(baseNode.getDescription());
 			nodeStatus.setApiUrl(evaulatedApiUrl);
 			nodeStatus.setMethodType(methodType);
-			nodeStatus.setStatusCode(rfResponseDTO.getStatus());
-			nodeStatus.setDuration(conversationDTO.getDuration());
+			//nodeStatus.setStatusCode(rfResponseDTO.getStatus());
+			//nodeStatus.setDuration(conversationDTO.getDuration());
 			
 
 			int successCount = 0;
 			int failureCount = 0;
-			// TODO: get AssertionDTO from rfResponseDTO. Get bodyAssertsDTOs and loop through the list to count no. of success
-			List<BodyAssertDTO> bodyAssertDTOs = rfResponseDTO.getAssertionDTO().getBodyAssertDTOs();
-			if(bodyAssertDTOs != null){
-			    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
-				if (bodyAssertDTO.isSuccess()) {
-				    successCount++;
-				} else {
-				    failureCount++;
+			if (rfResponseDTO != null) {
+			    logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
+			    nodeStatus.setStatusCode(rfResponseDTO.getStatus());
+			    nodeStatus.setDuration(rfResponseDTO.getItemDTO().getDuration());
+
+			    // TODO: get AssertionDTO from rfResponseDTO. Get bodyAssertsDTOs and loop through the list to count no. of success
+			    List<BodyAssertDTO> bodyAssertDTOs = rfResponseDTO.getAssertionDTO().getBodyAssertDTOs();
+			    if (bodyAssertDTOs != null) {
+				for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
+				    if (bodyAssertDTO.isSuccess()) {
+					successCount++;
+				    } else {
+					failureCount++;
+				    }
 				}
 			    }
 			}

@@ -21,6 +21,7 @@ define(function(require) {
 
 	$(".run-project").unbind("click").bind("click", function() {
 		$('#loading').show();
+		$('#projectRunnerError').text('');
 		APP.conversation.$el.hide();
 		APP.socketConnector.$el.hide();
 		APP.projectRunner.$el.show();
@@ -43,6 +44,11 @@ define(function(require) {
 				console.log("project runner response : "+response);
 				APP.projectRunner.render(response);
 				$('#loading').hide();
+			},
+			error : function(errorThrown){
+				$('#exportRunProjectReport').hide();
+				$('#projectRunnerError').text(errorThrown.statusText);
+                $('#loading').hide();
 			}
 		});
 	});    

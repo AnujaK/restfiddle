@@ -68,6 +68,9 @@ public class RfRequestBuilder {
 
     private void setUriWithParams(RfRequestDTO requestDTO, RequestBuilder requestBuilder) {
 	String apiUrl = requestDTO.getEvaluatedApiUrl();
+	if(apiUrl == null || apiUrl.equals("")){
+	    apiUrl = requestDTO.getApiUrl();
+	}
 	List<UrlParamDTO> urlParams = requestDTO.getUrlParams();
 	if (urlParams != null && !urlParams.isEmpty()) {
 	    apiUrl = buildUrlWithParams(apiUrl, urlParams);

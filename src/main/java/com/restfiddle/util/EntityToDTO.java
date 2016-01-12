@@ -109,6 +109,7 @@ public class EntityToDTO {
 	copyBaseData(dto, entity);
 
 	dto.setApiUrl(entity.getApiUrl());
+	dto.setEvaluatedApiUrl(entity.getEvaluatedApiUrl());
 	dto.setMethodType(entity.getMethodType());
 	dto.setApiBody(entity.getApiBody());
 	dto.setHeaders(toListOfRfHeaderDTO(entity.getRfHeaders()));
