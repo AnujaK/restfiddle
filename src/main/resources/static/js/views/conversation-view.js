@@ -618,14 +618,10 @@ define(function(require) {
 						if (imageTypes.indexOf(contentType) > -1) {
 							$("#response-wrapper").html('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
 							iframe.document.write('<br><pre class="prettyprint">' + '<img src="data:' + contentType + ';base64,' + btoa(response.body) + '"></img>' + '</pre>');
-						} else if (contentType.indexOf("pdf") > -1){
-								alert("File to download");
-								var a = document.createElement("a");
-								a.setAttribute('href', 'application/octet-stream;charset=utf-8;base64,' + encodeURIComponent("This is a testing text"));
-								a.setAttribute('download', "report.pdf");
-                    			document.body.appendChild(a);
-                    			a.click();
-                    			document.body.removeChild(a);
+						} else if (contentType.indexOf("pdf") > -1 || contentType.indexOf("attachment") > -1){                                       //ToDo: form method should be POST, as there can be query params
+                    			var form = $('<form method="GET" action="' +encodeURI($("#evaluatedApiUrl").val()).replace(/%7B/g, '{').replace(/%7D/g, '}') + '">');
+								$('body').append(form);
+								form.submit();
 						}else{
 								$("#response-wrapper").html('<br><pre class="prettyprint">' + response.body.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
 								iframe.document.write('<br><pre>' + response.body + '</pre>');
