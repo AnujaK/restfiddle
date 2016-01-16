@@ -27,11 +27,6 @@ Some of the key features of this platform are:
 
 A lot of powerful features coming soon!
 
-Initial Design
-==========
-
-![alt text](https://raw.githubusercontent.com/AnujaK/restfiddle/gh-pages/images/home_page.png "Initial Design")
-
 Who Uses RESTFiddle
 ==========
 
