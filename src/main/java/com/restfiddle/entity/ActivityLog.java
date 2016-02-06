@@ -26,6 +26,8 @@ public class ActivityLog extends NamedEntity {
     private String type; // e.g. CONVERSATION
     
     private String dataId;
+    
+    private String workspaceId;
 
     @DBRef
     private List<BaseEntity> data;
@@ -52,5 +54,13 @@ public class ActivityLog extends NamedEntity {
 
     public void setDataId(String dataId) {
 	this.dataId = dataId;
+    }
+
+    public String getWorkspaceId() {
+	return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+	this.workspaceId = workspaceId;
     }
 }

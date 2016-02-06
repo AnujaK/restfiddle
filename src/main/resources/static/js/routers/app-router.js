@@ -69,7 +69,7 @@ define(function(require) {
 			$(".history").addClass('active');
 
 			$.ajax({
-				url : APP.config.baseUrl + '/conversations?workspaceId='+workspaceId,
+				url : APP.config.baseUrl + '/logs?workspaceId='+workspaceId,
 				type : 'get',
 				dataType : 'json',
 				contentType : "application/json",

@@ -15,19 +15,23 @@
  */
 package com.restfiddle.controller.rest;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,10 +74,36 @@ public class ActivityLogController {
 
     @RequestMapping(value = "/api/logs", method = RequestMethod.GET)
     public @ResponseBody
-    List<ActivityLog> findAll() {
+    Page<ActivityLog> findAll(@RequestParam(value = "workspaceId", required = false) String workspaceId, 
+	    @RequestParam(value = "search", required = false) String search, 
+	    @RequestParam(value = "page", required = false) Integer page,
+	    @RequestParam(value = "limit", required = false) Integer limit,
+	    @RequestParam(value = "sortBy", required = false) String sortBy) {
 	logger.debug("Finding all logs");
+	
+	int pageNo = 0;
+	if (page != null && page > 0) {
+	    pageNo = page;
+	}
 
-	return activityLogRepository.findAll();
+	int numberOfRecords = 10;
+	if (limit != null && limit > 0) {
+	    numberOfRecords = limit;
+	}
+	
+	Sort sort = new Sort(Direction.DESC, "lastModifiedDate");
+	if("name".equals(sortBy)){
+	    sort = new Sort(Direction.ASC, "name");
+	} else if ("lastRun".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "lastModifiedDate");
+	}else if ("nameDesc".equals(sortBy)){
+	    sort = new Sort(Direction.DESC, "name");
+	}
+	
+	Pageable pageable = new PageRequest(pageNo, numberOfRecords, sort);
+	Page<ActivityLog> result = activityLogRepository.findActivivtyLogsFromWorkspace(workspaceId, search != null ? search : "", pageable);
+	
+	return result;
     }
 
     @RequestMapping(value = "/api/logs/{id}", method = RequestMethod.GET)

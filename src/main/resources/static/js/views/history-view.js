@@ -138,8 +138,8 @@ define(function(require) {
                 if(activity.lastModifiedBy !== null){
                     activity.runBy = 'by '+ activity.lastModifiedBy.name;
                 }
-                activity.className = "lozenge left " + that.getColorCode(activity.rfRequestDTO.methodType) + " auth_required";
-                var activityTemplate = that.template({conversation : activity});
+                activity.className = "lozenge left " + that.getColorCode(activity.data[0].rfRequest.methodType) + " auth_required";
+                var activityTemplate = that.template({activity : activity});
                 $(that.el).append(activityTemplate);
             }, this); 
             
@@ -192,10 +192,10 @@ var HistoryView = Backbone.View.extend({
         var workspaceId = APP.appView.getCurrentWorkspaceId();
 		this.$el.html('');
         
-        var historyList = response.data;
+        var historyList = response.content;
         var totalPages = response.totalPages;
-        var page = response.page;
-        var limit = response.limit;
+        var page = response.number;
+        var limit = response.size;
         
 		this.model = historyList;
 		
@@ -204,7 +204,7 @@ var HistoryView = Backbone.View.extend({
         var showSearchResults = function(search, sortBy){
         $.ajax({
             url : APP.config.baseUrl 
-            + '/conversations?workspaceId='+workspaceId+ (search ? '&search=' + search : '') + (sortBy ? '&sortBy=' + sortBy : ''),
+            + '/logs?workspaceId='+workspaceId+ (search ? '&search=' + search : '') + (sortBy ? '&sortBy=' + sortBy : ''),
             type : 'get',
             dataType : 'json',
             contentType : "application/json",
@@ -232,7 +232,7 @@ var HistoryView = Backbone.View.extend({
                     showSearchResults($("#search").val(),'name');
                 } else if(e.target.id === 'sortByLastModified'){
                     showSearchResults($("#search").val(), 'lastRun');
-                }else if(e.target.id === 'sortByNameDesc'){
+                } else if(e.target.id === 'sortByNameDesc'){
                     showSearchResults($("#search").val(), 'nameDesc');
                 }
             });
@@ -246,12 +246,12 @@ var HistoryView = Backbone.View.extend({
              var zeroBasedPageNumber = pageNumber - 1;
             $.ajax({
                 url : APP.config.baseUrl 
-                + '/conversations?workspaceId='+workspaceId+'&page='+zeroBasedPageNumber+'&limit=10&search=' + $('#search').val(),
+                + '/logs?workspaceId='+workspaceId+'&page='+zeroBasedPageNumber+'&limit=10&search=' + $('#search').val(),
                 type : 'get',
                 dataType : 'json',
                 contentType : "application/json",
                 success : function(response) {
-                    var historyList = response.data;
+                    var historyList = response.content;
                     historyListItemView = new HistoryListItemView({model: historyList});
                     $("#activity-pannel").html(historyListItemView.render(pageNumber).el);
                 }

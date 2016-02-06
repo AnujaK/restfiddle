@@ -161,6 +161,8 @@ public class ApiController {
 	currentConversation.setCreatedDate(currentDate);
 	currentConversation.setLastModifiedDate(currentDate);
 	currentConversation.setLastRunDate(currentDate);
+	
+	currentConversation.setName(currentConversation.getRfRequest().getApiUrl());
 	try {
 	    currentConversation = conversationRepository.save(currentConversation);
 
@@ -176,15 +178,6 @@ public class ApiController {
 		currentConversation.setName(node.getName());
 		
 		activityLog = activityLogRepository.findActivityLogByDataId(node.getId());
-
-		/*node.setConversation(currentConversation);
-		node.setLastModifiedDate(currentDate);
-		if (principal instanceof User) {
-		    currentConversation.setLastModifiedBy((User) principal);
-		    node.setLastModifiedBy((User) principal);
-		}
-
-		nodeRepository.save(node);*/
 	    }
 	    
 	    if (principal instanceof User) {
@@ -198,6 +191,10 @@ public class ApiController {
 	    	activityLog.setDataId(existingConversation.getNodeId());
 	    	activityLog.setType("CONVERSATION");
 	    }
+	    
+	    activityLog.setName(currentConversation.getName());
+	    activityLog.setWorkspaceId(currentConversation.getWorkspaceId());
+	    activityLog.setLastModifiedDate(currentDate);
 	    
 	    List<BaseEntity> logData = activityLog.getData();
 	    logData.add(0, currentConversation);

@@ -15,6 +15,8 @@
  */
 package com.restfiddle.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.restfiddle.entity.ActivityLog;
@@ -22,5 +24,8 @@ import com.restfiddle.entity.ActivityLog;
 public interface ActivityLogRepository extends RfRepository<ActivityLog, String> {
     
     @Query("{ 'dataId' : ?0 }")
-    public ActivityLog findActivityLogByDataId(String dataId); 
+    public ActivityLog findActivityLogByDataId(String dataId);
+
+    @Query("{ 'workspaceId' : ?0 ,name : { $regex : ?1, $options: 'i' }}")
+    public Page<ActivityLog> findActivivtyLogsFromWorkspace(String workspaceId, String string, Pageable pageable); 
 }
