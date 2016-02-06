@@ -15,8 +15,12 @@
  */
 package com.restfiddle.dao;
 
+import org.springframework.data.mongodb.repository.Query;
+
 import com.restfiddle.entity.ActivityLog;
 
 public interface ActivityLogRepository extends RfRepository<ActivityLog, String> {
-
+    
+    @Query("{ 'dataId' : ?0 }")
+    public ActivityLog findActivityLogByDataId(String dataId); 
 }
