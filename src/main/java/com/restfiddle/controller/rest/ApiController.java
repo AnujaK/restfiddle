@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Resource;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
@@ -44,6 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.api.client.auth.oauth2.BrowserClientRequestUrl;
 import com.restfiddle.constant.NodeType;
+import com.restfiddle.dao.ActivityLogRepository;
 import com.restfiddle.dao.ConversationRepository;
 import com.restfiddle.dao.NodeRepository;
 import com.restfiddle.dao.RfRequestRepository;
@@ -56,6 +59,8 @@ import com.restfiddle.dto.OAuth2RequestDTO;
 import com.restfiddle.dto.RfRequestDTO;
 import com.restfiddle.dto.RfResponseDTO;
 import com.restfiddle.dto.RunnerLogDTO;
+import com.restfiddle.entity.ActivityLog;
+import com.restfiddle.entity.BaseEntity;
 import com.restfiddle.entity.BaseNode;
 import com.restfiddle.entity.Conversation;
 import com.restfiddle.entity.Environment;
@@ -97,6 +102,9 @@ public class ApiController {
 
     @Autowired
     private EnvironmentController environmentController;
+    
+    @Resource
+    private ActivityLogRepository activityLogRepository;
 
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     ConversationDTO requestProcessor(@RequestParam(value = "runnerLogId", required = false) String runnerLogId, @RequestBody RfRequestDTO rfRequestDTO) {
@@ -105,7 +113,7 @@ public class ApiController {
 
 	// TODO : Get RfRequest Id if present as part of this request and update the existing conversation entity.
 	// Note : New conversation entity which is getting created below is still required for logging purpose.
-
+	
 	if (rfRequestDTO == null) {
 	    return null;
 	} else if (rfRequestDTO.getId() != null && !rfRequestDTO.getId().isEmpty()) {
@@ -153,29 +161,45 @@ public class ApiController {
 	currentConversation.setCreatedDate(currentDate);
 	currentConversation.setLastModifiedDate(currentDate);
 	currentConversation.setLastRunDate(currentDate);
+	
+	currentConversation.setName(currentConversation.getRfRequest().getApiUrl());
 	try {
 	    currentConversation = conversationRepository.save(currentConversation);
 
 	    currentConversation.getRfRequest().setConversationId(currentConversation.getId());
 	    rfRequestRepository.save(currentConversation.getRfRequest());
+	    
+	    ActivityLog activityLog = null;
 
 	    // Note : existingConversation will be null if the request was not saved previously.
 	    if (existingConversation != null && existingConversation.getNodeId() != null) {
 		BaseNode node = nodeRepository.findOne(existingConversation.getNodeId());
 		currentConversation.setNodeId(node.getId());
 		currentConversation.setName(node.getName());
-
-		node.setConversation(currentConversation);
-		node.setLastModifiedDate(currentDate);
-		if (principal instanceof User) {
-		    currentConversation.setLastModifiedBy((User) principal);
-		    node.setLastModifiedBy((User) principal);
-		}
-
-		nodeRepository.save(node);
+		
+		activityLog = activityLogRepository.findActivityLogByDataId(node.getId());
+	    }
+	    
+	    if (principal instanceof User) {
+		currentConversation.setLastModifiedBy((User) principal);
 	    }
 
 	    conversationRepository.save(currentConversation);
+	    
+	    if (activityLog == null) {
+	    activityLog = new ActivityLog();
+	    	activityLog.setDataId(existingConversation.getNodeId());
+	    	activityLog.setType("CONVERSATION");
+	    }
+	    
+	    activityLog.setName(currentConversation.getName());
+	    activityLog.setWorkspaceId(currentConversation.getWorkspaceId());
+	    activityLog.setLastModifiedDate(currentDate);
+	    
+	    List<BaseEntity> logData = activityLog.getData();
+	    logData.add(0, currentConversation);
+	    
+	    activityLogRepository.save(activityLog);
 
 	} catch (InvalidDataAccessResourceUsageException e) {
 	    throw new ApiException("Please use sql as datasource, some of features are not supported by hsql", e);

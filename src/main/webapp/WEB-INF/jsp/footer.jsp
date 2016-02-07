@@ -97,15 +97,10 @@
         </div>
 	</script>
 	<script type="text/template" id="tpl-history-list-item">
-		<a href="#" class="list-group-item" data-history-id=<@=conversation.id@> data-history-ref-id=<@=conversation.id@> data-toggle="tooltip" data-placement="bottom" title=<@=conversation.rfRequestDTO.apiUrl@> >
-			<div class="<@=conversation.className@>"><@=conversation.rfRequestDTO.methodType@></div>
-			<@ if (conversation.name == null || conversation.name == "" ) { @>
-   			 	<div class="activity"><@=conversation.rfRequestDTO.apiUrl@></div>
-			<@ }  else { @>
-				<div class = "activity"><@=conversation.name@></div>
-			<@ } @>
-            
-             <span><@=conversation.time@></span><span>&nbsp;<@=conversation.runBy@></span>
+		<a href="#" class="list-group-item" data-history-id=<@=activity.data[0].id@> data-history-ref-id=<@=activity.data[0].id@> data-toggle="tooltip" data-placement="bottom" title=<@=activity.data[0].rfRequest.apiUrl@> >
+			<div class="<@=activity.className@>"><@=activity.data[0].rfRequest.methodType@></div>
+			<div class = "activity"><@=activity.name@>&nbsp(<@=activity.data.length@>)</div>            
+            <span><@=activity.time@></span><span>&nbsp;<@=activity.runBy@></span>
         </a>
 	</script>
     <script type="text/template" id="tpl-entity-field">

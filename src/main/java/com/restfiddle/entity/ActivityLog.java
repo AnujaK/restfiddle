@@ -15,12 +15,22 @@
  */
 package com.restfiddle.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class ActivityLog extends NamedEntity {
     private static final long serialVersionUID = 1L;
 
     private String type; // e.g. CONVERSATION
+    
+    private String dataId;
+    
+    private String workspaceId;
 
-    private String data;
+    @DBRef
+    private List<BaseEntity> data;
 
     public String getType() {
 	return type;
@@ -30,11 +40,27 @@ public class ActivityLog extends NamedEntity {
 	this.type = type;
     }
 
-    public String getData() {
-	return data;
+    public List<BaseEntity> getData() {
+	return data == null ? data = new ArrayList<BaseEntity>() : data ;
     }
 
-    public void setData(String data) {
+    public void setData(List<BaseEntity> data) {
 	this.data = data;
+    }
+
+    public String getDataId() {
+	return dataId;
+    }
+
+    public void setDataId(String dataId) {
+	this.dataId = dataId;
+    }
+
+    public String getWorkspaceId() {
+	return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+	this.workspaceId = workspaceId;
     }
 }
