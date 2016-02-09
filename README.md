@@ -277,6 +277,10 @@ http://www.meetup.com/RESTFiddle
 
 https://gitter.im/AnujaK/restfiddle
 
+##### Code Quality :
+
+https://nemo.sonarqube.org/overview?id=com.restfiddle%3Arestfiddle
+
 Releases
 ==========
 
