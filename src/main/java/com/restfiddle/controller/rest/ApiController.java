@@ -77,6 +77,10 @@ import com.restfiddle.util.EntityToDTO;
 @ComponentScan
 @Transactional
 public class ApiController {
+    private static final String HTTP_LOCALHOST_8080_OAUTH_RESPONSE = "http://localhost:8080/oauth/response";
+
+    private static final String RESTFIDDLE = "restfiddle";
+
     Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
@@ -109,7 +113,7 @@ public class ApiController {
     @RequestMapping(value = "/api/processor", method = RequestMethod.POST, headers = "Accept=application/json")
     ConversationDTO requestProcessor(@RequestParam(value = "runnerLogId", required = false) String runnerLogId, @RequestBody RfRequestDTO rfRequestDTO) {
 	Conversation existingConversation = null;
-	Conversation currentConversation = null;
+	Conversation currentConversation;
 
 	// TODO : Get RfRequest Id if present as part of this request and update the existing conversation entity.
 	// Note : New conversation entity which is getting created below is still required for logging purpose.
@@ -252,7 +256,7 @@ public class ApiController {
 	// TODO : Need to add the option to change regex in settings (UI).
 
 	List<NodeStatusResponseDTO> nodeStatuses = new ArrayList<NodeStatusResponseDTO>();
-	NodeStatusResponseDTO nodeStatus = null;
+	NodeStatusResponseDTO nodeStatus;
 
 	for (BaseNode baseNode : listOfNodes) {
 	    String nodeType = baseNode.getNodeType();
@@ -274,8 +278,6 @@ public class ApiController {
 			rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(rfRequest.getAssertion()));
 
 			RfResponseDTO rfResponseDTO = requestProcessor(runnerLogId, rfRequestDTO).getRfResponseDTO();
-			// logger.debug(baseNode.getName() + " ran with status : " + rfResponseDTO.getStatus());
-			// ConversationDTO conversationDTO = rfResponseDTO.getItemDTO();
 
 			nodeStatus = new NodeStatusResponseDTO();
 			nodeStatus.setId(baseNode.getId());
@@ -283,8 +285,6 @@ public class ApiController {
 			nodeStatus.setDescription(baseNode.getDescription());
 			nodeStatus.setApiUrl(evaulatedApiUrl);
 			nodeStatus.setMethodType(methodType);
-			// nodeStatus.setStatusCode(rfResponseDTO.getStatus());
-			// nodeStatus.setDuration(conversationDTO.getDuration());
 
 			int successCount = 0;
 			int failureCount = 0;
@@ -327,7 +327,7 @@ public class ApiController {
 	if (env != null) {
 	    Pattern p = Pattern.compile(regex);
 	    Matcher m = p.matcher(apiUrl);
-	    String tempUrl = null;
+	    String tempUrl;
 	    while (m.find()) {
 		String exprVar = m.group(1);
 		String propVal = env.getPropertyValueByName(exprVar);
@@ -361,7 +361,7 @@ public class ApiController {
 	if (!responseTypes.isEmpty()) {
 	    browserClientRequestUrl = browserClientRequestUrl.setResponseTypes(responseTypes);
 	}
-	String url = browserClientRequestUrl.setState("restfiddle").setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
+	String url = browserClientRequestUrl.setState(RESTFIDDLE).setScopes(scopes).setRedirectUri(HTTP_LOCALHOST_8080_OAUTH_RESPONSE).build();
 
 	return new ModelAndView("redirect:" + url);
     }
@@ -372,8 +372,8 @@ public class ApiController {
 	List<String> scopes = new ArrayList<String>();
 	scopes.add("https://www.googleapis.com/auth/userinfo.profile");
 	String url = new BrowserClientRequestUrl("https://accounts.google.com/o/oauth2/auth",
-		"82089573969-nocs1ulh96n5kfut1bh5cq7n1enlfoe8.apps.googleusercontent.com").setState("restfiddle").setScopes(scopes)
-		.setRedirectUri("http://localhost:8080/oauth/response").build();
+		"82089573969-nocs1ulh96n5kfut1bh5cq7n1enlfoe8.apps.googleusercontent.com").setState(RESTFIDDLE).setScopes(scopes)
+		.setRedirectUri(HTTP_LOCALHOST_8080_OAUTH_RESPONSE).build();
 
 	return new ModelAndView("redirect:" + url);
     }
@@ -383,8 +383,8 @@ public class ApiController {
     @Deprecated
     String oauth2Redirect(@RequestBody OAuth2RequestDTO oAuth2RequestDTO) {
 	List<String> scopes = oAuth2RequestDTO.getScopes();
-	String url = new BrowserClientRequestUrl(oAuth2RequestDTO.getAuthorizationUrl(), oAuth2RequestDTO.getClientId()).setState("restfiddle")
-		.setScopes(scopes).setRedirectUri("http://localhost:8080/oauth/response").build();
+	String url = new BrowserClientRequestUrl(oAuth2RequestDTO.getAuthorizationUrl(), oAuth2RequestDTO.getClientId()).setState(RESTFIDDLE)
+		.setScopes(scopes).setRedirectUri(HTTP_LOCALHOST_8080_OAUTH_RESPONSE).build();
 
 	return url;
     }

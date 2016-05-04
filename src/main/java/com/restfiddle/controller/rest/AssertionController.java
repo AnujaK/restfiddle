@@ -81,7 +81,7 @@ public class AssertionController {
 
 	if (bodyAssertDTOs != null && !bodyAssertDTOs.isEmpty()) {
 	    List<BodyAssert> bodyAsserts = new ArrayList<BodyAssert>();
-	    BodyAssert bodyAssert = null;
+	    BodyAssert bodyAssert;
 	    for (BodyAssertDTO bodyAssertDTO : bodyAssertDTOs) {
 		bodyAssert = new BodyAssert();
 		bodyAssert.setPropertyName(bodyAssertDTO.getPropertyName());
@@ -93,7 +93,7 @@ public class AssertionController {
 	    rfRequest.setAssertion(assertion);
 	}
 	
-	assertion = assertionRepository.save(assertion);
+	assertionRepository.save(assertion);
 
 	RfRequest savedRFRequest = rfRequestRepository.save(rfRequest);
 	return savedRFRequest.getAssertion();
