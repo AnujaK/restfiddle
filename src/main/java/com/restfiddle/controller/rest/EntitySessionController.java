@@ -71,7 +71,7 @@ public class EntitySessionController {
     public @ResponseBody
     String createEntityData(@PathVariable("projectId") String projectId,
 	    @RequestBody Object userDTO) {
-	DBObject data = null;
+	DBObject data;
 	if (!(userDTO instanceof Map)) {
 	    return null;
 	} 
