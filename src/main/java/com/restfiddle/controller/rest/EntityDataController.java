@@ -52,6 +52,10 @@ import com.restfiddle.service.auth.EntityAuthService;
 @RestController
 @Transactional
 public class EntityDataController {
+    private static final String SUCCESS = "success";
+    private static final String PASSWORD = "password";
+    private static final String USERNAME = "username";
+
     Logger logger = LoggerFactory.getLogger(EntityDataController.class);
 
     @Autowired
@@ -70,12 +74,12 @@ public class EntityDataController {
 	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
-	if(!authRes.getBoolean("success")){
+	if(!authRes.getBoolean(SUCCESS)){
 	    return authRes.toString(4);
 	}
 	
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId+"_"+entityName);
-	DBCursor cursor = null;
+	DBCursor cursor;
 	if (query != null && !query.isEmpty()) {
 	    Object queryObject = JSON.parse(query);
 	    cursor = dbCollection.find((BasicDBObject) queryObject);
@@ -98,7 +102,7 @@ public class EntityDataController {
 	
 	if(entityName.equals("User")){
 	    for(DBObject dbObject : array){
-		dbObject.removeField("password");
+		dbObject.removeField(PASSWORD);
 	    }
 	}
 	
@@ -119,7 +123,7 @@ public class EntityDataController {
 	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
-	if(!authRes.getBoolean("success")){
+	if(!authRes.getBoolean(SUCCESS)){
 	    return authRes.toString(4);
 	}
 	
@@ -135,7 +139,7 @@ public class EntityDataController {
 	}
 	
 	if(entityName.equals("User")){
-	    resultObject.removeField("password");
+	    resultObject.removeField(PASSWORD);
 	}
 
 	dbRefToRelation(resultObject);
@@ -155,7 +159,7 @@ public class EntityDataController {
 	    @RequestBody Object genericEntityDataDTO,
 	    @RequestHeader(value = "authToken", required = false) String authToken) {	
 	
-	String data = "";
+	String data;
 	if (!(genericEntityDataDTO instanceof Map)) {
 	    return null;
 	} else {
@@ -171,9 +175,9 @@ public class EntityDataController {
 	    return handleUserEntityData(projectId, dbObject, true);
 	}
 	
-	DBRef user = null;
+	DBRef user;
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
-	if(authRes.getBoolean("success")){
+	if(authRes.getBoolean(SUCCESS)){
 	   user = (DBRef) authRes.get("user");
 	} else {
 	    return authRes.toString(4);
@@ -203,9 +207,9 @@ public class EntityDataController {
 	    @RequestBody Object genericEntityDataDTO,
 	    @RequestHeader(value = "authToken", required = false) String authToken) {
 	
-	DBRef user = null;
+	DBRef user;
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
-	if(authRes.getBoolean("success")){
+	if(authRes.getBoolean(SUCCESS)){
 	   user = (DBRef) authRes.get("user");
 	} else {
 	    return authRes.toString(4);
@@ -235,10 +239,10 @@ public class EntityDataController {
 	    
 	    if(entityName.equals("User")){
 		DBObject loggedInUser = dbCollection.findOne(user);
-		if(loggedInUser.get("username").equals(resultObject.get("username"))){
-		    return handleUserEntityData(projectId, resultObject, obj.containsField("password"));
+		if(loggedInUser.get(USERNAME).equals(resultObject.get(USERNAME))){
+		    return handleUserEntityData(projectId, resultObject, obj.containsField(PASSWORD));
 		}else{
-		    return new JSONObject().put("success", false).put("msg", "unauthorized").toString(4);
+		    return new JSONObject().put(SUCCESS, false).put("msg", "unauthorized").toString(4);
 		}
 	    }
 	    
@@ -267,7 +271,7 @@ public class EntityDataController {
 	StatusResponse res = new StatusResponse();
 	
 	JSONObject authRes = authService.authorize(projectId,authToken,"USER");
-	if(!authRes.getBoolean("success")){
+	if(!authRes.getBoolean(SUCCESS)){
 	    res.setStatus("Unauthorized");
 	    return res;
 	}
@@ -331,7 +335,7 @@ public class EntityDataController {
 		DBObject doc = (DBObject) obj;
 		if (doc.containsField("_rel")) {
 		    DBObject relation = (DBObject) doc.get("_rel");
-		    dbObject.put(key, new DBRef(projectId + "_" + (String) relation.get("entity"), (new ObjectId((String) relation.get("_id")))));
+		    dbObject.put(key, new DBRef(projectId + "_" + (String) relation.get("entity"), new ObjectId((String) relation.get("_id"))));
 		} else {
 		    relationToDBRef(doc, projectId);
 		}
@@ -342,22 +346,22 @@ public class EntityDataController {
     private String handleUserEntityData(String projectId, DBObject user, boolean encryptPassword) {
 	JSONObject response = new JSONObject();
 
-	if (!user.containsField("username")) {
+	if (!user.containsField(USERNAME)) {
 	    response.put("msg", "username is mandotary");
 	    return response.toString(4);
 	}
 
-	if (((String) user.get("username")).length() < 3) {
+	if (((String) user.get(USERNAME)).length() < 3) {
 	    response.put("msg", "username must be more then 3 character");
 	    return response.toString(4);
 	}
 
-	if (!user.containsField("password")) {
+	if (!user.containsField(PASSWORD)) {
 	    response.put("msg", "password is mandotary");
 	    return response.toString(4);
 	}
 
-	if (((String) user.get("password")).length() < 3) {
+	if (((String) user.get(PASSWORD)).length() < 3) {
 	    response.put("msg", "password must be more then 3 character");
 	    return response.toString(4);
 	}
@@ -365,7 +369,7 @@ public class EntityDataController {
 	DBCollection dbCollection = mongoTemplate.getCollection(projectId + "_User");
 
 	BasicDBObject query = new BasicDBObject();
-	query.append("username", user.get("username"));
+	query.append(USERNAME, user.get(USERNAME));
 
 	DBObject existingUser = dbCollection.findOne(query);
 
@@ -376,13 +380,13 @@ public class EntityDataController {
 
 	if (encryptPassword) {
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	    user.put("password", encoder.encode((String) user.get("password")));
+	    user.put(PASSWORD, encoder.encode((String) user.get(PASSWORD)));
 	}
 
 	relationToDBRef(user, projectId);
 
 	dbCollection.save(user);
-	user.removeField("password");
+	user.removeField(PASSWORD);
 	dbRefToRelation(user);
 	String json = user.toString();
 
