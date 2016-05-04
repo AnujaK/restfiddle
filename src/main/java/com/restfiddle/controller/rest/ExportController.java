@@ -39,14 +39,14 @@ public class ExportController {
     }
 
     private void rfToSwaggerConverter(String projectId) {
-	Swagger swagger = new SwaggerParser().read("http://petstore.swagger.io/v2/swagger.json");
+	new SwaggerParser().read("http://petstore.swagger.io/v2/swagger.json");
 
 	Project project = projectController.findById(null, projectId);
 	String projectNodeRefId = project.getProjectRef().getId();
 	
 	TreeNode projectNode = nodeController.getProjectTree(projectNodeRefId);
 	
-	swagger = new Swagger();
+	Swagger swagger = new Swagger();
 	
 	//TODO : set host and basepath for swagger
 	//swagger.setHost(host);
@@ -58,12 +58,12 @@ public class ExportController {
 	swagger.setInfo(info);
 	
 	Map<String, Path> paths = new HashMap<>();
-	Path path = null;
-	String pathKey = null;
-	String method = null;
-	Operation op = null;
-	String operationId = null;
-	String summary = null;
+	Path path;
+	String pathKey;
+	String method;
+	Operation op;
+	String operationId;
+	String summary;
 	List<TreeNode> children = projectNode.getChildren();
 	for (int i = 0; i < children.size(); i++) {
 	    TreeNode childNode = children.get(i);
