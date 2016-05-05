@@ -21,8 +21,10 @@ import com.restfiddle.entity.BaseNode;
 
 public class NodeUtil {
 
+    private NodeUtil() {}
+
     public static long findLastChildPosition(List<BaseNode> children) {
-	if (children == null || children.size() == 0) {
+	if (children == null || children.isEmpty()) {
 	    return 0;
 	}
 	long temp = 0;

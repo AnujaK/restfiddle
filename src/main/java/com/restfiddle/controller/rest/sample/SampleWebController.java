@@ -36,8 +36,7 @@ public class SampleWebController {
     @Value("${application.message:REST Fiddle}")
     private String message = "REST Fiddle";
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+    private static final String TEMPLATE = "Hello, %s!";
 
     @RequestMapping("/web")
     public String home(Map<String, Object> model) {
@@ -50,7 +49,7 @@ public class SampleWebController {
     public @ResponseBody
     User sayHello(@RequestParam(value = "name", required = false, defaultValue = "JSON") String name) {
 	User user = new User();
-	user.setName(String.format(template, name));
+	user.setName(String.format(TEMPLATE, name));
 	return user;
     }
 }
