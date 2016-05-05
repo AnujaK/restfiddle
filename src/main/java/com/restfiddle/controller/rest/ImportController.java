@@ -90,7 +90,7 @@ public class ImportController {
     }
 
     private void createNodeRecursively(BaseNode parent, List<TreeNode> nodes) {
-	BaseNode node = null;
+	BaseNode node;
 	for (TreeNode treeNode : nodes) {
 	    node = new BaseNode();
 	    node.setName(treeNode.getName());
@@ -143,7 +143,7 @@ public class ImportController {
 		System.out.println(folderName);
 		//
 		NodeDTO folderNode = createFolder(projectId, folderName);
-		ConversationDTO conversationDTO = null;
+		ConversationDTO conversationDTO;
 
 		JSONArray requests = pmCollection.getJSONArray("requests");
 		int len = requests.length();
@@ -166,7 +166,7 @@ public class ImportController {
 		    String headersString = request.getString("headers");
 		    if (headersString != null && !headersString.isEmpty()) {
 			List<RfHeaderDTO> headerDTOs = new ArrayList<RfHeaderDTO>();
-			RfHeaderDTO headerDTO = null;
+			RfHeaderDTO headerDTO;
 			String[] headersArr = headersString.split("\n");
 			for (String header : headersArr) {
 			    String[] headerToken = header.split(":");
@@ -189,7 +189,7 @@ public class ImportController {
 			JSONArray formParamsArr = request.getJSONArray("data");
 			int arrLen = formParamsArr.length();
 
-			FormDataDTO formParam = null;
+			FormDataDTO formParam;
 			List<FormDataDTO> formParams = new ArrayList<FormDataDTO>();
 			for (int j = 0; j < arrLen; j++) {
 			    JSONObject formParamJSON = (JSONObject) formParamsArr.get(j);
@@ -254,7 +254,7 @@ public class ImportController {
 	NodeDTO folderNode = createFolder(projectId, title);
 	folderNode.setDescription(description);
 
-	ConversationDTO conversationDTO = null;
+	ConversationDTO conversationDTO;
 
 	Map<String, Path> paths = swagger.getPaths();
 	Set<String> keySet = paths.keySet();
@@ -272,13 +272,7 @@ public class ImportController {
 		RfRequestDTO rfRequestDTO = new RfRequestDTO();
 		rfRequestDTO.setApiUrl("http://" + host + basePath + pathKey);
 		rfRequestDTO.setMethodType(httpMethod.name());
-
-		List<Parameter> parameters = operation.getParameters();
-		for (Parameter parameter : parameters) {
-		    String parameterName = parameter.getName();
-		    String parameterDescription = parameter.getDescription();
-		    String parameterIn = parameter.getIn();
-		}
+		operation.getParameters();
 		conversationDTO.setRfRequestDTO(rfRequestDTO);
 		ConversationDTO createdConversation = conversationController.create(conversationDTO);
 		conversationDTO.setId(createdConversation.getId());
