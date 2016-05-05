@@ -59,7 +59,7 @@ public class EnvironmentController {
 	List<EnvironmentPropertyDTO> propertyDTOs = environmentDTO.getProperties();
 	if (propertyDTOs != null && !propertyDTOs.isEmpty()) {
 	    List<EnvironmentProperty> properties = new ArrayList<EnvironmentProperty>();
-	    EnvironmentProperty property = null;
+	    EnvironmentProperty property;
 	    for (EnvironmentPropertyDTO propertyDTO : propertyDTOs) {
 		property = new EnvironmentProperty();
 		property.setPropertyName(propertyDTO.getPropertyName());
@@ -114,7 +114,7 @@ public class EnvironmentController {
 	List<EnvironmentPropertyDTO> propertyDTOs = updated.getProperties();
 	if (propertyDTOs != null && !propertyDTOs.isEmpty()) {
 	    List<EnvironmentProperty> properties = new ArrayList<EnvironmentProperty>();
-	    EnvironmentProperty property = null;
+	    EnvironmentProperty property;
 	    for (EnvironmentPropertyDTO propertyDTO : propertyDTOs) {
 		property = new EnvironmentProperty();
 		property.setPropertyName(propertyDTO.getPropertyName());
