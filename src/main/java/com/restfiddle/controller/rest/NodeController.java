@@ -64,6 +64,8 @@ import com.restfiddle.util.TreeNode;
 @ComponentScan
 @Transactional
 public class NodeController {
+    private static final String PROJECT = "PROJECT";
+
     Logger logger = LoggerFactory.getLogger(NodeController.class);
 
     @Autowired
@@ -306,8 +308,8 @@ public class NodeController {
 	Map<String, BaseNode> baseNodeMap = new HashMap<String, BaseNode>();
 	Map<String, TreeNode> treeNodeMap = new HashMap<String, TreeNode>();
 	TreeNode rootNode = null;
-	TreeNode treeNode = null;
-	TreeNode parentTreeNode = null;
+	TreeNode treeNode;
+	TreeNode parentTreeNode;
 	String methodType = "";
 
 	for (BaseNode baseNode : listOfNodes) {
@@ -374,7 +376,7 @@ public class NodeController {
     private void sortTree(TreeNode rootNode, String sort, final int order) {
 	if (rootNode != null && rootNode.getChildren() != null) {
 
-	    Comparator<TreeNode> comparator = null;
+	    Comparator<TreeNode> comparator;
 
 	    switch (sort) {
 	    case "lastModified":
@@ -432,7 +434,7 @@ public class NodeController {
 
 	    Collections.sort(childs, comparator);
 
-	    if (childs.size() > 0) {
+	    if (!childs.isEmpty()) {
 		rootNode.setLastModifiedDate(childs.get(0).getLastModifiedDate());
 	    }
 	}
@@ -540,16 +542,16 @@ public class NodeController {
 	}
 
 	// Not allowed to save request under a request
-	if (position.equals("over") && !(newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))) {
+	if (position.equals("over") && !(newRefNode.getNodeType().equalsIgnoreCase(PROJECT) || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))) {
 	    return;
 	}
 	// Special case where -1 getting saved for non-project node
-	if (!(node.getNodeType() != null && node.getNodeType().equalsIgnoreCase("PROJECT")) && newParentId.equals("-1")){
+	if (!(node.getNodeType() != null && node.getNodeType().equalsIgnoreCase(PROJECT)) && newParentId.equals("-1")){
 	    return;
 	}
 	// update new folder
 	List<BaseNode> newFolderChildren;
-	if(newRefNode.getNodeType() != null && (newRefNode.getNodeType().equalsIgnoreCase("PROJECT") || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))){
+	if(newRefNode.getNodeType() != null && (newRefNode.getNodeType().equalsIgnoreCase(PROJECT) || newRefNode.getNodeType().equalsIgnoreCase("FOLDER"))){
 	    newFolderChildren = nodeRepository.getChildren(newRefNode.getId());
 	}else{
 	    newFolderChildren = nodeRepository.getChildren(newRefNode.getParentId());

@@ -65,7 +65,7 @@ public class GenericEntityController {
 	List<GenericEntityFieldDTO> fieldDTOs = genericEntityDTO.getFields();
 	if (fieldDTOs != null && !fieldDTOs.isEmpty()) {
 	    List<GenericEntityField> fields = new ArrayList<GenericEntityField>();
-	    GenericEntityField field = null;
+	    GenericEntityField field;
 	    for (GenericEntityFieldDTO fieldDTO : fieldDTOs) {
 		field = new GenericEntityField();
 		field.setName(fieldDTO.getName());

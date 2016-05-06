@@ -85,7 +85,7 @@ public class ProjectController {
 
 	// Update projectRef (Set projectId to the reference node)
 	projectRef.setProjectId(savedProject.getId());
-	savedRef = nodeRepository.save(projectRef);
+	nodeRepository.save(projectRef);
 
 	// Update workspace
 	Workspace workspace = workspaceRepository.findOne(workspaceId);
