@@ -25,6 +25,8 @@ import com.restfiddle.entity.UrlParam;
 //TODO : Need to use Spring Object Mapping : http://docs.spring.io/spring/previews/mapping.html
 public class ConversationConverter {
 
+    private ConversationConverter() {}
+
     public static Conversation convertToEntity(RfRequestDTO rfRequestDTO, RfResponseDTO responseDTO) {
 	Conversation conversation = new Conversation();
 	
@@ -56,7 +58,7 @@ public class ConversationConverter {
 	    if (rfRequestDTO.getApiBody() != null) {
 		rfRequest.setApiBody(rfRequestDTO.getApiBody());
 	    } else if (formDataDTOs != null && !formDataDTOs.isEmpty()) {
-		FormParam formParam = null;
+		FormParam formParam;
 		for (FormDataDTO formDataDTO : formDataDTOs) {
 		    formParam = new FormParam();
 		    formParam.setParamKey(formDataDTO.getKey());
@@ -70,7 +72,7 @@ public class ConversationConverter {
 	    List<UrlParam> urlParams = new ArrayList<UrlParam>();
 
 	    if (urlParamDTOs != null && !urlParamDTOs.isEmpty()) {
-		UrlParam urlParam = null;
+		UrlParam urlParam;
 		for (UrlParamDTO urlParamDTO : urlParamDTOs) {
 		    urlParam = new UrlParam();
 		    urlParam.setParamKey(urlParamDTO.getKey());
@@ -82,7 +84,7 @@ public class ConversationConverter {
 
 	    List<RfHeaderDTO> headerDTOs = rfRequestDTO.getHeaders();
 	    List<RfHeader> headers = new ArrayList<RfHeader>();
-	    RfHeader header = null;
+	    RfHeader header;
 	    if (headerDTOs != null && !headerDTOs.isEmpty()) {
 		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
 		    header = new RfHeader();
@@ -102,7 +104,7 @@ public class ConversationConverter {
 	if(responseDTO == null && !rfRequestDTO.getApiUrl().isEmpty()){
 		response.setBody("Could not connect to "+rfRequestDTO.getApiUrl());
 	} else {
-	    if (responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
+	    if (responseDTO != null && responseDTO.getBody() != null && !responseDTO.getBody().isEmpty()) {
 		response.setBody(responseDTO.getBody());
 	    }
 	    AssertionDTO assertionDTO = rfRequestDTO != null ? rfRequestDTO.getAssertionDTO() : null;
@@ -124,7 +126,7 @@ public class ConversationConverter {
 	    
 	    List<RfHeaderDTO> headerDTOs = responseDTO.getHeaders();
 	    List<RfHeader> headers = new ArrayList<RfHeader>();
-	    RfHeader header = null;
+	    RfHeader header;
 	    if (headerDTOs != null && !headerDTOs.isEmpty()) {
 		for (RfHeaderDTO rfHeaderDTO : headerDTOs) {
 		    header = new RfHeader();
