@@ -22,6 +22,8 @@ import com.restfiddle.util.TreeNode;
 
 public class TreeNodeBuilder {
 
+    private TreeNodeBuilder() {}
+
     public static TreeNode createTreeNode(String nodeId, String nodeName, String nodeDesc, String workspaceId, String parentId, Long position, String nodeType, Boolean starred, String method, Date lastModifiedDate, User lastModifiedBy) {
 	TreeNode treeNode = new TreeNode();
 	treeNode.setId(nodeId);
