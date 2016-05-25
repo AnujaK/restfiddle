@@ -49,6 +49,8 @@ import com.restfiddle.entity.Workspace;
 
 public class EntityToDTO {
 
+    private EntityToDTO() {}
+
     public static BaseDTO toDTO(BaseEntity entity) {
 	if (entity == null)
 	    return null;
