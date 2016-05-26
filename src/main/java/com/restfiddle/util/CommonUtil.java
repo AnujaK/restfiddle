@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CommonUtil {
 
+    private CommonUtil() {}
+
     /**
      * @param object
      * @return
