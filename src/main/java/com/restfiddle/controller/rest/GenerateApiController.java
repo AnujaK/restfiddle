@@ -230,8 +230,6 @@ public class GenerateApiController {
 		jsonObject.put(genericEntityField.getName(), false);
 	    } else if ("DATE".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), new Date());
-	    } else if ("NUMBER".equalsIgnoreCase(type)) {
-		jsonObject.put(genericEntityField.getName(), Long.valueOf(1));
 	    } else if ("OBJECT".equalsIgnoreCase(type)) {
 		jsonObject.put(genericEntityField.getName(), new JSONObject());
 	    } else if ("ARRAY".equalsIgnoreCase(type)) {

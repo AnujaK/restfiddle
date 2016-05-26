@@ -126,9 +126,11 @@ public class ApiController {
 	    existingConversation = conversationId != null ? conversationRepository.findOne(conversationId) : null;
 	    // finding updated existing conversation
 	    existingConversation = existingConversation != null ? nodeRepository.findOne(existingConversation.getNodeId()).getConversation() : null;
-	    rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(existingConversation.getRfRequest().getAssertion()));
+	    if(existingConversation != null) {
+	       rfRequestDTO.setAssertionDTO(EntityToDTO.toDTO(existingConversation.getRfRequest().getAssertion()));
+	    }
 	}
-
+	
 	long startTime = System.currentTimeMillis();
 	RfResponseDTO result = genericHandler.processHttpRequest(rfRequestDTO);
 	long endTime = System.currentTimeMillis();
@@ -191,9 +193,11 @@ public class ApiController {
 	    conversationRepository.save(currentConversation);
 	    
 	    if (activityLog == null) {
-	    activityLog = new ActivityLog();
-	    	activityLog.setDataId(existingConversation.getNodeId());
-	    	activityLog.setType("CONVERSATION");
+	        activityLog = new ActivityLog();
+	        if(existingConversation != null) {
+	           activityLog.setDataId(existingConversation.getNodeId());
+	        }
+	        activityLog.setType("CONVERSATION");
 	    }
 	    
 	    activityLog.setName(currentConversation.getName());

@@ -72,22 +72,22 @@ public class User extends NamedEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+	return StatusType.ACTIVE.toString().equals(super.getStatus());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+	return StatusType.ACTIVE.toString().equals(super.getStatus());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+	return StatusType.ACTIVE.toString().equals(super.getStatus());
     }
 
     @Override
     public boolean isEnabled() {
-	return StatusType.ACTIVE.toString().equals(super.getStatus().toString());
+	return StatusType.ACTIVE.toString().equals(super.getStatus());
     }
 
     @Override
