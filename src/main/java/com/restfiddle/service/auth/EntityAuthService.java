@@ -21,6 +21,10 @@ import com.mongodb.WriteResult;
 @Service
 public class EntityAuthService {
 
+    private static final String ENTITY_AUTH = "EntityAuth";
+    private static final String UNAUTHORIZED = "unauthorized";
+    private static final String SUCCESS = "success";
+
     @Autowired
     private MongoTemplate mongoTemplate;
     
@@ -37,13 +41,13 @@ public class EntityAuthService {
 	}
 	
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	BasicDBObject auth = null;
+	BasicDBObject auth;
 	if(encoder.matches((String)userDTO.get("password"),(String)user.get("password"))){
 	    auth = new BasicDBObject();
 	    auth.append("user", new DBRef(projectId+"_User",user.get( "_id" ))).append("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
 	    auth.put("projectId", projectId);
 		
-	    DBCollection dbCollectionAuth = mongoTemplate.getCollection("EntityAuth");
+	    DBCollection dbCollectionAuth = mongoTemplate.getCollection(ENTITY_AUTH);
 	    dbCollectionAuth.insert(auth);
 	}else{
 	   throw new Exception("Invalid password");
@@ -54,7 +58,7 @@ public class EntityAuthService {
     
     public boolean logout(String llt){
 	
-	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
+	DBCollection dbCollection = mongoTemplate.getCollection(ENTITY_AUTH);
 	
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(llt));
@@ -67,12 +71,12 @@ public class EntityAuthService {
 	
 	JSONObject response = new JSONObject();
 	if(authToken == null){
-	    return response.put("success", false).put("msg", "unauthorized");
+	    return response.put(SUCCESS, false).put("msg", UNAUTHORIZED);
 	}
 	
 	List<String> roleList = Arrays.asList(roles);
 	
-	DBCollection dbCollection = mongoTemplate.getCollection("EntityAuth");
+	DBCollection dbCollection = mongoTemplate.getCollection(ENTITY_AUTH);
 	
 	BasicDBObject queryObject = new BasicDBObject();
 	queryObject.append("_id", new ObjectId(authToken));
@@ -89,17 +93,17 @@ public class EntityAuthService {
 		roleObj = mongoTemplate.getCollection(roleRef.getCollectionName()).findOne(roleRef.getId());
 	    }
 	    
-	    if((roleObj != null && roleList.contains((roleObj.get("name")))) || roleList.contains("USER")){
-		response.put("success", true);
+	    if((roleObj != null && roleList.contains(roleObj.get("name"))) || roleList.contains("USER")){
+		response.put(SUCCESS, true);
 		response.put("user", userRef);
 		
 		authData.put("expireAt", new Date(System.currentTimeMillis() + 3600 * 1000));
 		dbCollection.save(authData);
 	    } else {
-		response.put("success", false).put("msg", "unauthorized");
+		response.put(SUCCESS, false).put("msg", UNAUTHORIZED);
 	    }
 	} else {
-	    response.put("success", false).put("msg", "unauthorized");
+	    response.put(SUCCESS, false).put("msg", UNAUTHORIZED);
 	}
 	
 	return response;
