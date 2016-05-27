@@ -102,6 +102,8 @@ public class AssertHandler {
 	    case "! Contains":
 		result = !actualValue.contains(expectedValue);
 		break;
+		default:
+			break;
 	    }
 
 	    return result;
@@ -132,6 +134,8 @@ public class AssertHandler {
 	    case ">=":
 		result = actual >= expected;
 		break;
+		default:
+			break;
 	    }
 
 	    return result;
@@ -154,6 +158,8 @@ public class AssertHandler {
 	    case "! Contains Value":
 		result = !actualValue.containsValue(expectedValue);
 		break;
+		default:
+			break;
 
 	    }
 
@@ -162,15 +168,10 @@ public class AssertHandler {
 
 	private boolean evaluate(String expectedValue, String comparator, List<Object> actualValue) {
 	    boolean result = false;
-
-	    switch (comparator) {
-	    case "Contains Value":
-		result = actualValue.contains(expectedValue);
-		break;
-	    case "! Contains Value":
-		result = !actualValue.contains(expectedValue);
-		break;
-
+	    if(comparator.equals("Contains Value")) {
+	        result = actualValue.contains(expectedValue);
+	    } else if(comparator.equals("! Contains Value")) {
+	        result = !actualValue.contains(expectedValue);
 	    }
 	    return result;
 	}
