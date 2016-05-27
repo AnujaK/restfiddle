@@ -124,7 +124,7 @@ public class ConversationConverter {
 		response.setAssertion(assertion);
 	    }
 	    
-	    List<RfHeaderDTO> headerDTOs = responseDTO.getHeaders();
+	    List<RfHeaderDTO> headerDTOs = responseDTO != null ? responseDTO.getHeaders() : null;
 	    List<RfHeader> headers = new ArrayList<RfHeader>();
 	    RfHeader header;
 	    if (headerDTOs != null && !headerDTOs.isEmpty()) {
